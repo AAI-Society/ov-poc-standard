@@ -48,7 +48,8 @@ working-group consensus, and stewarded by the
   and each section's *Auditor evidence* note must tell an assessor what to collect and what to
   test. A requirement an auditor cannot close out against an artifact is not ready to merge.
 * **Regenerate the checklist and diagrams:** after changing any requirement table, run
-  `python3 tools/generate_checklist.py` (and `python3 tools/generate_diagrams.py` if a diagram
+  `python3 tools/generate_checklist.py` and `python3 tools/generate_crosswalks.py`
+  (and `python3 tools/generate_diagrams.py` if a diagram
   changed) and commit the regenerated Appendix E, `checklist/` exports, and
   `images/diagrams/` SVGs alongside your change.
 * "Prove" is reserved for genuine cryptographic proofs and the coined name Proof-of-Control;

@@ -1,42 +1,89 @@
 # Crosswalk: Zero Trust (NIST SP 800-207; Anthropic Zero Trust for AI Agents)
 
-**Framework type:** Security architecture (NIST SP 800-207) and vendor-published deployment
-framework (Anthropic, May 2026)
-**Relationship:** Complementary, not competing — Zero Trust enforces control at runtime;
-Proof-of-Control shows, independently, that control held afterward. See
-[Section 8](../docs/standards-landscape.md).
+| | |
+| --- | --- |
+| **Framework type** | Security architecture (NIST SP 800-207); vendor deployment framework (Anthropic, May 2026) |
+| **Corpus version** | NIST SP 800-207, August 2020 (the coded document) — [access](https://csrc.nist.gov/pubs/sp/800/207/final) · [corpus provenance](corpus/README.md) |
+| **Relationship** | Complementary — Zero Trust enforces control at runtime; PoC shows independently that control held |
+| **Coding status** | ⚠️ Draft seed coding, single coder; Anthropic framework not yet coded — [rubric](rubric.md) |
 
 ## The Relationship
 
-Zero Trust tells you how to set the controls on an AI agent correctly so a breach is contained.
-Proof-of-Control gives an outside party evidence that those controls were honored.
+Zero Trust tells you how to set the controls on an AI agent correctly so a breach is contained; Proof-of-Control gives an outside party evidence that those controls were honored. The architecture's Policy Enforcement Point mediates every access the way PoC's Action Interception Gateway does — the exact match in the mapping below — but 800-207 never requires the enforcement to leave operator-independent evidence, which is where every partial match ends.
 
-Adopting Zero Trust does not give you Proof-of-Control. Anthropic's Zero Trust for AI Agents
-tells you how to set the controls on an agent so a breach is contained; it does not produce
-independent, portable evidence that those controls were honored. Anthropic's own incident
-write-ups describe data leaving through a permitted path, where the preventive controls had
-nothing anomalous to catch. Enforcing control at runtime and showing, independently, that
-control held afterward are different jobs, and the second is the gap the evidence layer closes.
-
-## Side-by-Side
+Adopting Zero Trust does not give you Proof-of-Control. Anthropic's Zero Trust for AI Agents tells you how to set controls so a breach is contained; its own incident write-ups describe data leaving through a *permitted* path, where preventive controls had nothing anomalous to catch. Enforcing control at runtime and showing, independently, that control held afterward are different jobs.
 
 |  | Anthropic Zero Trust for AI Agents | Proof-of-Control |
 | --- | --- | --- |
-| What is it? | A vendor-published security framework for deploying agents (May 2026) | A standard and technical foundation for independently verifiable evidence of what AI systems did |
 | What it answers | "Did we set the controls correctly?" | "Can an outside party verify the controls were honored?" |
-| When it acts | Mostly at provisioning and identity time; preventive. Its top tier adds continuous authorization | At and after execution; evidentiary. The evidence outlives the event |
-| Scope | Agent deployments | System-wide, not model-only |
+| When it acts | Mostly at provisioning and identity time; preventive | At and after execution; evidentiary — the evidence outlives the event |
 | Certifiable? | No; explicitly guidance, not assurance | Yes; the standard, plus forthcoming independent certification |
 
-For a CISO: Zero Trust is native to your budget and your architecture. Proof-of-Control is the
-evidence substrate that lets you show an auditor, insurer, or regulator that your agents did only
-what they were authorized to do ([Section 1](../docs/introduction.md)).
+## Requirement-Level Mapping (against NIST SP 800-207)
 
-## Status
+<!-- BEGIN GENERATED MAPPING (tools/generate_crosswalks.py) -->
 
-> **⚠️ [WG-INPUT NEEDED] — volunteer needed to develop out the crosswalk** (including zero-trust
-> architecture per NIST SP 800-207).
-> [Sign up at advancedaisociety.org](https://advancedaisociety.org/) to contribute.
+**Coverage: 43%** of the 107 Proof-of-Control requirements (6 exact matches, 40 partial, 61 no match), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
+
+| PoC section | Reqs | Match | Closest framework clause(s) | Rationale |
+| --- | :---: | :---: | --- | --- |
+| [C1.1 Model and Artifact Provenance](../0.1/en/0x10-C01-Provenance.md) | 5 | ⚪ NM | — | Artifact provenance outside ZTA scope |
+| [C1.2 Input and Data Lineage](../0.1/en/0x10-C01-Provenance.md) | 4 | ⚪ NM | — | Outside scope |
+| [C1.3 Compute Substrate Provenance](../0.1/en/0x10-C01-Provenance.md) | 2 | ⚪ NM | — | Outside scope |
+| [C1.4 Privacy-Preserving Provenance](../0.1/en/0x10-C01-Provenance.md) | 2 | ⚪ NM | — | Outside scope |
+| [C2.1 Data-Access Evidence](../0.1/en/0x10-C02-Privacy.md) | 3 | 🟡 PM | PEP logging (§3) | Policy enforcement point logging records resource access; no evidence-content model |
+| [C2.2 Policy and Consent Enforcement](../0.1/en/0x10-C02-Privacy.md) | 5 | 🟡 PM | Policy Engine (§3) | Policy engine evaluates per-request context including data policies |
+| [C2.3 Privacy-Preserving Verification Mechanisms](../0.1/en/0x10-C02-Privacy.md) | 3 | ⚪ NM | — | Not addressed |
+| [C2.4 Evidence Handling for Protected Data](../0.1/en/0x10-C02-Privacy.md) | 2 | ⚪ NM | — | Not addressed |
+| [C3.1 Boundary-Crossing Evidence](../0.1/en/0x10-C03-Portability.md) | 2 | 🟡 PM | Tenets 2–3 (§2.1) | No implicit trust across boundaries; every crossing is re-evaluated, though not evidenced for third parties |
+| [C3.2 Cross-Environment Continuity](../0.1/en/0x10-C03-Portability.md) | 3 | ⚪ NM | — | Evidence continuity not addressed |
+| [C4.1 Authority and Scope Enforcement](../0.1/en/0x10-C04-Authorization.md) | 6 | 🟣 EM | Tenets 3, 4, 6; PEP (§3) | Per-request access evaluation at the PEP with least privilege matches authority-and-scope enforcement |
+| [C4.2 Delegation](../0.1/en/0x10-C04-Authorization.md) | 4 | 🟡 PM | Tenet 4 | Dynamic authorization covers authority scoping; delegation chains not addressed |
+| [C5.1 Agent and Principal Binding](../0.1/en/0x10-C05-Identity.md) | 4 | 🟡 PM | Tenet 6 | Strong authentication of all subjects and devices; principal-to-agent intent binding not addressed |
+| [C5.2 Inter-Agent Identity](../0.1/en/0x10-C05-Identity.md) | 2 | 🟡 PM | Tenet 2 | Mutual authentication between services covers inter-agent message authenticity |
+| [C6.1 Execution Environment Integrity](../0.1/en/0x10-C06-Security.md) | 4 | 🟡 PM | Tenet 5 | Device posture and integrity monitoring inform access decisions; not independently verifiable |
+| [C6.2 Isolation and Confidential Execution](../0.1/en/0x10-C06-Security.md) | 3 | ⚪ NM | — | Isolation proof not addressed |
+| [C6.3 Cryptographic Key Lifecycle](../0.1/en/0x10-C06-Security.md) | 3 | ⚪ NM | — | Key lifecycle not addressed at this level |
+| [C7.1 Generation at the Action Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 3 | 🟡 PM | PEP (§3) | The PEP mediates all access like the interception gateway; evidence emission is not required |
+| [C7.2 The Contemporaneous Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | 🟡 PM | Tenet 7 | Continuous monitoring produces execution-time logs; operator-produced |
+| [C7.3 The Tamper-Evident Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | ⚪ NM | — | Tamper-evidence of records not required |
+| [C7.4 The Transparent Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 1 | ⚪ NM | — | Not addressed |
+| [C7.5 The Determinism Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | ⚪ NM | — | Not addressed |
+| [C7.6 Evidence Custody and Resilience](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | 🟡 PM | Deny-by-default posture (§2) | Deny-by-default posture parallels fail-closed; evidence-pipeline gating unspecified |
+| [C8.1 Tier Placement](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 8 | ⚪ NM | — | No verifiability grading |
+| [C8.2 Mechanism-to-Requirement Fit](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 2 | ⚪ NM | — | No mechanism-fit rule |
+| [C8.3 Chain Integrity and Self-Enforcement (Tier 4)](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 4 | ⚪ NM | — | No self-enforcement concept |
+| [C9.1 Locating Evidence on the System Surface](../0.1/en/0x10-C09-System-Surface-MAESTRO.md) | 3 | ⚪ NM | — | Not addressed |
+| [C9.2 Layer Coverage](../0.1/en/0x10-C09-System-Surface-MAESTRO.md) | 3 | ⚪ NM | — | Not addressed |
+| [C10.1 Conformance Claims](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 7 | ⚪ NM | — | No conformance-claim regime |
+| [C10.2 Trust-Assumption Disclosure](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 2 | ⚪ NM | — | Not addressed |
+| [C10.3 Continuously Monitored Operation](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 6 | 🟡 PM | Tenet 7; CDM integration | Continuous diagnostics and mitigation align with continuous-operation intent |
+
+### Gap Analysis (what this framework does not cover)
+
+* **C1.1 Model and Artifact Provenance** — Artifact provenance outside ZTA scope
+* **C1.2 Input and Data Lineage** — Outside scope
+* **C1.3 Compute Substrate Provenance** — Outside scope
+* **C1.4 Privacy-Preserving Provenance** — Outside scope
+* **C2.3 Privacy-Preserving Verification Mechanisms** — Not addressed
+* **C2.4 Evidence Handling for Protected Data** — Not addressed
+* **C3.2 Cross-Environment Continuity** — Evidence continuity not addressed
+* **C6.2 Isolation and Confidential Execution** — Isolation proof not addressed
+* **C6.3 Cryptographic Key Lifecycle** — Key lifecycle not addressed at this level
+* **C7.3 The Tamper-Evident Property** — Tamper-evidence of records not required
+* **C7.4 The Transparent Property** — Not addressed
+* **C7.5 The Determinism Boundary** — Not addressed
+* **C8.1 Tier Placement** — No verifiability grading
+* **C8.2 Mechanism-to-Requirement Fit** — No mechanism-fit rule
+* **C8.3 Chain Integrity and Self-Enforcement (Tier 4)** — No self-enforcement concept
+* **C9.1 Locating Evidence on the System Surface** — Not addressed
+* **C9.2 Layer Coverage** — Not addressed
+* **C10.1 Conformance Claims** — No conformance-claim regime
+* **C10.2 Trust-Assumption Disclosure** — Not addressed
+
+*Match granularity is the PoC section; every requirement in a section carries its section's coding in the [coding sheet](coding_sheet.csv). Requirement-level refinement is the working group's next pass.*
+
+<!-- END GENERATED MAPPING -->
 
 ---
 
