@@ -1,25 +1,75 @@
-# Framework Mappings (Crosswalks)
+# Framework Mappings
 
-Proof-of-Control cross-references existing standards and frameworks rather than replacing them.
-Almost none of the existing work produces independent evidence of what an agent did that holds
-when the operator is the threat; Proof-of-Control is the evidence layer that sits alongside these
-efforts and feeds them. This directory holds one crosswalk per framework referenced in
-[Section 8 of the standard](../docs/standards-landscape.md).
+Proof-of-Control cross-references existing standards and frameworks rather than replacing them:
+it is the evidence layer that sits alongside them. This directory holds the mapping in two
+complementary forms, following the reproducible coverage methodology established by
+[HAARF](https://github.com/Task-force-for-AI-agents-in-Healthcare/haarf):
 
-> **✍️ [DRAFT] — mapping in progress.** The working group is classifying the mapping by domain of
-> verification (proposed by Jim Schwoebel of Quome) and mapping it as a graph (led by David
-> Thomson of Tesseract). Several crosswalks below need volunteers —
-> **[sign up at advancedaisociety.org](https://advancedaisociety.org/)** to contribute one.
+1. **Quantitative coverage mapping** — every one of the 107 PoC requirements coded against each
+   external framework as Exact Match / Partial Match / No Match, with reproducible coverage
+   percentages.
+2. **Qualitative crosswalks** — one narrative document per framework explaining the
+   relationship, the complementary halves, and the tier-placement caveats.
 
-## Crosswalks
+## How the Mapping Works
+
+| File | What it is |
+| --- | --- |
+| [`rubric.md`](rubric.md) | The EM / PM / NM match-type definitions, coding instructions, and the coverage formula |
+| [`coding_sheet.csv`](coding_sheet.csv) | Row-level coding: 107 requirements × 8 frameworks = 856 coded rows with rationales |
+| [`compute_coverage.py`](compute_coverage.py) | Validates the sheet and reproduces the coverage percentages and the chart below |
+| [`corpus/README.md`](corpus/README.md) | Provenance of the external framework documents (title, version, access URL) |
+
+```bash
+python3 mappings/compute_coverage.py          # reproduce the numbers
+python3 mappings/compute_coverage.py --svg    # regenerate the coverage chart
+```
+
+## Coverage Results
+
+> ⚠️ **[WG-INPUT NEEDED] — draft seed coding** (single coder, section-granularity, unvalidated;
+> see [rubric.md](rubric.md#coding-status)). Numbers will move as the working group ratifies
+> row-level codings.
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="../images/diagrams/mapping-coverage-dark.svg">
+    <img alt="Coverage of the 107 Proof-of-Control requirements by external framework: NIST AI RMF 63%, ISO/IEC 42001 60%, OWASP AISVS 60%, EU AI Act 55%, SOC 2 55%, CSA AARM 48%, Zero Trust 43%, MITRE ATLAS 26%" src="../images/diagrams/mapping-coverage-light.svg" width="740">
+  </picture>
+</p>
+
+| Framework | EM | PM | NM | Coverage | Qualitative crosswalk |
+| --- | :---: | :---: | :---: | :---: | --- |
+| NIST AI RMF | 0 | 67 | 40 | **63%** | [nist-ai-rmf.md](nist-ai-rmf.md) |
+| ISO/IEC 42001 | 7 | 57 | 43 | **60%** | [iso-iec-42001.md](iso-iec-42001.md) |
+| OWASP AISVS | 14 | 50 | 43 | **60%** | [owasp.md](owasp.md) |
+| EU AI Act | 7 | 52 | 48 | **55%** | [eu-ai-act.md](eu-ai-act.md) |
+| SOC 2 | 7 | 52 | 48 | **55%** | [soc-2.md](soc-2.md) |
+| CSA AARM | 9 | 42 | 56 | **48%** | [csa-aarm.md](csa-aarm.md) |
+| Zero Trust (NIST SP 800-207) | 6 | 40 | 61 | **43%** | [zero-trust.md](zero-trust.md) |
+| MITRE ATLAS | 0 | 28 | 79 | **26%** | [mitre-atlas.md](mitre-atlas.md) |
+
+**Reading the numbers.** Coverage measures how much of *Proof-of-Control* each framework
+already addresses — not the reverse, and not framework quality. Two patterns matter:
+
+* **The PM band is wide and the EM band is thin.** Existing frameworks require most of the
+  *controls* PoC verifies, but almost never require *operator-independent, mechanism-generated
+  evidence* that the controls held. That is the exact gap between Tier 2 and Tier 3 — the
+  binary threshold.
+* **The NM gap concentrates in C7/C8/C10.** No coded framework grades evidence by how
+  independently it can be verified (C8), requires trust-assumption disclosure (C7.4/C10.2), or
+  reaches self-enforcing execution (C8.3). The NM gap is, by design, the standard's reason to
+  exist.
+
+## Qualitative Crosswalks
 
 | Framework | Type | Relationship to Proof-of-Control | Crosswalk |
 | --- | --- | --- | --- |
-| MAESTRO (CSA) | Agent threat-modeling framework | Adopted as the System surface (Axis 2) in Section 5 | [maestro.md](maestro.md) |
+| MAESTRO (CSA) | Agent threat-modeling framework | Adopted as the System surface (Axis 2) — an axis of the standard, not a coverage target | [maestro.md](maestro.md) |
 | CSA AARM | Runtime enforcement standard | Complementary half: AARM enforces, PoC evidences | [csa-aarm.md](csa-aarm.md) |
 | CSA AI Controls Matrix (AICM) | Control catalog | Crosswalk maintained separately by WG decision | [csa-aicm.md](csa-aicm.md) |
-| OWASP (Agentic Top 10, LLM Top 10, AIVSS, AISVS) | Threat catalogs & verification standard | Threat-source for the PoC threat model; Security-domain alignment target | [owasp.md](owasp.md) |
-| MITRE ATLAS | Adversarial threat catalog | Threat-source for the PoC threat model | [mitre-atlas.md](mitre-atlas.md) |
+| OWASP (Agentic Top 10, LLM Top 10, AIVSS, AISVS) | Threat catalogs & verification standard | Threat source for the PoC threat model; Security-domain alignment target | [owasp.md](owasp.md) |
+| MITRE ATLAS | Adversarial threat catalog | Threat source for the PoC threat model | [mitre-atlas.md](mitre-atlas.md) |
 | NIST AI RMF (& AI 100-2) | Risk-governance framework | PoC produces the evidence that makes its requirements checkable | [nist-ai-rmf.md](nist-ai-rmf.md) |
 | ISO/IEC 42001 | AI management system standard | Complementary; supplies the V&V vocabulary PoC uses | [iso-iec-42001.md](iso-iec-42001.md) |
 | SOC 2 | Organizational attestation | PoC is SOC-2-grade in role, with a cryptographic stage SOC 2 never had | [soc-2.md](soc-2.md) |
@@ -28,10 +78,11 @@ efforts and feeds them. This directory holds one crosswalk per framework referen
 | Confidential Computing (TEEs) | Mechanism | One valid mechanism for delivering PoC, not the property itself | [confidential-computing.md](confidential-computing.md) |
 | AIUC-1 | AI audit / certification framework | Portability-domain alignment target (cross-platform auditing) | [aiuc-1.md](aiuc-1.md) |
 
-## The By-Domain Mapping (current working state)
+## The By-Domain Mapping (working view)
 
 For each domain of verification, the architectural mechanisms that produce the evidence and the
-external standards to align with:
+external standards to align with — classified by domain (proposed by Jim Schwoebel of Quome) and
+being developed as a graph (led by David Thomson of Tesseract):
 
 | Domain | Source architectural mechanism | Targets for external alignment |
 | --- | --- | --- |
@@ -42,20 +93,18 @@ external standards to align with:
 | Identity | W3C CID, WIMSE / IETF AI-Auth | HAARF audit logs, CSA Vanta Agent Trust Controls |
 | Security | [OWASP AIVSS](owasp.md), SSF / CAEP | [OWASP Top 10 for Agentic AI](owasp.md), [NIST AI RMF](nist-ai-rmf.md) |
 
-## Other Efforts Being Mapped
+## Contributing
 
-The working group is also mapping Proof-of-Control against: the IEEE 7000-series, zero-trust
-architecture (NIST SP 800-207), vendor toolkits (Microsoft Agent Governance Toolkit, Mastercard
-Verifiable Intent, Ping Identity, KYA), agent observability tooling, CSA Vanta Agent Trust
-Controls, C2PA content provenance, SLSA / supply-chain attestation, and the Agent Resource
-Discovery Specification. If you maintain a standard, or you see a crosswalk that is needed,
-propose it.
+* **Validate the seed coding:** the highest-value contribution right now. Pick a framework,
+  obtain the corpus document ([corpus/README.md](corpus/README.md)), re-code the rows in
+  [`coding_sheet.csv`](coding_sheet.csv) per the [rubric](rubric.md), and open a PR with your
+  `coder_id`. Second coders enable inter-coder agreement statistics.
+* **Extend the corpus:** code a pending framework (AIUC-1, CSA AICM, OWASP Agentic Top 10,
+  IEEE 7000-series, HAARF) end-to-end.
+* **Improve a crosswalk:** several qualitative crosswalks are marked
+  **⚠️ [WG-INPUT NEEDED] — volunteer needed**.
 
-## Contributing a Crosswalk
-
-Working from the initial mapping, contributors extend the standard's crosswalks to other
-standards and frameworks. Several crosswalks are marked
-**⚠️ [WG-INPUT NEEDED] — volunteer needed**. To take one on, join a working group:
+To take any of these on, join a working group:
 **[advancedaisociety.org](https://advancedaisociety.org/)**.
 
 ---

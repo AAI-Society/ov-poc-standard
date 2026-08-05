@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="416" viewBox="0 0 760 416" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif">
+<text x="380.0" y="26" font-size="14.5" font-weight="600" fill="#1f2328" text-anchor="middle">How much of Proof-of-Control each framework already addresses</text>
+<text x="380.0" y="46" font-size="11.5" fill="#57606a" text-anchor="middle">(EM + PM) / 107 requirements — darker: exact match · lighter: partial match · gap: what only PoC covers</text>
+<text x="238" y="93.0" font-size="12" fill="#1f2328" text-anchor="end">NIST AI RMF</text>
+<rect x="250" y="74" width="430" height="30" rx="7" fill="#f6f8fa" stroke="#d0d7de"/>
+<rect x="250.0" y="74" width="269.3" height="30" fill="#c4b1e8"/>
+<text x="690" y="93.0" font-size="12.5" font-weight="600" fill="#1f2328">63%</text>
+<text x="238" y="135.0" font-size="12" fill="#1f2328" text-anchor="end">ISO/IEC 42001</text>
+<rect x="250" y="116" width="430" height="30" rx="7" fill="#f6f8fa" stroke="#d0d7de"/>
+<rect x="250" y="116" width="28.1" height="30" rx="7" fill="#6f42c1"/>
+<rect x="278.1" y="116" width="229.1" height="30" fill="#c4b1e8"/>
+<text x="690" y="135.0" font-size="12.5" font-weight="600" fill="#1f2328">60%</text>
+<text x="238" y="177.0" font-size="12" fill="#1f2328" text-anchor="end">OWASP AISVS</text>
+<rect x="250" y="158" width="430" height="30" rx="7" fill="#f6f8fa" stroke="#d0d7de"/>
+<rect x="250" y="158" width="56.3" height="30" rx="7" fill="#6f42c1"/>
+<rect x="306.3" y="158" width="200.9" height="30" fill="#c4b1e8"/>
+<text x="690" y="177.0" font-size="12.5" font-weight="600" fill="#1f2328">60%</text>
+<text x="238" y="219.0" font-size="12" fill="#1f2328" text-anchor="end">EU AI Act</text>
+<rect x="250" y="200" width="430" height="30" rx="7" fill="#f6f8fa" stroke="#d0d7de"/>
+<rect x="250" y="200" width="28.1" height="30" rx="7" fill="#6f42c1"/>
+<rect x="278.1" y="200" width="209.0" height="30" fill="#c4b1e8"/>
+<text x="690" y="219.0" font-size="12.5" font-weight="600" fill="#1f2328">55%</text>
+<text x="238" y="261.0" font-size="12" fill="#1f2328" text-anchor="end">SOC 2</text>
+<rect x="250" y="242" width="430" height="30" rx="7" fill="#f6f8fa" stroke="#d0d7de"/>
+<rect x="250" y="242" width="28.1" height="30" rx="7" fill="#6f42c1"/>
+<rect x="278.1" y="242" width="209.0" height="30" fill="#c4b1e8"/>
+<text x="690" y="261.0" font-size="12.5" font-weight="600" fill="#1f2328">55%</text>
+<text x="238" y="303.0" font-size="12" fill="#1f2328" text-anchor="end">CSA AARM</text>
+<rect x="250" y="284" width="430" height="30" rx="7" fill="#f6f8fa" stroke="#d0d7de"/>
+<rect x="250" y="284" width="36.2" height="30" rx="7" fill="#6f42c1"/>
+<rect x="286.2" y="284" width="168.8" height="30" fill="#c4b1e8"/>
+<text x="690" y="303.0" font-size="12.5" font-weight="600" fill="#1f2328">48%</text>
+<text x="238" y="345.0" font-size="12" fill="#1f2328" text-anchor="end">Zero Trust (NIST SP 800-207)</text>
+<rect x="250" y="326" width="430" height="30" rx="7" fill="#f6f8fa" stroke="#d0d7de"/>
+<rect x="250" y="326" width="24.1" height="30" rx="7" fill="#6f42c1"/>
+<rect x="274.1" y="326" width="160.7" height="30" fill="#c4b1e8"/>
+<text x="690" y="345.0" font-size="12.5" font-weight="600" fill="#1f2328">43%</text>
+<text x="238" y="387.0" font-size="12" fill="#1f2328" text-anchor="end">MITRE ATLAS</text>
+<rect x="250" y="368" width="430" height="30" rx="7" fill="#f6f8fa" stroke="#d0d7de"/>
+<rect x="250.0" y="368" width="112.5" height="30" fill="#c4b1e8"/>
+<text x="690" y="387.0" font-size="12.5" font-weight="600" fill="#1f2328">26%</text>
+</svg>

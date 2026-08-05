@@ -124,6 +124,35 @@ The standard is led by co-chairs **Ken Huang** and **Tricia Wang**, produced by 
 * ❌ **Not a runtime enforcement layer.** Enforcement (what an agent *may* do) is CSA AARM's half; PoC is the evidence half (what it *did*, checkable by others).
 * ❌ **Not tied to any technology or vendor.** The standard defines what the evidence must be, not which mechanism produces it.
 
+## 📐 Regulatory Coverage
+
+How much of Proof-of-Control each external framework already addresses — (Exact + Partial
+matches) / 107 requirements, coded per the [mapping rubric](mappings/rubric.md) and reproducible
+with `python3 mappings/compute_coverage.py`:
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="images/diagrams/mapping-coverage-dark.svg">
+    <img alt="Coverage of the 107 Proof-of-Control requirements by external framework" src="images/diagrams/mapping-coverage-light.svg" width="740">
+  </picture>
+</p>
+
+| Framework | Coverage |
+| --- | :---: |
+| [NIST AI RMF](mappings/nist-ai-rmf.md) | **63%** |
+| [ISO/IEC 42001](mappings/iso-iec-42001.md) | **60%** |
+| [OWASP AISVS](mappings/owasp.md) | **60%** |
+| [EU AI Act](mappings/eu-ai-act.md) | **55%** |
+| [SOC 2](mappings/soc-2.md) | **55%** |
+| [CSA AARM](mappings/csa-aarm.md) | **48%** |
+| [Zero Trust (NIST SP 800-207)](mappings/zero-trust.md) | **43%** |
+| [MITRE ATLAS](mappings/mitre-atlas.md) | **26%** |
+
+The uncovered remainder — evidence gradability, the binary threshold, trust-assumption
+disclosure, self-enforcing execution — is the gap Proof-of-Control exists to close. Full
+EM/PM/NM breakdown, row-level [coding sheet](mappings/coding_sheet.csv), and corpus provenance
+in [`mappings/`](mappings/README.md). *(Draft seed coding, pending working-group validation.)*
+
 ## 🧩 How PoC Complements Other Standards
 
 | Standard | Focus | PoC relationship |
