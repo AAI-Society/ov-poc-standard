@@ -35,7 +35,7 @@ flowchart TB
 * **C9 — [System Surface (MAESTRO)](0x10-C09-System-Surface-MAESTRO.md):** where in the agent stack the evidence applies.
 * **C10 — [Conformance and Trust-Assumption Disclosure](0x10-C10-Conformance-and-Disclosure.md):** how thoroughly the claim was checked, and what must still be trusted.
 
-**The appendices** carry the normative [Glossary](0x90-Appendix-A_Glossary.md) (Appendix A) and [Threat Model](0x92-Appendix-C_Threat-Model.md) (Appendix C), the informative [Proof-Mechanism Inventory](0x91-Appendix-B_Proof-Mechanism-Inventory.md) (Appendix B), and the [Open Working-Group Issues](0x93-Appendix-D_Open-Issues.md) (Appendix D).
+**The appendices** carry the normative [Glossary](0x90-Appendix-A_Glossary.md) (Appendix A) and [Threat Model](0x92-Appendix-C_Threat-Model.md) (Appendix C), the informative [Proof-Mechanism Inventory](0x91-Appendix-B_Proof-Mechanism-Inventory.md) (Appendix B), the [Open Working-Group Issues](0x93-Appendix-D_Open-Issues.md) (Appendix D), and the generated [Audit Checklist](0x94-Appendix-E_Audit-Checklist.md) (Appendix E) — every requirement as a tickable list, with CSV/JSON exports in [`checklist/`](../../checklist).
 
 **The case for the standard is in the companion documents** ([`docs/`](../../docs)): the [introduction and design principles](../../docs/introduction.md), [why verification matters](../../docs/why-verification-matters.md), the [standards landscape](../../docs/standards-landscape.md), [use cases](../../docs/use-cases.md), the [adoption roadmap](../../docs/roadmap.md), and [governance](../../docs/governance.md). They explain and motivate the standard; they add no requirements. Per-framework crosswalks live in [`mappings/`](../../mappings/README.md).
 

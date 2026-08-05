@@ -100,6 +100,21 @@ Chapters **C1–C6** are the six domains of verification — *what* must be veri
 | 🧰 | [B: Proof-Mechanism & Controls Inventory](0.1/en/0x91-Appendix-B_Proof-Mechanism-Inventory.md) | The 9-mechanism taxonomy and all seven MAESTRO layer control tables |
 | ⚔️ | [C: Threat Model](0.1/en/0x92-Appendix-C_Threat-Model.md) | 29 threats: coverage 🟢🔵🟡⚪ and out-of-scope boundaries |
 | ⚠️ | [D: Open Working-Group Issues](0.1/en/0x93-Appendix-D_Open-Issues.md) | Every `[WG-INPUT NEEDED]` decision, collected |
+| ☑️ | [E: Audit Checklist](0.1/en/0x94-Appendix-E_Audit-Checklist.md) | All 107 requirements as tickable task lists, with the coverage matrix — generated, never stale |
+
+### 🧮 Running an audit
+
+The whole standard is available as a working checklist, in whichever form your audit runs on:
+
+| Representation | Where | Use it for |
+| --- | --- | --- |
+| ☑️ Tickable task lists | [Appendix E](0.1/en/0x94-Appendix-E_Audit-Checklist.md) | Working an audit directly on GitHub, or copying into issues/tickets |
+| 🗺️ Coverage matrix | [Appendix E](0.1/en/0x94-Appendix-E_Audit-Checklist.md#coverage-matrix) | Scoping: chapters × levels at a glance (34 L1 / 37 L2 / 25 L3 / 11 L4) |
+| 📊 CSV export | [`checklist/poc-checklist.csv`](checklist/poc-checklist.csv) | Spreadsheet-driven audits — includes empty `status` and `auditor_notes` columns |
+| 🔧 JSON export | [`checklist/poc-checklist.json`](checklist/poc-checklist.json) | GRC tooling and automation |
+| 🔍 Auditor evidence notes | Every chapter section | What to collect and what to test, per requirement ID |
+
+All of these are generated from the chapters by [`tools/generate_checklist.py`](tools/generate_checklist.py), so they cannot drift from the normative text.
 
 ## 📶 Requirement Levels
 
