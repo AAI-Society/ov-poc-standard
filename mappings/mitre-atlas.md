@@ -5,7 +5,7 @@
 | **Framework type** | Adversarial threat catalog for AI systems (techniques and mitigations) |
 | **Corpus version** | Living catalog, as accessed August 2026 — [access](https://atlas.mitre.org/) · [corpus provenance](corpus/README.md) |
 | **Relationship** | Threat source — one of the three catalogs the PoC threat model draws from |
-| **Coding status** | ⚠️ Draft seed coding, single coder — [rubric](rubric.md) |
+| **Coding status** | Draft seed coding, single coder — [rubric](rubric.md) |
 
 ## The Relationship
 
@@ -17,41 +17,43 @@ The coverage below is accordingly the lowest of any coded framework — and that
 
 <!-- BEGIN GENERATED MAPPING (tools/generate_crosswalks.py) -->
 
-**Coverage: 27%** of the 111 Proof-of-Control requirements (0 exact matches, 30 partial, 81 no match), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
+**Coverage: 27%** of the 111 Proof-of-Control requirements (0 exact matches, 30 partial matches, 81 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
+
+**How to read the Match column** ([full rubric](rubric.md)): **Exact** — the framework has a clause equivalent in scope and intent. **Partial** — the framework covers the topic, but not with PoC's operator-independent evidence (or not at the same depth). **None** — the framework has no analogous provision.
 
 | PoC section | Reqs | Match | Closest framework clause(s) | Rationale |
 | --- | :---: | :---: | --- | --- |
-| [C1.1 Model and Artifact Provenance](../0.1/en/0x10-C01-Provenance.md) | 5 | 🟡 PM | Verify ML Artifacts (AML.M0014); code-signing mitigations | Mitigations for ML supply chain compromise (verify ML artifacts) cover provenance checking; no signed-manifest requirement |
-| [C1.2 Input and Data Lineage](../0.1/en/0x10-C01-Provenance.md) | 4 | 🟡 PM | Sanitize Training Data (AML.M0007) | Data-provenance mitigations against poisoning; no custody chain to actions |
-| [C1.3 Compute Substrate Provenance](../0.1/en/0x10-C01-Provenance.md) | 2 | ⚪ NM | — | Substrate attestation not addressed |
-| [C1.4 Privacy-Preserving Provenance](../0.1/en/0x10-C01-Provenance.md) | 2 | ⚪ NM | — | Privacy-preserving provenance not addressed |
-| [C2.1 Data-Access Evidence](../0.1/en/0x10-C02-Privacy.md) | 3 | ⚪ NM | — | Privacy evidence outside ATLAS scope |
-| [C2.2 Policy and Consent Enforcement](../0.1/en/0x10-C02-Privacy.md) | 5 | ⚪ NM | — | Consent/purpose enforcement outside scope |
-| [C2.3 Privacy-Preserving Verification Mechanisms](../0.1/en/0x10-C02-Privacy.md) | 3 | ⚪ NM | — | Outside scope |
-| [C2.4 Evidence Handling for Protected Data](../0.1/en/0x10-C02-Privacy.md) | 2 | ⚪ NM | — | Outside scope |
-| [C3.1 Boundary-Crossing Evidence](../0.1/en/0x10-C03-Portability.md) | 2 | ⚪ NM | — | Outside scope |
-| [C3.2 Cross-Environment Continuity](../0.1/en/0x10-C03-Portability.md) | 3 | ⚪ NM | — | Outside scope |
-| [C4.1 Authority and Scope Enforcement](../0.1/en/0x10-C04-Authorization.md) | 8 | 🟡 PM | Control Access to ML Models and Data (AML.M0005) | Least-privilege and access-control mitigations for ML systems; no evidenced gateway decisions |
-| [C4.2 Delegation](../0.1/en/0x10-C04-Authorization.md) | 4 | ⚪ NM | — | Delegation chains not addressed |
-| [C5.1 Agent and Principal Binding](../0.1/en/0x10-C05-Identity.md) | 4 | 🟡 PM | AML.M0005 | Access-control mitigations imply authenticated actors; no principal binding |
-| [C5.2 Inter-Agent Identity](../0.1/en/0x10-C05-Identity.md) | 2 | ⚪ NM | — | Inter-agent identity not addressed |
-| [C6.1 Execution Environment Integrity](../0.1/en/0x10-C06-Security.md) | 4 | 🟡 PM | Adversarial Input Detection (AML.M0015); vulnerability scanning | Mitigations for environment hardening and adversarial input detection; attestation not required |
-| [C6.2 Isolation and Confidential Execution](../0.1/en/0x10-C06-Security.md) | 3 | 🟡 PM | Execution-restriction / sandboxing mitigations | Sandboxing/restricting execution mitigations align with isolation requirements |
-| [C6.3 Cryptographic Key Lifecycle](../0.1/en/0x10-C06-Security.md) | 3 | ⚪ NM | — | Key lifecycle not addressed |
-| [C7.1 Generation at the Action Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 3 | ⚪ NM | — | No evidence-generation concept |
-| [C7.2 The Contemporaneous Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | ⚪ NM | — | Not addressed |
-| [C7.3 The Tamper-Evident Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | 🟡 PM | ML event-logging mitigations | Logging-of-ML-events mitigation supports detection; integrity mechanisms unspecified |
-| [C7.4 The Transparent Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 1 | ⚪ NM | — | Not addressed |
-| [C7.5 The Determinism Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | ⚪ NM | — | Not addressed |
-| [C7.6 Evidence Custody and Resilience](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | ⚪ NM | — | Not addressed |
-| [C8.1 Tier Placement](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 8 | ⚪ NM | — | No verifiability grading |
-| [C8.2 Mechanism-to-Requirement Fit](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 2 | ⚪ NM | — | No mechanism-fit rule |
-| [C8.3 Chain Integrity and Self-Enforcement (Tier 4)](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 4 | ⚪ NM | — | No self-enforcement concept |
-| [C9.1 Locating Evidence on the System Surface](../0.1/en/0x10-C09-System-Surface-MAESTRO.md) | 3 | ⚪ NM | — | Not addressed |
-| [C9.2 Layer Coverage](../0.1/en/0x10-C09-System-Surface-MAESTRO.md) | 3 | ⚪ NM | — | Not addressed |
-| [C10.1 Conformance Claims](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 8 | ⚪ NM | — | No conformance regime |
-| [C10.2 Trust-Assumption Disclosure](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 2 | ⚪ NM | — | Not addressed |
-| [C10.3 Continuously Monitored Operation](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 7 | ⚪ NM | — | Not addressed |
+| [C1.1 Model and Artifact Provenance](../0.1/en/0x10-C01-Provenance.md) | 5 | Partial | Verify ML Artifacts (AML.M0014); code-signing mitigations | Mitigations for ML supply chain compromise (verify ML artifacts) cover provenance checking; no signed-manifest requirement |
+| [C1.2 Input and Data Lineage](../0.1/en/0x10-C01-Provenance.md) | 4 | Partial | Sanitize Training Data (AML.M0007) | Data-provenance mitigations against poisoning; no custody chain to actions |
+| [C1.3 Compute Substrate Provenance](../0.1/en/0x10-C01-Provenance.md) | 2 | None | — | Substrate attestation not addressed |
+| [C1.4 Privacy-Preserving Provenance](../0.1/en/0x10-C01-Provenance.md) | 2 | None | — | Privacy-preserving provenance not addressed |
+| [C2.1 Data-Access Evidence](../0.1/en/0x10-C02-Privacy.md) | 3 | None | — | Privacy evidence outside ATLAS scope |
+| [C2.2 Policy and Consent Enforcement](../0.1/en/0x10-C02-Privacy.md) | 5 | None | — | Consent/purpose enforcement outside scope |
+| [C2.3 Privacy-Preserving Verification Mechanisms](../0.1/en/0x10-C02-Privacy.md) | 3 | None | — | Outside scope |
+| [C2.4 Evidence Handling for Protected Data](../0.1/en/0x10-C02-Privacy.md) | 2 | None | — | Outside scope |
+| [C3.1 Boundary-Crossing Evidence](../0.1/en/0x10-C03-Portability.md) | 2 | None | — | Outside scope |
+| [C3.2 Cross-Environment Continuity](../0.1/en/0x10-C03-Portability.md) | 3 | None | — | Outside scope |
+| [C4.1 Authority and Scope Enforcement](../0.1/en/0x10-C04-Authorization.md) | 8 | Partial | Control Access to ML Models and Data (AML.M0005) | Least-privilege and access-control mitigations for ML systems; no evidenced gateway decisions |
+| [C4.2 Delegation](../0.1/en/0x10-C04-Authorization.md) | 4 | None | — | Delegation chains not addressed |
+| [C5.1 Agent and Principal Binding](../0.1/en/0x10-C05-Identity.md) | 4 | Partial | AML.M0005 | Access-control mitigations imply authenticated actors; no principal binding |
+| [C5.2 Inter-Agent Identity](../0.1/en/0x10-C05-Identity.md) | 2 | None | — | Inter-agent identity not addressed |
+| [C6.1 Execution Environment Integrity](../0.1/en/0x10-C06-Security.md) | 4 | Partial | Adversarial Input Detection (AML.M0015); vulnerability scanning | Mitigations for environment hardening and adversarial input detection; attestation not required |
+| [C6.2 Isolation and Confidential Execution](../0.1/en/0x10-C06-Security.md) | 3 | Partial | Execution-restriction / sandboxing mitigations | Sandboxing/restricting execution mitigations align with isolation requirements |
+| [C6.3 Cryptographic Key Lifecycle](../0.1/en/0x10-C06-Security.md) | 3 | None | — | Key lifecycle not addressed |
+| [C7.1 Generation at the Action Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 3 | None | — | No evidence-generation concept |
+| [C7.2 The Contemporaneous Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | None | — | Not addressed |
+| [C7.3 The Tamper-Evident Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | Partial | ML event-logging mitigations | Logging-of-ML-events mitigation supports detection; integrity mechanisms unspecified |
+| [C7.4 The Transparent Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 1 | None | — | Not addressed |
+| [C7.5 The Determinism Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | None | — | Not addressed |
+| [C7.6 Evidence Custody and Resilience](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | None | — | Not addressed |
+| [C8.1 Tier Placement](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 8 | None | — | No verifiability grading |
+| [C8.2 Mechanism-to-Requirement Fit](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 2 | None | — | No mechanism-fit rule |
+| [C8.3 Chain Integrity and Self-Enforcement (Tier 4)](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 4 | None | — | No self-enforcement concept |
+| [C9.1 Locating Evidence on the System Surface](../0.1/en/0x10-C09-System-Surface-MAESTRO.md) | 3 | None | — | Not addressed |
+| [C9.2 Layer Coverage](../0.1/en/0x10-C09-System-Surface-MAESTRO.md) | 3 | None | — | Not addressed |
+| [C10.1 Conformance Claims](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 8 | None | — | No conformance regime |
+| [C10.2 Trust-Assumption Disclosure](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 2 | None | — | Not addressed |
+| [C10.3 Continuously Monitored Operation](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 7 | None | — | Not addressed |
 
 ### Gap Analysis (what this framework does not cover)
 
@@ -86,8 +88,8 @@ The coverage below is accordingly the lowest of any coded framework — and that
 
 ## Threat-Model Role (the primary crosswalk)
 
-For the threat-by-threat view of what PoC evidence reaches — 🟢 Full · 🔵 Strong · 🟡 Partial ·
-⚪ Not addressed across all 29 threats — see [Appendix C: Threat Model](../0.1/en/0x92-Appendix-C_Threat-Model.md).
+For the threat-by-threat view of what PoC evidence reaches — Full · Strong · Partial ·
+Not addressed across all 29 threats — see [Appendix C: Threat Model](../0.1/en/0x92-Appendix-C_Threat-Model.md).
 
 ---
 

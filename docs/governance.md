@@ -37,7 +37,7 @@ The standard is developed by working-group consensus. During public comment, the
 reviews every comment and publishes a disposition: accepted, rejected with rationale, or
 deferred. Requirements language follows RFC 2119
 ([Section 3](../0.1/en/0x90-Appendix-A_Glossary.md)). Open decisions are marked
-`⚠️ [WG-INPUT NEEDED]` throughout the document and are resolved through the working-group
+`[WG-INPUT NEEDED]` throughout the document and are resolved through the working-group
 process, not by any single member or co-chair.
 
 ## Review and Final Sign-Off: the Distinguished Review Board
@@ -69,7 +69,7 @@ systems, mechanisms, and products the standard covers, and recuse themselves fro
 would directly favor their own. Recusals are recorded. This is what makes member-neutrality and
 Board independence checkable in practice, not just stated.
 
-> ⚠️ **[WG-INPUT NEEDED]** — the detailed appeals procedure (including how a decision of the
+> **[WG-INPUT NEEDED]** — the detailed appeals procedure (including how a decision of the
 > Board itself is reconsidered) and the conflict-of-interest disclosure format are to be
 > finalized by the working group and the Board.
 

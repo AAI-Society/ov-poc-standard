@@ -46,7 +46,7 @@ CHAPTER_FILES = {
 
 BEGIN = "<!-- BEGIN GENERATED MAPPING (tools/generate_crosswalks.py) -->"
 END = "<!-- END GENERATED MAPPING -->"
-BADGE = {"EM": "🟣 EM", "PM": "🟡 PM", "NM": "⚪ NM"}
+BADGE = {"EM": "Exact", "PM": "Partial", "NM": "None"}
 
 
 def section_sort_key(sec):
@@ -77,11 +77,17 @@ def main():
             BEGIN,
             "",
             f"**Coverage: {cov}%** of the {total} Proof-of-Control requirements "
-            f"({c['EM']} exact matches, {c['PM']} partial, {c['NM']} no match), computed per "
+            f"({c['EM']} exact matches, {c['PM']} partial matches, {c['NM']} not covered), computed per "
             f"the [mapping rubric](rubric.md) from the row-level "
             f"[coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group "
             f"validation.* To change this table, edit the coding sheet and run "
             f"`python3 tools/generate_crosswalks.py`.",
+            "",
+            "**How to read the Match column** ([full rubric](rubric.md)): "
+            "**Exact** — the framework has a clause equivalent in scope and intent. "
+            "**Partial** — the framework covers the topic, but not with PoC's "
+            "operator-independent evidence (or not at the same depth). "
+            "**None** — the framework has no analogous provision.",
             "",
             "| PoC section | Reqs | Match | Closest framework clause(s) | Rationale |",
             "| --- | :---: | :---: | --- | --- |",

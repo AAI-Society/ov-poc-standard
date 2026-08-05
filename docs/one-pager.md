@@ -22,7 +22,7 @@ the way through the standard. For the full requirements, see the
 
 ## Stage by Stage
 
-### 🐕 "Whose dog is this?" — the prerequisite
+### "Whose dog is this?" — the prerequisite
 
 Before a dog enters the park, everyone needs to know *who owns it, who trained it, and who is
 liable if it bites.*
@@ -32,7 +32,7 @@ liable if it bites.*
 where it came from ([C1 Provenance](../0.1/en/0x10-C01-Provenance.md)). Without identity,
 attribution is impossible.
 
-### 🗣️ Tier 1 · Assertion — "the owner's word"
+### Tier 1 · Assertion — "the owner's word"
 
 *"Don't worry — my dog is friendly and stays in the yard."* You take the owner's word for it.
 And if the dog bites, **the owner writes the incident report.**
@@ -41,7 +41,7 @@ And if the dog bites, **the owner writes the incident report.**
 the action is the same system writing the record — it can be edited, suppressed, or bypassed.
 This is where most deployed agents sit today.
 
-### 📋 Tier 2 · Attestation — "the inspector's badge"
+### Tier 2 · Attestation — "the inspector's badge"
 
 A certified inspector visits once a year, checks the collar, stamps a paper badge. **A badge
 issued six months ago can't stop — or prove — anything when the dog jumps the fence today.**
@@ -49,7 +49,7 @@ issued six months ago can't stop — or prove — anything when the dog jumps th
 **In the standard:** SOC 2, ISO 42001, third-party audits. Independent, valuable, and still
 party-trust-dependent and retrospective. Necessary — not sufficient.
 
-### ✅ Tiers 3–4 · Proof-of-Control — "the smart, tamper-proof leash"
+### Tiers 3–4 · Proof-of-Control — "the smart, tamper-proof leash"
 
 Every boundary check is recorded cryptographically as it happens. **Anyone in the park can
 check the proof on their phone** (Tier 3) — **and if the dog tries to jump, the leash locks

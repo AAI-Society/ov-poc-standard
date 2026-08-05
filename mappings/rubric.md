@@ -95,7 +95,7 @@ NM gap is, by design, the standard's reason to exist.
 
 ## Coding Status
 
-> ⚠️ **[WG-INPUT NEEDED] — draft seed coding.** The current
+> **[WG-INPUT NEEDED] — draft seed coding.** The current
 > [`coding_sheet.csv`](coding_sheet.csv) is a single-coder seed draft
 > (`coder_id = seed-01`), coded at section granularity and expanded to requirement rows. The
 > working group must validate row-level codings, add second-coder review, and record

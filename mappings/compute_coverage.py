@@ -110,7 +110,7 @@ def print_table(cov, total):
 
 
 def markdown_table(cov):
-    lines = ["| Framework | EM | PM | NM | Coverage | Crosswalk |",
+    lines = ["| Framework | ✅ Exact (EM) | 🟡 Partial (PM) | ❌ None (NM) | Coverage | Crosswalk |",
              "| --- | :---: | :---: | :---: | :---: | --- |"]
     for fw, c in cov.items():
         name = DISPLAY_NAMES.get(fw, fw)

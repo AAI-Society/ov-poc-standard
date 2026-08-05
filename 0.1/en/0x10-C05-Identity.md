@@ -34,7 +34,7 @@ Forged or unauthenticated agent-to-agent messages are a catalogued threat class;
 
 **Auditor evidence:** 5.2.1 — message-signing config; inject an unsigned message in test and confirm rejection + log. 5.2.2 — validate one captured message yourself using only published keys.
 
-> ⚠️ **[WG-INPUT NEEDED]** — anonymity and pseudonymity: whether the standard supports
+> **[WG-INPUT NEEDED]** — anonymity and pseudonymity: whether the standard supports
 > verifiable-but-unlinkable identity binding as an implementer-selectable option, and how. See
 > [Appendix D](0x93-Appendix-D_Open-Issues.md), issues 2 and 4.
 

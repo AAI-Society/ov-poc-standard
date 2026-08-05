@@ -21,7 +21,7 @@ the external framework that evidence aligns to.
 
 ## Status
 
-> **✍️ [DRAFT]** — by the working group's decision, the AIUC-1 crosswalk from Ken Huang's
+> **[DRAFT]** — by the working group's decision, the AIUC-1 crosswalk from Ken Huang's
 > framework is maintained as a separate crosswalk document (this file) and referenced from
 > Sections 5 and 8. The detailed crosswalk is being merged in. A related open working-group
 > question — evidence continuity across attestation domains (cross-cloud migration) — is issue 3

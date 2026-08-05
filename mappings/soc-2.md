@@ -5,7 +5,7 @@
 | **Framework type** | Organizational controls attestation (AICPA Trust Services Criteria) |
 | **Corpus version** | 2017 TSC with 2022 revised points of focus — [access](https://www.aicpa-cima.com/resources/download/trust-services-criteria) · [corpus provenance](corpus/README.md) |
 | **Relationship** | Complementary — PoC is SOC-2-grade in role, with a cryptographic stage SOC 2 never had |
-| **Coding status** | ⚠️ Draft seed coding, single coder — [rubric](rubric.md) |
+| **Coding status** | Draft seed coding, single coder — [rubric](rubric.md) |
 
 ## The Relationship
 
@@ -24,41 +24,43 @@ An insurer or buyer can require Proof-of-Control the way they already require SO
 
 <!-- BEGIN GENERATED MAPPING (tools/generate_crosswalks.py) -->
 
-**Coverage: 57%** of the 111 Proof-of-Control requirements (8 exact matches, 55 partial, 48 no match), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
+**Coverage: 57%** of the 111 Proof-of-Control requirements (8 exact matches, 55 partial matches, 48 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
+
+**How to read the Match column** ([full rubric](rubric.md)): **Exact** — the framework has a clause equivalent in scope and intent. **Partial** — the framework covers the topic, but not with PoC's operator-independent evidence (or not at the same depth). **None** — the framework has no analogous provision.
 
 | PoC section | Reqs | Match | Closest framework clause(s) | Rationale |
 | --- | :---: | :---: | --- | --- |
-| [C1.1 Model and Artifact Provenance](../0.1/en/0x10-C01-Provenance.md) | 5 | 🟡 PM | CC8.1 | CC8 change management and system-component inventory identify what runs; no model digests or signed manifests |
-| [C1.2 Input and Data Lineage](../0.1/en/0x10-C01-Provenance.md) | 4 | ⚪ NM | — | Data lineage/custody chains not addressed |
-| [C1.3 Compute Substrate Provenance](../0.1/en/0x10-C01-Provenance.md) | 2 | ⚪ NM | — | Substrate attestation not addressed |
-| [C1.4 Privacy-Preserving Provenance](../0.1/en/0x10-C01-Provenance.md) | 2 | ⚪ NM | — | Privacy-preserving provenance not addressed |
-| [C2.1 Data-Access Evidence](../0.1/en/0x10-C02-Privacy.md) | 3 | 🟡 PM | CC6.1; P-series | CC6/CC7 access logging and privacy criteria cover access records; no used-vs-disclosed model |
-| [C2.2 Policy and Consent Enforcement](../0.1/en/0x10-C02-Privacy.md) | 5 | 🟡 PM | P2.1; P4.1 | Privacy criteria P-series require consent, purpose limitation and retention controls at the organizational level |
-| [C2.3 Privacy-Preserving Verification Mechanisms](../0.1/en/0x10-C02-Privacy.md) | 3 | ⚪ NM | — | Cryptographic privacy mechanisms not addressed |
-| [C2.4 Evidence Handling for Protected Data](../0.1/en/0x10-C02-Privacy.md) | 2 | 🟡 PM | P4.2–P4.3 | P4 disposal and retention criteria address deletion; no reconciliation with tamper-evident chains |
-| [C3.1 Boundary-Crossing Evidence](../0.1/en/0x10-C03-Portability.md) | 2 | ⚪ NM | — | Boundary-crossing evidence not addressed |
-| [C3.2 Cross-Environment Continuity](../0.1/en/0x10-C03-Portability.md) | 3 | ⚪ NM | — | Evidence continuity not addressed |
-| [C4.1 Authority and Scope Enforcement](../0.1/en/0x10-C04-Authorization.md) | 8 | 🟡 PM | CC6.1–CC6.3 | CC6 logical access requires authorization controls; no evidenced per-action gateway decisions |
-| [C4.2 Delegation](../0.1/en/0x10-C04-Authorization.md) | 4 | ⚪ NM | — | Delegation chains not addressed |
-| [C5.1 Agent and Principal Binding](../0.1/en/0x10-C05-Identity.md) | 4 | 🟡 PM | CC6.1–CC6.2 | CC6 identification and authentication of users/systems; no principal-to-agent binding |
-| [C5.2 Inter-Agent Identity](../0.1/en/0x10-C05-Identity.md) | 2 | ⚪ NM | — | Inter-agent identity not addressed |
-| [C6.1 Execution Environment Integrity](../0.1/en/0x10-C06-Security.md) | 4 | 🟡 PM | CC7.1–CC7.2 | CC6/CC7 operations monitoring cover control operation; attestation vs reference values not required |
-| [C6.2 Isolation and Confidential Execution](../0.1/en/0x10-C06-Security.md) | 3 | ⚪ NM | — | Isolation proof not addressed |
-| [C6.3 Cryptographic Key Lifecycle](../0.1/en/0x10-C06-Security.md) | 3 | 🟡 PM | CC6.1 | CC6.1 encryption and key management expectations; not evidence-key custody |
-| [C7.1 Generation at the Action Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 3 | ⚪ NM | — | No interception-gateway concept |
-| [C7.2 The Contemporaneous Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | 🟡 PM | CC7.2 | CC7.2 audit logging is contemporaneous; operator-produced |
-| [C7.3 The Tamper-Evident Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | 🟡 PM | CC7.2 | Log protection expectations; signatures/chains not required and operator remains trusted |
-| [C7.4 The Transparent Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 1 | ⚪ NM | — | No trust-assumption disclosure analog |
-| [C7.5 The Determinism Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | ⚪ NM | — | No determinism-boundary analog |
-| [C7.6 Evidence Custody and Resilience](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | 🟡 PM | CC7.3–CC7.5 | CC7 monitoring and incident handling cover pipeline failures; omission-detectability not addressed |
-| [C8.1 Tier Placement](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 8 | ⚪ NM | — | No verifiability grading |
-| [C8.2 Mechanism-to-Requirement Fit](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 2 | ⚪ NM | — | No mechanism-fit rule |
-| [C8.3 Chain Integrity and Self-Enforcement (Tier 4)](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 4 | ⚪ NM | — | No self-enforcement concept |
-| [C9.1 Locating Evidence on the System Surface](../0.1/en/0x10-C09-System-Surface-MAESTRO.md) | 3 | ⚪ NM | — | No stack-location requirement |
-| [C9.2 Layer Coverage](../0.1/en/0x10-C09-System-Surface-MAESTRO.md) | 3 | 🟡 PM | CC7.2 | CC7 expects logging coverage of in-scope systems; not layer-matched evidence |
-| [C10.1 Conformance Claims](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 8 | 🟣 EM | System description & management assertion | System description, boundaries, and management assertion in a SOC 2 report parallel the scoped conformance statement |
-| [C10.2 Trust-Assumption Disclosure](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 2 | 🟡 PM | Subservice organizations & CUECs | Subservice-organization and complementary-control disclosures are a partial analog to trust-assumption disclosure |
-| [C10.3 Continuously Monitored Operation](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 7 | 🟡 PM | Type II operating-effectiveness period | Type II covers a period with operating effectiveness; not per-action near-real-time validation |
+| [C1.1 Model and Artifact Provenance](../0.1/en/0x10-C01-Provenance.md) | 5 | Partial | CC8.1 | CC8 change management and system-component inventory identify what runs; no model digests or signed manifests |
+| [C1.2 Input and Data Lineage](../0.1/en/0x10-C01-Provenance.md) | 4 | None | — | Data lineage/custody chains not addressed |
+| [C1.3 Compute Substrate Provenance](../0.1/en/0x10-C01-Provenance.md) | 2 | None | — | Substrate attestation not addressed |
+| [C1.4 Privacy-Preserving Provenance](../0.1/en/0x10-C01-Provenance.md) | 2 | None | — | Privacy-preserving provenance not addressed |
+| [C2.1 Data-Access Evidence](../0.1/en/0x10-C02-Privacy.md) | 3 | Partial | CC6.1; P-series | CC6/CC7 access logging and privacy criteria cover access records; no used-vs-disclosed model |
+| [C2.2 Policy and Consent Enforcement](../0.1/en/0x10-C02-Privacy.md) | 5 | Partial | P2.1; P4.1 | Privacy criteria P-series require consent, purpose limitation and retention controls at the organizational level |
+| [C2.3 Privacy-Preserving Verification Mechanisms](../0.1/en/0x10-C02-Privacy.md) | 3 | None | — | Cryptographic privacy mechanisms not addressed |
+| [C2.4 Evidence Handling for Protected Data](../0.1/en/0x10-C02-Privacy.md) | 2 | Partial | P4.2–P4.3 | P4 disposal and retention criteria address deletion; no reconciliation with tamper-evident chains |
+| [C3.1 Boundary-Crossing Evidence](../0.1/en/0x10-C03-Portability.md) | 2 | None | — | Boundary-crossing evidence not addressed |
+| [C3.2 Cross-Environment Continuity](../0.1/en/0x10-C03-Portability.md) | 3 | None | — | Evidence continuity not addressed |
+| [C4.1 Authority and Scope Enforcement](../0.1/en/0x10-C04-Authorization.md) | 8 | Partial | CC6.1–CC6.3 | CC6 logical access requires authorization controls; no evidenced per-action gateway decisions |
+| [C4.2 Delegation](../0.1/en/0x10-C04-Authorization.md) | 4 | None | — | Delegation chains not addressed |
+| [C5.1 Agent and Principal Binding](../0.1/en/0x10-C05-Identity.md) | 4 | Partial | CC6.1–CC6.2 | CC6 identification and authentication of users/systems; no principal-to-agent binding |
+| [C5.2 Inter-Agent Identity](../0.1/en/0x10-C05-Identity.md) | 2 | None | — | Inter-agent identity not addressed |
+| [C6.1 Execution Environment Integrity](../0.1/en/0x10-C06-Security.md) | 4 | Partial | CC7.1–CC7.2 | CC6/CC7 operations monitoring cover control operation; attestation vs reference values not required |
+| [C6.2 Isolation and Confidential Execution](../0.1/en/0x10-C06-Security.md) | 3 | None | — | Isolation proof not addressed |
+| [C6.3 Cryptographic Key Lifecycle](../0.1/en/0x10-C06-Security.md) | 3 | Partial | CC6.1 | CC6.1 encryption and key management expectations; not evidence-key custody |
+| [C7.1 Generation at the Action Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 3 | None | — | No interception-gateway concept |
+| [C7.2 The Contemporaneous Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | Partial | CC7.2 | CC7.2 audit logging is contemporaneous; operator-produced |
+| [C7.3 The Tamper-Evident Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | Partial | CC7.2 | Log protection expectations; signatures/chains not required and operator remains trusted |
+| [C7.4 The Transparent Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 1 | None | — | No trust-assumption disclosure analog |
+| [C7.5 The Determinism Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | None | — | No determinism-boundary analog |
+| [C7.6 Evidence Custody and Resilience](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | Partial | CC7.3–CC7.5 | CC7 monitoring and incident handling cover pipeline failures; omission-detectability not addressed |
+| [C8.1 Tier Placement](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 8 | None | — | No verifiability grading |
+| [C8.2 Mechanism-to-Requirement Fit](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 2 | None | — | No mechanism-fit rule |
+| [C8.3 Chain Integrity and Self-Enforcement (Tier 4)](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 4 | None | — | No self-enforcement concept |
+| [C9.1 Locating Evidence on the System Surface](../0.1/en/0x10-C09-System-Surface-MAESTRO.md) | 3 | None | — | No stack-location requirement |
+| [C9.2 Layer Coverage](../0.1/en/0x10-C09-System-Surface-MAESTRO.md) | 3 | Partial | CC7.2 | CC7 expects logging coverage of in-scope systems; not layer-matched evidence |
+| [C10.1 Conformance Claims](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 8 | Exact | System description & management assertion | System description, boundaries, and management assertion in a SOC 2 report parallel the scoped conformance statement |
+| [C10.2 Trust-Assumption Disclosure](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 2 | Partial | Subservice organizations & CUECs | Subservice-organization and complementary-control disclosures are a partial analog to trust-assumption disclosure |
+| [C10.3 Continuously Monitored Operation](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 7 | Partial | Type II operating-effectiveness period | Type II covers a period with operating effectiveness; not per-action near-real-time validation |
 
 ### Gap Analysis (what this framework does not cover)
 

@@ -24,7 +24,7 @@ October 30, 2026. It is a working draft, not a final standard.
 | --- | --- |
 | Working Draft opens for public comment | August 1, 2026 |
 | Public comment window closes | October 30, 2026 |
-| Revised draft, all `⚠️ [WG-INPUT NEEDED]` items resolved | November 15, 2026 |
+| Revised draft, all `[WG-INPUT NEEDED]` items resolved | November 15, 2026 |
 | Working-group ratification and final review | December 2026 – January 2027 |
 | **Stable Version 1.0 published** | **February 1, 2027** |
 

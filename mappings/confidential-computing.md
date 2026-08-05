@@ -45,8 +45,8 @@ mechanism presence.
 
 ## Status
 
-> **📌 [INSERT]** — detail lives in the companion crosswalk tab, to be merged here.
-> **⚠️ [WG-INPUT NEEDED] — volunteer needed to develop out the crosswalk.**
+> **[INSERT]** — detail lives in the companion crosswalk tab, to be merged here.
+> **[WG-INPUT NEEDED] — volunteer needed to develop out the crosswalk.**
 > [Sign up at advancedaisociety.org](https://advancedaisociety.org/) to contribute.
 
 ---

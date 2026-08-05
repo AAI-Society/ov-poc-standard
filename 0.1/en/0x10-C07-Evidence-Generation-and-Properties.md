@@ -67,7 +67,7 @@ Enterprises, insurers, and regulators can see exactly what must still be trusted
 
 **Auditor evidence:** 7.4.1 — cross-check the disclosure against the mechanism inventory: every mechanism in [Appendix B](0x91-Appendix-B_Proof-Mechanism-Inventory.md) use has a corresponding disclosure line.
 
-> ⚠️ **[WG-INPUT NEEDED]** — a possible fifth evidence property, *continuity across boundaries*
+> **[WG-INPUT NEEDED]** — a possible fifth evidence property, *continuity across boundaries*
 > (credited to Advait Patel). See [Appendix D](0x93-Appendix-D_Open-Issues.md), issue 5.
 
 ---

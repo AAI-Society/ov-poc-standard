@@ -28,12 +28,12 @@ opens.
 | --- | --- |
 | Working Draft 1.0 opens for public comment | August 1, 2026 |
 | Public comment window (60 days) | August 1 – September 30, 2026 |
-| Revised draft, all public comment and ⚠️ [WG-INPUT NEEDED] items resolved | November 15, 2026 |
+| Revised draft, all public comment and [WG-INPUT NEEDED] items resolved | November 15, 2026 |
 | Working-group ratification and final review | December 2026 – January 2027 |
 | **Stable Version 1.0 published** | **February 1, 2027** |
 
 These are targets for a public process, firm enough to signal the pace we intend to move at, and
-the working group holds them. Open working-group decisions are marked `⚠️ [WG-INPUT NEEDED]`
+the working group holds them. Open working-group decisions are marked `[WG-INPUT NEEDED]`
 throughout the document; a commenter can find every one by searching for that tag, and resolving
 them is what the November 15 revised draft depends on. The document moves from the public-comment
 file to a public repository over the course of the process.
@@ -43,7 +43,7 @@ separate, later track. Standing up an accreditation body runs past the six-month
 standard itself, so its dates are set independently and are not part of the Version 1.0 target
 above.
 
-> ⚠️ **[WG-INPUT NEEDED]** — the schedule above is the working target, ratified by the working
+> **[WG-INPUT NEEDED]** — the schedule above is the working target, ratified by the working
 > group at kickoff. The dates for the separate Certification and assessor-body track are still to
 > be set.
 

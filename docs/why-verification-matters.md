@@ -175,7 +175,7 @@ ahead.
   </picture>
 </p>
 
-|  | Value low | Value high |
+| Value low | Value high |
 | --- | --- | --- |
 | **Risk high** | Failed deployment | Unleash: value, but unquantifiable risk |
 | **Risk low** | Constrain: safe, but can't do the job | Proof-of-Control: value up, risk down |
@@ -199,32 +199,32 @@ threat, and where the boundary of the claim sits, is the threat model in
 | Family | Threat | What it is |
 | --- | --- | --- |
 | Instruction and goal manipulation | Prompt injection / goal hijacking | Crafted input redirects the agent's objective |
-|  | Poisoned / bent goals | A clean model pursues a silently altered goal |
-|  | System prompt leakage | The agent discloses its own instructions |
+| Poisoned / bent goals | A clean model pursues a silently altered goal |
+| System prompt leakage | The agent discloses its own instructions |
 | Memory, knowledge, and supply chain | Memory & context poisoning | Contaminated memory steers future decisions |
-|  | Vector / embedding / RAG weakness | Poisoned retrieval corrupts what informs a decision |
-|  | Training-time data / model poisoning | Backdoors or bias baked in before deployment |
-|  | Poisoned supply chain / tools / MCP | Compromised tools, models, or MCP servers enter the stack |
+| Vector / embedding / RAG weakness | Poisoned retrieval corrupts what informs a decision |
+| Training-time data / model poisoning | Backdoors or bias baked in before deployment |
+| Poisoned supply chain / tools / MCP | Compromised tools, models, or MCP servers enter the stack |
 | Identity, authority, and inter-agent trust | Identity & privilege abuse / spoofing | An agent claims authority it wasn't granted |
-|  | Context-blind authorization | An in-scope call made in the wrong context |
-|  | Excessive agency / over-permission | The agent can do more than its task needs |
-|  | Insecure inter-agent communication | Forged or unauthenticated agent-to-agent messages |
+| Context-blind authorization | An in-scope call made in the wrong context |
+| Excessive agency / over-permission | The agent can do more than its task needs |
+| Insecure inter-agent communication | Forged or unauthenticated agent-to-agent messages |
 | Tools, actions, and effects | Tool misuse | A legitimate tool used for an unintended, harmful purpose |
-|  | Unexpected code execution | The agent runs code in an unintended context |
-|  | Unsafe actuation | The agent drives a device or action unsafely |
-|  | Improper output handling | Unvalidated output triggers a downstream exploit |
+| Unexpected code execution | The agent runs code in an unintended context |
+| Unsafe actuation | The agent drives a device or action unsafely |
+| Improper output handling | Unvalidated output triggers a downstream exploit |
 | Data exposure | Sensitive info / PHI exfiltration | Protected data leaves its boundary |
 | Autonomy, drift, and lifecycle | Autonomy creep | The agent's autonomy quietly expands |
-|  | Rogue agents / behavioral drift | Sustained drift into misaligned behavior |
-|  | Scope creep / lifecycle | Unreviewed change or the wrong risk classification |
+| Rogue agents / behavioral drift | Sustained drift into misaligned behavior |
+| Scope creep / lifecycle | Unreviewed change or the wrong risk classification |
 | Record integrity and resilience | Audit tampering | A compromised host rewrites the record |
-|  | Cascading failures / fail-open | One failure propagates, or the system defaults to allow |
-|  | Coverage decay / resilience | Defenses pass once, then rot |
+| Cascading failures / fail-open | One failure propagates, or the system defaults to allow |
+| Coverage decay / resilience | Defenses pass once, then rot |
 | Human oversight and disclosure | Human-agent trust exploitation / approval fatigue | The agent games human oversight |
-|  | Undisclosed AI / consent | The agent acts with no disclosure or consent |
+| Undisclosed AI / consent | The agent acts with no disclosure or consent |
 | Output quality and availability | Misinformation / hallucination | Confident, wrong output |
-|  | Hidden bias | Bias buried in the agent's decisions |
-|  | Unbounded consumption / DoS | Runaway resource use or cost |
+| Hidden bias | Bias buried in the agent's decisions |
+| Unbounded consumption / DoS | Runaway resource use or cost |
 
 ## It Is the Deployment, Not Just the Model
 

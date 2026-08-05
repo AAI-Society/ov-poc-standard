@@ -4,7 +4,7 @@
 
 Grade every piece of evidence by how independently it can be verified — that is, how much you must trust to believe it — and draw the yes-or-no line that makes the category procurable. Verifiability is a four-tier scale, not a spectrum and not a maturity model. A system has Proof-of-Control when, and only when, its evidence reaches Tier 3 or Tier 4.
 
-> **✍️ [DRAFT] — actively in progress.** This chapter is being worked on with the working group.
+> **[DRAFT] — actively in progress.** This chapter is being worked on with the working group.
 
 <p align="center">
   <picture>
@@ -15,7 +15,7 @@ Grade every piece of evidence by how independently it can be verified — that i
 
 ## The Four Tiers
 
-|  | **Assertion — Tier 1** | **Attestation — Tier 2** | **Independently verifiable — Tier 3** | **Self-enforcing — Tier 4** |
+| **Assertion — Tier 1** | **Attestation — Tier 2** | **Independently verifiable — Tier 3** | **Self-enforcing — Tier 4** |
 | --- | --- | --- | --- | --- |
 | **Proof-of-Control?** | No | No | **Yes** | **Yes** |
 | **Who you must trust** | The operator | A third party, or the root-keeper | The cryptographic mechanism (mathematical or distributed assumptions) | The network protocol or continuous mathematical constraints |
@@ -76,7 +76,7 @@ Tier 4 is where verification is continuous and built into operation: the system 
 
 **Auditor evidence:** 8.3.1–8.3.2 — the interaction inventory; sample two interactions and validate their evidence tier. 8.3.3 — the halt test record; re-run it. 8.3.4 — the availability analysis and the recovery-exercise report.
 
-> ⚠️ **[WG-INPUT NEEDED]** — the binary threshold is the standard's most consequential definition
+> **[WG-INPUT NEEDED]** — the binary threshold is the standard's most consequential definition
 > and its most-scrutinized point; the working group must ratify it with dedicated cryptography
 > and blockchain review, including impossibility results being formalized by researchers
 > coordinated by Hart Montgomery (CTO, Linux Foundation Decentralized Trust). See

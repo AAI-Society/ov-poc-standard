@@ -7,12 +7,12 @@ other. See [Section 5](../0.1/en/0x10-C09-System-Surface-MAESTRO.md) (Crosswalks
 
 ## Status
 
-> **✍️ [DRAFT]** — By the working group's decision, the CSA AI Controls Matrix (AICM) crosswalk
+> **[DRAFT]** — By the working group's decision, the CSA AI Controls Matrix (AICM) crosswalk
 > from Ken Huang's framework is maintained as a separate crosswalk document (this file) and
 > referenced from Section 8, keeping the standard's body readable while preserving the full
 > mapping. The detailed control-by-control crosswalk is being merged in.
 >
-> **⚠️ [WG-INPUT NEEDED] — volunteer needed to develop out the crosswalk.**
+> **[WG-INPUT NEEDED] — volunteer needed to develop out the crosswalk.**
 > [Sign up at advancedaisociety.org](https://advancedaisociety.org/) to contribute.
 
 ## The Shape of the Mapping

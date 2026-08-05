@@ -59,7 +59,7 @@ Disclosure operationalizes the [Transparent property](0x10-C07-Evidence-Generati
 
 **Auditor evidence:** 10.2.1 — reconcile the disclosure against the mechanism list; any mechanism without a disclosure line is a finding. 10.2.2 — category tags present and drawn from the defined set.
 
-> ⚠️ **[WG-INPUT NEEDED]** — the standardized disclosure format itself is not yet defined; the
+> **[WG-INPUT NEEDED]** — the standardized disclosure format itself is not yet defined; the
 > working group must fix a finite set of trust-assumption categories. See
 > [Appendix D](0x93-Appendix-D_Open-Issues.md), issue 7.
 
@@ -81,7 +81,7 @@ An agent is not something you certify once: a point-in-time check cannot cover a
 
 **Auditor evidence:** 10.3.1 — chain-verification results for the store. 10.3.2 — run the count reconciliation yourself over a sample window. 10.3.3 — validator configuration and result logs. 10.3.4 — alert records with acknowledgment timestamps. 10.3.5 — the most recent re-assessment report. 10.3.6 — the coverage metric's definition, computation job, and published values. 10.3.7 — the validator's structured-trace evaluation report (e.g., against a trajectory benchmark), including parsing-accuracy metrics on corrupted tool-call sequences.
 
-> ⚠️ **[WG-INPUT NEEDED]** — the operational requirements for the Continuously Monitored stage
+> **[WG-INPUT NEEDED]** — the operational requirements for the Continuously Monitored stage
 > (minimum cadence, automated versus human validation, incident response and suspension) are not
 > yet defined. See [Appendix D](0x93-Appendix-D_Open-Issues.md), issue 8.
 

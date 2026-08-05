@@ -1,6 +1,6 @@
 # Appendix D: Open Working-Group Issues (not yet normative)
 
-The questions below are under active working-group discussion. They are recorded here so the draft reflects the live debate, and they carry no normative force until resolved. Every open decision in the standard is marked `⚠️ [WG-INPUT NEEDED]` and points here. **To weigh in, join a working group at [advancedaisociety.org](https://advancedaisociety.org/).**
+The questions below are under active working-group discussion. They are recorded here so the draft reflects the live debate, and they carry no normative force until resolved. Every open decision in the standard is marked `[WG-INPUT NEEDED]` and points here. **To weigh in, join a working group at [advancedaisociety.org](https://advancedaisociety.org/).**
 
 ## Issue 1 — Identity and Authorization Overlap
 

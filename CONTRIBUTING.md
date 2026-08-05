@@ -13,7 +13,7 @@ working-group consensus, and stewarded by the
    October 30, 2026). The working group reviews every comment and publishes a disposition:
    accepted, rejected with rationale, or deferred.
 2. **Weigh in on open decisions.** Open working-group decisions are marked
-   `⚠️ [WG-INPUT NEEDED]` throughout the standard — search for that tag to find every one. Those
+   `[WG-INPUT NEEDED]` throughout the standard — search for that tag to find every one. Those
    are the questions the working group most needs input on.
 3. **Join a working group.** There are six domain working groups (Provenance, Privacy,
    Portability, Authorization, Identity, Security), plus an insurance working group where
@@ -38,8 +38,8 @@ working-group consensus, and stewarded by the
 
 ## Editorial Conventions
 
-* `⚠️ [WG-INPUT NEEDED]` marks an open working-group issue; `✍️ [DRAFT]` marks a section still
-  being written; `📌 [INSERT]` marks a pending merge from a companion document.
+* `[WG-INPUT NEEDED]` marks an open working-group issue; `[DRAFT]` marks a section still
+  being written; `[INSERT]` marks a pending merge from a companion document.
 * **Naming discipline:** *Tier* grades the evidence (1–4); *Level* grades the requirements
   (1–4, aligned to the Tiers); *Stage* grades the audit of the claim (named, never numbered);
   *Layer* locates the evidence in the stack (MAESTRO 1–7); *Phase* tracks an adopter's rollout

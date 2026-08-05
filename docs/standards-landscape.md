@@ -4,7 +4,7 @@
 classified by domain and still in progress: the AARM and CSA complementary halves, plus NIST AI
 RMF, ISO/IEC 42001, SOC 2, OWASP, the EU AI Act, and others, cross-referenced, not replaced.*
 
-> **✍️ [DRAFT] — mapping in progress.** The working group has begun mapping how Proof-of-Control
+> **[DRAFT] — mapping in progress.** The working group has begun mapping how Proof-of-Control
 > relates to existing standards and efforts, and that work is ongoing. This section holds the
 > current state; the full mapping will be inserted as it matures. Per-framework crosswalks live
 > in the repository's [`mappings/`](../mappings/README.md) directory.
@@ -98,8 +98,8 @@ defined control boundaries, and can anyone verify?" The two are complementary: P
 is SOC-2-grade in role, with a cryptographic Stage SOC 2 never had, and an insurer or buyer can
 require it the way they already require SOC 2 or ISO 27001. It does not replace SOC 2; it fills
 a gap SOC 2 was not designed to address for AI agents. See the
-[SOC 2 crosswalk](../mappings/soc-2.md). **📌 [INSERT]**
-**⚠️ [WG-INPUT NEEDED] Volunteer needed to develop out the crosswalk.**
+[SOC 2 crosswalk](../mappings/soc-2.md). **[INSERT]**
+**[WG-INPUT NEEDED] Volunteer needed to develop out the crosswalk.**
 
 ## The AARM Complementary Mapping: Enforcement and Evidence
 
@@ -110,7 +110,7 @@ did. Enforcement and evidence are complementary halves of agentic assurance, des
 and Proof-of-Control is not a competing runtime layer. See the
 [AARM crosswalk](../mappings/csa-aarm.md).
 
-|  | AARM (runtime enforcement) | Proof-of-Control (independent evidence) |
+| AARM (runtime enforcement) | Proof-of-Control (independent evidence) |
 | --- | --- | --- |
 | Question | What may the agent do at the action boundary? | What did the agent actually do, and can anyone verify it? |
 | When | At execution, before the action | At execution, producing evidence of the action |
@@ -138,7 +138,7 @@ write-ups describe data leaving through a permitted path, where the preventive c
 nothing anomalous to catch. Enforcing control at runtime and showing, independently, that control
 held afterward are different jobs, and the second is the gap the evidence layer closes.
 
-|  | Anthropic Zero Trust for AI Agents | Proof-of-Control |
+| Anthropic Zero Trust for AI Agents | Proof-of-Control |
 | --- | --- | --- |
 | What is it? | A vendor-published security framework for deploying agents (May 2026) | A standard and technical foundation for independently verifiable evidence of what AI systems did |
 | What it answers | "Did we set the controls correctly?" | "Can an outside party verify the controls were honored?" |
@@ -146,7 +146,7 @@ held afterward are different jobs, and the second is the gap the evidence layer 
 | Scope | Agent deployments | System-wide, not model-only |
 | Certifiable? | No; explicitly guidance, not assurance | Yes; the standard, plus forthcoming independent certification |
 
-**⚠️ [WG-INPUT NEEDED] Volunteer needed to develop out the crosswalk.**
+**[WG-INPUT NEEDED] Volunteer needed to develop out the crosswalk.**
 
 ## How This Differs from Confidential Computing
 
@@ -158,8 +158,8 @@ cover Identity, Portability, Authorization, or the full record of what the agent
 carries no conformance framework. Confidential Computing is to Proof-of-Control what a deadbolt
 is to a home-security standard: real and worth having, but not the system. Complementary, not
 competitive; the Confidential Computing Consortium is a natural partner. See the
-[Confidential Computing crosswalk](../mappings/confidential-computing.md). **📌 [INSERT]**
-**⚠️ [WG-INPUT NEEDED] Volunteer needed to develop out the crosswalk.**
+[Confidential Computing crosswalk](../mappings/confidential-computing.md). **[INSERT]**
+**[WG-INPUT NEEDED] Volunteer needed to develop out the crosswalk.**
 
 ## MAESTRO in the Mapping
 
@@ -167,7 +167,7 @@ MAESTRO (CSA) is adopted as the System surface in [Section 5](../0.1/en/0x10-C09
 the mapping it is both the framework we build on for locating evidence in the stack and part of
 CSA's broader agentic-security work, alongside the AI Controls Matrix and AARM, to which
 Proof-of-Control is complementary: control objectives and enforcement on one side, independent
-evidence on the other. See the [MAESTRO crosswalk](../mappings/maestro.md). **📌 [INSERT]**
+evidence on the other. See the [MAESTRO crosswalk](../mappings/maestro.md). **[INSERT]**
 
 ## The Efforts Being Mapped
 
@@ -180,7 +180,7 @@ CSA Vanta Agent Trust Controls, and the Agent Resource Discovery Specification. 
 real need; Proof-of-Control cross-references them rather than competing. The per-framework
 crosswalks are maintained in [`mappings/`](../mappings/README.md).
 
-> ⚠️ **[WG-INPUT NEEDED]** — whether David Thomson's graph view complements or replaces the
+> **[WG-INPUT NEEDED]** — whether David Thomson's graph view complements or replaces the
 > by-domain table above, once ready.
 
 ---

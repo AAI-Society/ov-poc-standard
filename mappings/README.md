@@ -27,7 +27,7 @@ python3 mappings/compute_coverage.py --svg    # regenerate the coverage chart
 
 ## Coverage Results
 
-> ⚠️ **[WG-INPUT NEEDED] — draft seed coding** (single coder, section-granularity, unvalidated;
+> **[WG-INPUT NEEDED] — draft seed coding** (single coder, section-granularity, unvalidated;
 > see [rubric.md](rubric.md#coding-status)). Numbers will move as the working group ratifies
 > row-level codings.
 
@@ -38,7 +38,19 @@ python3 mappings/compute_coverage.py --svg    # regenerate the coverage chart
   </picture>
 </p>
 
-| Framework | EM | PM | NM | Coverage | Qualitative crosswalk |
+Each of the 111 requirements is coded against each framework with one of three **match types**
+(defined in the [rubric](rubric.md)):
+
+* **EM · Exact Match** — the framework has a clause equivalent in scope and intent.
+* **PM · Partial Match** — the framework covers the same topic, but not at the same depth —
+  most often because it requires the *control* without requiring operator-independent
+  *evidence* that the control held.
+* **NM · No Match** — the framework has no analogous provision.
+
+**Coverage = (EM + PM) ÷ 111.** Only exact and partial matches count toward coverage; the NM
+column is the gap only Proof-of-Control fills.
+
+| Framework | Exact (EM) | Partial (PM) | None (NM) | Coverage | Qualitative crosswalk |
 | --- | :---: | :---: | :---: | :---: | --- |
 | NIST AI RMF | 0 | 71 | 40 | **64%** | [nist-ai-rmf.md](nist-ai-rmf.md) |
 | ISO/IEC 42001 | 8 | 60 | 43 | **61%** | [iso-iec-42001.md](iso-iec-42001.md) |
@@ -102,7 +114,7 @@ being developed as a graph (led by David Thomson of Tesseract):
 * **Extend the corpus:** code a pending framework (AIUC-1, CSA AICM, OWASP Agentic Top 10,
   IEEE 7000-series, HAARF) end-to-end.
 * **Improve a crosswalk:** several qualitative crosswalks are marked
-  **⚠️ [WG-INPUT NEEDED] — volunteer needed**.
+  **[WG-INPUT NEEDED] — volunteer needed**.
 
 To take any of these on, join a working group:
 **[advancedaisociety.org](https://advancedaisociety.org/)**.

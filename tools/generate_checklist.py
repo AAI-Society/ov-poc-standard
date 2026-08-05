@@ -21,10 +21,10 @@ OUT_MD = SPEC / "0x94-Appendix-E_Audit-Checklist.md"
 OUT_DIR = ROOT / "checklist"
 
 LEVEL_META = {
-    "1": ("🗣️", "Recorded"),
-    "2": ("📋", "Attested"),
-    "3": ("🔍", "Independently Verifiable"),
-    "4": ("🔒", "Self-Enforcing / Continuous"),
+    "1": ("", "Recorded"),
+    "2": ("", "Attested"),
+    "3": ("", "Independently Verifiable"),
+    "4": ("", "Self-Enforcing / Continuous"),
 }
 
 ROW_RE = re.compile(r"^\| \*\*(\d+\.\d+\.\d+)\*\* \| (.+) \| (\d) \|\s*$")
@@ -84,11 +84,11 @@ def write_markdown(chapters):
         " ([Using Proof-of-Control](0x03-Using-Proof-of-Control.md)).",
         "",
         "**Level key:** "
-        + " · ".join(f"L{lvl} {icon} {name}" for lvl, (icon, name) in LEVEL_META.items()),
+        + " · ".join(f"L{lvl} {name}" for lvl, (icon, name) in LEVEL_META.items()),
         "",
         "## Coverage Matrix",
         "",
-        "| Chapter | " + " | ".join(f"L{lvl} {LEVEL_META[lvl][0]}" for lvl in LEVEL_META)
+        "| Chapter | " + " | ".join(f"L{lvl}" for lvl in LEVEL_META)
         + " | Total |",
         "| --- | " + " | ".join(":---:" for _ in range(5)) + " |",
     ]
@@ -129,8 +129,7 @@ def write_markdown(chapters):
             if r["section"] != current_section:
                 current_section = r["section"]
                 lines += [f"### {r['section']} {r['section_title']}", ""]
-            icon = LEVEL_META[str(r["level"])][0]
-            lines.append(f"- [ ] **{r['id']}** `L{r['level']}` {icon} — {r['text_md']}")
+            lines.append(f"- [ ] **{r['id']}** `L{r['level']}` — {r['text_md']}")
         lines.append("")
         lines.append(f"*Auditor evidence for these items: see [{chapter_id}]({fname}).*")
         lines.append("")

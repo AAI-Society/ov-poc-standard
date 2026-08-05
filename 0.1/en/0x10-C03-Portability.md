@@ -33,7 +33,7 @@ Evidence must survive the migration it describes.
 
 **Auditor evidence:** 3.2.1 — validate one pre-migration evidence artifact today, using only published materials. 3.2.2 — walk one source→destination chain link as an outsider. 3.2.3 — the jurisdiction disclosure matrix and one transformed-artifact example.
 
-> ⚠️ **[WG-INPUT NEEDED]** — whether an unbroken cryptographic evidence chain across attestation
+> **[WG-INPUT NEEDED]** — whether an unbroken cryptographic evidence chain across attestation
 > domains belongs in this domain, as a fifth evidence property, or as a domain of its own; and
 > whether evidence continuity includes evidence *disclosure* continuity. See
 > [Appendix D](0x93-Appendix-D_Open-Issues.md), issue 3.

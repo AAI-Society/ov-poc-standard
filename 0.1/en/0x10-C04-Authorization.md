@@ -40,7 +40,7 @@ Delegation validity is a verifiable fact; escalation through the chain must be p
 
 **Auditor evidence:** 4.2.1 — token-validation logs, including an expired/invalid-token rejection. 4.2.2 — walk one delegation chain's signatures to the principal. 4.2.3 — issuance code/config showing scope intersection; a rejected escalation attempt in test. 4.2.4 — validate one delegation proof using the published verifier.
 
-> ⚠️ **[WG-INPUT NEEDED]** — whether identity-binding is owned by the Identity domain or by
+> **[WG-INPUT NEEDED]** — whether identity-binding is owned by the Identity domain or by
 > Authorization with Identity as an input (working-group lean: Authorization owns it, Identity as
 > an input). See [Appendix D](0x93-Appendix-D_Open-Issues.md), issue 1.
 

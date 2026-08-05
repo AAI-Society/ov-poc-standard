@@ -39,9 +39,9 @@ The standard grades three different things, and each has its own word — an unq
 
 ## How Unfinished Items Are Marked
 
-* `⚠️ [WG-INPUT NEEDED]` — an open working-group decision; every one is collected in [Appendix D](0x93-Appendix-D_Open-Issues.md).
-* `✍️ [DRAFT]` — a section still being written.
-* `📌 [INSERT]` — a pending merge from a companion document.
+* `[WG-INPUT NEEDED]` — an open working-group decision; every one is collected in [Appendix D](0x93-Appendix-D_Open-Issues.md).
+* `[DRAFT]` — a section still being written.
+* `[INSERT]` — a pending merge from a companion document.
 
 This is Working Draft v0.1.4, open for public comment until October 30, 2026. It will change based on member input, working-group deliberation, public comment, and implementation experience.
 

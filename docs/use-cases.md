@@ -4,7 +4,7 @@
 exercise the six domains, the Verifiability Tiers, and the System surface against real
 deployments.*
 
-> **✍️ [DRAFT] — to be developed by the working group.** This section will hold worked examples
+> **[DRAFT] — to be developed by the working group.** This section will hold worked examples
 > that exercise the six domains ([Section 4](../0.1/en/0x92-Appendix-C_Threat-Model.md)), the System
 > surface ([Section 5](../0.1/en/0x10-C09-System-Surface-MAESTRO.md)), and the Verifiability Tiers
 > ([Section 6](../0.1/en/0x10-C08-Verifiability-Tiers.md)) against real agent deployments, so a reader
