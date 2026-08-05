@@ -28,6 +28,19 @@ Organizations should select a target level based on the risk profile of the agen
 
 ## Making Your First Proof-of-Control Claim
 
+```mermaid
+flowchart LR
+    S1["1️⃣ Choose<br/>domains<br/><i>C1&#8211;C6</i>"]
+    S2["2️⃣ Locate on<br/>the stack<br/><i>C9</i>"]
+    S3["3️⃣ Choose<br/>mechanisms<br/><i>App. B</i>"]
+    S4["4️⃣ Meet the four<br/>properties<br/><i>C7</i>"]
+    S5["5️⃣ Grade on<br/>the Tiers<br/><i>C8</i>"]
+    S6["6️⃣ Disclose trust<br/>assumptions<br/><i>C10.2</i>"]
+    S7["7️⃣ Publish the<br/>statement<br/><i>C10.1</i>"]
+    S1 --> S2 --> S3 --> S4 --> S5 --> S6 --> S7
+    style S7 fill:#d1e7dd,stroke:#5cb85c,color:#0a3622
+```
+
 1. **Choose your domains:** decide which of the six domains ([C1](0x10-C01-Provenance.md)–[C6](0x10-C06-Security.md)) you make claims in. You may claim a subset. For each domain you claim, you produce evidence for the verifiable facts you assert.
 2. **Locate where the evidence is produced:** map each claim to the agent stack using the System surface and its MAESTRO layers ([C9](0x10-C09-System-Surface-MAESTRO.md)).
 3. **Choose the mechanisms:** select the proof mechanisms that generate the evidence ([Appendix B](0x91-Appendix-B_Proof-Mechanism-Inventory.md)). Match the mechanism to the evidentiary requirement ([C8.2](0x10-C08-Verifiability-Tiers.md)): a mechanism that proves an artifact's integrity at signing time proves nothing about its behavior at runtime.

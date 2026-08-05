@@ -4,6 +4,19 @@
 
 Grade how thoroughly a claim of meeting this standard was checked, and make residual trust visible and comparable. Conformance is a separate axis from the Verifiability Tiers: the [binary threshold](0x10-C08-Verifiability-Tiers.md) decides whether a system is Proof-of-Control-conformant at all; the conformance stages grade how that conformance was established, and by whom.
 
+```mermaid
+flowchart LR
+    SD["🖊️ Self-Declared<br/>operator publishes a<br/>standardized statement<br/><i>C10.1</i>"]
+    TPA["🕵️ Third-Party Assessed<br/>accredited assessor examines<br/>and confirms conformance"]
+    CM["📡 Continuously Monitored<br/>every in-scope action validated<br/>as it occurs<br/><i>C10.3</i>"]
+    SD --> TPA --> CM
+    D["📜 Trust-assumption disclosure — C10.2<br/>required at every stage"]
+    D -.-> SD
+    D -.-> TPA
+    D -.-> CM
+    style D fill:#fff3cd,stroke:#f0ad4e,color:#664d03
+```
+
 There are three conformance stages. They are named, never numbered:
 
 | Stage | Who checks | Peer certifications at a comparable bar |
