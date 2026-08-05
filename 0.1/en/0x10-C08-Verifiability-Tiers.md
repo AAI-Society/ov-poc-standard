@@ -45,14 +45,16 @@ The tier is set by how much you must trust, not by whether cryptography is used.
 
 | # | Description | Level |
 | :--------: | ------------------------------------------------------------------------------------------------------------------- | :---: |
-| **8.1.1** | **Verify that** every claim is placed on the Verifiability Tiers (1 to 4). | 1 |
-| **8.1.2** | **Verify that** tier placement is determined by how much trust is required, not by whether cryptography is used. | 1 |
-| **8.1.3** | **Verify that** cryptographic records whose integrity depends on trusting a single party (operator-signed logs, single-party trusted setups, vendor-rooted attestations, centralized Merkle trees, permissioned ledgers) are graded no higher than Tier 2. | 1 |
-| **8.1.4** | **Verify that** Proof-of-Control is claimed only when the evidence reaches Tier 3 or Tier 4 (the binary threshold). | 1 |
-| **8.1.5** | **Verify that** Tier 3 and Tier 4 evidence is verifiable by parties other than the operator, without privileged access. | 1 |
-| **8.1.6** | **Verify that** evidence that is independently verifiable but only checkable after the fact — a transparency log with independent monitors, an on-demand ZK proof the system can run without producing — is graded Tier 3, not Tier 4. | 1 |
-| **8.1.7** | **Verify that** evidence relying on a vendor-rooted attestation service (e.g., a chip vendor's TEE attestation) is either graded Tier 2, or composed with independent anchoring (e.g., a public transparency log with independent monitors) to support a Tier 3 claim — with the residual vendor trust assumption disclosed in either case. | 1 |
-| **8.1.8** | **Verify that** the verification method and the tooling needed to check the evidence are publicly documented and available, so that verification requires no privileged access and no agreement with the operator. | 1 |
+| **8.1.1** | **Verify that** the claim register records an assigned Tier (1–4) for every claim, with no unassigned entries. | 1 |
+| **8.1.2** | **Verify that** each claim's register entry includes a written trust analysis naming every party that must be trusted for the evidence to hold (operator, signer, CA, chip vendor, ceremony participants), and that the assigned Tier is consistent with that list — any single trusted party caps the claim at Tier 2. | 1 |
+| **8.1.3** | **Verify that** claims whose trust analysis names a single trusted party — operator-signed logs, single-party trusted setups, vendor-rooted attestations, centralized Merkle trees, permissioned ledgers — are registered at Tier 2 or below. | 1 |
+| **8.1.4** | **Verify that** the words "Proof-of-Control" appear in the conformance statement and marketing claims only for claims registered at Tier 3 or 4, confirmed by the documented claims review. | 1 |
+| **8.1.5** | **Verify that** for each Tier 3+ claim, an external party can obtain the evidence and complete verification using only published materials — demonstrated by a recorded verification run performed without operator credentials. | 3 |
+| **8.1.6** | **Verify that** claims whose evidence is checkable only after the fact — transparency logs with independent monitors, on-demand proofs the system can run without producing — are registered at Tier 3, and Tier 4 is registered only where verification gates operation. | 1 |
+| **8.1.7** | **Verify that** claims resting on a vendor-rooted attestation service are either registered at Tier 2, or composed with independent anchoring (e.g., attestation reports committed to a public transparency log with independent monitors) before being registered at Tier 3 — with the vendor trust assumption on the disclosure in both cases. | 3 |
+| **8.1.8** | **Verify that** the verification procedure and tooling for each Tier 3+ claim are published (public repository or equivalent), versioned, and usable without an NDA, license negotiation, or operator-issued credentials. | 3 |
+
+**Auditor evidence:** 8.1.1–8.1.3 — the claim register; recompute the tier for three sampled claims from their trust analyses. 8.1.4 — claims-review sign-off vs. current public claim text. 8.1.5 — the recorded independent verification run; repeat it yourself. 8.1.6 — register entries for after-the-fact mechanisms. 8.1.7 — anchoring configuration and a validated anchor proof. 8.1.8 — locate, install, and run the published verifier as an outsider.
 
 ---
 
@@ -62,8 +64,10 @@ The rule that prevents conformance gaming: conformance judges mechanism-to-requi
 
 | # | Description | Level |
 | :--------: | ------------------------------------------------------------------------------------------------------------------- | :---: |
-| **8.2.1** | **Verify that** each claimed control's evidence actually enforces the domain it is offered for; a control cannot satisfy a domain it does not enforce (an encryption control does not satisfy the Identity domain). | 1 |
-| **8.2.2** | **Verify that** mechanism selection matches the control's evidentiary requirement: integrity of an artifact at signing time is not offered as evidence of behavior at runtime, and a TEE attestation of the environment is not offered as evidence about the model weights loaded into it. | 1 |
+| **8.2.1** | **Verify that** the claim register maps each claimed control to its mechanism and to the specific verifiable fact it evidences, using the mechanism's "what it proves" scope from [Appendix B](0x91-Appendix-B_Proof-Mechanism-Inventory.md) — and that no mapping pairs a mechanism with a domain outside that scope (e.g., an encryption control offered for the Identity domain). | 1 |
+| **8.2.2** | **Verify that** the mapping distinguishes signing-time claims from runtime claims: no artifact-integrity mechanism (signature at rest) is mapped to a runtime-behavior fact, and no environment attestation is mapped to a claim about the model weights loaded into it. | 1 |
+
+**Auditor evidence:** 8.2.1 — the control→mechanism→fact mapping; check three rows against Appendix B scopes. 8.2.2 — search the mapping for signing-time mechanisms attached to runtime facts.
 
 ---
 
@@ -73,10 +77,12 @@ Tier 4 is where verification is continuous and built into operation: the system 
 
 | # | Description | Level |
 | :--------: | ------------------------------------------------------------------------------------------------------------------- | :---: |
-| **8.3.1** | **Verify that** where a use case requires Tier 4, every system in the interaction chain attests up to Tier 4 for the interactions they share. | 3 |
-| **8.3.2** | **Verify that** components operating at a lower tier internally preserve the integrity of the Tier-4 interactions they participate in. | 3 |
-| **8.3.3** | **Verify that** at Tier 4, the system cannot operate unless its integrity holds (self-enforcing execution). | 3 |
-| **8.3.4** | **Verify that** the availability dependency created by self-enforcing verification — the system halting when proofs cannot be produced — is assessed, and that the fail-closed behavior and its operational impact are documented in the claim. | 3 |
+| **8.3.1** | **Verify that** where a use case is designated Tier 4, an interaction inventory lists every system in the chain, and each listed system's shared interactions carry Tier 4 evidence — confirmed per interaction, not per system. | 4 |
+| **8.3.2** | **Verify that** components operating internally below Tier 4 interact with the chain only through interfaces that produce Tier 4 evidence, per the interaction inventory. | 4 |
+| **8.3.3** | **Verify that** operation is mechanically gated on proof validity: in test, invalidating the proof chain (or withholding a required proof) halts the system's in-scope actions. | 4 |
+| **8.3.4** | **Verify that** the claim documents the availability impact of proof-gated operation — expected halt conditions, recovery procedure, and maximum tolerable outage — and that the recovery procedure has been exercised. | 4 |
+
+**Auditor evidence:** 8.3.1–8.3.2 — the interaction inventory; sample two interactions and validate their evidence tier. 8.3.3 — the halt test record; re-run it. 8.3.4 — the availability analysis and the recovery-exercise report.
 
 > ⚠️ **[WG-INPUT NEEDED]** — the binary threshold is the standard's most consequential definition
 > and its most-scrutinized point; the working group must ratify it with dedicated cryptography

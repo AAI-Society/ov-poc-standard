@@ -35,13 +35,15 @@ An implementation may make claims in a subset of the six domains; for each domai
 
 | # | Description | Level |
 | :--------: | ------------------------------------------------------------------------------------------------------------------- | :---: |
-| **10.1.1** | **Verify that** every conformance claim states its stage: Self-Declared, Third-Party Assessed, or Continuously Monitored. | 1 |
-| **10.1.2** | **Verify that** the implementation declares which of the six domains it makes claims in. | 1 |
-| **10.1.3** | **Verify that** evidence is produced for each verifiable fact claimed. | 1 |
-| **10.1.4** | **Verify that** the conformance statement includes: the system identified; the domains claimed; for each claim, the evidence properties met and the Tier reached; the mechanisms that produce the evidence; and the trust-assumption disclosure. | 1 |
-| **10.1.5** | **Verify that** conformance claims reference the specific version of this standard they are made against. | 1 |
-| **10.1.6** | **Verify that** the conformance statement defines the system boundary and the classes of in-scope agent actions, and enumerates excluded action classes with rationale — so a narrow claim cannot present itself as a broad one. | 1 |
-| **10.1.7** | **Verify that** the claim and its evidence are available in a documented, machine-readable format, so that claims are comparable across implementations by assessors, insurers, and regulators. | 2 |
+| **10.1.1** | **Verify that** the published conformance statement names its stage — Self-Declared, Third-Party Assessed, or Continuously Monitored — and, for the latter two, identifies the assessor or monitoring regime. | 1 |
+| **10.1.2** | **Verify that** the statement lists the domains claimed (of C1–C6), and that domains not listed appear nowhere in the operator's Proof-of-Control marketing for the system. | 1 |
+| **10.1.3** | **Verify that** every verifiable fact asserted in the statement resolves to at least one evidence stream in the claim register — no asserted fact without a register entry. | 1 |
+| **10.1.4** | **Verify that** the statement contains all required fields: system identification (name, version, environment); domains claimed; per-claim evidence properties met and Tier reached; mechanisms used; and the trust-assumption disclosure. | 1 |
+| **10.1.5** | **Verify that** the statement cites the exact version of this standard (e.g., v0.1) and the date of the claim. | 1 |
+| **10.1.6** | **Verify that** the statement defines the system boundary (components, environments, interfaces in scope) and the classes of in-scope agent actions, and enumerates excluded action classes with a stated rationale for each exclusion. | 1 |
+| **10.1.7** | **Verify that** the statement and its per-claim data are published in a documented, machine-readable format (schema available), so assessors and insurers can compare claims across implementations programmatically. | 2 |
+
+**Auditor evidence:** 10.1.1–10.1.5 — the published statement checked field-by-field against the template; sample three asserted facts into the claim register. 10.1.6 — the boundary/scope section; test one excluded action class against the deployed system to confirm the exclusion is real, not evasive. 10.1.7 — retrieve the machine-readable statement and validate it against its schema.
 
 ---
 
@@ -57,8 +59,10 @@ Disclosure operationalizes the [Transparent property](0x10-C07-Evidence-Generati
 
 | # | Description | Level |
 | :--------: | ------------------------------------------------------------------------------------------------------------------- | :---: |
-| **10.2.1** | **Verify that** residual trust assumptions — mathematical, hardware, or distributed — are disclosed in the standardized format. | 1 |
-| **10.2.2** | **Verify that** disclosures use the defined trust-assumption categories (draft set: Hardware, Mathematical, Ceremony, Vendor, Implementation, Distributed) so they are comparable across implementations. | 2 |
+| **10.2.1** | **Verify that** the disclosure lists, per claim, each residual trust assumption with the assumption's subject (named vendor, hardware element, mathematical assumption, or ceremony) — matched one-to-one against the mechanisms in the claim register. | 1 |
+| **10.2.2** | **Verify that** each disclosed assumption is tagged with one of the defined categories (draft set: Hardware, Mathematical, Ceremony, Vendor, Implementation, Distributed), so disclosures are machine-comparable across implementations. | 2 |
+
+**Auditor evidence:** 10.2.1 — reconcile the disclosure against the mechanism list; any mechanism without a disclosure line is a finding. 10.2.2 — category tags present and drawn from the defined set.
 
 > ⚠️ **[WG-INPUT NEEDED]** — the standardized disclosure format itself is not yet defined; the
 > working group must fix a finite set of trust-assumption categories. See
@@ -72,12 +76,14 @@ An agent is not something you certify once: a point-in-time check cannot cover a
 
 | # | Description | Level |
 | :--------: | ------------------------------------------------------------------------------------------------------------------- | :---: |
-| **10.3.1** | **Verify that** evidence is retained in a tamper-evident store. | 2 |
-| **10.3.2** | **Verify that** evidence is generated for every in-scope action as it occurs, rather than by sampling. | 3 |
-| **10.3.3** | **Verify that** evidence is validated automatically against the claimed Verifiability Tier in near-real-time. | 3 |
-| **10.3.4** | **Verify that** validation failures and coverage gaps raise alerts within a bounded window. | 3 |
-| **10.3.5** | **Verify that** the monitoring itself undergoes periodic third-party re-assessment (for example, annually). | 3 |
-| **10.3.6** | **Verify that** proof coverage — the fraction of in-scope actions with valid evidence at the claimed Tier — is measured and disclosed, so coverage decay is visible rather than silent. | 2 |
+| **10.3.1** | **Verify that** evidence is retained in a store meeting the tamper-evident requirements of [C7.3](0x10-C07-Evidence-Generation-and-Properties.md), with the store's chain-verification results available to the assessor. | 2 |
+| **10.3.2** | **Verify that** evidence generation covers every in-scope action rather than a sample — demonstrated by reconciling gateway action counts against evidence-record counts over an audit window, with zero unexplained difference. | 4 |
+| **10.3.3** | **Verify that** an automated validator checks each evidence record against its claimed Tier's requirements within the defined validation window, and that validator results are themselves logged. | 4 |
+| **10.3.4** | **Verify that** validation failures and coverage gaps raise alerts to a monitored destination within the bounded window defined in the claim, with alert-to-acknowledgment times tracked. | 4 |
+| **10.3.5** | **Verify that** the monitoring pipeline itself is re-assessed by a third party on a defined cycle (e.g., annually), and the re-assessment report is available to relying parties. | 4 |
+| **10.3.6** | **Verify that** proof coverage — evidence-covered in-scope actions divided by total in-scope actions — is computed on a defined schedule and published with the claim, so coverage decay is visible rather than silent. | 3 |
+
+**Auditor evidence:** 10.3.1 — chain-verification results for the store. 10.3.2 — run the count reconciliation yourself over a sample window. 10.3.3 — validator configuration and result logs. 10.3.4 — alert records with acknowledgment timestamps. 10.3.5 — the most recent re-assessment report. 10.3.6 — the coverage metric's definition, computation job, and published values.
 
 > ⚠️ **[WG-INPUT NEEDED]** — the operational requirements for the Continuously Monitored stage
 > (minimum cadence, automated versus human validation, incident response and suspension) are not

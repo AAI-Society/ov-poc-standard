@@ -9,15 +9,25 @@ The first adopters are security practitioners and leaders — the CISOs, securit
 
 ## Requirement Levels
 
-Each requirement in chapters C1–C10 is assigned a level indicating the depth of assurance:
+Each requirement in chapters C1–C10 is assigned a level from 1 to 4, **aligned one-to-one with the Verifiability Tiers** ([C8](0x10-C08-Verifiability-Tiers.md)): meeting the Level-N requirements is what makes evidence gradable at Tier N. Levels are cumulative — a claim at Tier N must satisfy every requirement at Level N and below.
 
-| Level | Description | When to use |
-| :---: | --- | --- |
-| **1** | Baseline requirements for any Proof-of-Control claim in the chapter's scope. Without these, the claim does not clear the [binary threshold](0x10-C08-Verifiability-Tiers.md). | Every system claiming Proof-of-Control. |
-| **2** | Extended requirements for systems handling sensitive data or making consequential decisions. Aligned with **Third-Party Assessed** readiness. | Production systems, regulated data, consequential agent actions. |
-| **3** | Advanced requirements for high-assurance environments: Tier 4 self-enforcing execution and **Continuously Monitored** operation. | Critical infrastructure, high-value targets, cross-organizational agent chains. |
+| Level | Name | Aligned to | What it means |
+| :---: | --- | --- | --- |
+| **1** | Recorded | Tier 1 · Assertion | The control operates and its evidence is captured contemporaneously in queryable records. The on-ramp: internal assurance only. |
+| **2** | Attested | Tier 2 · Attestation | Evidence is cryptographically signed, hash-chained, or attested, so an assessor with access can confirm it has not been altered. |
+| **3** | Independently Verifiable | Tier 3 · **the binary threshold** | Evidence is mechanism-generated and checkable by any external party with published tooling and no privileged access. **Meeting all Level 1–3 requirements in the claimed domains is the minimum for a Proof-of-Control claim.** |
+| **4** | Self-Enforcing / Continuous | Tier 4 · Self-Enforcing | Verification gates operation: every in-scope action is validated as it occurs, and the system fails closed when evidence cannot be produced. Corresponds to Continuously Monitored operation. |
 
-Organizations should select a target level based on the risk profile of the agent system. The strongest verification is usually the most expensive; the graded path exists so adopters choose the level that matches their risk and budget deliberately, rather than having one level prescribed for everyone.
+Organizations should select a target level based on the risk profile of the agent system. Levels 1–2 are a deliberate maturity on-ramp — valuable internal assurance, but **not yet Proof-of-Control**. The strongest verification is usually the most expensive; the graded path exists so adopters climb deliberately rather than having one level prescribed for everyone.
+
+## How to Audit Against This Standard
+
+Every requirement is written to be checked against a concrete artifact, and each section ends with an **"Auditor evidence"** note listing, per requirement ID, what to collect and what to test. An audit runs in four passes:
+
+1. **Scope:** confirm the conformance statement's system boundary and in-scope action classes ([C10.1.6](0x10-C10-Conformance-and-Disclosure.md)) match the deployed system — including testing that one "excluded" action class is genuinely excluded.
+2. **Existence (Level 1):** for each claimed domain, pull the named records, registers, and mappings; sample actions end-to-end.
+3. **Integrity (Level 2):** validate signatures, hash chains, attestation reports, and key custody; exercise at least one failure path per section (a rejected action, a broken chain, a failed validation).
+4. **Independence (Level 3) and gating (Level 4):** re-run the published verification tooling yourself, without operator credentials; at Level 4, run the fail-closed and halt tests.
 
 ## How to Use This Standard
 

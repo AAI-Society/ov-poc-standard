@@ -103,13 +103,14 @@ Chapters **C1–C6** are the six domains of verification — *what* must be veri
 
 ## 📶 Requirement Levels
 
-Each requirement carries a level (1–3) indicating depth of assurance. The levels grade the *requirements*; the **Tiers** (1–4) grade the *evidence* — an unqualified number always means a Tier.
+Each requirement carries a level (1–4), **aligned one-to-one with the Verifiability Tiers**: meeting the Level-N requirements is what makes evidence gradable at Tier N. Levels are cumulative, and every section ends with **"Auditor evidence"** guidance — what to collect and what to test, per requirement ID — so a compliance lead can scope an audit directly from the chapters.
 
-| Level | Description | When to use |
-| :---: | --- | --- |
-| **1** | 🟢 Baseline for any Proof-of-Control claim; without these the claim does not clear the binary threshold | Every system claiming Proof-of-Control |
-| **2** | 🟡 Extended, for sensitive data or consequential decisions; Third-Party Assessed readiness | Production systems, regulated data |
-| **3** | 🔴 Advanced, high-assurance: Tier 4 self-enforcing execution, Continuously Monitored operation | Critical infrastructure, cross-org agent chains |
+| Level | Name | Aligned Tier | What it means |
+| :---: | --- | :---: | --- |
+| **1** | 🗣️ Recorded | Tier 1 | The control operates and its evidence is captured in queryable records — the on-ramp |
+| **2** | 📋 Attested | Tier 2 | Evidence is signed, hash-chained, or attested; an assessor can confirm it unaltered |
+| **3** | 🔍 Independently Verifiable | Tier 3 | Mechanism-generated evidence, checkable by outsiders with published tooling — **the binary threshold; minimum for a Proof-of-Control claim** |
+| **4** | 🔒 Self-Enforcing / Continuous | Tier 4 | Verification gates operation: full coverage, fail-closed, Continuously Monitored |
 
 ## 🔁 How a Claim Gets Checked
 

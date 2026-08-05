@@ -14,12 +14,14 @@ Authority is scoped to the action, not to the actor: permission tied to the spec
 
 | # | Description | Level |
 | :--------: | ------------------------------------------------------------------------------------------------------------------- | :---: |
-| **4.1.1** | **Verify that** the authority granted to the agent is recorded as evidence before actions execute. | 1 |
-| **4.1.2** | **Verify that** every action is evaluated against the permissions granted, and that the decision (within or against the boundary) is evidenced. | 1 |
-| **4.1.3** | **Verify that** out-of-scope actions are rejected at the interception boundary and that the rejection is evidenced. | 1 |
-| **4.1.4** | **Verify that** the evaluated payload parameters of each tool invocation matched the exact structural schema authorized at execution time. | 2 |
-| **4.1.5** | **Verify that** authority is scoped to the specific operation, its configuration, and its limits at the time of action, not carried as a broad standing identity. | 2 |
-| **4.1.6** | **Verify that** human approval and override decisions are evidenced, bound to the approver's identity, and include the raw, true intent that was presented for approval. | 2 |
+| **4.1.1** | **Verify that** the authority granted to the agent — the permission set, its scope, and its expiry — is written to the execution record before the first action executes under it. | 1 |
+| **4.1.2** | **Verify that** every action is evaluated against the granted permission set at execution time, and that the evaluation record names the permission matched (or the denial reason) for each action. | 1 |
+| **4.1.3** | **Verify that** actions outside the granted scope are blocked at the interception gateway — not merely flagged — and that each block writes a rejection record with the attempted action and its parameters. | 3 |
+| **4.1.4** | **Verify that** tool-call parameters are validated against the registered tool schema at execution time, that out-of-schema calls are rejected, and that the validated parameter digest is stored in the execution record. | 2 |
+| **4.1.5** | **Verify that** agent credentials are issued per task with scope and expiry bound to that task (e.g., short-lived tokens), and that no standing broad-scope credential is available to the agent at runtime. | 2 |
+| **4.1.6** | **Verify that** each human approval or override writes a record containing the approver's authenticated identity, the exact content presented for approval, the decision, and its timestamp. | 2 |
+
+**Auditor evidence:** 4.1.1 — grant records preceding sampled actions. 4.1.2 — per-action evaluation records including at least one denial. 4.1.3 — attempt an out-of-scope action in test; confirm block + rejection record. 4.1.4 — tool schema registry, a rejected malformed call, parameter digests in records. 4.1.5 — credential-issuance config and token lifetimes; search for standing credentials. 4.1.6 — sampled approval records; confirm the presented content matches what was actually executed.
 
 ---
 
@@ -29,10 +31,12 @@ Delegation validity is a verifiable fact; escalation through the chain must be p
 
 | # | Description | Level |
 | :--------: | ------------------------------------------------------------------------------------------------------------------- | :---: |
-| **4.2.1** | **Verify that** signed authorization tokens are checked against granted permissions for each action. | 1 |
-| **4.2.2** | **Verify that** the validity of each delegation in the chain is verified and evidenced. | 1 |
-| **4.2.3** | **Verify that** a delegated agent cannot accumulate permissions exceeding the delegator's, and that the delegation logic is verified to prevent privilege escalation. | 2 |
-| **4.2.4** | **Verify that** a relying party can confirm a delegation is policy-compliant without seeing the full delegation chain, where confidentiality requires it. | 3 |
+| **4.2.1** | **Verify that** each action's signed authorization token is cryptographically validated (signature, expiry, audience, scope) before execution, and that validation results are recorded. | 2 |
+| **4.2.2** | **Verify that** each hop in a delegation chain carries the delegator's signature, and that the full chain validates back to the originating principal before the delegated authority is exercised. | 2 |
+| **4.2.3** | **Verify that** the delegation mechanism structurally prevents a delegate's permission set from exceeding the delegator's (scope intersection on issuance), and that attempted escalations are rejected and recorded. | 3 |
+| **4.2.4** | **Verify that** where the delegation chain is confidential, the relying party receives a proof of policy-compliant delegation (e.g., ZK credential presentation) it can validate without seeing the chain. | 3 |
+
+**Auditor evidence:** 4.2.1 — token-validation logs, including an expired/invalid-token rejection. 4.2.2 — walk one delegation chain's signatures to the principal. 4.2.3 — issuance code/config showing scope intersection; a rejected escalation attempt in test. 4.2.4 — validate one delegation proof using the published verifier.
 
 > ⚠️ **[WG-INPUT NEEDED]** — whether identity-binding is owned by the Identity domain or by
 > Authorization with Identity as an input (working-group lean: Authorization owns it, Identity as

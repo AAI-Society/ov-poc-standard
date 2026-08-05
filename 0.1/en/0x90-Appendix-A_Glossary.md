@@ -33,6 +33,7 @@ The key words MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RE
 To keep the three graded axes distinct, each has its own word:
 
 * **Tier** grades the evidence (the Verifiability Tiers). Numbered 1 to 4.
+* **Level** grades the requirements (this standard's requirement tables). Numbered 1 to 4, aligned one-to-one with the Tiers: meeting the Level-N requirements is what makes evidence gradable at Tier N. Levels are cumulative.
 * **Stage** grades the audit of the claim (conformance). Named, never numbered.
 * **Layer** locates the evidence in the stack (the System surface / MAESTRO). Numbered per the framework.
 * **Phase** tracks an adopter's infrastructure rollout (1 to 3). See the [Roadmap](../../docs/roadmap.md).

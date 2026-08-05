@@ -40,9 +40,13 @@ working-group consensus, and stewarded by the
 
 * `⚠️ [WG-INPUT NEEDED]` marks an open working-group issue; `✍️ [DRAFT]` marks a section still
   being written; `📌 [INSERT]` marks a pending merge from a companion document.
-* **Naming discipline:** *Tier* grades the evidence (1–4); *Stage* grades the audit of the claim
-  (named, never numbered); *Layer* locates the evidence in the stack (MAESTRO 1–7); *Phase*
-  tracks an adopter's rollout (1–3). An unqualified number always means a Tier.
+* **Naming discipline:** *Tier* grades the evidence (1–4); *Level* grades the requirements
+  (1–4, aligned to the Tiers); *Stage* grades the audit of the claim (named, never numbered);
+  *Layer* locates the evidence in the stack (MAESTRO 1–7); *Phase* tracks an adopter's rollout
+  (1–3). An unqualified number always means a Tier.
+* **Auditability rule:** every requirement must name a checkable artifact or testable behavior,
+  and each section's *Auditor evidence* note must tell an assessor what to collect and what to
+  test. A requirement an auditor cannot close out against an artifact is not ready to merge.
 * "Prove" is reserved for genuine cryptographic proofs and the coined name Proof-of-Control;
   what an agent did is *shown* or *evidenced*, never "proven."
 

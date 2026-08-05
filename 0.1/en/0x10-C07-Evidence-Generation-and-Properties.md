@@ -33,9 +33,11 @@ Verification evidence is generated where actions happen, preventing unverified s
 
 | # | Description | Level |
 | :--------: | ------------------------------------------------------------------------------------------------------------------- | :---: |
-| **7.1.1** | **Verify that** the agent architecture implements explicit, out-of-band Action Interception Gateways. | 1 |
-| **7.1.2** | **Verify that** verification evidence is generated at the interception boundary before, during, and after tool invocation. | 1 |
-| **7.1.3** | **Verify that** no side effect can occur without evidence being generated (no unverified side effects). | 1 |
+| **7.1.1** | **Verify that** all agent tool and effect invocations are routed through an Action Interception Gateway that runs as a separate process or service from the agent — the agent has no network or credential path to its tools that bypasses the gateway. | 3 |
+| **7.1.2** | **Verify that** for each intercepted action the gateway emits evidence records at three points — request received (before), effect performed (during), and result returned (after) — each independently signed and linkable to the same action ID. | 3 |
+| **7.1.3** | **Verify that** the architecture makes evidence emission a precondition of action release: the gateway does not forward the action to the tool until the *before* record is durably written. | 3 |
+
+**Auditor evidence:** 7.1.1 — network policy and credential scoping showing no bypass path; attempt a direct tool call from the agent runtime in test. 7.1.2 — the three records for a sampled action, sharing one action ID. 7.1.3 — gateway configuration/code path for write-before-forward; test by making the evidence store unavailable and observing that actions do not proceed.
 
 ---
 
@@ -45,8 +47,10 @@ Evidence created at the moment of action is what lets anyone reconstruct what ha
 
 | # | Description | Level |
 | :--------: | ------------------------------------------------------------------------------------------------------------------- | :---: |
-| **7.2.1** | **Verify that** evidence is cryptographic and generated at the moment of execution, not reconstructed or narrated after the fact. | 1 |
-| **7.2.2** | **Verify that** evidence timestamps derive from a verifiable time source (e.g., signed timestamps, transparency-log inclusion, or consensus time) rather than the operator's clock alone, so contemporaneity can be independently checked. | 2 |
+| **7.2.1** | **Verify that** each evidence record is written within the executing transaction of the action it describes — not batch-reconstructed later — and carries the capture timestamp of the event itself. | 1 |
+| **7.2.2** | **Verify that** evidence timestamps are anchored to a source outside the operator's control — an RFC 3161 timestamp authority, transparency-log inclusion proof, or consensus time — at least once per defined anchoring interval. | 3 |
+
+**Auditor evidence:** 7.2.1 — compare capture timestamps against source-system event times for sampled actions; look for batch-write signatures (identical write times across many events). 7.2.2 — the anchoring configuration and interval; validate one anchor proof independently.
 
 ---
 
@@ -56,8 +60,10 @@ The evidence is produced by the cryptographic mechanism, not by the system opera
 
 | # | Description | Level |
 | :--------: | ------------------------------------------------------------------------------------------------------------------- | :---: |
-| **7.3.1** | **Verify that** any alteration, fabrication, or backdating of evidence is detectable. | 1 |
-| **7.3.2** | **Verify that** evidence is produced by the enforcing mechanism, not narrated by the system operator. | 1 |
+| **7.3.1** | **Verify that** evidence records are hash-chained or Merkle-anchored so that modifying, inserting, or reordering any record invalidates the chain, and that chain verification runs on a defined schedule with results recorded. | 2 |
+| **7.3.2** | **Verify that** evidence records are signed by keys held by the generating mechanism (gateway, enclave, or logging service) that operator and agent identities cannot access, per the key-custody configuration. | 3 |
+
+**Auditor evidence:** 7.3.1 — chain-verification job schedule and results; alter one record in a test copy and confirm detection. 7.3.2 — key-custody ACLs; confirm operator accounts hold no signing capability for evidence keys.
 
 ---
 
@@ -67,7 +73,9 @@ Enterprises, insurers, and regulators can see exactly what must still be trusted
 
 | # | Description | Level |
 | :--------: | ------------------------------------------------------------------------------------------------------------------- | :---: |
-| **7.4.1** | **Verify that** residual trust assumptions are disclosed in the standardized format (see [C10.2](0x10-C10-Conformance-and-Disclosure.md)). | 1 |
+| **7.4.1** | **Verify that** the published trust-assumption disclosure ([C10.2](0x10-C10-Conformance-and-Disclosure.md)) lists, for each evidence mechanism in use, every party, hardware element, and mathematical assumption that must hold for the evidence to be believed. | 1 |
+
+**Auditor evidence:** 7.4.1 — cross-check the disclosure against the mechanism inventory: every mechanism in [Appendix B](0x91-Appendix-B_Proof-Mechanism-Inventory.md) use has a corresponding disclosure line.
 
 > ⚠️ **[WG-INPUT NEEDED]** — a possible fifth evidence property, *continuity across boundaries*
 > (credited to Advait Patel). See [Appendix D](0x93-Appendix-D_Open-Issues.md), issue 5.
@@ -80,8 +88,10 @@ Verification establishes deterministic facts about execution, not the probabilis
 
 | # | Description | Level |
 | :--------: | ------------------------------------------------------------------------------------------------------------------- | :---: |
-| **7.5.1** | **Verify that** evidence is produced only about deterministic facts of execution. | 1 |
-| **7.5.2** | **Verify that** the implementation does not represent any of the following as verified: the correctness of an output, the model's reasoning or intent, fairness, or future or counterfactual behavior. | 1 |
+| **7.5.1** | **Verify that** every field in the evidence schema records an observable execution fact (identifier, digest, timestamp, decision result) — the schema contains no field asserting quality, correctness, or intent. | 1 |
+| **7.5.2** | **Verify that** the conformance statement and public product claims describe the evidence only as execution facts, and that a documented claims review (legal or compliance sign-off) confirms no claim of output correctness, fairness, or model intent is attributed to Proof-of-Control. | 1 |
+
+**Auditor evidence:** 7.5.1 — the evidence schema definition, field by field. 7.5.2 — the claims-review record and the current public claim text.
 
 Proof-of-Control performs verification, not validation: it shows that an agent stayed inside the control boundaries that were set, and does not judge whether those boundaries were the right ones. That judgment — regulatory review, ethical evaluation, human oversight — stays a human responsibility.
 
@@ -93,17 +103,19 @@ Tamper-evidence makes alteration detectable; it does not, by itself, make *omiss
 
 | # | Description | Level |
 | :--------: | ------------------------------------------------------------------------------------------------------------------- | :---: |
-| **7.6.1** | **Verify that** a failure of evidence generation is itself detected and recorded as a failure or deny event. | 1 |
-| **7.6.2** | **Verify that** a verifier can detect missing records — through continuous sequencing, hash chaining, or an equivalent completeness mechanism — so that silent omission of evidence is as detectable as alteration. | 1 |
-| **7.6.3** | **Verify that** in-scope actions fail closed when evidence cannot be generated at the claimed Verifiability Tier. | 2 |
-| **7.6.4** | **Verify that** access to the evidence store is itself access-controlled, and that reads of the evidence are evidenced. | 2 |
-| **7.6.5** | **Verify that** an evidence retention period is defined and disclosed in the conformance claim, and that evidence is retained at least for the period the claim covers. | 2 |
+| **7.6.1** | **Verify that** evidence-pipeline failures (write errors, signing errors, store unavailability) raise a monitored alert and are themselves written as failure events to a secondary durable log. | 2 |
+| **7.6.2** | **Verify that** evidence records carry per-source monotonic sequence numbers (or equivalent chaining), so a verifier can detect a missing record from the sequence gap alone. | 2 |
+| **7.6.3** | **Verify that** when evidence cannot be generated at the claimed Tier, in-scope actions are refused by the gateway until the pipeline recovers — demonstrated by a fail-closed test on the evidence store. | 4 |
+| **7.6.4** | **Verify that** the evidence store enforces role-based access, and that every read of evidence writes its own access record (who, what, when). | 2 |
+| **7.6.5** | **Verify that** the retention period for evidence is stated in the conformance claim, configured in the store's retention policy, and at least as long as the period the claim covers. | 1 |
+
+**Auditor evidence:** 7.6.1 — failure-event log and its alert route; break the pipeline in test. 7.6.2 — compute sequence continuity over a sampled window; remove a record in a test copy and confirm the gap is detectable. 7.6.3 — fail-closed test results. 7.6.4 — store ACLs and read-access records, including your own audit reads. 7.6.5 — claim text vs. store retention configuration.
 
 ---
 
 ## References
 
-* [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119) / [RFC 8174](https://www.rfc-editor.org/rfc/rfc8174) — requirements language
+* [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119) / [RFC 8174](https://www.rfc-editor.org/rfc/rfc8174) — requirements language · [RFC 3161](https://www.rfc-editor.org/rfc/rfc3161) — trusted timestamping
 * [Appendix A — Glossary](0x90-Appendix-A_Glossary.md): evidence property, execution record, determinism boundary
 * [Appendix C — Threat Model](0x92-Appendix-C_Threat-Model.md): what the evidence defends against, and the honest edge of the claim
 * Crosswalk: [CSA AARM](../../mappings/csa-aarm.md) — the enforcement half at the same action boundary

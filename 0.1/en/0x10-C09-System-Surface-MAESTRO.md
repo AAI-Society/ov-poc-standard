@@ -39,9 +39,11 @@ The full per-layer inventory of verifiable controls, proof mechanisms, and feasi
 
 | # | Description | Level |
 | :--------: | ------------------------------------------------------------------------------------------------------------------- | :---: |
-| **9.1.1** | **Verify that** every claim locates its evidence on the System surface: which layer of the agent stack the evidence is about. | 1 |
-| **9.1.2** | **Verify that** the framework filling the System surface (MAESTRO today) is declared in the claim. | 1 |
-| **9.1.3** | **Verify that** claims that do not state where in the stack their evidence applies are treated as incomplete. | 1 |
+| **9.1.1** | **Verify that** every entry in the claim register carries a populated layer field identifying the MAESTRO layer (1–7) its evidence covers. | 1 |
+| **9.1.2** | **Verify that** the conformance statement names the framework filling the System surface (MAESTRO today) and its version. | 1 |
+| **9.1.3** | **Verify that** the claim-register validation (schema check or intake review) rejects claim entries with a missing or invalid layer field, and that rejections are recorded. | 1 |
+
+**Auditor evidence:** 9.1.1 — query the register for null/invalid layer fields (expect zero). 9.1.2 — the statement's framework declaration. 9.1.3 — the validation rule and one rejected-entry record from testing.
 
 ---
 
@@ -51,9 +53,11 @@ Layer 5 controls are foundational to every other layer: without tamper-evident r
 
 | # | Description | Level |
 | :--------: | ------------------------------------------------------------------------------------------------------------------- | :---: |
-| **9.2.1** | **Verify that** tamper-evident logging (Layer 5) is in place for any claimed domain, since post-hoc proof depends on it. | 1 |
-| **9.2.2** | **Verify that** evidence for each claim covers the layer where the corresponding control is enforced, per the per-layer inventory in [Appendix B](0x91-Appendix-B_Proof-Mechanism-Inventory.md). | 2 |
-| **9.2.3** | **Verify that** evidence spanning multiple layers is aggregated in a tamper-evident way (e.g., hash-chained cross-layer aggregation). | 2 |
+| **9.2.1** | **Verify that** tamper-evident logging (a Layer 5 control per [Appendix B](0x91-Appendix-B_Proof-Mechanism-Inventory.md)) is deployed and covering every system named in the claim's scope, as shown by the log-source inventory. | 2 |
+| **9.2.2** | **Verify that** for each claim, the evidence is generated at the layer where the control is enforced, matching the layer listed for that control in [Appendix B](0x91-Appendix-B_Proof-Mechanism-Inventory.md) — e.g., runtime attestation evidenced at L4, delegation chains at L7. | 2 |
+| **9.2.3** | **Verify that** claims spanning multiple layers aggregate their per-layer evidence into a hash-linked bundle referencing each layer's records, so the cross-layer claim is verifiable as one artifact. | 3 |
+
+**Auditor evidence:** 9.2.1 — log-source inventory reconciled against the claim's scope declaration ([C10.1.6](0x10-C10-Conformance-and-Disclosure.md)). 9.2.2 — three sampled claims checked against Appendix B layer listings. 9.2.3 — validate one cross-layer bundle end-to-end.
 
 ---
 

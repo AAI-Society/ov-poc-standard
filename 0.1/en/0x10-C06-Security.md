@@ -14,10 +14,12 @@ Evidence that the environment the agent ran in is the environment that was autho
 
 | # | Description | Level |
 | :--------: | ------------------------------------------------------------------------------------------------------------------- | :---: |
-| **6.1.1** | **Verify that** evidence shows the declared security controls held during execution. | 1 |
-| **6.1.2** | **Verify that** every tool invocation is recorded with its arguments in the execution record. | 1 |
-| **6.1.3** | **Verify that** runtime integrity of the execution environment is attested (e.g., TEE or remote attestation) and comparable against an authorized reference value. | 2 |
-| **6.1.4** | **Verify that** hardware attestation covers the components on which higher-layer controls depend. | 3 |
+| **6.1.1** | **Verify that** the conformance claim enumerates the security controls it declares (by identifier), and that each declared control is mapped to a named evidence stream that shows it operating — no declared control without a corresponding evidence source. | 1 |
+| **6.1.2** | **Verify that** every tool invocation is written to the execution record with the tool identifier, the full argument set (or its digest where arguments are sensitive), the result status, and a timestamp. | 1 |
+| **6.1.3** | **Verify that** the runtime environment produces a signed attestation report (TEE or remote attestation) at startup and on configuration change, and that reports are automatically compared against maintained golden reference values, with mismatches alerting and recorded. | 2 |
+| **6.1.4** | **Verify that** hardware-rooted attestation (TPM/GPU/CPU endorsement) covers each component named as a dependency by a higher-layer control in the claim's control-to-evidence mapping. | 3 |
+
+**Auditor evidence:** 6.1.1 — the control-to-evidence mapping table; pick two declared controls and pull their evidence streams. 6.1.2 — sampled tool-call records reconciled against downstream system logs. 6.1.3 — attestation reports, the golden-value register and its change history, and one recorded mismatch alert (test it). 6.1.4 — the dependency list and per-component attestation coverage.
 
 ---
 
@@ -27,9 +29,11 @@ Proof of process isolation is required whenever agents execute generated code or
 
 | # | Description | Level |
 | :--------: | ------------------------------------------------------------------------------------------------------------------- | :---: |
-| **6.2.1** | **Verify that** process isolation is proven whenever the agent executes generated code or interacts with un-sanitized external tools. | 1 |
-| **6.2.2** | **Verify that** sensitive inference workloads run in confidential-compute environments with verifiable attestation. | 2 |
-| **6.2.3** | **Verify that** on-chip compliance mechanisms, where claimed, carry independently verifiable attestation. | 3 |
+| **6.2.1** | **Verify that** generated code and un-sanitized external tools execute in a sandbox (container, microVM, or enclave) whose isolation configuration is recorded per execution, and that sandbox-escape attempts surface as recorded security events. | 2 |
+| **6.2.2** | **Verify that** workloads classified as sensitive run in confidential-compute environments whose attestation an external party can validate against published reference values. | 3 |
+| **6.2.3** | **Verify that** where on-chip compliance enforcement is claimed, the hardware mechanism gates execution (not merely reports), and its attestation is continuously validated during operation. | 4 |
+
+**Auditor evidence:** 6.2.1 — sandbox configuration per sampled execution; a recorded escape-attempt event from testing. 6.2.2 — validate one confidential-compute attestation independently. 6.2.3 — demonstrate in test that execution halts when the on-chip check fails.
 
 ---
 
@@ -39,9 +43,11 @@ Every mechanism in this standard ultimately rests on keys. A signing key with no
 
 | # | Description | Level |
 | :--------: | ------------------------------------------------------------------------------------------------------------------- | :---: |
-| **6.3.1** | **Verify that** signing and attestation keys used to produce evidence are generated and held in hardware-backed key management (e.g., HSM or equivalent). | 2 |
-| **6.3.2** | **Verify that** evidence-producing keys rotate on a defined schedule and that rotation events are themselves evidenced. | 2 |
-| **6.3.3** | **Verify that** key compromise triggers revocation, that evidence signed by a compromised key is identifiable, and that the affected claims are re-graded and re-disclosed. | 2 |
+| **6.3.1** | **Verify that** evidence-signing and attestation keys are generated in and non-exportable from hardware-backed key management (HSM or equivalent), per the key inventory. | 2 |
+| **6.3.2** | **Verify that** each evidence-producing key has a documented rotation schedule, that rotations occur on schedule, and that each rotation writes a signed record linking the old and new key identities. | 2 |
+| **6.3.3** | **Verify that** the documented key-compromise procedure includes revocation, identification of all evidence signed by the affected key (queryable by key ID), re-grading of affected claims, and notification of relying parties — and that the procedure has been exercised at least annually. | 2 |
+
+**Auditor evidence:** 6.3.1 — key inventory with HSM attributes; confirm non-exportability settings. 6.3.2 — rotation schedule vs. actual rotation records; verify one old-to-new linking record. 6.3.3 — the procedure document and the most recent exercise report; run a query for evidence by key ID.
 
 ---
 

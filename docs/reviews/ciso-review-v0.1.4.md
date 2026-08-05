@@ -59,9 +59,11 @@ Recorded as [Appendix D, issue 11](../../0.1/en/0x93-Appendix-D_Open-Issues.md):
 
 * New requirements were **appended** to existing sections (or added as new sections); no
   existing requirement was renumbered, so prior references such as `v0.1-C4.1.4` remain stable.
-* Level assignments follow the established grading: Level 1 where the gap undermines the binary
-  threshold itself (F1, F2, F3, F6, F7); Level 2 where the gap concerns sensitive or
-  consequential deployments; Level 3 for Tier-4/Continuously-Monitored concerns.
+* Level assignments follow the grading scheme in force at the time of each edit. *Post-review
+  note:* the standard subsequently moved to a four-level scheme aligned one-to-one with the
+  Verifiability Tiers (Level 3 = binary threshold, Level 4 = self-enforcing/continuous), and all
+  requirements — including those added by this review — were re-graded and rewritten with
+  per-section auditor-evidence guidance.
 
 ---
 
