@@ -481,6 +481,32 @@
     "auditor_notes": ""
   },
   {
+    "id": "4.1.7",
+    "chapter": "C4",
+    "chapter_title": "Authorization",
+    "section": "C4.1",
+    "section_title": "Authority and Scope Enforcement",
+    "level": 2,
+    "level_name": "Attested",
+    "requirement": "Verify that authorization evaluation is path-aware: the evaluated context for each invocation includes parameters and state carried from upstream invocations in the same execution path, so that a composed sequence of individually authorized calls cannot silently exceed the authority of its steps. *(Research-driven addition \u2014 see Appendix D, issue 12.)*",
+    "source_file": "0.1/en/0x10-C04-Authorization.md",
+    "status": "",
+    "auditor_notes": ""
+  },
+  {
+    "id": "4.1.8",
+    "chapter": "C4",
+    "chapter_title": "Authorization",
+    "section": "C4.1",
+    "section_title": "Authority and Scope Enforcement",
+    "level": 2,
+    "level_name": "Attested",
+    "requirement": "Verify that outputs of diagnostic, advisory, or audit tools cannot raise the authorization state of subsequent actions: approval thresholds are evaluated against the original grant, not against accumulated execution context. *(Research-driven addition \u2014 see Appendix D, issue 12.)*",
+    "source_file": "0.1/en/0x10-C04-Authorization.md",
+    "status": "",
+    "auditor_notes": ""
+  },
+  {
     "id": "4.2.1",
     "chapter": "C4",
     "chapter_title": "Authorization",
@@ -1287,6 +1313,19 @@
     "auditor_notes": ""
   },
   {
+    "id": "10.1.8",
+    "chapter": "C10",
+    "chapter_title": "Conformance and Trust-Assumption Disclosure",
+    "section": "C10.1",
+    "section_title": "Conformance Claims",
+    "level": 2,
+    "level_name": "Attested",
+    "requirement": "Verify that the declared system inventory is reconciled on a defined schedule against automated discovery from operational and observability streams, and that undeclared agent deployments surface as recorded findings rather than remaining shadow systems. *(Research-driven addition \u2014 see Appendix D, issue 12.)*",
+    "source_file": "0.1/en/0x10-C10-Conformance-and-Disclosure.md",
+    "status": "",
+    "auditor_notes": ""
+  },
+  {
     "id": "10.2.1",
     "chapter": "C10",
     "chapter_title": "Conformance and Trust-Assumption Disclosure",
@@ -1386,6 +1425,19 @@
     "level": 3,
     "level_name": "Independently Verifiable",
     "requirement": "Verify that proof coverage \u2014 evidence-covered in-scope actions divided by total in-scope actions \u2014 is computed on a defined schedule and published with the claim, so coverage decay is visible rather than silent.",
+    "source_file": "0.1/en/0x10-C10-Conformance-and-Disclosure.md",
+    "status": "",
+    "auditor_notes": ""
+  },
+  {
+    "id": "10.3.7",
+    "chapter": "C10",
+    "chapter_title": "Conformance and Trust-Assumption Disclosure",
+    "section": "C10.3",
+    "section_title": "Continuously Monitored Operation",
+    "level": 3,
+    "level_name": "Independently Verifiable",
+    "requirement": "Verify that automated validators used to monitor multi-step execution are evaluated for structured-trace parsing competence (schema and argument validation over tool-call trajectories), not only natural-language safety performance, and that the evaluation results are available to the assessor. *(Research-driven addition \u2014 see Appendix D, issue 12.)*",
     "source_file": "0.1/en/0x10-C10-Conformance-and-Disclosure.md",
     "status": "",
     "auditor_notes": ""

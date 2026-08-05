@@ -19,6 +19,7 @@ The evidence at the cryptographic tiers (Tiers 3 and 4) is produced by a set of 
 | Supply-chain / SBOM attestation | Full provenance chain of components, not just a single signature | L1 model supply chain, L2 dataset provenance, L7 third-party vetting | Emerging (SLSA, Sigstore ready for software; AI-artifact extensions in progress) |
 | Cryptographic commitments | A value was fixed before a computation without revealing it until later | L3 objective binding, L5 evaluation integrity | Proven primitive; AI-pipeline integration emerging |
 | Policy compliance / verifiable computation | A computation followed a specified policy without replaying it | L6 policy-as-code, L5 evaluation results, L7 reputation | Research to emerging (zkVM exists but is compute-intensive at AI scale) |
+| Verifiable credentials & N-party trust proofs (W3C VC 2.0, Data Integrity Proof Sets; Verifiable Trust Circles) | Membership, delegation, and relationship assertions among N parties without a central registry | L7 identity & delegation, L5 approval records | Emerging (VC 2.0 recommendations published; trust-circle deployments early) — *research-driven addition, WG to ratify* |
 
 ## Layer 1 — Foundation Model Security
 

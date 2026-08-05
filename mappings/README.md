@@ -5,7 +5,7 @@ it is the evidence layer that sits alongside them. This directory holds the mapp
 complementary forms, following the reproducible coverage methodology established by
 [HAARF](https://github.com/Task-force-for-AI-agents-in-Healthcare/haarf):
 
-1. **Quantitative coverage mapping** — every one of the 107 PoC requirements coded against each
+1. **Quantitative coverage mapping** — every one of the 111 PoC requirements coded against each
    external framework as Exact Match / Partial Match / No Match, with reproducible coverage
    percentages.
 2. **Qualitative crosswalks** — one narrative document per framework explaining the
@@ -16,7 +16,7 @@ complementary forms, following the reproducible coverage methodology established
 | File | What it is |
 | --- | --- |
 | [`rubric.md`](rubric.md) | The EM / PM / NM match-type definitions, coding instructions, and the coverage formula |
-| [`coding_sheet.csv`](coding_sheet.csv) | Row-level coding: 107 requirements × 8 frameworks = 856 coded rows with rationales |
+| [`coding_sheet.csv`](coding_sheet.csv) | Row-level coding: 111 requirements × 8 frameworks = 888 coded rows with rationales |
 | [`compute_coverage.py`](compute_coverage.py) | Validates the sheet and reproduces the coverage percentages and the chart below |
 | [`corpus/README.md`](corpus/README.md) | Provenance of the external framework documents (title, version, access URL) |
 
@@ -34,20 +34,20 @@ python3 mappings/compute_coverage.py --svg    # regenerate the coverage chart
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="../images/diagrams/mapping-coverage-dark.svg">
-    <img alt="Coverage of the 107 Proof-of-Control requirements by external framework: NIST AI RMF 63%, ISO/IEC 42001 60%, OWASP AISVS 60%, EU AI Act 55%, SOC 2 55%, CSA AARM 48%, Zero Trust 43%, MITRE ATLAS 26%" src="../images/diagrams/mapping-coverage-light.svg" width="740">
+    <img alt="Coverage of the 111 Proof-of-Control requirements by external framework: NIST AI RMF 64%, ISO/IEC 42001 61%, OWASP AISVS 60%, EU AI Act 57%, SOC 2 57%, CSA AARM 50%, Zero Trust 44%, MITRE ATLAS 27%" src="../images/diagrams/mapping-coverage-light.svg" width="740">
   </picture>
 </p>
 
 | Framework | EM | PM | NM | Coverage | Qualitative crosswalk |
 | --- | :---: | :---: | :---: | :---: | --- |
-| NIST AI RMF | 0 | 67 | 40 | **63%** | [nist-ai-rmf.md](nist-ai-rmf.md) |
-| ISO/IEC 42001 | 7 | 57 | 43 | **60%** | [iso-iec-42001.md](iso-iec-42001.md) |
-| OWASP AISVS | 14 | 50 | 43 | **60%** | [owasp.md](owasp.md) |
-| EU AI Act | 7 | 52 | 48 | **55%** | [eu-ai-act.md](eu-ai-act.md) |
-| SOC 2 | 7 | 52 | 48 | **55%** | [soc-2.md](soc-2.md) |
-| CSA AARM | 9 | 42 | 56 | **48%** | [csa-aarm.md](csa-aarm.md) |
-| Zero Trust (NIST SP 800-207) | 6 | 40 | 61 | **43%** | [zero-trust.md](zero-trust.md) |
-| MITRE ATLAS | 0 | 28 | 79 | **26%** | [mitre-atlas.md](mitre-atlas.md) |
+| NIST AI RMF | 0 | 71 | 40 | **64%** | [nist-ai-rmf.md](nist-ai-rmf.md) |
+| ISO/IEC 42001 | 8 | 60 | 43 | **61%** | [iso-iec-42001.md](iso-iec-42001.md) |
+| OWASP AISVS | 16 | 51 | 44 | **60%** | [owasp.md](owasp.md) |
+| EU AI Act | 8 | 55 | 48 | **57%** | [eu-ai-act.md](eu-ai-act.md) |
+| SOC 2 | 8 | 55 | 48 | **57%** | [soc-2.md](soc-2.md) |
+| CSA AARM | 11 | 44 | 56 | **50%** | [csa-aarm.md](csa-aarm.md) |
+| Zero Trust (NIST SP 800-207) | 8 | 41 | 62 | **44%** | [zero-trust.md](zero-trust.md) |
+| MITRE ATLAS | 0 | 30 | 81 | **27%** | [mitre-atlas.md](mitre-atlas.md) |
 
 **Reading the numbers.** Coverage measures how much of *Proof-of-Control* each framework
 already addresses — not the reverse, and not framework quality. Two patterns matter:

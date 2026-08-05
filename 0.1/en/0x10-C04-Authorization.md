@@ -20,8 +20,10 @@ Authority is scoped to the action, not to the actor: permission tied to the spec
 | **4.1.4** | **Verify that** tool-call parameters are validated against the registered tool schema at execution time, that out-of-schema calls are rejected, and that the validated parameter digest is stored in the execution record. | 2 |
 | **4.1.5** | **Verify that** agent credentials are issued per task with scope and expiry bound to that task (e.g., short-lived tokens), and that no standing broad-scope credential is available to the agent at runtime. | 2 |
 | **4.1.6** | **Verify that** each human approval or override writes a record containing the approver's authenticated identity, the exact content presented for approval, the decision, and its timestamp. | 2 |
+| **4.1.7** | **Verify that** authorization evaluation is path-aware: the evaluated context for each invocation includes parameters and state carried from upstream invocations in the same execution path, so that a composed sequence of individually authorized calls cannot silently exceed the authority of its steps. *(Research-driven addition — see [Appendix D, issue 12](0x93-Appendix-D_Open-Issues.md).)* | 2 |
+| **4.1.8** | **Verify that** outputs of diagnostic, advisory, or audit tools cannot raise the authorization state of subsequent actions: approval thresholds are evaluated against the original grant, not against accumulated execution context. *(Research-driven addition — see [Appendix D, issue 12](0x93-Appendix-D_Open-Issues.md).)* | 2 |
 
-**Auditor evidence:** 4.1.1 — grant records preceding sampled actions. 4.1.2 — per-action evaluation records including at least one denial. 4.1.3 — attempt an out-of-scope action in test; confirm block + rejection record. 4.1.4 — tool schema registry, a rejected malformed call, parameter digests in records. 4.1.5 — credential-issuance config and token lifetimes; search for standing credentials. 4.1.6 — sampled approval records; confirm the presented content matches what was actually executed.
+**Auditor evidence:** 4.1.1 — grant records preceding sampled actions. 4.1.2 — per-action evaluation records including at least one denial. 4.1.3 — attempt an out-of-scope action in test; confirm block + rejection record. 4.1.4 — tool schema registry, a rejected malformed call, parameter digests in records. 4.1.5 — credential-issuance config and token lifetimes; search for standing credentials. 4.1.6 — sampled approval records; confirm the presented content matches what was actually executed. 4.1.7 — run a sandboxed composed-path test (an upstream skill supplying an expanded target to a downstream call) and confirm the path evaluation blocks it with a recorded decision. 4.1.8 — run a trust-transfer test (a benign diagnostic output preceding a high-risk request) and confirm the approval threshold is unchanged.
 
 ---
 
@@ -47,6 +49,7 @@ Delegation validity is a verifiable fact; escalation through the chain must be p
 ## References
 
 * [OWASP Top 10 for Agentic Applications](https://genai.owasp.org/) — excessive agency, tool misuse
+* SCR-Bench (Xie et al., 2026) — Skill Composition Risk: capability-flow, trust-transfer, and authorization-confusion composition; the empirical basis for 4.1.7–4.1.8 ([research basis](../../docs/research-basis.md))
 * [SOC 2 Type II](../../mappings/soc-2.md) — Authorization-domain external alignment target (proving runtime execution matched policy)
 * Crosswalks: [MAESTRO L3/L6/L7 controls](0x91-Appendix-B_Proof-Mechanism-Inventory.md), [CSA AARM](../../mappings/csa-aarm.md)
 * [Appendix D — Open Working-Group Issues](0x93-Appendix-D_Open-Issues.md)

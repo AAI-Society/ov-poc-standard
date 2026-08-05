@@ -24,7 +24,7 @@ An insurer or buyer can require Proof-of-Control the way they already require SO
 
 <!-- BEGIN GENERATED MAPPING (tools/generate_crosswalks.py) -->
 
-**Coverage: 55%** of the 107 Proof-of-Control requirements (7 exact matches, 52 partial, 48 no match), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
+**Coverage: 57%** of the 111 Proof-of-Control requirements (8 exact matches, 55 partial, 48 no match), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
 
 | PoC section | Reqs | Match | Closest framework clause(s) | Rationale |
 | --- | :---: | :---: | --- | --- |
@@ -38,7 +38,7 @@ An insurer or buyer can require Proof-of-Control the way they already require SO
 | [C2.4 Evidence Handling for Protected Data](../0.1/en/0x10-C02-Privacy.md) | 2 | 🟡 PM | P4.2–P4.3 | P4 disposal and retention criteria address deletion; no reconciliation with tamper-evident chains |
 | [C3.1 Boundary-Crossing Evidence](../0.1/en/0x10-C03-Portability.md) | 2 | ⚪ NM | — | Boundary-crossing evidence not addressed |
 | [C3.2 Cross-Environment Continuity](../0.1/en/0x10-C03-Portability.md) | 3 | ⚪ NM | — | Evidence continuity not addressed |
-| [C4.1 Authority and Scope Enforcement](../0.1/en/0x10-C04-Authorization.md) | 6 | 🟡 PM | CC6.1–CC6.3 | CC6 logical access requires authorization controls; no evidenced per-action gateway decisions |
+| [C4.1 Authority and Scope Enforcement](../0.1/en/0x10-C04-Authorization.md) | 8 | 🟡 PM | CC6.1–CC6.3 | CC6 logical access requires authorization controls; no evidenced per-action gateway decisions |
 | [C4.2 Delegation](../0.1/en/0x10-C04-Authorization.md) | 4 | ⚪ NM | — | Delegation chains not addressed |
 | [C5.1 Agent and Principal Binding](../0.1/en/0x10-C05-Identity.md) | 4 | 🟡 PM | CC6.1–CC6.2 | CC6 identification and authentication of users/systems; no principal-to-agent binding |
 | [C5.2 Inter-Agent Identity](../0.1/en/0x10-C05-Identity.md) | 2 | ⚪ NM | — | Inter-agent identity not addressed |
@@ -56,9 +56,9 @@ An insurer or buyer can require Proof-of-Control the way they already require SO
 | [C8.3 Chain Integrity and Self-Enforcement (Tier 4)](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 4 | ⚪ NM | — | No self-enforcement concept |
 | [C9.1 Locating Evidence on the System Surface](../0.1/en/0x10-C09-System-Surface-MAESTRO.md) | 3 | ⚪ NM | — | No stack-location requirement |
 | [C9.2 Layer Coverage](../0.1/en/0x10-C09-System-Surface-MAESTRO.md) | 3 | 🟡 PM | CC7.2 | CC7 expects logging coverage of in-scope systems; not layer-matched evidence |
-| [C10.1 Conformance Claims](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 7 | 🟣 EM | System description & management assertion | System description, boundaries, and management assertion in a SOC 2 report parallel the scoped conformance statement |
+| [C10.1 Conformance Claims](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 8 | 🟣 EM | System description & management assertion | System description, boundaries, and management assertion in a SOC 2 report parallel the scoped conformance statement |
 | [C10.2 Trust-Assumption Disclosure](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 2 | 🟡 PM | Subservice organizations & CUECs | Subservice-organization and complementary-control disclosures are a partial analog to trust-assumption disclosure |
-| [C10.3 Continuously Monitored Operation](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 6 | 🟡 PM | Type II operating-effectiveness period | Type II covers a period with operating effectiveness; not per-action near-real-time validation |
+| [C10.3 Continuously Monitored Operation](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 7 | 🟡 PM | Type II operating-effectiveness period | Type II covers a period with operating effectiveness; not per-action near-real-time validation |
 
 ### Gap Analysis (what this framework does not cover)
 

@@ -17,7 +17,7 @@ Concretely: regulators today cannot verify that a high-risk system operated with
 
 <!-- BEGIN GENERATED MAPPING (tools/generate_crosswalks.py) -->
 
-**Coverage: 55%** of the 107 Proof-of-Control requirements (7 exact matches, 52 partial, 48 no match), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
+**Coverage: 57%** of the 111 Proof-of-Control requirements (8 exact matches, 55 partial, 48 no match), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
 
 | PoC section | Reqs | Match | Closest framework clause(s) | Rationale |
 | --- | :---: | :---: | --- | --- |
@@ -31,7 +31,7 @@ Concretely: regulators today cannot verify that a high-risk system operated with
 | [C2.4 Evidence Handling for Protected Data](../0.1/en/0x10-C02-Privacy.md) | 2 | ⚪ NM | — | No provision reconciling erasure obligations with tamper-evident records |
 | [C3.1 Boundary-Crossing Evidence](../0.1/en/0x10-C03-Portability.md) | 2 | ⚪ NM | — | No boundary-crossing evidence provision |
 | [C3.2 Cross-Environment Continuity](../0.1/en/0x10-C03-Portability.md) | 3 | ⚪ NM | — | No cross-environment evidence-continuity provision |
-| [C4.1 Authority and Scope Enforcement](../0.1/en/0x10-C04-Authorization.md) | 6 | 🟡 PM | Art. 9; Art. 14 | Art 14 human oversight and Art 9 risk controls require authority limits and oversight; gateway-blocked rejection evidence not required |
+| [C4.1 Authority and Scope Enforcement](../0.1/en/0x10-C04-Authorization.md) | 8 | 🟡 PM | Art. 9; Art. 14 | Art 14 human oversight and Art 9 risk controls require authority limits and oversight; gateway-blocked rejection evidence not required |
 | [C4.2 Delegation](../0.1/en/0x10-C04-Authorization.md) | 4 | ⚪ NM | — | No delegation-chain provisions |
 | [C5.1 Agent and Principal Binding](../0.1/en/0x10-C05-Identity.md) | 4 | 🟡 PM | Art. 12; Art. 50 | Art 12 traceability and Art 50 disclosure touch actor identification; no cryptographic principal-to-agent binding |
 | [C5.2 Inter-Agent Identity](../0.1/en/0x10-C05-Identity.md) | 2 | ⚪ NM | — | No inter-agent identity provisions |
@@ -49,9 +49,9 @@ Concretely: regulators today cannot verify that a high-risk system operated with
 | [C8.3 Chain Integrity and Self-Enforcement (Tier 4)](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 4 | ⚪ NM | — | No self-enforcing execution concept |
 | [C9.1 Locating Evidence on the System Surface](../0.1/en/0x10-C09-System-Surface-MAESTRO.md) | 3 | ⚪ NM | — | No system-surface location requirement |
 | [C9.2 Layer Coverage](../0.1/en/0x10-C09-System-Surface-MAESTRO.md) | 3 | ⚪ NM | — | No per-layer evidence coverage requirement |
-| [C10.1 Conformance Claims](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 7 | 🟣 EM | Art. 43; Art. 47–48 | Art 43 conformity assessment and Art 47 EU declaration of conformity require a published, scoped, versioned conformance claim |
+| [C10.1 Conformance Claims](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 8 | 🟣 EM | Art. 43; Art. 47–48 | Art 43 conformity assessment and Art 47 EU declaration of conformity require a published, scoped, versioned conformance claim |
 | [C10.2 Trust-Assumption Disclosure](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 2 | 🟡 PM | Art. 13 | Art 13 requires disclosing limitations and residual risks to deployers; not categorized trust assumptions |
-| [C10.3 Continuously Monitored Operation](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 6 | 🟡 PM | Art. 72 | Art 72 post-market monitoring requires ongoing surveillance; not per-action evidence validation |
+| [C10.3 Continuously Monitored Operation](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 7 | 🟡 PM | Art. 72 | Art 72 post-market monitoring requires ongoing surveillance; not per-action evidence validation |
 
 ### Gap Analysis (what this framework does not cover)
 

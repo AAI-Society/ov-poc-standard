@@ -143,6 +143,25 @@ C10.1.6–10.1.7, C10.3.6) and referred four questions to the working group:
 4. **Insider threat at the silicon/HSM layer** — currently handled via trust-assumption
    disclosure; flagged for the cryptography review under issue 6.
 
+## Issue 12 — Research-Driven Additions (2026 Literature)
+
+Four requirements and three threat-model rows were added from the 2026 verifiable-control
+literature synthesized in [docs/research-basis.md](../../docs/research-basis.md), and carry
+draft status until the working group ratifies them against the primary sources:
+
+* **C4.1.7** (path-aware authorization context) and **C4.1.8** (no trust transfer into approval
+  state) — from SCR-Bench (Xie et al.): capability-flow, trust-transfer, and
+  authorization-confusion composition attacks succeed against artifact-level vetting.
+* **C10.1.8** (inventory reconciled against automated discovery) — from AI Trust OS (Bandara et
+  al.): shadow AI eliminated by parsing observability streams.
+* **C10.3.7** (validator structured-trace parsing competence) — from TraceSafe-Bench (Chen et
+  al.): guardrail efficacy correlates with structural parsing, not NL safety tuning.
+* Threat rows: skill composition risk, shadow/undeclared agents, trajectory-monitor parsing
+  failure ([Appendix C](0x92-Appendix-C_Threat-Model.md)).
+* Also to decide: whether Verifiable Trust Circles (W3C VC 2.0) enter the mechanism inventory
+  permanently ([Appendix B](0x91-Appendix-B_Proof-Mechanism-Inventory.md)), and whether the
+  citations verify against the primary literature.
+
 ---
 
 *To weigh in on any open issue, join a working group at

@@ -23,7 +23,7 @@ Adopting Zero Trust does not give you Proof-of-Control. Anthropic's Zero Trust f
 
 <!-- BEGIN GENERATED MAPPING (tools/generate_crosswalks.py) -->
 
-**Coverage: 43%** of the 107 Proof-of-Control requirements (6 exact matches, 40 partial, 61 no match), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
+**Coverage: 44%** of the 111 Proof-of-Control requirements (8 exact matches, 41 partial, 62 no match), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
 
 | PoC section | Reqs | Match | Closest framework clause(s) | Rationale |
 | --- | :---: | :---: | --- | --- |
@@ -37,7 +37,7 @@ Adopting Zero Trust does not give you Proof-of-Control. Anthropic's Zero Trust f
 | [C2.4 Evidence Handling for Protected Data](../0.1/en/0x10-C02-Privacy.md) | 2 | ⚪ NM | — | Not addressed |
 | [C3.1 Boundary-Crossing Evidence](../0.1/en/0x10-C03-Portability.md) | 2 | 🟡 PM | Tenets 2–3 (§2.1) | No implicit trust across boundaries; every crossing is re-evaluated, though not evidenced for third parties |
 | [C3.2 Cross-Environment Continuity](../0.1/en/0x10-C03-Portability.md) | 3 | ⚪ NM | — | Evidence continuity not addressed |
-| [C4.1 Authority and Scope Enforcement](../0.1/en/0x10-C04-Authorization.md) | 6 | 🟣 EM | Tenets 3, 4, 6; PEP (§3) | Per-request access evaluation at the PEP with least privilege matches authority-and-scope enforcement |
+| [C4.1 Authority and Scope Enforcement](../0.1/en/0x10-C04-Authorization.md) | 8 | 🟣 EM | Tenets 3, 4, 6; PEP (§3) | Per-request access evaluation at the PEP with least privilege matches authority-and-scope enforcement |
 | [C4.2 Delegation](../0.1/en/0x10-C04-Authorization.md) | 4 | 🟡 PM | Tenet 4 | Dynamic authorization covers authority scoping; delegation chains not addressed |
 | [C5.1 Agent and Principal Binding](../0.1/en/0x10-C05-Identity.md) | 4 | 🟡 PM | Tenet 6 | Strong authentication of all subjects and devices; principal-to-agent intent binding not addressed |
 | [C5.2 Inter-Agent Identity](../0.1/en/0x10-C05-Identity.md) | 2 | 🟡 PM | Tenet 2 | Mutual authentication between services covers inter-agent message authenticity |
@@ -55,9 +55,9 @@ Adopting Zero Trust does not give you Proof-of-Control. Anthropic's Zero Trust f
 | [C8.3 Chain Integrity and Self-Enforcement (Tier 4)](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 4 | ⚪ NM | — | No self-enforcement concept |
 | [C9.1 Locating Evidence on the System Surface](../0.1/en/0x10-C09-System-Surface-MAESTRO.md) | 3 | ⚪ NM | — | Not addressed |
 | [C9.2 Layer Coverage](../0.1/en/0x10-C09-System-Surface-MAESTRO.md) | 3 | ⚪ NM | — | Not addressed |
-| [C10.1 Conformance Claims](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 7 | ⚪ NM | — | No conformance-claim regime |
+| [C10.1 Conformance Claims](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 8 | ⚪ NM | — | No conformance-claim regime |
 | [C10.2 Trust-Assumption Disclosure](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 2 | ⚪ NM | — | Not addressed |
-| [C10.3 Continuously Monitored Operation](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 6 | 🟡 PM | Tenet 7; CDM integration | Continuous diagnostics and mitigation align with continuous-operation intent |
+| [C10.3 Continuously Monitored Operation](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 7 | 🟡 PM | Tenet 7; CDM integration | Continuous diagnostics and mitigation align with continuous-operation intent |
 
 ### Gap Analysis (what this framework does not cover)
 

@@ -19,7 +19,7 @@ This is visible in the mapping below: the RMF has the **highest coverage of any 
 
 <!-- BEGIN GENERATED MAPPING (tools/generate_crosswalks.py) -->
 
-**Coverage: 63%** of the 107 Proof-of-Control requirements (0 exact matches, 67 partial, 40 no match), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
+**Coverage: 64%** of the 111 Proof-of-Control requirements (0 exact matches, 71 partial, 40 no match), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
 
 | PoC section | Reqs | Match | Closest framework clause(s) | Rationale |
 | --- | :---: | :---: | --- | --- |
@@ -33,7 +33,7 @@ This is visible in the mapping below: the RMF has the **highest coverage of any 
 | [C2.4 Evidence Handling for Protected Data](../0.1/en/0x10-C02-Privacy.md) | 2 | ⚪ NM | — | Evidence-store handling of protected data not addressed |
 | [C3.1 Boundary-Crossing Evidence](../0.1/en/0x10-C03-Portability.md) | 2 | ⚪ NM | — | Boundary-crossing evidence not addressed |
 | [C3.2 Cross-Environment Continuity](../0.1/en/0x10-C03-Portability.md) | 3 | ⚪ NM | — | Evidence continuity across environments not addressed |
-| [C4.1 Authority and Scope Enforcement](../0.1/en/0x10-C04-Authorization.md) | 6 | 🟡 PM | GOVERN 2.1; GOVERN 3.2 | GOVERN roles/authority and MANAGE controls cover authority definition; no evidenced per-action evaluation |
+| [C4.1 Authority and Scope Enforcement](../0.1/en/0x10-C04-Authorization.md) | 8 | 🟡 PM | GOVERN 2.1; GOVERN 3.2 | GOVERN roles/authority and MANAGE controls cover authority definition; no evidenced per-action evaluation |
 | [C4.2 Delegation](../0.1/en/0x10-C04-Authorization.md) | 4 | ⚪ NM | — | Delegation chains not addressed |
 | [C5.1 Agent and Principal Binding](../0.1/en/0x10-C05-Identity.md) | 4 | 🟡 PM | GOVERN 2.1; GOVERN 4.1 | GOVERN accountability requires attributable actors; no cryptographic principal binding |
 | [C5.2 Inter-Agent Identity](../0.1/en/0x10-C05-Identity.md) | 2 | ⚪ NM | — | Inter-agent identity not addressed |
@@ -51,9 +51,9 @@ This is visible in the mapping below: the RMF has the **highest coverage of any 
 | [C8.3 Chain Integrity and Self-Enforcement (Tier 4)](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 4 | ⚪ NM | — | No self-enforcing execution concept |
 | [C9.1 Locating Evidence on the System Surface](../0.1/en/0x10-C09-System-Surface-MAESTRO.md) | 3 | 🟡 PM | MAP 1.1 | MAP requires system context/scope mapping; not per-claim stack location |
 | [C9.2 Layer Coverage](../0.1/en/0x10-C09-System-Surface-MAESTRO.md) | 3 | ⚪ NM | — | Per-layer evidence coverage not addressed |
-| [C10.1 Conformance Claims](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 7 | 🟡 PM | GOVERN 4.2 | GOVERN transparency artifacts and RMF profiles resemble scoped claims; no standardized statement |
+| [C10.1 Conformance Claims](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 8 | 🟡 PM | GOVERN 4.2 | GOVERN transparency artifacts and RMF profiles resemble scoped claims; no standardized statement |
 | [C10.2 Trust-Assumption Disclosure](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 2 | 🟡 PM | MANAGE 1.4 | MANAGE requires documenting residual risk; not categorized trust assumptions |
-| [C10.3 Continuously Monitored Operation](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 6 | 🟡 PM | MANAGE 4.1 | MANAGE continuous monitoring aligns in intent; per-action near-real-time validation not specified |
+| [C10.3 Continuously Monitored Operation](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 7 | 🟡 PM | MANAGE 4.1 | MANAGE continuous monitoring aligns in intent; per-action near-real-time validation not specified |
 
 ### Gap Analysis (what this framework does not cover)
 

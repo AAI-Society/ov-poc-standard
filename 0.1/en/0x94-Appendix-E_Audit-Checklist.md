@@ -13,21 +13,21 @@ Tick items as you close them out; each chapter's *Auditor evidence* notes say wh
 | [C1 Provenance](0x10-C01-Provenance.md) | 3 | 6 | 4 | — | **13** |
 | [C2 Privacy](0x10-C02-Privacy.md) | 3 | 7 | 2 | 1 | **13** |
 | [C3 Portability](0x10-C03-Portability.md) | 1 | 2 | 2 | — | **5** |
-| [C4 Authorization](0x10-C04-Authorization.md) | 2 | 5 | 3 | — | **10** |
+| [C4 Authorization](0x10-C04-Authorization.md) | 2 | 7 | 3 | — | **12** |
 | [C5 Identity](0x10-C05-Identity.md) | 1 | 3 | 2 | — | **6** |
 | [C6 Security](0x10-C06-Security.md) | 2 | 5 | 2 | 1 | **10** |
 | [C7 Evidence Generation and Properties](0x10-C07-Evidence-Generation-and-Properties.md) | 5 | 4 | 5 | 1 | **15** |
 | [C8 Verifiability Tiers and the Binary Threshold](0x10-C08-Verifiability-Tiers.md) | 7 | — | 3 | 4 | **14** |
 | [C9 System Surface (MAESTRO)](0x10-C09-System-Surface-MAESTRO.md) | 3 | 2 | 1 | — | **6** |
-| [C10 Conformance and Trust-Assumption Disclosure](0x10-C10-Conformance-and-Disclosure.md) | 7 | 3 | 1 | 4 | **15** |
-| **All chapters** | **34** | **37** | **25** | **11** | **107** |
+| [C10 Conformance and Trust-Assumption Disclosure](0x10-C10-Conformance-and-Disclosure.md) | 7 | 4 | 2 | 4 | **17** |
+| **All chapters** | **34** | **40** | **26** | **11** | **111** |
 
 ## Requirements by Level
 
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="../../images/diagrams/checklist-levels-dark.svg">
-    <img alt="107 requirements by level: 34 at Level 1 (Recorded),  37 at Level 2 (Attested),  25 at Level 3 (Independently Verifiable),  11 at Level 4 (Self-Enforcing / Continuous)" src="../../images/diagrams/checklist-levels-light.svg" width="620">
+    <img alt="111 requirements by level: 34 at Level 1 (Recorded),  40 at Level 2 (Attested),  26 at Level 3 (Independently Verifiable),  11 at Level 4 (Self-Enforcing / Continuous)" src="../../images/diagrams/checklist-levels-light.svg" width="620">
   </picture>
 </p>
 
@@ -107,6 +107,8 @@ Tick items as you close them out; each chapter's *Auditor evidence* notes say wh
 - [ ] **4.1.4** `L2` 📋 — **Verify that** tool-call parameters are validated against the registered tool schema at execution time, that out-of-schema calls are rejected, and that the validated parameter digest is stored in the execution record.
 - [ ] **4.1.5** `L2` 📋 — **Verify that** agent credentials are issued per task with scope and expiry bound to that task (e.g., short-lived tokens), and that no standing broad-scope credential is available to the agent at runtime.
 - [ ] **4.1.6** `L2` 📋 — **Verify that** each human approval or override writes a record containing the approver's authenticated identity, the exact content presented for approval, the decision, and its timestamp.
+- [ ] **4.1.7** `L2` 📋 — **Verify that** authorization evaluation is path-aware: the evaluated context for each invocation includes parameters and state carried from upstream invocations in the same execution path, so that a composed sequence of individually authorized calls cannot silently exceed the authority of its steps. *(Research-driven addition — see [Appendix D, issue 12](0x93-Appendix-D_Open-Issues.md).)*
+- [ ] **4.1.8** `L2` 📋 — **Verify that** outputs of diagnostic, advisory, or audit tools cannot raise the authorization state of subsequent actions: approval thresholds are evaluated against the original grant, not against accumulated execution context. *(Research-driven addition — see [Appendix D, issue 12](0x93-Appendix-D_Open-Issues.md).)*
 ### C4.2 Delegation
 
 - [ ] **4.2.1** `L2` 📋 — **Verify that** each action's signed authorization token is cryptographically validated (signature, expiry, audience, scope) before execution, and that validation results are recorded.
@@ -235,6 +237,7 @@ Tick items as you close them out; each chapter's *Auditor evidence* notes say wh
 - [ ] **10.1.5** `L1` 🗣️ — **Verify that** the statement cites the exact version of this standard (e.g., v0.1) and the date of the claim.
 - [ ] **10.1.6** `L1` 🗣️ — **Verify that** the statement defines the system boundary (components, environments, interfaces in scope) and the classes of in-scope agent actions, and enumerates excluded action classes with a stated rationale for each exclusion.
 - [ ] **10.1.7** `L2` 📋 — **Verify that** the statement and its per-claim data are published in a documented, machine-readable format (schema available), so assessors and insurers can compare claims across implementations programmatically.
+- [ ] **10.1.8** `L2` 📋 — **Verify that** the declared system inventory is reconciled on a defined schedule against automated discovery from operational and observability streams, and that undeclared agent deployments surface as recorded findings rather than remaining shadow systems. *(Research-driven addition — see [Appendix D, issue 12](0x93-Appendix-D_Open-Issues.md).)*
 ### C10.2 Trust-Assumption Disclosure
 
 - [ ] **10.2.1** `L1` 🗣️ — **Verify that** the disclosure lists, per claim, each residual trust assumption with the assumption's subject (named vendor, hardware element, mathematical assumption, or ceremony) — matched one-to-one against the mechanisms in the claim register.
@@ -247,6 +250,7 @@ Tick items as you close them out; each chapter's *Auditor evidence* notes say wh
 - [ ] **10.3.4** `L4` 🔒 — **Verify that** validation failures and coverage gaps raise alerts to a monitored destination within the bounded window defined in the claim, with alert-to-acknowledgment times tracked.
 - [ ] **10.3.5** `L4` 🔒 — **Verify that** the monitoring pipeline itself is re-assessed by a third party on a defined cycle (e.g., annually), and the re-assessment report is available to relying parties.
 - [ ] **10.3.6** `L3` 🔍 — **Verify that** proof coverage — evidence-covered in-scope actions divided by total in-scope actions — is computed on a defined schedule and published with the claim, so coverage decay is visible rather than silent.
+- [ ] **10.3.7** `L3` 🔍 — **Verify that** automated validators used to monitor multi-step execution are evaluated for structured-trace parsing competence (schema and argument validation over tool-call trajectories), not only natural-language safety performance, and that the evaluation results are available to the assessor. *(Research-driven addition — see [Appendix D, issue 12](0x93-Appendix-D_Open-Issues.md).)*
 
 *Auditor evidence for these items: see [C10](0x10-C10-Conformance-and-Disclosure.md).*
 

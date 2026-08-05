@@ -36,8 +36,9 @@ An implementation may make claims in a subset of the six domains; for each domai
 | **10.1.5** | **Verify that** the statement cites the exact version of this standard (e.g., v0.1) and the date of the claim. | 1 |
 | **10.1.6** | **Verify that** the statement defines the system boundary (components, environments, interfaces in scope) and the classes of in-scope agent actions, and enumerates excluded action classes with a stated rationale for each exclusion. | 1 |
 | **10.1.7** | **Verify that** the statement and its per-claim data are published in a documented, machine-readable format (schema available), so assessors and insurers can compare claims across implementations programmatically. | 2 |
+| **10.1.8** | **Verify that** the declared system inventory is reconciled on a defined schedule against automated discovery from operational and observability streams, and that undeclared agent deployments surface as recorded findings rather than remaining shadow systems. *(Research-driven addition — see [Appendix D, issue 12](0x93-Appendix-D_Open-Issues.md).)* | 2 |
 
-**Auditor evidence:** 10.1.1–10.1.5 — the published statement checked field-by-field against the template; sample three asserted facts into the claim register. 10.1.6 — the boundary/scope section; test one excluded action class against the deployed system to confirm the exclusion is real, not evasive. 10.1.7 — retrieve the machine-readable statement and validate it against its schema.
+**Auditor evidence:** 10.1.1–10.1.5 — the published statement checked field-by-field against the template; sample three asserted facts into the claim register. 10.1.6 — the boundary/scope section; test one excluded action class against the deployed system to confirm the exclusion is real, not evasive. 10.1.7 — retrieve the machine-readable statement and validate it against its schema. 10.1.8 — the discovery tooling configuration and reconciliation reports; seed a test agent outside the declared inventory and confirm it surfaces as a finding.
 
 ---
 
@@ -76,8 +77,9 @@ An agent is not something you certify once: a point-in-time check cannot cover a
 | **10.3.4** | **Verify that** validation failures and coverage gaps raise alerts to a monitored destination within the bounded window defined in the claim, with alert-to-acknowledgment times tracked. | 4 |
 | **10.3.5** | **Verify that** the monitoring pipeline itself is re-assessed by a third party on a defined cycle (e.g., annually), and the re-assessment report is available to relying parties. | 4 |
 | **10.3.6** | **Verify that** proof coverage — evidence-covered in-scope actions divided by total in-scope actions — is computed on a defined schedule and published with the claim, so coverage decay is visible rather than silent. | 3 |
+| **10.3.7** | **Verify that** automated validators used to monitor multi-step execution are evaluated for structured-trace parsing competence (schema and argument validation over tool-call trajectories), not only natural-language safety performance, and that the evaluation results are available to the assessor. *(Research-driven addition — see [Appendix D, issue 12](0x93-Appendix-D_Open-Issues.md).)* | 3 |
 
-**Auditor evidence:** 10.3.1 — chain-verification results for the store. 10.3.2 — run the count reconciliation yourself over a sample window. 10.3.3 — validator configuration and result logs. 10.3.4 — alert records with acknowledgment timestamps. 10.3.5 — the most recent re-assessment report. 10.3.6 — the coverage metric's definition, computation job, and published values.
+**Auditor evidence:** 10.3.1 — chain-verification results for the store. 10.3.2 — run the count reconciliation yourself over a sample window. 10.3.3 — validator configuration and result logs. 10.3.4 — alert records with acknowledgment timestamps. 10.3.5 — the most recent re-assessment report. 10.3.6 — the coverage metric's definition, computation job, and published values. 10.3.7 — the validator's structured-trace evaluation report (e.g., against a trajectory benchmark), including parsing-accuracy metrics on corrupted tool-call sequences.
 
 > ⚠️ **[WG-INPUT NEEDED]** — the operational requirements for the Continuously Monitored stage
 > (minimum cadence, automated versus human validation, incident response and suspension) are not
@@ -89,5 +91,6 @@ An agent is not something you certify once: a point-in-time check cannot cover a
 
 * [CSA STAR](https://cloudsecurityalliance.org/star) · [SLSA levels](https://slsa.dev/spec/v1.0/levels) · [FIPS 140](https://csrc.nist.gov/projects/cryptographic-module-validation-program) — peer assurance ladders
 * [Appendix A — Glossary](0x90-Appendix-A_Glossary.md): conformance, conformance stage
+* AI Trust OS (Bandara et al., 2026) — telemetry-first discovery and zero-trust metadata probes, the basis for 10.1.8; TraceSafe-Bench (Chen et al., 2026) — validator structured-trace competence, the basis for 10.3.7 ([research basis](../../docs/research-basis.md))
 * Crosswalks: [SOC 2](../../mappings/soc-2.md), [EU AI Act](../../mappings/eu-ai-act.md)
 * Companion: [Governance](../../docs/governance.md) — the certification and assessor body; [Roadmap](../../docs/roadmap.md) — Phase-by-Phase readiness for each stage

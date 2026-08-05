@@ -25,7 +25,7 @@ Where they meet: AARM mints the tamper-evident receipt at the runtime gateway in
 
 <!-- BEGIN GENERATED MAPPING (tools/generate_crosswalks.py) -->
 
-**Coverage: 48%** of the 107 Proof-of-Control requirements (9 exact matches, 42 partial, 56 no match), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
+**Coverage: 50%** of the 111 Proof-of-Control requirements (11 exact matches, 44 partial, 56 no match), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
 
 | PoC section | Reqs | Match | Closest framework clause(s) | Rationale |
 | --- | :---: | :---: | --- | --- |
@@ -39,7 +39,7 @@ Where they meet: AARM mints the tamper-evident receipt at the runtime gateway in
 | [C2.4 Evidence Handling for Protected Data](../0.1/en/0x10-C02-Privacy.md) | 2 | ⚪ NM | — | Evidence-store handling not addressed |
 | [C3.1 Boundary-Crossing Evidence](../0.1/en/0x10-C03-Portability.md) | 2 | ⚪ NM | — | Boundary-crossing evidence not addressed |
 | [C3.2 Cross-Environment Continuity](../0.1/en/0x10-C03-Portability.md) | 3 | ⚪ NM | — | Not addressed |
-| [C4.1 Authority and Scope Enforcement](../0.1/en/0x10-C04-Authorization.md) | 6 | 🟣 EM | Action interception: approve / modify / defer / deny | Action interception with approve/modify/defer/deny decisions matches scope enforcement and evidenced rejection |
+| [C4.1 Authority and Scope Enforcement](../0.1/en/0x10-C04-Authorization.md) | 8 | 🟣 EM | Action interception: approve / modify / defer / deny | Action interception with approve/modify/defer/deny decisions matches scope enforcement and evidenced rejection |
 | [C4.2 Delegation](../0.1/en/0x10-C04-Authorization.md) | 4 | 🟡 PM | Authority evaluation at the boundary | Authority evaluation at the boundary partially covers delegation checks |
 | [C5.1 Agent and Principal Binding](../0.1/en/0x10-C05-Identity.md) | 4 | 🟡 PM | Agent identity as authorization input | Agent identity as an input to runtime authorization; no principal-binding tokens |
 | [C5.2 Inter-Agent Identity](../0.1/en/0x10-C05-Identity.md) | 2 | ⚪ NM | — | Inter-agent identity not addressed |
@@ -57,9 +57,9 @@ Where they meet: AARM mints the tamper-evident receipt at the runtime gateway in
 | [C8.3 Chain Integrity and Self-Enforcement (Tier 4)](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 4 | ⚪ NM | — | No self-enforcement concept |
 | [C9.1 Locating Evidence on the System Surface](../0.1/en/0x10-C09-System-Surface-MAESTRO.md) | 3 | ⚪ NM | — | Not addressed |
 | [C9.2 Layer Coverage](../0.1/en/0x10-C09-System-Surface-MAESTRO.md) | 3 | ⚪ NM | — | Not addressed |
-| [C10.1 Conformance Claims](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 7 | 🟡 PM | CSA conformance regime | CSA conformance regime with independent review partially parallels claim requirements |
+| [C10.1 Conformance Claims](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 8 | 🟡 PM | CSA conformance regime | CSA conformance regime with independent review partially parallels claim requirements |
 | [C10.2 Trust-Assumption Disclosure](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 2 | ⚪ NM | — | No trust-assumption disclosure |
-| [C10.3 Continuously Monitored Operation](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 6 | 🟡 PM | Continuous runtime enforcement | Continuous runtime enforcement aligns with continuous-operation intent |
+| [C10.3 Continuously Monitored Operation](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 7 | 🟡 PM | Continuous runtime enforcement | Continuous runtime enforcement aligns with continuous-operation intent |
 
 ### Gap Analysis (what this framework does not cover)
 

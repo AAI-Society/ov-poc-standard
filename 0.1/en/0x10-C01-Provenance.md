@@ -71,5 +71,6 @@ Where [Privacy](0x10-C02-Privacy.md) requires minimization, conformant provenanc
 
 * [SLSA — Supply-chain Levels for Software Artifacts](https://slsa.dev/) · [in-toto](https://in-toto.io/) · [Sigstore](https://www.sigstore.dev/)
 * [C2PA — Coalition for Content Provenance and Authenticity](https://c2pa.org/)
+* Catena-X AI Service KIT — AI Service Passports and identity-anchored cross-organizational model provenance, a live deployment pattern for this chapter ([research basis](../../docs/research-basis.md))
 * [MITRE ATLAS](https://atlas.mitre.org/) — training-time poisoning and supply-chain threats
 * Crosswalks: [MAESTRO L1/L2 controls](0x91-Appendix-B_Proof-Mechanism-Inventory.md), [OWASP](../../mappings/owasp.md), [MITRE ATLAS](../../mappings/mitre-atlas.md)
