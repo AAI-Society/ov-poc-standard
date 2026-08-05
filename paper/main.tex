@@ -10,6 +10,9 @@
 \usepackage{array}
 \usepackage{amsmath, amssymb}
 \usepackage{listings}
+\usepackage[outputdir=.]{minted}
+\usemintedstyle{friendly}
+\definecolor{codepanel}{HTML}{F7F5F1}
 \usepackage{xcolor}
 \usepackage{colortbl}
 \usepackage[hidelinks]{hyperref}
@@ -385,26 +388,27 @@ agents surface as findings~\cite{bandara2026}.
 \section{Reference Architecture}
 \label{sec:arch}
 
-The reference architecture (Figure~\ref{fig:flow}) integrates runtime
-lifecycle interception with hardware-backed attestation under the IETF RATS
-architecture (RFC~9334)~\cite{rfc9334,ratsarch}:
+The reference architecture integrates runtime lifecycle interception with
+hardware-backed attestation under the IETF RATS architecture
+(RFC~9334)~\cite{rfc9334,ratsarch}. Figure~\ref{fig:arch} shows the
+end-to-end pipeline and its mapping onto RATS roles: every consequential
+action is intercepted, reduced to a canonical state snapshot, evaluated
+inside a hardware enclave that the operator cannot reach into, and released
+only after signed evidence exists; Figure~\ref{fig:flow} shows the same
+boundary from the evidence-generation perspective.
 
-\begin{lstlisting}
-[Agent Host / Runtime]
-  |
-  +-> Interception Point (ACS Lifecycle Hook)
-        |
-        +-> Canonical Input Builder
-            (State Snapshot: Path, Identity, Proposed Action)
-              |
-              +-> Hardware TEE Enclave (Attesting Environment)
-                    |-- Evaluates Portable Rego Policy Bundle
-                    |-- Renders Verdict: ALLOW / DENY / MODIFY / ESCALATE
-                    |-- Updates Signed Merkle Execution Chain
-                    |-- Emits Signed Entity Attestation Token (EAT / CWT)
-                          |
-                          +-> [Relying Party / Verifier Checks Proof]
-\end{lstlisting}
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.92\linewidth]{figures/reference-architecture.pdf}
+\caption{The \poc{} reference architecture and its IETF RATS role mapping.
+The agent host (Attester) routes every lifecycle event through an ACS
+interception point; the hardware TEE enclave (Attesting Environment)
+verifies the policy bundle, evaluates the snapshot, extends the signed
+Merkle chain, and emits the Entity Attestation Token (Evidence), which a
+Verifier checks against published reference values before a Relying Party
+executes the request.}
+\label{fig:arch}
+\end{figure}
 
 \begin{figure}[t]
 \centering
@@ -463,9 +467,18 @@ periodically anchored to a public ledger or distributed trust root
 reordering, or suppression of history~\cite{merklechain2026}.
 
 \subsection{Canonical evidence schema}
-Evidence is an EAT profile for autonomous agents:
+\label{sec:schema}
 
-\begin{lstlisting}
+Every intercepted step yields one Evidence token: an Entity Attestation
+Token~\cite{rfc9711} carrying the \poc{} claim set alongside the hardware
+attestation submodule. Listing~\ref{lst:eat} shows a representative token
+(JWT rendering; the CBOR/CWT encoding is byte-equivalent in claim
+structure), produced at the pre-call tool-invocation hook for a payment
+API request.
+
+\begin{listing}[ht]
+\begin{minted}[bgcolor=codepanel, fontsize=\footnotesize, frame=lines,
+framerule=0.4pt, breaklines]{json}
 {
   "iss": "https://verifier.trusted-attestation.org",
   "iat": 1773532800,
@@ -491,7 +504,83 @@ Evidence is an EAT profile for autonomous agents:
     }
   }
 }
-\end{lstlisting}
+\end{minted}
+\caption{A \poc{} Evidence token (EAT, JWT rendering) emitted at the
+pre-call tool-invocation hook.}
+\label{lst:eat}
+\end{listing}
+
+Table~\ref{tab:claims} defines each claim. Three design decisions matter.
+First, \emph{payloads never leave the boundary}: the token carries
+\texttt{canonical\_snapshot\_hash}, a commitment to the full evaluated
+state, rather than the state itself---so a third party can later confirm
+exactly what was evaluated (by hashing a disclosed snapshot) without the
+evidence store ever holding raw data (the C2 privacy requirements).
+Second, \emph{history is load-bearing}: \texttt{step\_index} and
+\texttt{merkle\_root} bind this token to every token before it, which is
+what makes silent omission of an inconvenient step as detectable as
+alteration. Third, \emph{the policy is pinned}:
+\texttt{policy\_bundle\_hash} identifies the exact rule set that produced
+the verdict, so ``which policy was in force?'' is a claim to check, not a
+change-log to reconstruct.
+
+\begin{table}[ht]
+\centering\footnotesize
+\begin{tabular}{@{}llp{8.1cm}@{}}
+\toprule
+\textbf{Claim} & \textbf{Type} & \textbf{Meaning} \\
+\midrule
+\texttt{iss} / \texttt{iat} & EAT & Token issuer and issuance timestamp. \\
+\texttt{nonce} & EAT & Relying-party challenge; proves freshness and
+prevents replay of an old token for a new action. \\
+\texttt{eat\_profile} & EAT & The \poc{} EAT profile (and version) this
+token conforms to. \\
+\texttt{agent\_id} & PoC & Decentralized identifier of the agent instance
+(C5); resolvable to its public keys. \\
+\texttt{initiating\_user} & PoC & The principal on whose authority the
+action runs---the human-to-agent binding (C5.1). \\
+\texttt{agbom\_digest} & PoC & Digest of the Agent Bill of Materials: the
+build, tools, and model manifest the agent runs from (C1). \\
+\texttt{interception\_point} & PoC & Which lifecycle hook produced this
+token (one of the eight in \S\ref{sec:arch}). \\
+\texttt{step\_index} & PoC & Monotonic position in the execution path;
+gaps expose omitted steps. \\
+\texttt{merkle\_root} & PoC & Accumulated root of the signed execution
+chain up to and including this step. \\
+\texttt{policy\_bundle\_hash} & PoC & Digest of the signed Rego bundle
+that was evaluated---pins the exact policy in force. \\
+\texttt{target\_resource} & PoC & The resource the proposed action
+addressed (tool endpoint, table, device). \\
+\texttt{canonical\_snapshot\_hash} & PoC & Commitment to the full
+canonical state snapshot that was evaluated; discloses nothing by itself. \\
+\texttt{verdict} & PoC & The binding decision: \textsc{allow},
+\textsc{deny}, \textsc{modify}, or \textsc{escalate}. \\
+\texttt{platform} / \texttt{mr\_config} & HW & TEE platform and enclave
+measurement; compared against published reference values to prove the
+authorized policy engine ran unmodified. \\
+\texttt{attestation\_signature} & HW & Hardware-rooted signature over the
+token by the enclave-bound key. \\
+\bottomrule
+\end{tabular}
+\caption{The Evidence claim set. ``EAT'' rows are standard Entity
+Attestation Token claims~\cite{rfc9711}; ``PoC'' rows are the \poc{}
+profile; ``HW'' rows form the hardware-attestation submodule.}
+\label{tab:claims}
+\end{table}
+
+\paragraph{How a verifier consumes the token.} Verification is a fixed,
+mechanical sequence: (1)~validate \texttt{attestation\_signature} against
+the platform's attestation roots (composed with independent anchoring per
+the Tier-3 rule of Section~\ref{sec:tiers}); (2)~compare
+\texttt{mr\_config} to the published golden measurement of the policy
+engine; (3)~check \texttt{policy\_bundle\_hash} against the signed bundle
+registry; (4)~confirm \texttt{nonce} freshness; (5)~confirm
+\texttt{step\_index} continuity and \texttt{merkle\_root} consistency
+with previously seen tokens for this \texttt{agent\_id}; and only then
+(6)~accept \texttt{verdict} as evidence that the control held for this
+action. Every step uses published materials---no privileged access to the
+operator's infrastructure is required, which is precisely what places this
+evidence above the binary threshold.
 
 \begin{table}[ht]
 \centering\footnotesize

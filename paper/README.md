@@ -8,7 +8,7 @@ Cryptographic Oversight in Autonomous AI Execution*.
 ## Build
 
 ```bash
-tectonic main.tex     # or: pdflatex + bibtex x2 + pdflatex x2
+tectonic -Z shell-escape main.tex   # shell-escape needed for minted (pygments)
 ```
 
 Output: `main.pdf` (a compiled copy is committed for convenience).

@@ -649,6 +649,81 @@ def roadmap(t, v):
     s.save()
 
 
+
+
+def reference_architecture(t, v):
+    s = SVG("reference-architecture", 1040, 760, t, v,
+            eyebrow="REFERENCE ARCHITECTURE",
+            title="From intercepted action to checkable proof")
+
+    def rats(x, y, label):
+        w = len(label) * 7.4 + 24
+        s.card(x - w, y, w, 24, kind="warm", rx=12, shadow=False)
+        s.text(x - w / 2, y + 16, label, 9.5, t["warm_text"], bold=True,
+               spacing=1.1)
+
+    # 1 · agent host
+    s.card(120, 96, 560, 74, kind="warm")
+    s.icon(["bolt"], 142, 110, t["warm_text"], scale=0.75)
+    s.text(172, 128, "Agent host / runtime", 15, t["warm_text"], bold=True,
+           anchor="start")
+    s.text(172, 150, "plans · calls tools · delegates sub-tasks", 11.5,
+           t["warm_text"], anchor="start")
+    rats(1006, 108, "RATS · ATTESTER")
+    s.arrow(400, 170, 400, 196)
+    # 2 · interception
+    s.card(120, 200, 560, 74, kind="card")
+    s.icon(["gauge_o", "gauge_n"], 142, 214, t["accent"], scale=0.75)
+    s.text(172, 232, "ACS lifecycle interception point", 15, t["text"],
+           bold=True, anchor="start")
+    s.text(172, 254, "task init · context · plan · pre/post-tool · memory · delegation · completion",
+           11, t["muted"], anchor="start")
+    rats(1006, 212, "TARGET ENVIRONMENT")
+    s.arrow(400, 274, 400, 300)
+    s.text(416, 292, "canonical state snapshot — path · identity · proposed action",
+           11, t["muted"], anchor="start")
+    # 3 · enclave
+    s.card(120, 304, 560, 224, kind="gate", glow=True)
+    s.icon(["shield", "shieldcheck"], 142, 318, t["gate_text"], scale=0.8)
+    s.text(174, 336, "Hardware TEE enclave", 15, t["gate_text"], bold=True,
+           anchor="start")
+    steps = ["1  verify signed Rego policy bundle",
+             "2  evaluate snapshot → ALLOW · DENY · MODIFY · ESCALATE",
+             "3  append signed Merkle leaf  L_t = H(L_t-1 || H(snap) || verdict)",
+             "4  sign Entity Attestation Token (EAT / CWT)"]
+    for i, st in enumerate(steps):
+        s.card(146, 356 + i * 42, 508, 34, kind="card", rx=8, shadow=False)
+        s.text(164, 378 + i * 42, st, 11.5, t["text"], anchor="start",
+               mono=True)
+    rats(1006, 316, "ATTESTING ENVIRONMENT")
+    s.arrow(400, 528, 400, 556)
+    s.text(416, 548, "Evidence — signed EAT over the Merkle chain", 11,
+           t["muted"], anchor="start")
+    rats(1006, 536, "EVIDENCE")
+    # 4 · verifier + relying party
+    s.card(120, 560, 320, 108, kind="lime", glow=True)
+    s.icon(["eye_outer", "eye_pupil"], 140, 574, t["lime_text"], scale=0.75)
+    s.text(170, 592, "Verifier", 15, t["lime_text"], bold=True, anchor="start")
+    s.text(140, 620, "compares evidence to published", 11.5, t["lime_text"],
+           anchor="start")
+    s.text(140, 637, "reference values → attestation result", 11.5,
+           t["lime_text"], anchor="start")
+    s.card(500, 560, 340, 108, kind="card")
+    s.icon(["lock_body", "lock_arc"], 520, 574, t["accent"], scale=0.75)
+    s.text(550, 592, "Relying party", 15, t["text"], bold=True, anchor="start")
+    s.text(520, 620, "API gateway or service — requires a valid", 11.5,
+           t["muted"], anchor="start")
+    s.text(520, 637, "result before executing the tool request", 11.5,
+           t["muted"], anchor="start")
+    s.arrow(444, 614, 496, 614)
+    rats(1006, 572, "VERIFIER")
+    rats(1006, 604, "RELYING PARTY")
+    s.caption("policy evaluation, evidence signing, and history live inside the "
+              "enclave — the operator can run the agent, but cannot forge its record",
+              y=s.h - 26)
+    s.save()
+
+
 # ------------------------------------------------- domain chapter figures
 
 def c1_provenance(t, v):
@@ -845,7 +920,7 @@ def c6_security(t, v):
 
 DIAGRAMS = [standard_at_a_glance, tier_ladder, conformance_stages, document_map,
             first_claim_journey, evidence_flow, maestro_stack,
-            risk_value_quadrant, smart_leash, roadmap, c1_provenance, c2_privacy,
+            risk_value_quadrant, smart_leash, roadmap, reference_architecture, c1_provenance, c2_privacy,
             c3_portability, c4_authorization, c5_identity, c6_security]
 
 

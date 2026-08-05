@@ -12,3 +12,6 @@ Thumbs.db
 dist/
 *.pdf
 !paper/main.pdf
+
+# LaTeX/minted intermediates
+paper/_minted*
