@@ -6,6 +6,12 @@ Produce verifiable evidence of system integrity and access-control enforcement. 
 
 *Verifiable facts: integrity of the execution environment and that controls held; tools invoked.*
 
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="../../images/diagrams/c6-security-dark.svg">
+    <img alt="The execution environment attests its measurement to an independent verifier against published reference values; evidence-signing keys live in an HSM" src="../../images/diagrams/c6-security-light.svg" width="900">
+  </picture>
+</p>
 ---
 
 ## C6.1 Execution Environment Integrity

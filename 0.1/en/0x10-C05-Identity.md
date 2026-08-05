@@ -6,6 +6,12 @@ Produce verifiable evidence of actors, agents, and delegated authority relations
 
 *Verifiable facts: which agent and which principal ran.*
 
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="../../images/diagrams/c5-identity-dark.svg">
+    <img alt="The identity chain: principal issues a signed, short-lived, scoped delegation token to the agent; every action traces back to the principal" src="../../images/diagrams/c5-identity-light.svg" width="900">
+  </picture>
+</p>
 ---
 
 ## C5.1 Agent and Principal Binding

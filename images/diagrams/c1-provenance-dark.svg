@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="265" viewBox="0 0 940 265" font-family="Montserrat,'Source Sans 3',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif">
+<text x="20" y="30" font-size="12" fill="#cfff04" font-weight="600" text-anchor="start">C1 · PROVENANCE — THE CHAIN OF CUSTODY</text>
+<rect x="20" y="70" width="210" height="100" rx="10" fill="#161616" stroke="#2e2e2e" stroke-width="1.5"/>
+<text x="125.0" y="107.5" font-size="14.5" fill="#f0edea" font-weight="600" text-anchor="middle">Origin</text>
+<text x="125.0" y="124.5" font-size="11.5" fill="#8f8a82" text-anchor="middle">training data · inputs</text>
+<text x="125.0" y="141.5" font-size="11.5" fill="#8f8a82" text-anchor="middle">signed at source</text>
+<rect x="330" y="70" width="250" height="100" rx="10" fill="#161616" stroke="#2e2e2e" stroke-width="1.5"/>
+<text x="455.0" y="107.5" font-size="14.5" fill="#f0edea" font-weight="600" text-anchor="middle">Model state</text>
+<text x="455.0" y="124.5" font-size="12" fill="#8f8a82" text-anchor="middle">sha256: 9f2c…e1</text>
+<text x="455.0" y="141.5" font-size="11.5" fill="#8f8a82" text-anchor="middle">matches signed manifest ✓</text>
+<rect x="680" y="70" width="240" height="100" rx="10" fill="#222b00" stroke="#cfff04" stroke-width="1.5"/>
+<text x="800.0" y="107.5" font-size="14.5" fill="#e3ff66" font-weight="600" text-anchor="middle">Action record</text>
+<text x="800.0" y="124.5" font-size="11.5" fill="#e3ff66" text-anchor="middle">what ran, on what, when</text>
+<text x="800.0" y="141.5" font-size="11.5" fill="#e3ff66" font-weight="600" text-anchor="middle">custody chain complete ✓</text>
+<line x1="230" y1="120" x2="328" y2="120" stroke="#8f8a82" stroke-width="1.5"/>
+<polygon points="328,120 319,115 319,125" fill="#8f8a82"/>
+<text x="279" y="110" font-size="10.5" fill="#8f8a82" text-anchor="middle">hash link</text>
+<line x1="580" y1="120" x2="678" y2="120" stroke="#8f8a82" stroke-width="1.5"/>
+<polygon points="678,120 669,115 669,125" fill="#8f8a82"/>
+<text x="629" y="110" font-size="10.5" fill="#8f8a82" text-anchor="middle">hash link</text>
+<text x="470" y="225" font-size="12" fill="#8f8a82" text-anchor="middle">an immutable chain from origin to action — a reviewer can walk it end-to-end,</text>
+<text x="470" y="243" font-size="12" fill="#8f8a82" text-anchor="middle">without trusting the operator (C1.1–C1.2)</text>
+</svg>

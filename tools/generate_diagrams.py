@@ -423,9 +423,166 @@ def smart_leash(t, v):
     s.save("smart-leash", v)
 
 
+def _eyebrow(s, t, v, label):
+    s.text(20, 30, label, 12, "#7a9900" if v == "light" else "#cfff04",
+           bold=True, anchor="start")
+
+
+def c1_provenance(t, v):
+    s = SVG(940, 265, t)
+    _eyebrow(s, t, v, "C1 · PROVENANCE — THE CHAIN OF CUSTODY")
+    s.box(20, 70, 210, 100, [
+        L("Origin", 14.5, True),
+        L("training data · inputs", 11.5, False, t["muted"]),
+        L("signed at source", 11.5, False, t["muted"]),
+    ])
+    s.box(330, 70, 250, 100, [
+        L("Model state", 14.5, True),
+        L("sha256: 9f2c…e1", 12, False, t["muted"]),
+        L("matches signed manifest ✓", 11.5, False, t["muted"]),
+    ])
+    s.box(680, 70, 240, 100, [
+        L("Action record", 14.5, True, t["green_text"]),
+        L("what ran, on what, when", 11.5, False, t["green_text"]),
+        L("custody chain complete ✓", 11.5, True, t["green_text"]),
+    ], fill=t["green_fill"], stroke=t["green_stroke"])
+    s.arrow(230, 120, 328, 120)
+    s.text(279, 110, "hash link", 10.5, t["muted"])
+    s.arrow(580, 120, 678, 120)
+    s.text(629, 110, "hash link", 10.5, t["muted"])
+    s.text(470, 225, "an immutable chain from origin to action — a reviewer can walk it end-to-end,",
+           12, t["muted"])
+    s.text(470, 243, "without trusting the operator (C1.1–C1.2)", 12, t["muted"])
+    s.save("c1-provenance", v)
+
+
+def c2_privacy(t, v):
+    s = SVG(940, 300, t)
+    _eyebrow(s, t, v, "C2 · PRIVACY — EVIDENCE WITHOUT EXPOSURE")
+    s.box(20, 70, 350, 120, [
+        L("What the agent touched", 14, True),
+        L("customer record · full payload", 12, False, t["muted"]),
+        L("protected data, stays inside", 11.5, False, t["muted"]),
+    ])
+    s.line(470, 52, 470, 235, dashed=True, width=2)
+    s.text(470, 42, "the disclosure boundary", 11.5, t["muted"])
+    s.box(570, 70, 350, 120, [
+        L("What the evidence shows", 14, True, t["green_text"]),
+        L("digest a41f…9c · 3 fields read", 12, False, t["green_text"]),
+        L("policy held ✓ — no payload", 11.5, True, t["green_text"]),
+    ], fill=t["green_fill"], stroke=t["green_stroke"])
+    s.arrow(370, 110, 568, 110)
+    s.text(470, 100, "derived evidence only", 10.5, t["muted"])
+    s.box(320, 205, 300, 44, [
+        L("raw payload ✕  never crosses", 12, True, t["red_text"]),
+    ], fill=t["red_fill"], stroke=t["red_stroke"], rx=8)
+    s.text(470, 280, "privacy evidence proves the rules held without re-leaking the data they protect (C2.1–C2.3)",
+           12, t["muted"])
+    s.save("c2-privacy", v)
+
+
+def c3_portability(t, v):
+    s = SVG(940, 300, t)
+    _eyebrow(s, t, v, "C3 · PORTABILITY — THE CHAIN SURVIVES THE CROSSING")
+    for x0, title, ids in ((20, "Cloud A · attestation domain A", ("41", "42", "43")),
+                           (545, "Cloud B · attestation domain B", ("44", "45", "46"))):
+        s.box(x0, 60, 375, 150, [], rx=12)
+        s.text(x0 + 187, 88, title, 12.5, t["muted"], bold=True)
+        for i, rid in enumerate(ids):
+            bx = x0 + 25 + i * 115
+            s.box(bx, 115, 95, 60, [L("record", 11, False, t["muted"]), L(rid, 13, True)], rx=8)
+            if i < 2:
+                s.arrow(bx + 95, 145, bx + 115, 145)
+    s.box(407, 115, 126, 60, [
+        L("signed", 11.5, True, t["blue_text"]),
+        L("linking record", 11.5, True, t["blue_text"]),
+    ], fill=t["blue_fill"], stroke=t["blue_stroke"], rx=8)
+    s.arrow(395, 145, 405, 145)
+    s.arrow(533, 145, 543, 145)
+    s.text(470, 245, "when evidence crosses vendors or jurisdictions, a signed link binds the two chains —",
+           12, t["muted"])
+    s.text(470, 263, "an outside verifier can confirm there is no gap at the boundary (C3.2)", 12, t["muted"])
+    s.save("c3-portability", v)
+
+
+def c4_authorization(t, v):
+    s = SVG(940, 320, t)
+    _eyebrow(s, t, v, "C4 · AUTHORIZATION — THE ENVELOPE AND THE GATEWAY")
+    s.box(20, 60, 620, 190, [], rx=12)
+    s.text(330, 90, "Granted authority — scope · limits · expiry", 13, t["text"], bold=True)
+    s.box(50, 115, 260, 50, [L("read customer record ✓ recorded", 12, True, t["green_text"])],
+          fill=t["green_fill"], stroke=t["green_stroke"], rx=8)
+    s.box(340, 115, 270, 50, [L("issue refund within limit ✓ recorded", 12, True, t["green_text"])],
+          fill=t["green_fill"], stroke=t["green_stroke"], rx=8)
+    s.box(50, 180, 260, 50, [L("call registered tools ✓ recorded", 12, True, t["green_text"])],
+          fill=t["green_fill"], stroke=t["green_stroke"], rx=8)
+    s.parts.append(
+        f'<rect x="672" y="95" width="9" height="130" rx="4" fill="{t["purple"]}"/>'
+    )
+    s.text(676, 250, "interception gateway", 10.5, t["muted"])
+    s.arrow(610, 205, 670, 205)
+    s.box(720, 175, 200, 60, [
+        L("export database", 12.5, True, t["red_text"]),
+        L("✕ blocked + evidenced", 11.5, True, t["red_text"]),
+    ], fill=t["red_fill"], stroke=t["red_stroke"], rx=8)
+    s.text(470, 292, "in-scope actions execute and are recorded; out-of-scope actions stop at the gateway — both leave evidence (C4.1)",
+           12, t["muted"])
+    s.save("c4-authorization", v)
+
+
+def c5_identity(t, v):
+    s = SVG(940, 265, t)
+    _eyebrow(s, t, v, "C5 · IDENTITY — EVERY ACTION HAS A PRINCIPAL")
+    s.box(20, 70, 190, 95, [
+        L("Principal", 14, True),
+        L("person or organization", 11.5, False, t["muted"]),
+    ])
+    s.box(280, 70, 240, 95, [
+        L("Delegation token", 13.5, True, t["green_text"]),
+        L("signed · short-lived · scoped", 11.5, False, t["green_text"]),
+    ], fill=t["green_fill"], stroke=t["green_stroke"])
+    s.box(590, 70, 160, 95, [
+        L("Agent", 14, True),
+        L("cryptographic identity", 11.5, False, t["muted"]),
+    ])
+    s.box(820, 70, 100, 95, [L("Action", 14, True)])
+    s.arrow(210, 117, 278, 117)
+    s.arrow(520, 117, 588, 117)
+    s.arrow(750, 117, 818, 117)
+    s.arrow(868, 175, 118, 175, dashed=True)
+    s.line(868, 165, 868, 175, dashed=True)
+    s.line(118, 175, 118, 165, dashed=True)
+    s.text(493, 200, "every action traces back to a legitimate principal — no anonymous authority (C5.1)",
+           12, t["muted"])
+    s.save("c5-identity", v)
+
+
+def c6_security(t, v):
+    s = SVG(940, 300, t)
+    _eyebrow(s, t, v, "C6 · SECURITY — THE ENVIRONMENT PROVES ITSELF")
+    s.box(20, 60, 420, 190, [], rx=12)
+    s.text(230, 88, "Execution environment", 13, t["text"], bold=True)
+    s.box(45, 110, 220, 50, [L("measurement 9e11…4b", 12, True)], rx=8)
+    s.box(45, 180, 280, 50, [L("generated code runs in a sandbox", 12, False, t["muted"])], rx=8)
+    s.arrow(440, 135, 558, 135)
+    s.text(499, 125, "attestation report", 10.5, t["muted"])
+    s.box(560, 85, 360, 95, [
+        L("Independent verification", 13.5, True, t["green_text"]),
+        L("report compared to published", 11.5, False, t["green_text"]),
+        L("reference values — pass ✓", 11.5, True, t["green_text"]),
+    ], fill=t["green_fill"], stroke=t["green_stroke"])
+    s.box(560, 200, 320, 50, [
+        L("evidence-signing keys in HSM — non-exportable", 12, True),
+    ], rx=8)
+    s.text(470, 282, "the environment is attested against reference values anyone can check; the keys that sign evidence live in hardware (C6.1, C6.3)",
+           11.5, t["muted"])
+    s.save("c6-security", v)
+
+
 DIAGRAMS = [standard_at_a_glance, tier_ladder, conformance_stages, document_map,
             first_claim_journey, evidence_flow, maestro_stack, risk_value_quadrant,
-            smart_leash]
+            smart_leash, c1_provenance, c2_privacy, c3_portability, c4_authorization,
+            c5_identity, c6_security]
 
 
 def main():

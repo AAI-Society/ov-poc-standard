@@ -8,6 +8,12 @@ Produce verifiable evidence that data handling stayed within the defined privacy
 
 Privacy covers what data is touched, under what constraints, and that those constraints held. This is distinct from [Authorization](0x10-C04-Authorization.md) (is the system permitted to act) and [Identity](0x10-C05-Identity.md) (who acted).
 
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="../../images/diagrams/c2-privacy-dark.svg">
+    <img alt="The disclosure boundary: the agent touches protected data, but only derived evidence (digests, policy results) crosses; the raw payload never does" src="../../images/diagrams/c2-privacy-light.svg" width="900">
+  </picture>
+</p>
 ---
 
 ## C2.1 Data-Access Evidence

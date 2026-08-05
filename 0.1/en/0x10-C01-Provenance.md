@@ -8,6 +8,12 @@ Produce verifiable evidence of origin and lineage: where inputs came from, which
 
 Provenance is distinct from the other five domains: [Identity](0x10-C05-Identity.md) covers who the actor was, and [Authorization](0x10-C04-Authorization.md) covers whether the system acted within the permissions it was granted; no single domain answers "who did what, provably" on its own.
 
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="../../images/diagrams/c1-provenance-dark.svg">
+    <img alt="The chain of custody: origin, model state with signed manifest, and the action record, connected by hash links a reviewer can walk end-to-end" src="../../images/diagrams/c1-provenance-light.svg" width="900">
+  </picture>
+</p>
 ---
 
 ## C1.1 Model and Artifact Provenance

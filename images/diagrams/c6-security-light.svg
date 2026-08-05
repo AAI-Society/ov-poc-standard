@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="300" viewBox="0 0 940 300" font-family="Montserrat,'Source Sans 3',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif">
+<text x="20" y="30" font-size="12" fill="#7a9900" font-weight="600" text-anchor="start">C6 · SECURITY — THE ENVIRONMENT PROVES ITSELF</text>
+<rect x="20" y="60" width="420" height="190" rx="12" fill="#f0edea" stroke="#d8d3cc" stroke-width="1.5"/>
+<text x="230" y="88" font-size="13" fill="#0a0a0a" font-weight="600" text-anchor="middle">Execution environment</text>
+<rect x="45" y="110" width="220" height="50" rx="8" fill="#f0edea" stroke="#d8d3cc" stroke-width="1.5"/>
+<text x="155.0" y="139.5" font-size="12" fill="#0a0a0a" font-weight="600" text-anchor="middle">measurement 9e11…4b</text>
+<rect x="45" y="180" width="280" height="50" rx="8" fill="#f0edea" stroke="#d8d3cc" stroke-width="1.5"/>
+<text x="185.0" y="209.5" font-size="12" fill="#6b665f" text-anchor="middle">generated code runs in a sandbox</text>
+<line x1="440" y1="135" x2="558" y2="135" stroke="#6b665f" stroke-width="1.5"/>
+<polygon points="558,135 549,130 549,140" fill="#6b665f"/>
+<text x="499" y="125" font-size="10.5" fill="#6b665f" text-anchor="middle">attestation report</text>
+<rect x="560" y="85" width="360" height="95" rx="10" fill="#f2ffb8" stroke="#7a9900" stroke-width="1.5"/>
+<text x="740.0" y="120.0" font-size="13.5" fill="#3d4d00" font-weight="600" text-anchor="middle">Independent verification</text>
+<text x="740.0" y="137.0" font-size="11.5" fill="#3d4d00" text-anchor="middle">report compared to published</text>
+<text x="740.0" y="154.0" font-size="11.5" fill="#3d4d00" font-weight="600" text-anchor="middle">reference values — pass ✓</text>
+<rect x="560" y="200" width="320" height="50" rx="8" fill="#f0edea" stroke="#d8d3cc" stroke-width="1.5"/>
+<text x="720.0" y="229.5" font-size="12" fill="#0a0a0a" font-weight="600" text-anchor="middle">evidence-signing keys in HSM — non-exportable</text>
+<text x="470" y="282" font-size="11.5" fill="#6b665f" text-anchor="middle">the environment is attested against reference values anyone can check; the keys that sign evidence live in hardware (C6.1, C6.3)</text>
+</svg>

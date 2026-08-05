@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="265" viewBox="0 0 940 265" font-family="Montserrat,'Source Sans 3',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif">
+<text x="20" y="30" font-size="12" fill="#7a9900" font-weight="600" text-anchor="start">C5 · IDENTITY — EVERY ACTION HAS A PRINCIPAL</text>
+<rect x="20" y="70" width="190" height="95" rx="10" fill="#f0edea" stroke="#d8d3cc" stroke-width="1.5"/>
+<text x="115.0" y="113.5" font-size="14" fill="#0a0a0a" font-weight="600" text-anchor="middle">Principal</text>
+<text x="115.0" y="130.5" font-size="11.5" fill="#6b665f" text-anchor="middle">person or organization</text>
+<rect x="280" y="70" width="240" height="95" rx="10" fill="#f2ffb8" stroke="#7a9900" stroke-width="1.5"/>
+<text x="400.0" y="113.5" font-size="13.5" fill="#3d4d00" font-weight="600" text-anchor="middle">Delegation token</text>
+<text x="400.0" y="130.5" font-size="11.5" fill="#3d4d00" text-anchor="middle">signed · short-lived · scoped</text>
+<rect x="590" y="70" width="160" height="95" rx="10" fill="#f0edea" stroke="#d8d3cc" stroke-width="1.5"/>
+<text x="670.0" y="113.5" font-size="14" fill="#0a0a0a" font-weight="600" text-anchor="middle">Agent</text>
+<text x="670.0" y="130.5" font-size="11.5" fill="#6b665f" text-anchor="middle">cryptographic identity</text>
+<rect x="820" y="70" width="100" height="95" rx="10" fill="#f0edea" stroke="#d8d3cc" stroke-width="1.5"/>
+<text x="870.0" y="122.0" font-size="14" fill="#0a0a0a" font-weight="600" text-anchor="middle">Action</text>
+<line x1="210" y1="117" x2="278" y2="117" stroke="#6b665f" stroke-width="1.5"/>
+<polygon points="278,117 269,112 269,122" fill="#6b665f"/>
+<line x1="520" y1="117" x2="588" y2="117" stroke="#6b665f" stroke-width="1.5"/>
+<polygon points="588,117 579,112 579,122" fill="#6b665f"/>
+<line x1="750" y1="117" x2="818" y2="117" stroke="#6b665f" stroke-width="1.5"/>
+<polygon points="818,117 809,112 809,122" fill="#6b665f"/>
+<line x1="868" y1="175" x2="118" y2="175" stroke="#6b665f" stroke-width="1.5" stroke-dasharray="6 4"/>
+<polygon points="118,175 127,170 127,180" fill="#6b665f"/>
+<line x1="868" y1="165" x2="868" y2="175" stroke="#6b665f" stroke-width="1.5" stroke-dasharray="6 4"/>
+<line x1="118" y1="175" x2="118" y2="165" stroke="#6b665f" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="493" y="200" font-size="12" fill="#6b665f" text-anchor="middle">every action traces back to a legitimate principal — no anonymous authority (C5.1)</text>
+</svg>
