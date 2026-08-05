@@ -112,6 +112,7 @@ The case for the standard — informative, no requirements:
 * [The Standards Landscape: where PoC sits in verifiable AI](docs/standards-landscape.md)
 * [Use Cases](docs/use-cases.md) · [Roadmap & Timeline](docs/roadmap.md) · [Governance](docs/governance.md)
 * [Framework mappings (crosswalks)](mappings/README.md)
+* [Reviews](docs/reviews/ciso-review-v0.1.4.md) — operator-perspective security review of v0.1.4, with findings applied as requirements
 
 ---
 

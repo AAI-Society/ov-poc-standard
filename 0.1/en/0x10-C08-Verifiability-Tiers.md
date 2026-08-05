@@ -36,6 +36,8 @@ The tier is set by how much you must trust, not by whether cryptography is used.
 | **8.1.4** | **Verify that** Proof-of-Control is claimed only when the evidence reaches Tier 3 or Tier 4 (the binary threshold). | 1 |
 | **8.1.5** | **Verify that** Tier 3 and Tier 4 evidence is verifiable by parties other than the operator, without privileged access. | 1 |
 | **8.1.6** | **Verify that** evidence that is independently verifiable but only checkable after the fact — a transparency log with independent monitors, an on-demand ZK proof the system can run without producing — is graded Tier 3, not Tier 4. | 1 |
+| **8.1.7** | **Verify that** evidence relying on a vendor-rooted attestation service (e.g., a chip vendor's TEE attestation) is either graded Tier 2, or composed with independent anchoring (e.g., a public transparency log with independent monitors) to support a Tier 3 claim — with the residual vendor trust assumption disclosed in either case. | 1 |
+| **8.1.8** | **Verify that** the verification method and the tooling needed to check the evidence are publicly documented and available, so that verification requires no privileged access and no agreement with the operator. | 1 |
 
 ---
 
@@ -59,6 +61,7 @@ Tier 4 is where verification is continuous and built into operation: the system 
 | **8.3.1** | **Verify that** where a use case requires Tier 4, every system in the interaction chain attests up to Tier 4 for the interactions they share. | 3 |
 | **8.3.2** | **Verify that** components operating at a lower tier internally preserve the integrity of the Tier-4 interactions they participate in. | 3 |
 | **8.3.3** | **Verify that** at Tier 4, the system cannot operate unless its integrity holds (self-enforcing execution). | 3 |
+| **8.3.4** | **Verify that** the availability dependency created by self-enforcing verification — the system halting when proofs cannot be produced — is assessed, and that the fail-closed behavior and its operational impact are documented in the claim. | 3 |
 
 > ⚠️ **[WG-INPUT NEEDED]** — the binary threshold is the standard's most consequential definition
 > and its most-scrutinized point; the working group must ratify it with dedicated cryptography

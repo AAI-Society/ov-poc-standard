@@ -27,6 +27,8 @@ An implementation may make claims in a subset of the six domains; for each domai
 | **10.1.3** | **Verify that** evidence is produced for each verifiable fact claimed. | 1 |
 | **10.1.4** | **Verify that** the conformance statement includes: the system identified; the domains claimed; for each claim, the evidence properties met and the Tier reached; the mechanisms that produce the evidence; and the trust-assumption disclosure. | 1 |
 | **10.1.5** | **Verify that** conformance claims reference the specific version of this standard they are made against. | 1 |
+| **10.1.6** | **Verify that** the conformance statement defines the system boundary and the classes of in-scope agent actions, and enumerates excluded action classes with rationale — so a narrow claim cannot present itself as a broad one. | 1 |
+| **10.1.7** | **Verify that** the claim and its evidence are available in a documented, machine-readable format, so that claims are comparable across implementations by assessors, insurers, and regulators. | 2 |
 
 ---
 
@@ -62,6 +64,7 @@ An agent is not something you certify once: a point-in-time check cannot cover a
 | **10.3.3** | **Verify that** evidence is validated automatically against the claimed Verifiability Tier in near-real-time. | 3 |
 | **10.3.4** | **Verify that** validation failures and coverage gaps raise alerts within a bounded window. | 3 |
 | **10.3.5** | **Verify that** the monitoring itself undergoes periodic third-party re-assessment (for example, annually). | 3 |
+| **10.3.6** | **Verify that** proof coverage — the fraction of in-scope actions with valid evidence at the claimed Tier — is measured and disclosed, so coverage decay is visible rather than silent. | 2 |
 
 > ⚠️ **[WG-INPUT NEEDED]** — the operational requirements for the Continuously Monitored stage
 > (minimum cadence, automated versus human validation, incident response and suspension) are not

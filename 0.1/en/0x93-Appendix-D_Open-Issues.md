@@ -128,6 +128,21 @@ Volunteers are needed to develop out the crosswalks for [SOC 2](../../mappings/s
 
 The roadmap schedule ([docs/roadmap.md](../../docs/roadmap.md)) is the working target, ratified by the working group at kickoff; the dates for the separate Certification and assessor-body track are still to be set. The detailed appeals procedure and conflict-of-interest disclosure format are also to be finalized ([docs/governance.md](../../docs/governance.md)).
 
+## Issue 11 — CISO Review Referrals
+
+The [CISO review of v0.1.4](../../docs/reviews/ciso-review-v0.1.4.md) applied twelve findings
+directly as requirements (C2.4, C4.1.6, C6.3, C7.2.2, C7.6, C8.1.7–8.1.8, C8.3.4,
+C10.1.6–10.1.7, C10.3.6) and referred four questions to the working group:
+
+1. **Incident response beyond alerting** — whether conformance is suspended on a detected
+   control failure (extends issue 8; the review recommends the suspension model).
+2. **Third-party dependency inventory** — whether the conformance statement should enumerate the
+   external services and subprocessors the agent crosses into.
+3. **Verifier-side denial of service** — whether economic limits on verification (proof size,
+   cost per verification) should be a disclosure item, so "anyone can verify" holds in practice.
+4. **Insider threat at the silicon/HSM layer** — currently handled via trust-assumption
+   disclosure; flagged for the cryptography review under issue 6.
+
 ---
 
 *To weigh in on any open issue, join a working group at

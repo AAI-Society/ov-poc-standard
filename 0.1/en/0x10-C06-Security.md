@@ -33,6 +33,18 @@ Proof of process isolation is required whenever agents execute generated code or
 
 ---
 
+## C6.3 Cryptographic Key Lifecycle
+
+Every mechanism in this standard ultimately rests on keys. A signing key with no rotation schedule and no compromise-recovery path silently converts mechanism-generated evidence back into operator-trusted evidence.
+
+| # | Description | Level |
+| :--------: | ------------------------------------------------------------------------------------------------------------------- | :---: |
+| **6.3.1** | **Verify that** signing and attestation keys used to produce evidence are generated and held in hardware-backed key management (e.g., HSM or equivalent). | 2 |
+| **6.3.2** | **Verify that** evidence-producing keys rotate on a defined schedule and that rotation events are themselves evidenced. | 2 |
+| **6.3.3** | **Verify that** key compromise triggers revocation, that evidence signed by a compromised key is identifiable, and that the affected claims are re-graded and re-disclosed. | 2 |
+
+---
+
 ## References
 
 * [OWASP Top 10 for Agentic Applications](https://genai.owasp.org/) and OWASP AIVSS — Security-domain alignment targets

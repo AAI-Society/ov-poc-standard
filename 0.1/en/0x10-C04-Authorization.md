@@ -19,6 +19,7 @@ Authority is scoped to the action, not to the actor: permission tied to the spec
 | **4.1.3** | **Verify that** out-of-scope actions are rejected at the interception boundary and that the rejection is evidenced. | 1 |
 | **4.1.4** | **Verify that** the evaluated payload parameters of each tool invocation matched the exact structural schema authorized at execution time. | 2 |
 | **4.1.5** | **Verify that** authority is scoped to the specific operation, its configuration, and its limits at the time of action, not carried as a broad standing identity. | 2 |
+| **4.1.6** | **Verify that** human approval and override decisions are evidenced, bound to the approver's identity, and include the raw, true intent that was presented for approval. | 2 |
 
 ---
 

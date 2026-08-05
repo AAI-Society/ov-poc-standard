@@ -27,6 +27,7 @@ Evidence created at the moment of action is what lets anyone reconstruct what ha
 | # | Description | Level |
 | :--------: | ------------------------------------------------------------------------------------------------------------------- | :---: |
 | **7.2.1** | **Verify that** evidence is cryptographic and generated at the moment of execution, not reconstructed or narrated after the fact. | 1 |
+| **7.2.2** | **Verify that** evidence timestamps derive from a verifiable time source (e.g., signed timestamps, transparency-log inclusion, or consensus time) rather than the operator's clock alone, so contemporaneity can be independently checked. | 2 |
 
 ---
 
@@ -64,6 +65,20 @@ Verification establishes deterministic facts about execution, not the probabilis
 | **7.5.2** | **Verify that** the implementation does not represent any of the following as verified: the correctness of an output, the model's reasoning or intent, fairness, or future or counterfactual behavior. | 1 |
 
 Proof-of-Control performs verification, not validation: it shows that an agent stayed inside the control boundaries that were set, and does not judge whether those boundaries were the right ones. That judgment — regulatory review, ethical evaluation, human oversight — stays a human responsibility.
+
+---
+
+## C7.6 Evidence Custody and Resilience
+
+Tamper-evidence makes alteration detectable; it does not, by itself, make *omission* detectable, and it says nothing about what happens when the evidence pipeline fails. A system whose evidence generation can fail silently — or whose evidence store can be read by anyone, or deleted before a dispute — does not produce evidence that counts.
+
+| # | Description | Level |
+| :--------: | ------------------------------------------------------------------------------------------------------------------- | :---: |
+| **7.6.1** | **Verify that** a failure of evidence generation is itself detected and recorded as a failure or deny event. | 1 |
+| **7.6.2** | **Verify that** a verifier can detect missing records — through continuous sequencing, hash chaining, or an equivalent completeness mechanism — so that silent omission of evidence is as detectable as alteration. | 1 |
+| **7.6.3** | **Verify that** in-scope actions fail closed when evidence cannot be generated at the claimed Verifiability Tier. | 2 |
+| **7.6.4** | **Verify that** access to the evidence store is itself access-controlled, and that reads of the evidence are evidenced. | 2 |
+| **7.6.5** | **Verify that** an evidence retention period is defined and disclosed in the conformance claim, and that evidence is retained at least for the period the claim covers. | 2 |
 
 ---
 

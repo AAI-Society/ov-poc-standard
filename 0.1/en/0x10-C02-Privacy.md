@@ -48,6 +48,17 @@ Because zero-knowledge techniques can confirm a fact without revealing the infor
 
 ---
 
+## C2.4 Evidence Handling for Protected Data
+
+The evidence store must not become a second copy of the data the domain protects, and tamper-evidence must be reconcilable with deletion obligations.
+
+| # | Description | Level |
+| :--------: | ------------------------------------------------------------------------------------------------------------------- | :---: |
+| **2.4.1** | **Verify that** evidence retained beyond the execution window contains only derived or minimized forms of protected data (hashes, commitments, selective disclosures), not raw payloads. | 1 |
+| **2.4.2** | **Verify that** data-subject deletion obligations are reconcilable with tamper-evident evidence — for example, crypto-shredding of encrypted payloads while retaining hash-bound proofs — and that the approach is documented in the conformance claim. | 2 |
+
+---
+
 ## References
 
 * [EU AI Act (Regulation (EU) 2024/1689)](https://eur-lex.europa.eu/eli/reg/2024/1689/oj) — Privacy-domain external alignment target
