@@ -93,7 +93,7 @@ about whether the model being checked is open-source: a closed model can be open
 an open-source model can ship with no verification at all. And closed conformance or
 self-certification is not open verification, even when it borrows the language: if the party
 being checked also runs the check, the result is an assertion in disguise
-([Section 7](0x10-S07-Conformance.md)).
+([Section 7](../0.1/en/0x10-C10-Conformance-and-Disclosure.md)).
 
 **Proof-of-Control** is open verification that the controls governing an agent system are
 implemented and held, graded on the four Verifiability Tiers by how independently that can be
@@ -119,7 +119,7 @@ that bar, so the institutions we already rely on can take agents in, manage them
 to account rather than take their behavior on faith.
 
 *The concept here is the introduction; the precise, normative definitions of these terms are
-consolidated in [Section 3, Terms and definitions](0x10-S03-Terms-and-Definitions.md).*
+consolidated in [Section 3, Terms and definitions](../0.1/en/0x90-Appendix-A_Glossary.md).*
 
 ## What This Is: the Standard
 
@@ -159,7 +159,7 @@ agentic systems. (FinOps Foundation, finops.org.)
 ## Who Made This
 
 This standard is developed in the open with its working groups, advisors, and member
-organizations, who are named in the [Acknowledgments](0x01-Frontispiece.md).
+organizations, who are named in the [Acknowledgments](../0.1/en/0x01-Frontispiece.md).
 
 **[Advanced AI Society](https://advancedaisociety.org/) convenes the field and stewards the
 Proof-of-Control standard as a public good.** It is a 501(c)(6) industry association: it brings
@@ -228,7 +228,7 @@ conflict, we ask which one better serves the principles here. They are not stack
   everyone. This is why the Verifiability Tiers scale has four tiers, and why Proof-of-Control at
   Tiers 3 and 4 are kept distinct: the gain in trustworthiness at the top comes with a real jump
   in cost, and adopters should make that call deliberately. (The scale itself lives in the
-  specification, [Section 6](0x10-S06-Evidence-and-Grading.md).)
+  specification, [Section 6](../0.1/en/0x10-C08-Verifiability-Tiers.md).)
 * **Insurance-ready:** built so insurers can underwrite on its evidence. Insurance is the forcing
   function for adoption, so the standard is designed to be insurable from day one, not
   retrofitted for it.

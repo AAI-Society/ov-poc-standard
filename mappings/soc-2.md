@@ -4,7 +4,7 @@
 **Relationship:** Complementary — Proof-of-Control is SOC-2-grade in role, with a cryptographic
 stage SOC 2 never had. It does not replace SOC 2; it fills a gap SOC 2 was not designed to
 address for AI agents. See
-[Section 8](../0.1/en/0x10-S08-Mapping-to-Existing-Standards.md).
+[Section 8](../docs/standards-landscape.md).
 
 ## The Distinction
 
@@ -24,7 +24,7 @@ evidence of what the system actually did.
 An insurer or buyer can require Proof-of-Control the way they already require SOC 2 or
 ISO 27001. SOC 2 became effectively mandatory for software through the insurance and procurement
 chain rather than through regulation — the dynamic this standard is built to activate for agents
-([Section 2](../0.1/en/0x10-S02-Why-Verification-Matters.md), Insurance is the forcing
+([Section 2](../docs/why-verification-matters.md), Insurance is the forcing
 function).
 
 ## By-Domain Alignment

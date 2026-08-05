@@ -3,7 +3,7 @@
 **Framework type:** AI risk-management / governance framework (NIST)
 **Relationship:** Complementary — Proof-of-Control produces the evidence that makes
 risk-framework requirements checkable rather than merely asserted. See
-[Section 8](../0.1/en/0x10-S08-Mapping-to-Existing-Standards.md).
+[Section 8](../docs/standards-landscape.md).
 
 ## The Relationship
 
@@ -19,13 +19,13 @@ domain**.
 
 **NIST AI 100-2** (Adversarial Machine Learning taxonomy) is, separately, one of the three
 threat catalogs from which the Proof-of-Control threat model is drawn
-([Section 4](../0.1/en/0x10-S04-What-Must-Be-Verified.md)), alongside
+([Section 4](../0.1/en/0x92-Appendix-C_Threat-Model.md)), alongside
 [MITRE ATLAS](mitre-atlas.md) and the [OWASP Top 10s](owasp.md).
 
 ## Peer Assurance Ladder
 
 NIST Continuous Monitoring sits at a comparable bar to the Proof-of-Control **Continuously
-Monitored** conformance stage ([Section 7](../0.1/en/0x10-S07-Conformance.md)):
+Monitored** conformance stage ([Section 7](../0.1/en/0x10-C10-Conformance-and-Disclosure.md)):
 
 | Proof-of-Control Stage | NIST peer |
 | --- | --- |
@@ -36,7 +36,7 @@ Monitored** conformance stage ([Section 7](../0.1/en/0x10-S07-Conformance.md)):
 The standard's Interoperable design principle names NIST AI RMF explicitly: Proof-of-Control
 points to and complements it rather than duplicating it — no repeat work; it produces the
 evidence that makes its requirements checkable
-([Section 1](../0.1/en/0x10-S01-Introduction.md)).
+([Section 1](../docs/introduction.md)).
 
 ---
 

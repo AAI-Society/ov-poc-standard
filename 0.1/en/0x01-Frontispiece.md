@@ -36,7 +36,7 @@ not imply organizational endorsement.
 
 **Member organizations:** *(organizations, listed alphabetically; neutral order, no ranking)*
 
-**Distinguished Review Board:** *(names)* — final sign-off; see [Governance](0x21-Governance.md).
+**Distinguished Review Board:** *(names)* — final sign-off; see [Governance](../../docs/governance.md).
 
 ## Status, and Where This Standard Lives
 
@@ -57,7 +57,7 @@ not imply organizational endorsement.
 **Reference implementation and conformance test:** the standard commits to a reference
 implementation and a conformance-test suite on the roadmap, so conformance can be demonstrated
 with running code, not only asserted on paper. Both accompany the versioned specification, and
-[the roadmap](0x20-Roadmap-and-Timeline.md) carries the detail.
+[the roadmap](../../docs/roadmap.md) carries the detail.
 
 ## License
 

@@ -17,7 +17,7 @@ described as *placed* at a conformance stage, not *certified*.
 ## Who Stewards the Standard
 
 **[Advanced AI Society](https://advancedaisociety.org/)** convenes the field and stewards
-Proof-of-Control as a public good ([Section 1](0x10-S01-Introduction.md)). Co-chairs Ken Huang
+Proof-of-Control as a public good ([Section 1](introduction.md)). Co-chairs Ken Huang
 and Tricia Wang lead the effort. The standard is produced by the Proof-of-Control Initiative,
 which sits inside the Proof-of-Control Lab; the Initiative runs the working groups that draft the
 standard, the Verifiability Tiers, and the Certification.
@@ -36,14 +36,14 @@ competing companies participate at the same table, and a contribution process of
 The standard is developed by working-group consensus. During public comment, the working group
 reviews every comment and publishes a disposition: accepted, rejected with rationale, or
 deferred. Requirements language follows RFC 2119
-([Section 3](0x10-S03-Terms-and-Definitions.md)). Open decisions are marked
+([Section 3](../0.1/en/0x90-Appendix-A_Glossary.md)). Open decisions are marked
 `⚠️ [WG-INPUT NEEDED]` throughout the document and are resolved through the working-group
 process, not by any single member or co-chair.
 
 ## Review and Final Sign-Off: the Distinguished Review Board
 
 Above the working-group process sits the Distinguished Review Board
-([Section 1](0x10-S01-Introduction.md)). It is composed of senior technical and governance
+([Section 1](introduction.md)). It is composed of senior technical and governance
 experts, drawn from the Society's advisors and from the wider community and seated by nomination.
 The working groups produce each version of the standard by consensus; the Board provides
 independent technical and governance review and holds final sign-off before a version is
@@ -78,18 +78,18 @@ Board independence checkable in practice, not just stated.
 **Membership is open. Any organization can join the Society as a member — sign up at
 [advancedaisociety.org](https://advancedaisociety.org/)** — and shape the standard through
 feedback and working-group participation, and sector working groups produce the use cases that
-validate it against real deployments ([Section 1](0x10-S01-Introduction.md)). This is separate
+validate it against real deployments ([Section 1](introduction.md)). This is separate
 from the Distinguished Review Board above: joining as a member is open to anyone, while the Board
 is a nominated body of technical and governance experts. Governance gives no member's product an
 edge: no member's implementation is the reference, and this member-neutrality is what lets
-competitors adopt the same standard ([Section 1](0x10-S01-Introduction.md), Vendor-neutral).
+competitors adopt the same standard ([Section 1](introduction.md), Vendor-neutral).
 
 ## Intellectual Property and Licensing
 
 Open verification is a founding principle: the standard, and the tools that verify what a system
 did, are open, independent, and inspectable. The specification is published under a CC BY 4.0
 license, free to read, implement, translate, and build on
-([Section 1](0x10-S01-Introduction.md)). A standard that is not free to implement does not become
+([Section 1](introduction.md)). A standard that is not free to implement does not become
 the default: Apple's per-port royalty on FireWire is much of why the market chose royalty-free
 USB. The specification has to be free. The certification mark, *Proof-of-Control Certified*, is
 protected as a trademark, so only systems assessed as conformant may claim it.
@@ -97,7 +97,7 @@ protected as a trademark, so only systems assessed as conformant may claim it.
 ## Change Control and Versioning
 
 The standard is versioned. Version 1.0 is targeted for February 1, 2027
-([Roadmap and timeline](0x20-Roadmap-and-Timeline.md)). After 1.0, changes are proposed and
+([Roadmap and timeline](roadmap.md)). After 1.0, changes are proposed and
 ratified through the working-group process and released as numbered versions, so a conformance
 claim always references a specific version. The published repository is the single source of
 truth for the current text.

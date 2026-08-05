@@ -22,19 +22,19 @@ working-group consensus, and stewarded by the
 4. **Contribute a crosswalk.** Extend the [framework mappings](mappings/README.md) to other
    standards and frameworks. Several crosswalks are marked as needing a volunteer.
 5. **Contribute a use case.** Sector working groups produce the worked use cases
-   ([Section 9](0.1/en/0x10-S09-Use-Cases.md)) that validate the standard against real
+   ([use cases](docs/use-cases.md)) that validate the standard against real
    deployments.
 
 ## Change Process
 
-* The **normative core** (Sections 3–7 in [`0.1/en/`](0.1/en/)) is the versioned specification
+* The **normative core** (the requirement chapters C1–C10 in [`0.1/en/`](0.1/en/)) is the versioned specification
   under change control. Formal change proposals (issues and pull requests) are made against it.
-* **Informative material** (Sections 1, 2, 8, 9 and the supporting sections) rides alongside as
+* **Informative material** (the companion documents in [`docs/`](docs/)) rides alongside as
   clearly-marked context.
 * Decisions are made by working-group consensus, with independent review and final sign-off by
-  the Distinguished Review Board — see [Governance](0.1/en/0x21-Governance.md).
+  the Distinguished Review Board — see [Governance](docs/governance.md).
 * Requirements language follows RFC 2119/8174
-  ([Section 3](0.1/en/0x10-S03-Terms-and-Definitions.md)).
+  ([Appendix A: Glossary](0.1/en/0x90-Appendix-A_Glossary.md)).
 
 ## Editorial Conventions
 

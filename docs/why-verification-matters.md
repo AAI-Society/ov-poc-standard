@@ -78,7 +78,7 @@ between what agents do and what anyone can verify widens with every deployment, 
 as more of the economy is mediated by agents. Verification is not a temporary growing pain, then;
 it is a structural bottleneck that intensifies as AI scales.
 
-![The Economics of Verification chart: Catalini's two cost curves, a Cost to Automate falling toward zero against a human-bottlenecked Cost to Verify, with the widening gap between them.](images/economics-of-verification.png)
+![The Economics of Verification chart: Catalini's two cost curves, a Cost to Automate falling toward zero against a human-bottlenecked Cost to Verify, with the widening gap between them.](../0.1/en/images/economics-of-verification.png)
 
 *Source: Christian Catalini (MIT), Xiang Hui, and Jane Wu, "Some Simple Economics of AGI,"
 arXiv:2602.20946 (February 2026):
@@ -183,11 +183,11 @@ the one combination the bind otherwise rules out.
 
 Left unverified, agent behavior can go wrong in a wide range of known ways. The table below
 groups 27 of these threats into families, drawn from the established agent-threat catalogs —
-[MITRE ATLAS](../../mappings/mitre-atlas.md), NIST AI 100-2, and the
-[OWASP Top 10s for LLM and Agentic Applications](../../mappings/owasp.md) — which converge on the
+[MITRE ATLAS](../mappings/mitre-atlas.md), NIST AI 100-2, and the
+[OWASP Top 10s for LLM and Agentic Applications](../mappings/owasp.md) — which converge on the
 same core threat classes. This is the risk landscape, the "why." What evidence can do about each
 threat, and where the boundary of the claim sits, is the threat model in
-[Section 4](0x10-S04-What-Must-Be-Verified.md).
+[Section 4](../0.1/en/0x92-Appendix-C_Threat-Model.md).
 
 | Family | Threat | What it is |
 | --- | --- | --- |
@@ -230,7 +230,7 @@ what it did on Tuesday is not what it will do on Wednesday. A point-in-time chec
 system whose behavior is decided in the moment; verification has to run continuously.
 
 The field has started to see this. Runtime security for agents is now its own category:
-[CSA's AARM](../../mappings/csa-aarm.md) (Autonomous Action Runtime Management, contributed by
+[CSA's AARM](../mappings/csa-aarm.md) (Autonomous Action Runtime Management, contributed by
 Vanta), Microsoft's agent governance work, and others gate what an agent is allowed to do at the
 action boundary. That is the enforcement half, and it is necessary. But enforcement still leaves
 an audit trail the operator runs, which is the operator's word again. The other half is evidence:
@@ -256,7 +256,7 @@ assurances.
 Rules for AI agents are only as strong as what they can verify. A regulation that asks an
 operator to attest that its agent behaved rests on assertion; one that can require independently
 verifiable evidence of what the agent did rests on proof. Verification is what lets a framework
-like the [EU AI Act](../../mappings/eu-ai-act.md), or a state law or agency rule, be enforced
+like the [EU AI Act](../mappings/eu-ai-act.md), or a state law or agency rule, be enforced
 against evidence rather than trusted on a filing, which is why the people shaping those rules
 have a direct stake in the evidence layer this standard defines.
 
@@ -266,7 +266,7 @@ A standard does not achieve broad adoption on technical merit alone. CISOs have 
 priorities, and regulation is slow. The forcing function is insurance. An insurer that requires
 Proof-of-Control as a condition of AI liability coverage creates commercial pressure that
 technical advocacy cannot: the CISO does not have to be sold on the merits, because coverage
-requires it. This is how [SOC 2](../../mappings/soc-2.md) became effectively mandatory for
+requires it. This is how [SOC 2](../mappings/soc-2.md) became effectively mandatory for
 software, through the insurance and procurement chain rather than through regulation, and it is
 the dynamic this standard is built to activate for agents. It is the same flywheel that UL
 certification created for electrical safety and that telematics created for auto insurance: a
@@ -287,7 +287,7 @@ point to, no auditable evidence of what an agent did at runtime, and no credible
 criteria for coverage. Proof-of-Control removes all three. The binary threshold gives
 underwriters a clean eligibility gate — a system is Proof-of-Control or it is not, at Tiers 3 and
 4 of the Verifiability Tiers — and the standardized trust-assumption disclosure
-([Section 7](0x10-S07-Conformance.md)) is what lets an actuary tell two conformant systems apart
+([Section 7](../0.1/en/0x10-C10-Conformance-and-Disclosure.md)) is what lets an actuary tell two conformant systems apart
 and price the difference.
 
 This is why insurers are a founding constituency, not a later audience. The AAI Society convenes
@@ -317,7 +317,7 @@ you can ask three separate questions:
 
 Proof-of-Control answers the second and third together: it shows what a system actually did, with
 evidence whose integrity can be independently checked, graded by how independently it can be
-checked on the Verifiability Tiers ([Section 6](0x10-S06-Evidence-and-Grading.md)). It does not
+checked on the Verifiability Tiers ([Section 6](../0.1/en/0x10-C08-Verifiability-Tiers.md)). It does not
 claim the first: it shows what a system *did*, not what it *can* do. Keeping that "did, not can"
 line sharp is what keeps the standard honest. The useful test for any product's claim is to ask
 which of the three questions it actually answers, because products commonly answer one and market
@@ -350,7 +350,7 @@ makes scattered capability legible, comparable, and buyable.
 No one has built that standard yet. No multi-stakeholder industry standard for independent,
 self-enforcing verification of what an AI agent did exists today. Individual toolkits and
 protocols do exist, and this standard maps to them
-([Section 8](0x10-S08-Mapping-to-Existing-Standards.md)) rather than competing with them, but
+([Section 8](standards-landscape.md)) rather than competing with them, but
 none is a shared, cross-industry standard with a common definition, a conformance regime, and a
 certification. The standard built in this window is the one that defines the category, and that
 is why the moment is now.

@@ -2,7 +2,7 @@
 
 **Framework type:** Agent-specific threat-modeling framework
 **Relationship:** Adopted — MAESTRO is the framework filling the Proof-of-Control System surface
-(Axis 2) today. See [Section 5](../0.1/en/0x10-S05-System-Surface.md).
+(Axis 2) today. See [Section 5](../0.1/en/0x10-C09-System-Surface-MAESTRO.md).
 
 ## What MAESTRO Is
 
@@ -21,11 +21,11 @@ recognized as the field matures.
 
 MAESTRO is also a threat source: the two evidence-model threats in the Proof-of-Control threat
 model — evidence repudiation and trust opacity — come from the MAESTRO threat-modeling work
-([Section 4](../0.1/en/0x10-S04-What-Must-Be-Verified.md)).
+([Section 4](../0.1/en/0x92-Appendix-C_Threat-Model.md)).
 
 ## The Layer Mapping
 
-| MAESTRO layer | Covers | Example verifiable controls (see [Section 5](../0.1/en/0x10-S05-System-Surface.md)) |
+| MAESTRO layer | Covers | Example verifiable controls (see [Section 5](../0.1/en/0x10-C09-System-Surface-MAESTRO.md)) |
 | --- | --- | --- |
 | L1 — Foundation Model Security | Base model, weights, serving logic, fine-tuned variants, behavioral policies | Model provenance verification; adversarial robustness attestation; model integrity at inference |
 | L2 — Data Operations Security | Ingestion, preprocessing, embeddings, vector DBs, RAG, retraining logs | Data provenance chain; RAG hardening; privacy compliance attestation; vector store integrity |

@@ -3,15 +3,15 @@
 **Framework type:** Adversarial threat catalog for AI systems
 **Relationship:** Threat source — one of the three established agent-threat catalogs the
 Proof-of-Control threat model draws from. See
-[Section 2](../0.1/en/0x10-S02-Why-Verification-Matters.md) and
-[Section 4](../0.1/en/0x10-S04-What-Must-Be-Verified.md).
+[Section 2](../docs/why-verification-matters.md) and
+[Section 4](../0.1/en/0x92-Appendix-C_Threat-Model.md).
 
 ## How Proof-of-Control Uses ATLAS
 
 The 27 threats in the Proof-of-Control threat landscape are drawn from MITRE ATLAS, NIST AI
 100-2, and the [OWASP Top 10s for LLM and Agentic Applications](owasp.md), which converge on the
 same core threat classes. The threat model in
-[Section 4](../0.1/en/0x10-S04-What-Must-Be-Verified.md) then states, for each threat, what
+[Section 4](../0.1/en/0x92-Appendix-C_Threat-Model.md) then states, for each threat, what
 Proof-of-Control defends against and what is explicitly out of scope.
 
 ## Threat-Family Coverage Summary

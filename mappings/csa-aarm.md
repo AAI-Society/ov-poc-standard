@@ -3,7 +3,7 @@
 **Framework type:** Runtime enforcement standard (Cloud Security Alliance, contributed by Vanta)
 **Relationship:** Complementary halves of agentic assurance — AARM is the enforcement half,
 Proof-of-Control is the evidence half. See
-[Section 8](../0.1/en/0x10-S08-Mapping-to-Existing-Standards.md).
+[Section 8](../docs/standards-landscape.md).
 
 ## What AARM Is
 

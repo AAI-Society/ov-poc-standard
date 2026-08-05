@@ -3,7 +3,7 @@
 **Framework type:** AI management system standard (ISO/IEC)
 **Relationship:** Complementary — Proof-of-Control cross-references it rather than replacing it,
 and borrows its systems-engineering vocabulary for the verification/validation distinction. See
-[Section 8](../0.1/en/0x10-S08-Mapping-to-Existing-Standards.md).
+[Section 8](../docs/standards-landscape.md).
 
 ## The Relationship
 
@@ -15,12 +15,12 @@ party that need not trust the operator.
 
 The standard's Interoperable design principle names ISO/IEC 42001 explicitly: no repeat work;
 Proof-of-Control produces the evidence that makes its requirements checkable
-([Section 1](../0.1/en/0x10-S01-Introduction.md)).
+([Section 1](../docs/introduction.md)).
 
 ## Verification, Not Validation
 
 Proof-of-Control adopts the systems-engineering distinction as used by ISO/IEC 42001 and IEEE
-([Section 4](../0.1/en/0x10-S04-What-Must-Be-Verified.md)):
+([Section 4](../0.1/en/0x92-Appendix-C_Threat-Model.md)):
 
 * **Verification** asks whether the system was built and run right: did it execute within the
   authorized boundaries. **Proof-of-Control delivers this.**

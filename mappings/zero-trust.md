@@ -4,7 +4,7 @@
 framework (Anthropic, May 2026)
 **Relationship:** Complementary, not competing — Zero Trust enforces control at runtime;
 Proof-of-Control shows, independently, that control held afterward. See
-[Section 8](../0.1/en/0x10-S08-Mapping-to-Existing-Standards.md).
+[Section 8](../docs/standards-landscape.md).
 
 ## The Relationship
 
@@ -30,7 +30,7 @@ control held afterward are different jobs, and the second is the gap the evidenc
 
 For a CISO: Zero Trust is native to your budget and your architecture. Proof-of-Control is the
 evidence substrate that lets you show an auditor, insurer, or regulator that your agents did only
-what they were authorized to do ([Section 1](../0.1/en/0x10-S01-Introduction.md)).
+what they were authorized to do ([Section 1](../docs/introduction.md)).
 
 ## Status
 

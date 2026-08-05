@@ -7,7 +7,7 @@ RMF, ISO/IEC 42001, SOC 2, OWASP, the EU AI Act, and others, cross-referenced, n
 > **✍️ [DRAFT] — mapping in progress.** The working group has begun mapping how Proof-of-Control
 > relates to existing standards and efforts, and that work is ongoing. This section holds the
 > current state; the full mapping will be inserted as it matures. Per-framework crosswalks live
-> in the repository's [`mappings/`](../../mappings/README.md) directory.
+> in the repository's [`mappings/`](../mappings/README.md) directory.
 
 Proof-of-Control cross-references existing efforts rather than replacing them. The field is full
 of valuable work, governance frameworks, control catalogs, attestation regimes, and vendor
@@ -25,11 +25,11 @@ mechanisms that produce the evidence and the external standards to align with.
 | Domain | Source architectural mechanism | Targets for external alignment |
 | --- | --- | --- |
 | Provenance | *working group to complete* | *to complete* |
-| Privacy | TEEs, local-only inference enclaves | HIPAA / HAARF data governance, [EU AI Act](../../mappings/eu-ai-act.md) conformance |
-| Portability | Agent Resource Discovery Spec, Open Handshakes | [AIUC-1](../../mappings/aiuc-1.md) cross-platform auditing |
-| Authorization | Cryptographic hash chains, ZKML (Jim's "Verifiability" row, to reconcile) | [SOC 2 Type II](../../mappings/soc-2.md) (proving runtime execution matched policy) |
+| Privacy | TEEs, local-only inference enclaves | HIPAA / HAARF data governance, [EU AI Act](../mappings/eu-ai-act.md) conformance |
+| Portability | Agent Resource Discovery Spec, Open Handshakes | [AIUC-1](../mappings/aiuc-1.md) cross-platform auditing |
+| Authorization | Cryptographic hash chains, ZKML (Jim's "Verifiability" row, to reconcile) | [SOC 2 Type II](../mappings/soc-2.md) (proving runtime execution matched policy) |
 | Identity | W3C CID, WIMSE / IETF AI-Auth | HAARF audit logs, CSA Vanta Agent Trust Controls (who authorized the agent?) |
-| Security | [OWASP AIVSS](../../mappings/owasp.md), SSF / CAEP | [OWASP Top 10 for Agentic AI](../../mappings/owasp.md), [NIST AI RMF](../../mappings/nist-ai-rmf.md) |
+| Security | [OWASP AIVSS](../mappings/owasp.md), SSF / CAEP | [OWASP Top 10 for Agentic AI](../mappings/owasp.md), [NIST AI RMF](../mappings/nist-ai-rmf.md) |
 
 ## Where Proof-of-Control Sits in the Verifiable-AI Landscape
 
@@ -98,7 +98,7 @@ defined control boundaries, and can anyone verify?" The two are complementary: P
 is SOC-2-grade in role, with a cryptographic Stage SOC 2 never had, and an insurer or buyer can
 require it the way they already require SOC 2 or ISO 27001. It does not replace SOC 2; it fills
 a gap SOC 2 was not designed to address for AI agents. See the
-[SOC 2 crosswalk](../../mappings/soc-2.md). **📌 [INSERT]**
+[SOC 2 crosswalk](../mappings/soc-2.md). **📌 [INSERT]**
 **⚠️ [WG-INPUT NEEDED] Volunteer needed to develop out the crosswalk.**
 
 ## The AARM Complementary Mapping: Enforcement and Evidence
@@ -108,7 +108,7 @@ enforcement: it intercepts agent actions at the boundary and approves, modifies,
 denies them. Proof-of-Control defines the independent, tamper-evident evidence of what the agent
 did. Enforcement and evidence are complementary halves of agentic assurance, designed to compose,
 and Proof-of-Control is not a competing runtime layer. See the
-[AARM crosswalk](../../mappings/csa-aarm.md).
+[AARM crosswalk](../mappings/csa-aarm.md).
 
 |  | AARM (runtime enforcement) | Proof-of-Control (independent evidence) |
 | --- | --- | --- |
@@ -129,7 +129,7 @@ Proof-of-Control shows, independently, what the system did.
 Zero Trust tells you how to set the controls on an AI agent correctly so a breach is contained.
 Proof-of-Control gives an outside party evidence that those controls were honored. Zero Trust
 enforces control at runtime; Proof-of-Control shows, independently, that control held afterward.
-Complementary, not competing. See the [Zero Trust crosswalk](../../mappings/zero-trust.md).
+Complementary, not competing. See the [Zero Trust crosswalk](../mappings/zero-trust.md).
 
 Adopting Zero Trust does not give you Proof-of-Control. Anthropic's Zero Trust for AI Agents
 tells you how to set the controls on an agent so a breach is contained; it does not produce
@@ -158,16 +158,16 @@ cover Identity, Portability, Authorization, or the full record of what the agent
 carries no conformance framework. Confidential Computing is to Proof-of-Control what a deadbolt
 is to a home-security standard: real and worth having, but not the system. Complementary, not
 competitive; the Confidential Computing Consortium is a natural partner. See the
-[Confidential Computing crosswalk](../../mappings/confidential-computing.md). **📌 [INSERT]**
+[Confidential Computing crosswalk](../mappings/confidential-computing.md). **📌 [INSERT]**
 **⚠️ [WG-INPUT NEEDED] Volunteer needed to develop out the crosswalk.**
 
 ## MAESTRO in the Mapping
 
-MAESTRO (CSA) is adopted as the System surface in [Section 5](0x10-S05-System-Surface.md). In
+MAESTRO (CSA) is adopted as the System surface in [Section 5](../0.1/en/0x10-C09-System-Surface-MAESTRO.md). In
 the mapping it is both the framework we build on for locating evidence in the stack and part of
 CSA's broader agentic-security work, alongside the AI Controls Matrix and AARM, to which
 Proof-of-Control is complementary: control objectives and enforcement on one side, independent
-evidence on the other. See the [MAESTRO crosswalk](../../mappings/maestro.md). **📌 [INSERT]**
+evidence on the other. See the [MAESTRO crosswalk](../mappings/maestro.md). **📌 [INSERT]**
 
 ## The Efforts Being Mapped
 
@@ -178,7 +178,7 @@ architecture (NIST SP 800-207), Anthropic's Zero Trust for AI Agents, confidenti
 Identity, KYA), agent observability tooling, AIUC-1, the OWASP Top 10 for Agentic AI and AIVSS,
 CSA Vanta Agent Trust Controls, and the Agent Resource Discovery Specification. Each answers a
 real need; Proof-of-Control cross-references them rather than competing. The per-framework
-crosswalks are maintained in [`mappings/`](../../mappings/README.md).
+crosswalks are maintained in [`mappings/`](../mappings/README.md).
 
 > ⚠️ **[WG-INPUT NEEDED]** — whether David Thomson's graph view complements or replaces the
 > by-domain table above, once ready.

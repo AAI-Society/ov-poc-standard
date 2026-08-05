@@ -4,7 +4,7 @@ Proof-of-Control cross-references existing standards and frameworks rather than 
 Almost none of the existing work produces independent evidence of what an agent did that holds
 when the operator is the threat; Proof-of-Control is the evidence layer that sits alongside these
 efforts and feeds them. This directory holds one crosswalk per framework referenced in
-[Section 8 of the standard](../0.1/en/0x10-S08-Mapping-to-Existing-Standards.md).
+[Section 8 of the standard](../docs/standards-landscape.md).
 
 > **✍️ [DRAFT] — mapping in progress.** The working group is classifying the mapping by domain of
 > verification (proposed by Jim Schwoebel of Quome) and mapping it as a graph (led by David

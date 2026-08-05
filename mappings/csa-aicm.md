@@ -2,8 +2,8 @@
 
 **Framework type:** Control catalog (Cloud Security Alliance)
 **Relationship:** Complementary — control objectives on one side, independent evidence on the
-other. See [Section 5](../0.1/en/0x10-S05-System-Surface.md) (Crosswalks and roadmap) and
-[Section 8](../0.1/en/0x10-S08-Mapping-to-Existing-Standards.md).
+other. See [Section 5](../0.1/en/0x10-C09-System-Surface-MAESTRO.md) (Crosswalks and roadmap) and
+[Section 8](../docs/standards-landscape.md).
 
 ## Status
 
@@ -21,7 +21,7 @@ The AICM enumerates control objectives for AI systems; MAESTRO locates them in t
 AARM enforces them at the action boundary. Proof-of-Control is complementary to all three: for
 each AICM control objective an implementation claims, Proof-of-Control defines what independent,
 tamper-evident evidence that the control *held at execution* must look like, graded on the
-Verifiability Tiers ([Section 6](../0.1/en/0x10-S06-Evidence-and-Grading.md)).
+Verifiability Tiers ([Section 6](../0.1/en/0x10-C08-Verifiability-Tiers.md)).
 
 ---
 

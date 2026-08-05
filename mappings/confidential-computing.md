@@ -4,7 +4,7 @@
 Consortium)
 **Relationship:** Confidential Computing is a mechanism; Proof-of-Control is a property. TEE
 attestation is one valid mechanism for delivering Proof-of-Control — not the property itself.
-See [Section 8](../0.1/en/0x10-S08-Mapping-to-Existing-Standards.md).
+See [Section 8](../docs/standards-landscape.md).
 
 ## The Relationship
 
@@ -22,11 +22,11 @@ Computing Consortium is a natural partner.
 
 A TEE attestation whose root of trust is the chip vendor's attestation service sits at **Tier 2**
 on the Verifiability Tiers — a party is still being trusted
-([Section 6](../0.1/en/0x10-S06-Evidence-and-Grading.md), the binary threshold). Deployments
+([Section 6](../0.1/en/0x10-C08-Verifiability-Tiers.md), the binary threshold). Deployments
 using TEEs toward a Tier 3+ claim must disclose the residual hardware and vendor trust
 assumptions in the standardized disclosure format — for example the Healthcare-on-Azure
 deployment in the trust-assumption disclosure example
-([Section 7](../0.1/en/0x10-S07-Conformance.md)): trusts Intel silicon manufacturing and Azure
+([Section 7](../0.1/en/0x10-C10-Conformance-and-Disclosure.md)): trusts Intel silicon manufacturing and Azure
 physical security; hardware supply-chain risk; single-vendor trust dependency.
 
 Note also the mechanism-fit rule: a TEE attestation of the execution environment is silent on

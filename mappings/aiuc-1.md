@@ -2,7 +2,7 @@
 
 **Framework type:** AI audit / certification framework
 **Relationship:** Portability-domain alignment target — cross-platform auditing. See
-[Section 8](../0.1/en/0x10-S08-Mapping-to-Existing-Standards.md).
+[Section 8](../docs/standards-landscape.md).
 
 ## The Relationship
 
@@ -16,7 +16,7 @@ domain:
 The Portability domain produces verifiable evidence of continuity and control across vendors,
 platforms, and environments: cross-cloud migration, multi-vendor interoperability, and evidence
 that data and agent operations maintained integrity across system boundaries
-([Section 4](../0.1/en/0x10-S04-What-Must-Be-Verified.md)). AIUC-1's cross-platform auditing is
+([C3 Portability](../0.1/en/0x10-C03-Portability.md)). AIUC-1's cross-platform auditing is
 the external framework that evidence aligns to.
 
 ## Status
@@ -25,7 +25,7 @@ the external framework that evidence aligns to.
 > framework is maintained as a separate crosswalk document (this file) and referenced from
 > Sections 5 and 8. The detailed crosswalk is being merged in. A related open working-group
 > question — evidence continuity across attestation domains (cross-cloud migration) — is issue 3
-> in [Section 4](../0.1/en/0x10-S04-What-Must-Be-Verified.md).
+> in [Section 4](../0.1/en/0x92-Appendix-C_Threat-Model.md).
 > [Sign up at advancedaisociety.org](https://advancedaisociety.org/) to contribute.
 
 ---

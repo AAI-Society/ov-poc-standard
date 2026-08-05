@@ -3,8 +3,8 @@
 **Framework type:** Regulation (European Union)
 **Relationship:** Complementary — Proof-of-Control is the evidence layer that lets regulation be
 enforced against evidence rather than trusted on a filing. See
-[Section 2](../0.1/en/0x10-S02-Why-Verification-Matters.md) (Why this matters for policy) and
-[Section 8](../0.1/en/0x10-S08-Mapping-to-Existing-Standards.md).
+[Section 2](../docs/why-verification-matters.md) (Why this matters for policy) and
+[Section 8](../docs/standards-landscape.md).
 
 ## The Relationship
 
@@ -18,11 +18,11 @@ evidence layer this standard defines.
 Concretely:
 
 * **High-risk system oversight:** regulators today cannot verify that a high-risk system
-  operated within authorized parameters ([Section 2](../0.1/en/0x10-S02-Why-Verification-Matters.md),
+  operated within authorized parameters ([Section 2](../docs/why-verification-matters.md),
   The Verifiability Gap). Proof-of-Control evidence at Tiers 3–4 is checkable by a regulator
   without privileged access and without trusting the operator.
 * **Conformity assessment:** the Proof-of-Control conformance stages (Self-Declared,
-  Third-Party Assessed, Continuously Monitored — [Section 7](../0.1/en/0x10-S07-Conformance.md))
+  Third-Party Assessed, Continuously Monitored — [Section 7](../0.1/en/0x10-C10-Conformance-and-Disclosure.md))
   give a graded assessment ladder a conformity-assessment regime can reference.
 * **Privacy-domain alignment:** in the by-domain mapping, EU AI Act conformance is an external
   alignment target for the **Privacy** domain (alongside HIPAA / HAARF data governance).
