@@ -191,7 +191,7 @@ PoC uses `v<MAJOR>.<MINOR>` versioning; released folders are locked, mirroring [
 
 The case for the standard — informative, no requirements:
 
-[Introduction & design principles](docs/introduction.md) · [Why verification matters](docs/why-verification-matters.md) · [Standards landscape](docs/standards-landscape.md) · [Use cases](docs/use-cases.md) · [The Smart Leash one-pager](docs/one-pager.md) · [arXiv preprint draft](paper/README.md) · [Roadmap](docs/roadmap.md) · [Governance](docs/governance.md) · [Research basis](docs/research-basis.md) · [CISO review](docs/reviews/ciso-review-v0.1.4.md) · [Security peer review](docs/reviews/security-venue-review-paper-v0.1.md)
+[Introduction & design principles](docs/introduction.md) · [Why verification matters](docs/why-verification-matters.md) · [Standards landscape](docs/standards-landscape.md) · [Use cases](docs/use-cases.md) · [The Smart Leash one-pager](docs/one-pager.md) · [arXiv preprint draft](paper/README.md) · [Roadmap](docs/roadmap.md) · [Governance](docs/governance.md) · [Research basis](docs/research-basis.md) · [CISO review](docs/reviews/ciso-review-v0.1.4.md) · [Security peer review](docs/reviews/security-venue-review-paper-v0.1.md) · [Round 2](docs/reviews/security-venue-review-round2.md)
 
 ## Contributing
 
