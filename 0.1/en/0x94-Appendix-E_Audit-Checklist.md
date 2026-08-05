@@ -24,13 +24,12 @@ Tick items as you close them out; each chapter's *Auditor evidence* notes say wh
 
 ## Requirements by Level
 
-```mermaid
-pie showData title 107 requirements by level
-    "L1 Recorded" : 34
-    "L2 Attested" : 37
-    "L3 Independently Verifiable" : 25
-    "L4 Self-Enforcing / Continuous" : 11
-```
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="../../images/diagrams/checklist-levels-dark.svg">
+    <img alt="107 requirements by level: 34 at Level 1 (Recorded),  37 at Level 2 (Attested),  25 at Level 3 (Independently Verifiable),  11 at Level 4 (Self-Enforcing / Continuous)" src="../../images/diagrams/checklist-levels-light.svg" width="620">
+  </picture>
+</p>
 
 ## C1 Provenance
 

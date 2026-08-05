@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="480" viewBox="0 0 780 480" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif">
+<rect x="150" y="22" width="480" height="84" rx="10" fill="#ddf4ff" stroke="#0969da" stroke-width="1.5"/>
+<text x="390.0" y="51.5" font-size="14.5" fill="#052c65" font-weight="600" text-anchor="middle">Tier 4 — Self-Enforcing</text>
+<text x="390.0" y="68.5" font-size="12" fill="#052c65" text-anchor="middle">trust: no one — cannot run if integrity breaks</text>
+<text x="390.0" y="85.5" font-size="12" fill="#052c65" font-weight="600" text-anchor="middle">✓ Proof-of-Control</text>
+<rect x="150" y="128" width="480" height="84" rx="10" fill="#dafbe1" stroke="#1a7f37" stroke-width="1.5"/>
+<text x="390.0" y="157.5" font-size="14.5" fill="#0a3622" font-weight="600" text-anchor="middle">Tier 3 — Independently Verifiable</text>
+<text x="390.0" y="174.5" font-size="12" fill="#0a3622" text-anchor="middle">trust: the mathematics — anyone can check</text>
+<text x="390.0" y="191.5" font-size="12" fill="#0a3622" font-weight="600" text-anchor="middle">✓ Proof-of-Control</text>
+<rect x="150" y="282" width="480" height="84" rx="10" fill="#fff8c5" stroke="#bf8700" stroke-width="1.5"/>
+<text x="390.0" y="311.5" font-size="14.5" fill="#664d03" font-weight="600" text-anchor="middle">Tier 2 — Attestation</text>
+<text x="390.0" y="328.5" font-size="12" fill="#664d03" text-anchor="middle">trust: a third party or root-keeper</text>
+<text x="390.0" y="345.5" font-size="12" fill="#664d03" font-weight="600" text-anchor="middle">✕ not Proof-of-Control</text>
+<rect x="150" y="388" width="480" height="84" rx="10" fill="#ffebe9" stroke="#cf222e" stroke-width="1.5"/>
+<text x="390.0" y="417.5" font-size="14.5" fill="#58151c" font-weight="600" text-anchor="middle">Tier 1 — Assertion</text>
+<text x="390.0" y="434.5" font-size="12" fill="#58151c" text-anchor="middle">trust: the operator's word</text>
+<text x="390.0" y="451.5" font-size="12" fill="#58151c" font-weight="600" text-anchor="middle">✕ not Proof-of-Control</text>
+<line x1="105" y1="460" x2="105" y2="34" stroke="#57606a" stroke-width="1.5"/>
+<polygon points="105,34 100,43 110,43" fill="#57606a"/>
+<text x="88" y="250" font-size="11.5" fill="#57606a" text-anchor="middle" transform="rotate(-90 88 250)">less trust required</text>
+<line x1="60" y1="237" x2="720" y2="237" stroke="#6f42c1" stroke-width="2.5" stroke-dasharray="6 4"/>
+<rect x="230" y="218" width="320" height="40" rx="20" fill="#6f42c1" stroke="#6f42c1" stroke-width="1.5"/>
+<text x="390.0" y="242.5" font-size="13" fill="#ffffff" font-weight="600" text-anchor="middle">THE BINARY THRESHOLD</text>
+<text x="390" y="274" font-size="11.5" fill="#57606a" text-anchor="middle">below: authenticated documentation — above: mechanism-generated evidence</text>
+</svg>

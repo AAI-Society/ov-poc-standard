@@ -1,0 +1,389 @@
+#!/usr/bin/env python3
+"""Generate the standard's branded SVG diagrams in light and dark variants.
+
+Usage:  python3 tools/generate_diagrams.py
+
+Outputs images/diagrams/<name>-{light,dark}.svg for each diagram.
+Embed with a <picture> element so GitHub serves the right variant:
+
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset=".../<name>-dark.svg">
+      <img alt="..." src=".../<name>-light.svg" width="...">
+    </picture>
+"""
+
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+OUT = ROOT / "images" / "diagrams"
+
+FONT = "-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
+
+THEMES = {
+    "light": {
+        "text": "#1f2328", "muted": "#57606a", "line": "#57606a",
+        "box_fill": "#f6f8fa", "box_stroke": "#d0d7de",
+        "purple": "#6f42c1", "purple_text": "#ffffff",
+        "green_fill": "#dafbe1", "green_stroke": "#1a7f37", "green_text": "#0a3622",
+        "yellow_fill": "#fff8c5", "yellow_stroke": "#bf8700", "yellow_text": "#664d03",
+        "red_fill": "#ffebe9", "red_stroke": "#cf222e", "red_text": "#58151c",
+        "blue_fill": "#ddf4ff", "blue_stroke": "#0969da", "blue_text": "#052c65",
+    },
+    "dark": {
+        "text": "#e6edf3", "muted": "#8b949e", "line": "#8b949e",
+        "box_fill": "#161b22", "box_stroke": "#30363d",
+        "purple": "#a371f7", "purple_text": "#0d1117",
+        "green_fill": "#12261e", "green_stroke": "#2ea043", "green_text": "#aff5b4",
+        "yellow_fill": "#272115", "yellow_stroke": "#bb8009", "yellow_text": "#f2cc60",
+        "red_fill": "#2d1418", "red_stroke": "#f85149", "red_text": "#ffa198",
+        "blue_fill": "#121d2f", "blue_stroke": "#388bfd", "blue_text": "#79c0ff",
+    },
+}
+
+
+class SVG:
+    def __init__(self, w, h, theme):
+        self.w, self.h, self.t = w, h, theme
+        self.parts = [
+            f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" '
+            f'viewBox="0 0 {w} {h}" font-family="{FONT}">'
+        ]
+
+    def text(self, x, y, s, size=13, fill=None, bold=False, anchor="middle"):
+        weight = ' font-weight="600"' if bold else ""
+        fill = fill or self.t["text"]
+        self.parts.append(
+            f'<text x="{x}" y="{y}" font-size="{size}" fill="{fill}"{weight} '
+            f'text-anchor="{anchor}">{s}</text>'
+        )
+
+    def box(self, x, y, w, h, lines, fill=None, stroke=None, text_fill=None,
+            dashed=False, rx=10, lh=17):
+        fill = fill or self.t["box_fill"]
+        stroke = stroke or self.t["box_stroke"]
+        dash = ' stroke-dasharray="6 4"' if dashed else ""
+        self.parts.append(
+            f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="{rx}" '
+            f'fill="{fill}" stroke="{stroke}" stroke-width="1.5"{dash}/>'
+        )
+        n = len(lines)
+        start = y + h / 2 - (n - 1) * lh / 2 + 4.5
+        for i, spec in enumerate(lines):
+            s, size, bold, fill_ = spec
+            self.text(x + w / 2, start + i * lh, s, size=size,
+                      fill=fill_ or text_fill or self.t["text"], bold=bold)
+
+    def line(self, x1, y1, x2, y2, dashed=False, color=None, width=1.5):
+        color = color or self.t["line"]
+        dash = ' stroke-dasharray="6 4"' if dashed else ""
+        self.parts.append(
+            f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" '
+            f'stroke="{color}" stroke-width="{width}"{dash}/>'
+        )
+
+    def arrow(self, x1, y1, x2, y2, dashed=False, color=None):
+        color = color or self.t["line"]
+        self.line(x1, y1, x2, y2, dashed=dashed, color=color)
+        if x1 == x2:  # vertical
+            s = 1 if y2 > y1 else -1
+            pts = f"{x2},{y2} {x2 - 5},{y2 - s * 9} {x2 + 5},{y2 - s * 9}"
+        else:  # horizontal
+            s = 1 if x2 > x1 else -1
+            pts = f"{x2},{y2} {x2 - s * 9},{y2 - 5} {x2 - s * 9},{y2 + 5}"
+        self.parts.append(f'<polygon points="{pts}" fill="{color}"/>')
+
+    def save(self, name, variant):
+        self.parts.append("</svg>")
+        OUT.mkdir(parents=True, exist_ok=True)
+        (OUT / f"{name}-{variant}.svg").write_text("\n".join(self.parts) + "\n")
+
+
+def L(s, size=13, bold=False, fill=None):
+    return (s, size, bold, fill)
+
+
+# ---------------------------------------------------------------- diagrams
+
+def standard_at_a_glance(t, v):
+    s = SVG(1060, 330, t)
+    s.text(135, 24, "WHAT — the six domains", 12, t["muted"], bold=True)
+    s.box(20, 34, 230, 262, [], rx=12)
+    for i, d in enumerate(["C1  Provenance", "C2  Privacy", "C3  Portability",
+                           "C4  Authorization", "C5  Identity", "C6  Security"]):
+        s.box(38, 48 + i * 40, 194, 32, [L(d, 12.5, True)], rx=8)
+    s.box(300, 90, 215, 150, [
+        L("HOW — C7", 11.5, True, t["purple_text"]),
+        L("Action Interception Gateway", 13, True, t["purple_text"]),
+        L("binary · contemporaneous", 11.5, False, t["purple_text"]),
+        L("tamper-evident · transparent", 11.5, False, t["purple_text"]),
+    ], fill=t["purple"], stroke=t["purple"])
+    s.box(565, 90, 200, 150, [
+        L("HOW MUCH — C8", 11.5, True, t["muted"]),
+        L("Verifiability Tiers 1–4", 13, True),
+        L("binary threshold", 11.5),
+        L("at Tier 3", 11.5),
+    ])
+    s.box(815, 90, 225, 150, [
+        L("CHECKED — C10", 11.5, True, t["muted"]),
+        L("Self-Declared", 12.5),
+        L("Third-Party Assessed", 12.5),
+        L("Continuously Monitored", 12.5),
+    ])
+    s.arrow(250, 165, 298, 165)
+    s.arrow(515, 165, 563, 165)
+    s.arrow(765, 165, 813, 165)
+    s.box(300, 268, 465, 42, [
+        L("WHERE — C9 · evidence located on MAESTRO Layers 1–7", 12, False, t["muted"]),
+    ], dashed=True, rx=8)
+    s.line(407, 240, 407, 268, dashed=True)
+    s.line(665, 240, 665, 268, dashed=True)
+    s.save("standard-at-a-glance", v)
+
+
+def tier_ladder(t, v):
+    s = SVG(780, 480, t)
+    boxes = [
+        ("T4", 22, t["blue_fill"], t["blue_stroke"], t["blue_text"],
+         ["Tier 4 — Self-Enforcing", "trust: no one — cannot run if integrity breaks",
+          "✓ Proof-of-Control"]),
+        ("T3", 128, t["green_fill"], t["green_stroke"], t["green_text"],
+         ["Tier 3 — Independently Verifiable", "trust: the mathematics — anyone can check",
+          "✓ Proof-of-Control"]),
+        ("T2", 282, t["yellow_fill"], t["yellow_stroke"], t["yellow_text"],
+         ["Tier 2 — Attestation", "trust: a third party or root-keeper",
+          "✕ not Proof-of-Control"]),
+        ("T1", 388, t["red_fill"], t["red_stroke"], t["red_text"],
+         ["Tier 1 — Assertion", "trust: the operator's word",
+          "✕ not Proof-of-Control"]),
+    ]
+    for _, y, fill, stroke, text, lines in boxes:
+        s.box(150, y, 480, 84, [
+            L(lines[0], 14.5, True, text),
+            L(lines[1], 12, False, text),
+            L(lines[2], 12, True, text),
+        ], fill=fill, stroke=stroke)
+    s.arrow(105, 460, 105, 34, color=t["muted"])
+    s.parts.append(
+        f'<text x="88" y="250" font-size="11.5" fill="{t["muted"]}" text-anchor="middle" '
+        f'transform="rotate(-90 88 250)">less trust required</text>'
+    )
+    s.line(60, 237, 720, 237, dashed=True, color=t["purple"], width=2.5)
+    s.box(230, 218, 320, 40, [
+        L("THE BINARY THRESHOLD", 13, True, t["purple_text"]),
+    ], fill=t["purple"], stroke=t["purple"], rx=20)
+    s.text(390, 274, "below: authenticated documentation — above: mechanism-generated evidence",
+           11.5, t["muted"])
+    s.save("tier-ladder", v)
+
+
+def conformance_stages(t, v):
+    s = SVG(960, 290, t)
+    s.box(20, 40, 270, 120, [
+        L("Self-Declared", 14.5, True),
+        L("operator publishes a", 12, False, t["muted"]),
+        L("standardized statement", 12, False, t["muted"]),
+        L("C10.1", 11, True, t["purple"] if v == "light" else t["purple"]),
+    ])
+    s.box(345, 40, 270, 120, [
+        L("Third-Party Assessed", 14.5, True),
+        L("accredited assessor examines", 12, False, t["muted"]),
+        L("and confirms conformance", 12, False, t["muted"]),
+        L("", 11),
+    ])
+    s.box(670, 40, 270, 120, [
+        L("Continuously Monitored", 14.5, True),
+        L("every in-scope action validated", 12, False, t["muted"]),
+        L("as it occurs", 12, False, t["muted"]),
+        L("C10.3", 11, True, t["purple"]),
+    ])
+    s.arrow(290, 100, 343, 100)
+    s.arrow(615, 100, 668, 100)
+    s.box(170, 212, 620, 48, [
+        L("Trust-assumption disclosure — C10.2 · required at every stage", 12.5, True,
+          t["yellow_text"]),
+    ], fill=t["yellow_fill"], stroke=t["yellow_stroke"])
+    for x in (155, 480, 805):
+        s.line(x, 160, x if 170 < x < 790 else (200 if x == 155 else 760), 212, dashed=True)
+    s.save("conformance-stages", v)
+
+
+def document_map(t, v):
+    s = SVG(960, 440, t)
+    s.box(20, 20, 560, 400, [], rx=12)
+    s.text(300, 46, "THE STANDARD — normative · 0.1/en/", 13, t["text"], bold=True)
+    s.box(45, 66, 510, 84, [
+        L("C1–C6 · The six domains", 13, True),
+        L("Provenance · Privacy · Portability", 11.5, False, t["muted"]),
+        L("Authorization · Identity · Security", 11.5, False, t["muted"]),
+    ])
+    s.box(45, 182, 510, 84, [
+        L("C7–C10 · Cross-cutting requirements", 13, True),
+        L("Evidence generation · Verifiability Tiers", 11.5, False, t["muted"]),
+        L("System surface · Conformance", 11.5, False, t["muted"]),
+    ])
+    s.box(45, 298, 510, 84, [
+        L("Appendices A–E", 13, True),
+        L("Glossary · Mechanisms · Threat model", 11.5, False, t["muted"]),
+        L("Open issues · Audit checklist", 11.5, False, t["muted"]),
+    ])
+    s.arrow(300, 150, 300, 180)
+    s.arrow(300, 266, 300, 296)
+    s.box(650, 66, 290, 120, [
+        L("THE CASE — informative", 12.5, True),
+        L("docs/", 12, True, t["purple"]),
+        L("Introduction · Why it matters", 11.5, False, t["muted"]),
+        L("Use cases · Roadmap · Governance", 11.5, False, t["muted"]),
+    ])
+    s.box(650, 254, 290, 120, [
+        L("CROSSWALKS", 12.5, True),
+        L("mappings/", 12, True, t["purple"]),
+        L("MAESTRO · AARM · OWASP · ATLAS", 11.5, False, t["muted"]),
+        L("NIST · ISO 42001 · SOC 2 · EU AI Act", 11.5, False, t["muted"]),
+    ])
+    s.arrow(580, 126, 648, 126, dashed=True)
+    s.arrow(580, 314, 648, 314, dashed=True)
+    s.text(610, 116, "explained by", 10.5, t["muted"])
+    s.text(610, 304, "aligned via", 10.5, t["muted"])
+    s.save("document-map", v)
+
+
+def first_claim_journey(t, v):
+    s = SVG(1080, 160, t)
+    steps = [
+        ("1", "Choose", "domains", "C1–C6"),
+        ("2", "Locate on", "the stack", "C9"),
+        ("3", "Choose", "mechanisms", "App. B"),
+        ("4", "Meet the four", "properties", "C7"),
+        ("5", "Grade on", "the Tiers", "C8"),
+        ("6", "Disclose trust", "assumptions", "C10.2"),
+        ("7", "Publish the", "statement", "C10.1"),
+    ]
+    for i, (n, l1, l2, ref) in enumerate(steps):
+        x = 15 + i * 152
+        last = i == len(steps) - 1
+        fill = t["green_fill"] if last else t["box_fill"]
+        stroke = t["green_stroke"] if last else t["box_stroke"]
+        text = t["green_text"] if last else t["text"]
+        s.box(x, 30, 130, 100, [
+            L(n, 15, True, t["purple"]),
+            L(l1, 12.5, True, text),
+            L(l2, 12.5, True, text),
+            L(ref, 11, False, t["muted"] if not last else text),
+        ], fill=fill, stroke=stroke, lh=19)
+        if not last:
+            s.arrow(x + 130, 80, x + 150, 80)
+    s.save("first-claim-journey", v)
+
+
+def evidence_flow(t, v):
+    s = SVG(940, 360, t)
+    s.box(20, 60, 180, 90, [
+        L("Agent", 14, True),
+        L("plans an action", 12, False, t["muted"]),
+    ])
+    s.box(290, 45, 240, 120, [
+        L("Action Interception", 14, True, t["purple_text"]),
+        L("Gateway", 14, True, t["purple_text"]),
+        L("out-of-band · C7.1", 11.5, False, t["purple_text"]),
+    ], fill=t["purple"], stroke=t["purple"])
+    s.box(660, 60, 180, 90, [
+        L("Tool / effect", 14, True),
+        L("executes", 12, False, t["muted"]),
+    ])
+    s.box(290, 235, 240, 100, [
+        L("Evidence", 14, True, t["green_text"]),
+        L("binary · contemporaneous", 11.5, False, t["green_text"]),
+        L("tamper-evident · transparent", 11.5, False, t["green_text"]),
+    ], fill=t["green_fill"], stroke=t["green_stroke"])
+    s.box(640, 240, 280, 90, [
+        L("Any verifier", 14, True),
+        L("auditor · insurer · regulator", 11.5, False, t["muted"]),
+        L("no privileged access", 11.5, False, t["muted"]),
+    ])
+    s.arrow(200, 95, 288, 95)
+    s.text(244, 87, "action", 10.5, t["muted"])
+    s.arrow(530, 90, 658, 90)
+    s.text(594, 82, "authorized", 10.5, t["muted"])
+    s.arrow(658, 125, 530, 125, dashed=True)
+    s.text(594, 140, "result", 10.5, t["muted"])
+    s.arrow(410, 165, 410, 233)
+    s.text(495, 195, "before · during · after", 10.5, t["muted"])
+    s.text(495, 210, "out of scope: rejected + evidenced", 10.5,
+           t["red_stroke"])
+    s.arrow(530, 285, 638, 285)
+    s.save("evidence-flow", v)
+
+
+def maestro_stack(t, v):
+    s = SVG(660, 486, t)
+    layers = [
+        ("L7 · Agent Ecosystem", "marketplaces · registries · other agents"),
+        ("L6 · Security, Governance & Compliance", "policy · change management · audit"),
+        ("L5 · Evaluation & Observability", "tamper-evident logging · forensics"),
+        ("L4 · Deployment & Infrastructure", "containers · networks · secrets · TEEs"),
+        ("L3 · Agent Framework", "planning · tools · workflows · memory"),
+        ("L2 · Data Operations", "ingestion · embeddings · RAG"),
+        ("L1 · Foundation Model", "weights · serving · behavioral policy"),
+    ]
+    for i, (title, sub) in enumerate(layers):
+        y = 20 + i * 64
+        hl = title.startswith("L5")
+        title = title.replace("&", "&amp;")
+        if hl:
+            s.box(50, y, 560, 56, [
+                L(title, 13.5, True, t["purple_text"]),
+                L(sub, 11.5, False, t["purple_text"]),
+            ], fill=t["purple"], stroke=t["purple"])
+        else:
+            s.box(50, y, 560, 56, [
+                L(title, 13.5, True),
+                L(sub, 11.5, False, t["muted"]),
+            ])
+    s.text(330, 472, "L5 highlighted: without tamper-evident records, no post-hoc proof is possible",
+           11.5, t["muted"])
+    s.save("maestro-stack", v)
+
+
+def risk_value_quadrant(t, v):
+    s = SVG(680, 430, t)
+    x0, y0, cw, ch = 110, 40, 260, 155
+    s.text(370, 24, "The agent risk-to-value bind", 14, t["text"], bold=True)
+    cells = [
+        (x0, y0, t["red_fill"], t["red_stroke"], t["red_text"],
+         ["Failed deployment", ""]),
+        (x0 + cw, y0, t["yellow_fill"], t["yellow_stroke"], t["yellow_text"],
+         ["Unleash", "value, but unquantifiable risk"]),
+        (x0, y0 + ch, t["box_fill"], t["box_stroke"], t["muted"],
+         ["Constrain", "safe, but can't do the job"]),
+        (x0 + cw, y0 + ch, t["green_fill"], t["green_stroke"], t["green_text"],
+         ["Proof-of-Control", "value up, risk down"]),
+    ]
+    for x, y, fill, stroke, text, lines in cells:
+        s.box(x + 4, y + 4, cw - 8, ch - 8, [
+            L(lines[0], 14, True, text),
+            L(lines[1], 11.5, False, text),
+        ], fill=fill, stroke=stroke, rx=8)
+    s.text(x0 - 25, y0 + 18, "High", 11.5, t["muted"], anchor="end")
+    s.text(x0 - 25, y0 + 32, "risk", 11.5, t["muted"], anchor="end")
+    s.text(x0 - 25, y0 + 2 * ch - 30, "Low", 11.5, t["muted"], anchor="end")
+    s.text(x0 - 25, y0 + 2 * ch - 16, "risk", 11.5, t["muted"], anchor="end")
+    s.text(x0 + 40, y0 + 2 * ch + 28, "Low value", 11.5, t["muted"])
+    s.text(x0 + 2 * cw - 40, y0 + 2 * ch + 28, "High value", 11.5, t["muted"])
+    s.arrow(x0 - 60, y0 + 2 * ch, x0 - 60, y0, color=t["muted"])
+    s.arrow(x0, y0 + 2 * ch + 46, x0 + 2 * cw, y0 + 2 * ch + 46, color=t["muted"])
+    s.save("risk-value-quadrant", v)
+
+
+DIAGRAMS = [standard_at_a_glance, tier_ladder, conformance_stages, document_map,
+            first_claim_journey, evidence_flow, maestro_stack, risk_value_quadrant]
+
+
+def main():
+    for variant, theme in THEMES.items():
+        for fn in DIAGRAMS:
+            fn(theme, variant)
+    print(f"Generated {len(DIAGRAMS)} diagrams x {len(THEMES)} variants into {OUT}")
+
+
+if __name__ == "__main__":
+    main()

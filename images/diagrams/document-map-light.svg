@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="440" viewBox="0 0 960 440" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif">
+<rect x="20" y="20" width="560" height="400" rx="12" fill="#f6f8fa" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="300" y="46" font-size="13" fill="#1f2328" font-weight="600" text-anchor="middle">THE STANDARD — normative · 0.1/en/</text>
+<rect x="45" y="66" width="510" height="84" rx="10" fill="#f6f8fa" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="300.0" y="95.5" font-size="13" fill="#1f2328" font-weight="600" text-anchor="middle">C1–C6 · The six domains</text>
+<text x="300.0" y="112.5" font-size="11.5" fill="#57606a" text-anchor="middle">Provenance · Privacy · Portability</text>
+<text x="300.0" y="129.5" font-size="11.5" fill="#57606a" text-anchor="middle">Authorization · Identity · Security</text>
+<rect x="45" y="182" width="510" height="84" rx="10" fill="#f6f8fa" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="300.0" y="211.5" font-size="13" fill="#1f2328" font-weight="600" text-anchor="middle">C7–C10 · Cross-cutting requirements</text>
+<text x="300.0" y="228.5" font-size="11.5" fill="#57606a" text-anchor="middle">Evidence generation · Verifiability Tiers</text>
+<text x="300.0" y="245.5" font-size="11.5" fill="#57606a" text-anchor="middle">System surface · Conformance</text>
+<rect x="45" y="298" width="510" height="84" rx="10" fill="#f6f8fa" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="300.0" y="327.5" font-size="13" fill="#1f2328" font-weight="600" text-anchor="middle">Appendices A–E</text>
+<text x="300.0" y="344.5" font-size="11.5" fill="#57606a" text-anchor="middle">Glossary · Mechanisms · Threat model</text>
+<text x="300.0" y="361.5" font-size="11.5" fill="#57606a" text-anchor="middle">Open issues · Audit checklist</text>
+<line x1="300" y1="150" x2="300" y2="180" stroke="#57606a" stroke-width="1.5"/>
+<polygon points="300,180 295,171 305,171" fill="#57606a"/>
+<line x1="300" y1="266" x2="300" y2="296" stroke="#57606a" stroke-width="1.5"/>
+<polygon points="300,296 295,287 305,287" fill="#57606a"/>
+<rect x="650" y="66" width="290" height="120" rx="10" fill="#f6f8fa" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="795.0" y="105.0" font-size="12.5" fill="#1f2328" font-weight="600" text-anchor="middle">THE CASE — informative</text>
+<text x="795.0" y="122.0" font-size="12" fill="#6f42c1" font-weight="600" text-anchor="middle">docs/</text>
+<text x="795.0" y="139.0" font-size="11.5" fill="#57606a" text-anchor="middle">Introduction · Why it matters</text>
+<text x="795.0" y="156.0" font-size="11.5" fill="#57606a" text-anchor="middle">Use cases · Roadmap · Governance</text>
+<rect x="650" y="254" width="290" height="120" rx="10" fill="#f6f8fa" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="795.0" y="293.0" font-size="12.5" fill="#1f2328" font-weight="600" text-anchor="middle">CROSSWALKS</text>
+<text x="795.0" y="310.0" font-size="12" fill="#6f42c1" font-weight="600" text-anchor="middle">mappings/</text>
+<text x="795.0" y="327.0" font-size="11.5" fill="#57606a" text-anchor="middle">MAESTRO · AARM · OWASP · ATLAS</text>
+<text x="795.0" y="344.0" font-size="11.5" fill="#57606a" text-anchor="middle">NIST · ISO 42001 · SOC 2 · EU AI Act</text>
+<line x1="580" y1="126" x2="648" y2="126" stroke="#57606a" stroke-width="1.5" stroke-dasharray="6 4"/>
+<polygon points="648,126 639,121 639,131" fill="#57606a"/>
+<line x1="580" y1="314" x2="648" y2="314" stroke="#57606a" stroke-width="1.5" stroke-dasharray="6 4"/>
+<polygon points="648,314 639,309 639,319" fill="#57606a"/>
+<text x="610" y="116" font-size="10.5" fill="#57606a" text-anchor="middle">explained by</text>
+<text x="610" y="304" font-size="10.5" fill="#57606a" text-anchor="middle">aligned via</text>
+</svg>

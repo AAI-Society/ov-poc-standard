@@ -105,16 +105,22 @@ def write_markdown(chapters):
         + f" | **{total}** |"
     )
 
+    write_level_chart(counts, total)
     lines += [
         "",
         "## Requirements by Level",
         "",
-        "```mermaid",
-        f"pie showData title {total} requirements by level",
+        '<p align="center">',
+        '  <picture>',
+        '    <source media="(prefers-color-scheme: dark)"'
+        ' srcset="../../images/diagrams/checklist-levels-dark.svg">',
+        f'    <img alt="{total} requirements by level:'
+        + ", ".join(f" {counts[lvl]} at Level {lvl} ({LEVEL_META[lvl][1]})" for lvl in LEVEL_META)
+        + '" src="../../images/diagrams/checklist-levels-light.svg" width="620">',
+        '  </picture>',
+        '</p>',
+        "",
     ]
-    for lvl, (icon, name) in LEVEL_META.items():
-        lines.append(f'    "L{lvl} {name}" : {counts[lvl]}')
-    lines += ["```", ""]
 
     for chapter_id, chapter_title, fname, reqs in chapters:
         lines += [f"## {chapter_id} {chapter_title}", ""]
@@ -138,6 +144,62 @@ def write_markdown(chapters):
         "",
     ]
     OUT_MD.write_text("\n".join(lines))
+
+
+CHART_THEMES = {
+    "light": {
+        "text": "#1f2328", "muted": "#57606a",
+        "bars": {"1": ("#ffebe9", "#cf222e", "#58151c"),
+                 "2": ("#fff8c5", "#bf8700", "#664d03"),
+                 "3": ("#dafbe1", "#1a7f37", "#0a3622"),
+                 "4": ("#ddf4ff", "#0969da", "#052c65")},
+    },
+    "dark": {
+        "text": "#e6edf3", "muted": "#8b949e",
+        "bars": {"1": ("#2d1418", "#f85149", "#ffa198"),
+                 "2": ("#272115", "#bb8009", "#f2cc60"),
+                 "3": ("#12261e", "#2ea043", "#aff5b4"),
+                 "4": ("#121d2f", "#388bfd", "#79c0ff")},
+    },
+}
+
+FONT = "-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
+
+
+def write_level_chart(counts, total):
+    """Emit the branded requirements-by-level bar chart (light/dark SVGs)."""
+    out_dir = ROOT / "images" / "diagrams"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    max_count = max(counts.values())
+    for variant, theme in CHART_THEMES.items():
+        w, bar_h, gap, label_w, top = 640, 36, 14, 220, 46
+        h = top + 4 * (bar_h + gap) + 6
+        parts = [
+            f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" '
+            f'viewBox="0 0 {w} {h}" font-family="{FONT}">',
+            f'<text x="{w / 2}" y="26" font-size="14.5" font-weight="600" '
+            f'fill="{theme["text"]}" text-anchor="middle">'
+            f'{total} requirements by level</text>',
+        ]
+        for i, (lvl, (icon, name)) in enumerate(LEVEL_META.items()):
+            y = top + i * (bar_h + gap)
+            fill, stroke, text = theme["bars"][lvl]
+            blen = max(28, int((w - label_w - 70) * counts[lvl] / max_count))
+            parts.append(
+                f'<text x="{label_w - 12}" y="{y + bar_h / 2 + 4.5}" font-size="12.5" '
+                f'fill="{theme["text"]}" text-anchor="end">L{lvl} · {name}</text>'
+            )
+            parts.append(
+                f'<rect x="{label_w}" y="{y}" width="{blen}" height="{bar_h}" rx="8" '
+                f'fill="{fill}" stroke="{stroke}" stroke-width="1.5"/>'
+            )
+            parts.append(
+                f'<text x="{label_w + blen + 12}" y="{y + bar_h / 2 + 4.5}" '
+                f'font-size="13" font-weight="600" fill="{theme["text"]}" '
+                f'text-anchor="start">{counts[lvl]}</text>'
+            )
+        parts.append("</svg>")
+        (out_dir / f"checklist-levels-{variant}.svg").write_text("\n".join(parts) + "\n")
 
 
 def write_exports(chapters):

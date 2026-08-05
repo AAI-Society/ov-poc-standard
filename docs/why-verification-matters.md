@@ -168,16 +168,12 @@ verify it. Constrain them, keep every action inside the perimeter where it can b
 they are safe, compliant, and unable to do the job, while competitors who take the risk pull
 ahead.
 
-```mermaid
-quadrantChart
-    title The agent risk-to-value bind
-    x-axis Low value --> High value
-    y-axis Low risk --> High risk
-    quadrant-1 Unleash - unquantifiable risk
-    quadrant-2 Failed deployment
-    quadrant-3 Constrain - can't do the job
-    quadrant-4 Proof-of-Control
-```
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="../images/diagrams/risk-value-quadrant-dark.svg">
+    <img alt="The agent risk-to-value bind: unleash is high value but unquantifiable risk, constrain is safe but cannot do the job; Proof-of-Control is high value and low risk" src="../images/diagrams/risk-value-quadrant-light.svg" width="640">
+  </picture>
+</p>
 
 |  | Value low | Value high |
 | --- | --- | --- |

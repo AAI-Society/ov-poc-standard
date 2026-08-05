@@ -8,24 +8,12 @@ AI is moving from systems that answer to agents that act with intent on our beha
 
 ## How This Standard Is Organized
 
-```mermaid
-flowchart TB
-    subgraph SPEC["📐 The Standard — normative, 0.1/en/"]
-        direction TB
-        DOM["C1&#8211;C6 The six domains<br/>🧬 Provenance &#183; 🔐 Privacy &#183; 🌉 Portability<br/>🎫 Authorization &#183; 🪪 Identity &#183; 🛡️ Security"]
-        CROSS["C7&#8211;C10 Cross-cutting<br/>🧾 Evidence &#183; 🪜 Tiers &#183; 🏗️ System surface &#183; ✅ Conformance"]
-        APP["Appendices<br/>📖 A Glossary &#183; 🧰 B Mechanisms &#183; ⚔️ C Threat model &#183; ⚠️ D Open issues"]
-        DOM --> CROSS --> APP
-    end
-    subgraph CASE["📚 The Case — informative, docs/"]
-        COMP["Introduction &#183; Why verification matters<br/>Standards landscape &#183; Use cases<br/>Roadmap &#183; Governance &#183; Reviews"]
-    end
-    subgraph XWALK["🧩 Crosswalks — mappings/"]
-        MAP["MAESTRO &#183; AARM &#183; OWASP &#183; ATLAS &#183; NIST<br/>ISO 42001 &#183; SOC 2 &#183; EU AI Act &#183; &#8230;"]
-    end
-    SPEC -.explained by.-> CASE
-    SPEC -.aligned via.-> XWALK
-```
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="../../images/diagrams/document-map-dark.svg">
+    <img alt="Document map: the normative standard (chapters and appendices), the informative case in docs/, and the crosswalks in mappings/" src="../../images/diagrams/document-map-light.svg" width="880">
+  </picture>
+</p>
 
 **The requirement chapters (C1–C10) are normative.** Requirements language follows RFC 2119 and RFC 8174; each requirement is a testable **"Verify that"** statement with a level (see [Using Proof-of-Control](0x03-Using-Proof-of-Control.md) for the levels).
 

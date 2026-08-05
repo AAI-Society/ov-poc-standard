@@ -6,20 +6,12 @@ Grade every piece of evidence by how independently it can be verified — that i
 
 > **✍️ [DRAFT] — actively in progress.** This chapter is being worked on with the working group.
 
-```mermaid
-flowchart BT
-    T1["Tier 1 — Assertion 🗣️<br/>trust: the operator's word<br/>❌ not Proof-of-Control"]
-    T2["Tier 2 — Attestation 📋<br/>trust: a third party or root-keeper<br/>❌ not Proof-of-Control"]
-    T3["Tier 3 — Independently Verifiable 🔍<br/>trust: the mathematics — anyone can check<br/>✅ Proof-of-Control"]
-    T4["Tier 4 — Self-Enforcing 🔒<br/>trust: no one — cannot run if integrity breaks<br/>✅ Proof-of-Control"]
-    T1 --> T2
-    T2 == "━━ THE BINARY THRESHOLD ━━<br/>below: authenticated documentation<br/>above: mechanism-generated evidence" ==> T3
-    T3 --> T4
-    style T1 fill:#f8d7da,stroke:#d9534f,color:#58151c
-    style T2 fill:#fff3cd,stroke:#f0ad4e,color:#664d03
-    style T3 fill:#d1e7dd,stroke:#5cb85c,color:#0a3622
-    style T4 fill:#cfe2ff,stroke:#0d6efd,color:#052c65
-```
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="../../images/diagrams/tier-ladder-dark.svg">
+    <img alt="The four Verifiability Tiers with the binary threshold between Tier 2 and Tier 3: below it authenticated documentation, above it mechanism-generated evidence" src="../../images/diagrams/tier-ladder-light.svg" width="720">
+  </picture>
+</p>
 
 ## The Four Tiers
 

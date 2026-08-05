@@ -4,18 +4,12 @@
 
 Locate every piece of evidence in the agent stack. Every verifiable fact covers some part of the system, and a claim that does not say where in the stack its evidence applies is incomplete. The System surface is a pluggable, normative axis; MAESTRO — the seven-layer agent-stack model authored by co-chair Ken Huang, part of the Cloud Security Alliance's agentic-security work — is the framework that fills it today. The axis is the standard's; the framework is pluggable, and other agent-surface frameworks or industry-specific iterations of MAESTRO may be recognized as the field matures.
 
-```mermaid
-flowchart TB
-    L7["L7 🌐 Agent Ecosystem<br/>marketplaces &#183; registries &#183; other agents"]
-    L6["L6 🏛️ Security, Governance &amp; Compliance<br/>policy &#183; change management &#183; audit"]
-    L5["L5 📡 Evaluation &amp; Observability<br/>tamper-evident logging &#183; forensics"]
-    L4["L4 🖥️ Deployment &amp; Infrastructure<br/>containers &#183; networks &#183; secrets &#183; TEEs"]
-    L3["L3 🔁 Agent Framework<br/>planning &#183; tools &#183; workflows &#183; memory"]
-    L2["L2 🗄️ Data Operations<br/>ingestion &#183; embeddings &#183; RAG"]
-    L1["L1 🧠 Foundation Model<br/>weights &#183; serving &#183; behavioral policy"]
-    L7 --- L6 --- L5 --- L4 --- L3 --- L2 --- L1
-    style L5 fill:#6f42c1,stroke:#4c2d8f,color:#ffffff
-```
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="../../images/diagrams/maestro-stack-dark.svg">
+    <img alt="The seven MAESTRO layers from Foundation Model (L1) to Agent Ecosystem (L7), with Evaluation and Observability (L5) highlighted as foundational" src="../../images/diagrams/maestro-stack-light.svg" width="620">
+  </picture>
+</p>
 
 *Every claim states which layer its evidence covers. Layer 5 (highlighted) is foundational to all the others: without tamper-evident records, no post-hoc proof is possible ([C9.2.1](#c92-layer-coverage)).*
 

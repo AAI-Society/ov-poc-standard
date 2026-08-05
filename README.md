@@ -25,48 +25,23 @@ A system has Proof-of-Control when, and only when, its evidence reaches **Tier 3
 
 ## 🗺️ The Standard at a Glance
 
-```mermaid
-flowchart LR
-    subgraph WHAT["WHAT is verified — the six domains"]
-        direction TB
-        C1["C1 Provenance"]
-        C2["C2 Privacy"]
-        C3["C3 Portability"]
-        C4["C4 Authorization"]
-        C5["C5 Identity"]
-        C6["C6 Security"]
-    end
-    subgraph HOW["HOW evidence is made — C7"]
-        GW["Action Interception Gateway<br/>binary &#183; contemporaneous<br/>tamper-evident &#183; transparent"]
-    end
-    subgraph TRUST["HOW MUCH trust it needs — C8"]
-        TIERS["Verifiability Tiers 1&#8211;4<br/>binary threshold at Tier 3"]
-    end
-    subgraph CHECK["HOW claims are checked — C10"]
-        STAGES["Self-Declared<br/>Third-Party Assessed<br/>Continuously Monitored"]
-    end
-    WHAT --> GW --> TIERS --> STAGES
-    GW -. "located on the agent stack<br/>C9 MAESTRO Layers 1&#8211;7" .-> TIERS
-```
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="images/diagrams/standard-at-a-glance-dark.svg">
+    <img alt="The standard at a glance: the six domains feed the Action Interception Gateway (C7), graded on the Verifiability Tiers (C8), checked through the conformance stages (C10), located on MAESTRO layers (C9)" src="images/diagrams/standard-at-a-glance-light.svg" width="1000">
+  </picture>
+</p>
 
 ## 🪜 The Binary Threshold
 
 Evidence is graded by **who you must trust to believe it**. Cryptography alone doesn't raise the tier — removing the trusted party does.
 
-```mermaid
-flowchart BT
-    T1["Tier 1 — Assertion 🗣️<br/>trust: the operator's word"]
-    T2["Tier 2 — Attestation 📋<br/>trust: a third party or root-keeper"]
-    T3["Tier 3 — Independently Verifiable 🔍<br/>trust: the mathematics — anyone can check"]
-    T4["Tier 4 — Self-Enforcing 🔒<br/>trust: no one — cannot run if integrity breaks"]
-    T1 --> T2
-    T2 == "━━ THE BINARY THRESHOLD ━━<br/>below: documentation &#183; above: evidence" ==> T3
-    T3 --> T4
-    style T1 fill:#f8d7da,stroke:#d9534f,color:#58151c
-    style T2 fill:#fff3cd,stroke:#f0ad4e,color:#664d03
-    style T3 fill:#d1e7dd,stroke:#5cb85c,color:#0a3622
-    style T4 fill:#cfe2ff,stroke:#0d6efd,color:#052c65
-```
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="images/diagrams/tier-ladder-dark.svg">
+    <img alt="The four Verifiability Tiers with the binary threshold between Tier 2 and Tier 3" src="images/diagrams/tier-ladder-light.svg" width="720">
+  </picture>
+</p>
 
 | Tier | Name | Who you must trust | Proof-of-Control? |
 | :---: | --- | --- | :---: |
@@ -129,13 +104,12 @@ Each requirement carries a level (1–4), **aligned one-to-one with the Verifiab
 
 ## 🔁 How a Claim Gets Checked
 
-```mermaid
-flowchart LR
-    SD["🖊️ Self-Declared<br/>operator publishes a<br/>standardized statement"]
-    TPA["🕵️ Third-Party Assessed<br/>accredited assessor<br/>confirms conformance"]
-    CM["📡 Continuously Monitored<br/>every in-scope action<br/>validated as it occurs"]
-    SD --> TPA --> CM
-```
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="images/diagrams/conformance-stages-dark.svg">
+    <img alt="The three conformance stages, with trust-assumption disclosure required at every stage" src="images/diagrams/conformance-stages-light.svg" width="880">
+  </picture>
+</p>
 
 Four things tell an assessor, buyer, or insurer what a claim is worth: the **domains** claimed (C1–C6), the **Tier** of each claim (C8), the **conformance stage** (C10), and the **trust-assumption disclosure** — the part that lets two conformant systems be priced differently.
 

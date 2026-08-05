@@ -6,22 +6,12 @@ Define what a piece of evidence must be to count under this standard, in any dom
 
 These requirements apply to every claim made in the domain chapters [C1](0x10-C01-Provenance.md)–[C6](0x10-C06-Security.md).
 
-```mermaid
-flowchart LR
-    A["🤖 Agent<br/>plans an action"]
-    GW["🚧 Action Interception Gateway<br/>out-of-band — C7.1"]
-    T["🔧 Tool / effect<br/>executes"]
-    EV["🧾 Evidence<br/>binary &#183; contemporaneous<br/>tamper-evident &#183; transparent"]
-    V["🔍 Any verifier<br/>auditor &#183; insurer &#183; regulator<br/>no privileged access"]
-    A --> GW
-    GW -- "authorized" --> T
-    GW -- "out of scope ⛔<br/>rejected + evidenced" --> EV
-    GW -- "before &#183; during &#183; after" --> EV
-    T --> GW
-    EV --> V
-    style GW fill:#6f42c1,stroke:#4c2d8f,color:#ffffff
-    style EV fill:#d1e7dd,stroke:#5cb85c,color:#0a3622
-```
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="../../images/diagrams/evidence-flow-dark.svg">
+    <img alt="Evidence flow: the agent acts through the out-of-band Action Interception Gateway, which emits evidence before, during, and after each tool call for any verifier to check" src="../../images/diagrams/evidence-flow-light.svg" width="860">
+  </picture>
+</p>
 
 *No side effect without evidence: the gateway sits out-of-band between the agent and its tools, and the evidence it emits — not the operator's account — is what a verifier checks.*
 
