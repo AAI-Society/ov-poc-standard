@@ -49,6 +49,13 @@ above.
 
 ## Part B — For Organizations Adopting Proof-of-Control
 
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="../images/diagrams/roadmap-dark.svg">
+    <img alt="Implementation roadmap: Phase 1 (months 1-6) foundational infrastructure reaching Self-Declared readiness; Phase 2 (months 7-12) expanded proof coverage reaching Third-Party Assessed readiness; Phase 3 (months 13-24) ecosystem integration reaching Continuously Monitored readiness" src="../images/diagrams/roadmap-light.svg" width="1040">
+  </picture>
+</p>
+
 This rollout guide is contributed by Proof-of-Control co-chair Ken Huang. It sequences the
 cryptographic proof mechanisms so that foundational infrastructure is in place before
 higher-complexity mechanisms: an organization should not deploy zero-knowledge proofs or secure

@@ -37,5 +37,6 @@ Output: `main.pdf` (a compiled copy is committed for convenience).
 | --- | --- |
 | `main.tex` | The paper (compiles with tectonic, XeTeX engine) |
 | `references.bib` | Complete bibliography: RFCs, NIST/ISO/EU documents, frameworks, and the 2026 research corpus |
-| `figures/aai-logo.png` | Advanced AI Society logo (title page) |
+| `figures/aai-logo.png` | Advanced AI Society logo asset (reference; the cover mark is drawn in TikZ) |
+| `figures/*.pdf` | Paper figures, converted from the repo's SVGs: `rsvg-convert -f pdf images/diagrams/<name>-light.svg -o paper/figures/<name>.pdf` |
 | `main.pdf` | Compiled output |
