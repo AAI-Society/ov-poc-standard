@@ -48,14 +48,11 @@ CROSSWALKS = {
     "NIST_SP_800_207": "zero-trust.md",
 }
 
-# Advanced AI Society brand: near-black #0a0a0a, lime #cfff04, off-white #f0edea
-FONT = "Montserrat,'Source Sans 3',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
-CHART_THEMES = {
-    "light": {"text": "#0a0a0a", "muted": "#6b665f", "track": "#f0edea",
-              "track_stroke": "#d8d3cc", "em": "#7a9900", "pm": "#cfff04"},
-    "dark": {"text": "#f0edea", "muted": "#8f8a82", "track": "#161616",
-             "track_stroke": "#2e2e2e", "em": "#7a9900", "pm": "#cfff04"},
-}
+def _diagram_kit():
+    import sys
+    sys.path.insert(0, str(ROOT / "tools"))
+    from generate_diagrams import SVG, THEMES
+    return SVG, THEMES
 
 
 def load(sheet_path: Path):
@@ -124,42 +121,58 @@ def markdown_table(cov):
 
 
 def write_svg(cov, total):
-    out = ROOT / "images" / "diagrams"
-    out.mkdir(parents=True, exist_ok=True)
-    for variant, t in CHART_THEMES.items():
-        w, bar_h, gap, label_w, top = 760, 30, 12, 250, 74
-        h = top + len(cov) * (bar_h + gap) + 6
-        track_w = w - label_w - 80
-        p = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" '
-             f'viewBox="0 0 {w} {h}" font-family="{FONT}">',
-             f'<text x="{w / 2}" y="26" font-size="14.5" font-weight="600" '
-             f'fill="{t["text"]}" text-anchor="middle">How much of Proof-of-Control '
-             f'each framework already addresses</text>',
-             f'<text x="{w / 2}" y="46" font-size="11.5" fill="{t["muted"]}" '
-             f'text-anchor="middle">(EM + PM) / {total} requirements — '
-             f'dark lime: exact match · bright lime: partial match · '
-             f'gap: what only PoC covers</text>']
+    SVG, THEMES = _diagram_kit()
+    for variant, theme in THEMES.items():
+        n = len(cov)
+        bar_h, gap, top, label_w = 34, 16, 148, 320
+        h = top + n * (bar_h + gap) + 64
+        track_w = 560
+        em_fill = "#7a9900" if variant == "light" else "#8fae00"
+        pm_fill = "#cfff04"
+        s = SVG("mapping-coverage", 1040, h, theme, variant,
+                eyebrow="REGULATORY COVERAGE",
+                title="How much of Proof-of-Control each framework already addresses")
+        # swatch legend
+        lx = 34
+        for fill, lab in ((em_fill, "exact match"), (pm_fill, "partial match"),
+                          (theme["warm_bot"], "gap — only PoC covers it")):
+            s.parts.append(
+                f'<rect x="{lx}" y="92" width="14" height="14" rx="4" '
+                f'fill="{fill}" stroke="{theme["card_stroke"]}"/>')
+            s.text(lx + 22, 104, lab, 11.5, theme["muted"], anchor="start")
+            lx += 22 + len(lab) * 6.4 + 26
+        s.text(34 + 0, 124, f"coverage = (exact + partial) / {total} requirements",
+               11, theme["faint"], anchor="start")
         for i, (fw, c) in enumerate(cov.items()):
             y = top + i * (bar_h + gap)
+            s.text(label_w - 16, y + bar_h / 2 + 4.5, DISPLAY_NAMES.get(fw, fw),
+                   12.5, theme["text"], anchor="end")
+            # track with rounded ends; segments flat-joined via clip
+            cid = f"clip{i}"
+            s.parts.append(
+                f'<clipPath id="{cid}"><rect x="{label_w}" y="{y}" '
+                f'width="{track_w}" height="{bar_h}" rx="9"/></clipPath>')
+            s.parts.append(
+                f'<rect x="{label_w}" y="{y}" width="{track_w}" height="{bar_h}" '
+                f'rx="9" fill="url(#gWarm)" stroke="{theme["warm_stroke"]}"/>')
             em_w = track_w * c["EM"] / total
             pm_w = track_w * c["PM"] / total
-            p.append(f'<text x="{label_w - 12}" y="{y + bar_h / 2 + 4}" font-size="12" '
-                     f'fill="{t["text"]}" text-anchor="end">'
-                     f'{DISPLAY_NAMES.get(fw, fw)}</text>')
-            p.append(f'<rect x="{label_w}" y="{y}" width="{track_w}" height="{bar_h}" '
-                     f'rx="7" fill="{t["track"]}" stroke="{t["track_stroke"]}"/>')
             if em_w:
-                p.append(f'<rect x="{label_w}" y="{y}" width="{em_w:.1f}" '
-                         f'height="{bar_h}" rx="7" fill="{t["em"]}"/>')
+                s.parts.append(
+                    f'<rect x="{label_w}" y="{y}" width="{em_w:.1f}" '
+                    f'height="{bar_h}" fill="{em_fill}" clip-path="url(#{cid})"/>')
             if pm_w:
-                p.append(f'<rect x="{label_w + em_w:.1f}" y="{y}" width="{pm_w:.1f}" '
-                         f'height="{bar_h}" fill="{t["pm"]}"/>')
-            p.append(f'<text x="{label_w + track_w + 10}" y="{y + bar_h / 2 + 4}" '
-                     f'font-size="12.5" font-weight="600" fill="{t["text"]}">'
-                     f'{c["coverage"]}%</text>')
-        p.append("</svg>")
-        (out / f"mapping-coverage-{variant}.svg").write_text("\n".join(p) + "\n")
-    print(f"wrote mapping-coverage-{{light,dark}}.svg to {out}")
+                s.parts.append(
+                    f'<rect x="{label_w + em_w:.1f}" y="{y}" width="{pm_w:.1f}" '
+                    f'height="{bar_h}" fill="{pm_fill}" clip-path="url(#{cid})"/>')
+            s.text(label_w + track_w + 18, y + bar_h / 2 + 5,
+                   f'{c["coverage"]}%', 14, theme["text"], bold=True,
+                   anchor="start")
+        s.caption("the uncovered remainder — evidence gradability, the binary "
+                  "threshold, trust-assumption disclosure — is the gap "
+                  "Proof-of-Control exists to close", y=h - 24)
+        s.save()
+    print("wrote mapping-coverage-{light,dark}.svg")
 
 
 def main():

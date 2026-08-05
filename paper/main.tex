@@ -4,7 +4,7 @@
 \documentclass[11pt]{article}
 
 \usepackage[margin=1in]{geometry}
-\usepackage[affil-it]{authblk}
+\usepackage{tikz}
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{array}
@@ -22,90 +22,136 @@
 \definecolor{aaiink}{HTML}{0A0A0A}
 \definecolor{aaired}{HTML}{FFE3E4}
 \definecolor{aaineutral}{HTML}{E7E3DD}
+\definecolor{aaipaper}{HTML}{F0EDEA}
+\definecolor{aaimuted}{HTML}{8F8A82}
+\definecolor{aaidarklime}{HTML}{7A9900}
 
 \lstset{basicstyle=\ttfamily\footnotesize, breaklines=true, frame=single,
         framerule=0.3pt, xleftmargin=1em, columns=fullflexible}
 
 \newcommand{\poc}{Proof-of-Control}
 
-\title{\vspace{-1.2em}
-  \includegraphics[width=2.6cm]{figures/aai-logo.png}\\[0.8em]
-  \textbf{Proof-of-Control: An Open Standard for Runtime Verifiability and
-  Cryptographic Oversight in Autonomous AI Execution}\\[0.4em]
-  {\large Working Draft v0.1 --- prepared for co-author review prior to submission}}
-
-\author[1,2]{Jim Schwoebel}
-\author[2]{Ken Huang}
-\author[2]{Tricia Wang}
-\author[2]{Michael Casey}
-\author[2]{Sheila Warren}
-\author[2]{Julie Tsai}
-\author[2]{Bettina Warburg}
-\author[2]{Noah Ringler}
-\author[2]{Anni Lai}
-\author[2]{Paul Calatayud}
-\author[2]{Ahmer Inam}
-\author[2]{Brian Behlendorf}
-\author[2]{Clay Shirky}
-\author[2]{Sunny Bates}
-\author[2]{Cyrus Hodes}
-\author[2]{Jana Eggers}
-\author[2]{Nicolaj Waldorf}
-\author[2]{Addie Wagenknecht}
-\author[2]{Paul Brody}
-\author[2]{Andrew Nebus}
-\author[2]{Irina Marinescu}
-\author[2]{Esteban Kolsky}
-\author[2]{Ray Wang}
-\author[2]{James Andrews}
-\author[2]{Benjamin Palmer}
-\author[2]{David Bray}
-\author[2]{John Kuch}
-\author[2]{Nelson Rosario}
-\author[2]{Gold Darr}
-\author[2]{Ben Christiansen}
-\author[2]{Sam Nathans}
-\author[2]{Heather Lord}
-\affil[1]{Quome}
-\affil[2]{Advanced AI Society\thanks{Draft prepared within the Proof-of-Control
-Initiative of the Advanced AI Society (\url{https://advancedaisociety.org}).
-The author list reflects the Initiative's leadership, board, and advisory board;
-individual consent to co-authorship is being collected before submission, and
-the list will be revised to include only consenting contributors.}}
-
-\date{August 2026}
-
 \begin{document}
-\maketitle
 
-\begin{abstract}
-Autonomous AI agents plan multi-step workflows, query databases, invoke external
-APIs, modify application state, and delegate sub-tasks with minimal real-time
-human supervision. This autonomy exposes a systemic vulnerability we call the
-\emph{Verifiability Gap}: the structural impossibility of confirming---during
-execution or retrospectively---that an agent operated within its authorized
-policy boundaries, that mandatory controls remained active, and that its state
-transitions were free from manipulation. Legacy governance mechanisms (system
-prompts, static access control, application-embedded guardrails, and post-hoc
-log auditing) fail against non-deterministic, path-dependent execution at
-machine speed. We introduce \poc{} (PoC), an open standard for runtime
-verifiability comprising: (i) six \emph{domains of verification} (Provenance,
-Privacy, Portability, Authorization, Identity, Security) enumerating 111
-auditable requirements; (ii) four \emph{Verifiability Tiers} that grade
-evidence by who must be trusted to believe it, with a \emph{binary threshold}
-separating authenticated documentation from mechanism-generated evidence;
-(iii) a reference architecture coupling lifecycle interception hooks with
-hardware-isolated policy evaluation under the IETF Remote Attestation
-Procedures architecture (RFC~9334), emitting Entity Attestation Tokens over a
-signed Merkle execution chain; and (iv) a quantitative, reproducible coverage
+% ---------------------------------------------------------------- cover page
+\thispagestyle{empty}
+
+% Full-bleed brand hero band
+\begin{tikzpicture}[remember picture, overlay]
+  \fill[aaiink] (current page.north west) rectangle
+    ([yshift=-7.05cm]current page.north east);
+  \fill[aailime] ([yshift=-7.05cm]current page.north west) rectangle
+    ([yshift=-7.23cm]current page.north east);
+  % logo chip: black mark on brand lime, the Society's CTA inversion
+  \node[anchor=north west, inner sep=0pt]
+    at ([xshift=1in, yshift=-0.85cm]current page.north west)
+    {\begin{tikzpicture}
+       \fill[aailime, rounded corners=7pt] (0,0) rectangle (1.55,1.55);
+       \node at (0.775,0.775)
+         {\includegraphics[width=1.05cm]{figures/aai-logo.png}};
+     \end{tikzpicture}};
+  \node[anchor=north west, inner sep=0pt, text width=11.2cm]
+    at ([xshift=1in+2.05cm, yshift=-0.95cm]current page.north west)
+    {\sffamily\bfseries\footnotesize\color{aailime}%
+     ADVANCED AI SOCIETY\, \textcolor{aaimuted}{$\cdot$}\, PROOF-OF-CONTROL
+     INITIATIVE\\[2pt]
+     {\normalfont\sffamily\footnotesize\color{aaimuted}
+      Working draft v0.1 $\cdot$ August 2026 $\cdot$ prepared for co-author
+      review prior to submission}};
+  \node[anchor=north west, inner sep=0pt, text width=\textwidth]
+    at ([xshift=1in, yshift=-3.0cm]current page.north west)
+    {\sffamily\bfseries\fontsize{22.5}{27}\selectfont\color{aaipaper}%
+     Proof-of-Control: An Open Standard for Runtime Verifiability and
+     Cryptographic Oversight in Autonomous AI Execution};
+  \node[anchor=north west, inner sep=0pt, text width=\textwidth]
+    at ([xshift=1in, yshift=-6.15cm]current page.north west)
+    {\sffamily\small\color{aaipaper}%
+     \textcolor{aailime}{\rule[0.5ex]{1.6em}{2pt}}\hspace{0.6em}%
+     Prove, rather than promise, what your agents did.};
+\end{tikzpicture}
+
+\vspace*{6.55cm}
+
+% Compact author block
+{\small\noindent
+\textbf{Jim Schwoebel}\textsuperscript{1,2},
+Ken Huang\textsuperscript{2},
+Tricia Wang\textsuperscript{2},
+Michael Casey\textsuperscript{2},
+Sheila Warren\textsuperscript{2},
+Julie Tsai\textsuperscript{2},
+Bettina Warburg\textsuperscript{2},
+Noah Ringler\textsuperscript{2},
+Anni Lai\textsuperscript{2},
+Paul Calatayud\textsuperscript{2},
+Ahmer Inam\textsuperscript{2},
+Brian Behlendorf\textsuperscript{2},
+Clay Shirky\textsuperscript{2},
+Sunny Bates\textsuperscript{2},
+Cyrus Hodes\textsuperscript{2},
+Jana Eggers\textsuperscript{2},
+Nicolaj Waldorf\textsuperscript{2},
+Addie Wagenknecht\textsuperscript{2},
+Paul Brody\textsuperscript{2},
+Andrew Nebus\textsuperscript{2},
+Irina Marinescu\textsuperscript{2},
+Esteban Kolsky\textsuperscript{2},
+Ray Wang\textsuperscript{2},
+James Andrews\textsuperscript{2},
+Benjamin Palmer\textsuperscript{2},
+David Bray\textsuperscript{2},
+John Kuch\textsuperscript{2},
+Nelson Rosario\textsuperscript{2},
+Gold Darr\textsuperscript{2},
+Ben Christiansen\textsuperscript{2},
+Sam Nathans\textsuperscript{2},
+Heather Lord\textsuperscript{2}
+
+\smallskip\noindent
+{\footnotesize
+\textsuperscript{1}\,Quome \quad
+\textsuperscript{2}\,Advanced AI Society,
+\url{https://advancedaisociety.org}\footnote{Draft prepared within the
+Proof-of-Control Initiative of the Advanced AI Society. The author list
+reflects the Initiative's leadership, board, and advisory board; individual
+consent to co-authorship is being collected before submission, and the list
+will be revised to include only consenting contributors.}}}
+
+\vspace{1.1em}
+\noindent\textcolor{aailime}{\rule{\textwidth}{1.6pt}}
+\vspace{0.5em}
+
+% Abstract
+\begin{center}
+{\sffamily\bfseries\small ABSTRACT}
+\end{center}
+\vspace{-0.4em}
+\noindent{\small
+Autonomous AI agents plan multi-step workflows, invoke external APIs, modify
+application state, and delegate sub-tasks with minimal real-time human
+supervision---exposing a systemic vulnerability we call the
+\emph{Verifiability Gap}: the structural impossibility of confirming that an
+agent operated within its authorized policy boundaries and that its controls
+remained active and unmanipulated. Legacy mechanisms (system prompts, static
+access control, embedded guardrails, post-hoc log auditing) fail against
+non-deterministic, path-dependent execution at machine speed. We introduce
+\poc{} (PoC), an open standard for runtime verifiability comprising: (i) six
+\emph{domains of verification} enumerating 111 auditable requirements;
+(ii) four \emph{Verifiability Tiers} grading evidence by who must be trusted
+to believe it, with a \emph{binary threshold} separating authenticated
+documentation from mechanism-generated evidence; (iii) a reference
+architecture coupling lifecycle interception hooks with hardware-isolated
+policy evaluation under IETF RATS (RFC~9334), emitting Entity Attestation
+Tokens over a signed Merkle execution chain; and (iv) a reproducible coverage
 mapping showing that eight leading frameworks (NIST AI RMF, ISO/IEC~42001,
-OWASP AISVS, EU AI Act, SOC~2, CSA AARM, NIST SP~800-207, MITRE ATLAS) address
-27--64\% of PoC requirements---almost entirely as partial matches that require
-the control but not operator-independent evidence of it. We state a formal
-policy model, a zero-trust threat model, a sub-15\,ms latency budget, and an
-integration roadmap across ISO/IEC JTC~1/SC~42, the IETF RATS working group,
-and the NIST AI~600-1 profile.
-\end{abstract}
+OWASP AISVS, EU AI Act, SOC~2, CSA AARM, NIST SP~800-207, MITRE ATLAS)
+address 27--64\% of PoC requirements---almost entirely as partial matches
+that require the control but not operator-independent evidence of it. We
+state a formal policy model, a zero-trust threat model, a sub-15\,ms latency
+budget, and an integration roadmap across ISO/IEC JTC~1/SC~42, IETF RATS,
+and NIST AI~600-1.}
+
+\clearpage
 
 \section{Introduction: The Verifiability Gap}
 \label{sec:intro}

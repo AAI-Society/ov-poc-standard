@@ -145,61 +145,32 @@ def write_markdown(chapters):
     OUT_MD.write_text("\n".join(lines))
 
 
-# Advanced AI Society brand: near-black #0a0a0a, lime #cfff04, off-white #f0edea
-CHART_THEMES = {
-    "light": {
-        "text": "#0a0a0a", "muted": "#6b665f",
-        "bars": {"1": ("#ffe3e4", "#bf000f", "#7a000a"),
-                 "2": ("#e7e3dd", "#8a857e", "#3d3a36"),
-                 "3": ("#f2ffb8", "#7a9900", "#3d4d00"),
-                 "4": ("#cfff04", "#0a0a0a", "#0a0a0a")},
-    },
-    "dark": {
-        "text": "#f0edea", "muted": "#8f8a82",
-        "bars": {"1": ("#2a1214", "#ff6568", "#ff9a9c"),
-                 "2": ("#1d1c1a", "#6e6a63", "#b5b0a8"),
-                 "3": ("#222b00", "#cfff04", "#e3ff66"),
-                 "4": ("#cfff04", "#cfff04", "#0a0a0a")},
-    },
-}
-
-FONT = "Montserrat,'Source Sans 3',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
-
-
 def write_level_chart(counts, total):
-    """Emit the branded requirements-by-level bar chart (light/dark SVGs)."""
-    out_dir = ROOT / "images" / "diagrams"
-    out_dir.mkdir(parents=True, exist_ok=True)
+    """Requirements-by-level bar chart in the shared panel template."""
+    import sys
+    sys.path.insert(0, str(ROOT / "tools"))
+    from generate_diagrams import SVG, THEMES
+
+    level_kind = {"1": "card", "2": "warm", "3": "tint", "4": "lime"}
     max_count = max(counts.values())
-    for variant, theme in CHART_THEMES.items():
-        w, bar_h, gap, label_w, top = 640, 36, 14, 220, 46
-        h = top + 4 * (bar_h + gap) + 6
-        parts = [
-            f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" '
-            f'viewBox="0 0 {w} {h}" font-family="{FONT}">',
-            f'<text x="{w / 2}" y="26" font-size="14.5" font-weight="600" '
-            f'fill="{theme["text"]}" text-anchor="middle">'
-            f'{total} requirements by level</text>',
-        ]
+    for variant, theme in THEMES.items():
+        s = SVG("checklist-levels", 860, 380, theme, variant,
+                eyebrow="THE AUDIT CHECKLIST",
+                title=f"{total} requirements by level")
+        label_w, track_w, bar_h, gap, top = 300, 430, 42, 18, 104
         for i, (lvl, (icon, name)) in enumerate(LEVEL_META.items()):
             y = top + i * (bar_h + gap)
-            fill, stroke, text = theme["bars"][lvl]
-            blen = max(28, int((w - label_w - 70) * counts[lvl] / max_count))
-            parts.append(
-                f'<text x="{label_w - 12}" y="{y + bar_h / 2 + 4.5}" font-size="12.5" '
-                f'fill="{theme["text"]}" text-anchor="end">L{lvl} · {name}</text>'
-            )
-            parts.append(
-                f'<rect x="{label_w}" y="{y}" width="{blen}" height="{bar_h}" rx="8" '
-                f'fill="{fill}" stroke="{stroke}" stroke-width="1.5"/>'
-            )
-            parts.append(
-                f'<text x="{label_w + blen + 12}" y="{y + bar_h / 2 + 4.5}" '
-                f'font-size="13" font-weight="600" fill="{theme["text"]}" '
-                f'text-anchor="start">{counts[lvl]}</text>'
-            )
-        parts.append("</svg>")
-        (out_dir / f"checklist-levels-{variant}.svg").write_text("\n".join(parts) + "\n")
+            kind = level_kind[lvl]
+            s.text(label_w - 16, y + bar_h / 2 + 4.5, f"L{lvl} · {name}",
+                   12.5, theme["text"], bold=True, anchor="end")
+            blen = max(36, int(track_w * counts[lvl] / max_count))
+            s.card(label_w, y, blen, bar_h, kind=kind, rx=9,
+                   shadow=False, glow=(kind == "lime"))
+            s.text(label_w + blen + 16, y + bar_h / 2 + 5, str(counts[lvl]),
+                   14, theme["text"], bold=True, anchor="start")
+        s.caption("levels are cumulative and align 1:1 with the Verifiability "
+                  "Tiers — Level 3 is the binary threshold", y=s.h - 24)
+        s.save()
 
 
 def write_exports(chapters):
