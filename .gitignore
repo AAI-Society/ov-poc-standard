@@ -1,0 +1,13 @@
+# Reference copy of OWASP AISVS (kept locally for structural reference only)
+AISVS/
+
+# Original source document (Google Docs export; canonical text now lives in 0.1/en/)
+PoC v0.1.4 August 1 .md
+
+# OS cruft
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+dist/
+*.pdf
