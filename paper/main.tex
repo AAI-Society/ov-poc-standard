@@ -19,6 +19,7 @@
 \usepackage{enumitem}
 \usepackage{microtype}
 \usepackage{caption}
+\usepackage[section]{placeins}
 
 % Advanced AI Society brand palette
 \definecolor{aailime}{HTML}{CFFF04}
@@ -476,8 +477,8 @@ attestation submodule. Listing~\ref{lst:eat} shows a representative token
 structure), produced at the pre-call tool-invocation hook for a payment
 API request.
 
-\begin{listing}[ht]
-\begin{minted}[bgcolor=codepanel, fontsize=\footnotesize, frame=lines,
+\begin{listing}[p]
+\begin{minted}[bgcolor=codepanel, fontsize=\scriptsize, frame=lines,
 framerule=0.4pt, breaklines]{json}
 {
   "iss": "https://verifier.trusted-attestation.org",
@@ -506,26 +507,11 @@ framerule=0.4pt, breaklines]{json}
 }
 \end{minted}
 \caption{A \poc{} Evidence token (EAT, JWT rendering) emitted at the
-pre-call tool-invocation hook.}
+pre-call tool-invocation hook. Claim-by-claim definitions follow in
+Table~\ref{tab:claims} below.}
 \label{lst:eat}
-\end{listing}
-
-Table~\ref{tab:claims} defines each claim. Three design decisions matter.
-First, \emph{payloads never leave the boundary}: the token carries
-\texttt{canonical\_snapshot\_hash}, a commitment to the full evaluated
-state, rather than the state itself---so a third party can later confirm
-exactly what was evaluated (by hashing a disclosed snapshot) without the
-evidence store ever holding raw data (the C2 privacy requirements).
-Second, \emph{history is load-bearing}: \texttt{step\_index} and
-\texttt{merkle\_root} bind this token to every token before it, which is
-what makes silent omission of an inconvenient step as detectable as
-alteration. Third, \emph{the policy is pinned}:
-\texttt{policy\_bundle\_hash} identifies the exact rule set that produced
-the verdict, so ``which policy was in force?'' is a claim to check, not a
-change-log to reconstruct.
-
-\begin{table}[ht]
-\centering\footnotesize
+\vspace{1.2em}
+\centering\scriptsize
 \begin{tabular}{@{}llp{8.1cm}@{}}
 \toprule
 \textbf{Claim} & \textbf{Type} & \textbf{Meaning} \\
@@ -562,11 +548,27 @@ authorized policy engine ran unmodified. \\
 token by the enclave-bound key. \\
 \bottomrule
 \end{tabular}
-\caption{The Evidence claim set. ``EAT'' rows are standard Entity
+\captionof{table}{The Evidence claim set. ``EAT'' rows are standard Entity
 Attestation Token claims~\cite{rfc9711}; ``PoC'' rows are the \poc{}
 profile; ``HW'' rows form the hardware-attestation submodule.}
 \label{tab:claims}
-\end{table}
+\end{listing}
+
+Table~\ref{tab:claims} defines each claim. Three design decisions matter.
+First, \emph{payloads never leave the boundary}: the token carries
+\texttt{canonical\_snapshot\_hash}, a commitment to the full evaluated
+state, rather than the state itself---so a third party can later confirm
+exactly what was evaluated (by hashing a disclosed snapshot) without the
+evidence store ever holding raw data (the C2 privacy requirements).
+Second, \emph{history is load-bearing}: \texttt{step\_index} and
+\texttt{merkle\_root} bind this token to every token before it, which is
+what makes silent omission of an inconvenient step as detectable as
+alteration. Third, \emph{the policy is pinned}:
+\texttt{policy\_bundle\_hash} identifies the exact rule set that produced
+the verdict, so ``which policy was in force?'' is a claim to check, not a
+change-log to reconstruct.
+
+
 
 \paragraph{How a verifier consumes the token.} Verification is a fixed,
 mechanical sequence: (1)~validate \texttt{attestation\_signature} against
@@ -605,6 +607,7 @@ threshold of Section~\ref{sec:tiers}.}
 \label{tab:compare}
 \end{table}
 
+\FloatBarrier
 \section{Formal Model}
 \label{sec:formal}
 
