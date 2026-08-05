@@ -4,6 +4,15 @@
 (IEEE S&P / USENIX Security / CCS). Prepared as an internal red-team exercise on
 [`paper/main.tex`](../../paper/main.tex) before submission. Not an actual venue review.*
 
+> **Disposition: all findings addressed** (commit `b2fd54c`). This review was written against
+> the 111-requirement draft; the specification now carries 116 requirements, with C7.1.4/C7.1.5
+> (complete mediation), C7.3.3 (non-equivocation), C7.6.6 (bounded anchoring), and C8.3.5
+> (halt outside operator control) added in response. The paper gained a formal adversary model
+> and security analysis, an explicit Tier-4 construction, honest scoping (no implementation
+> claimed), a reframed gap analysis with a two-coder κ protocol, a rebuilt comparison table, a
+> reduced author list, and corrected citations. Numbers quoted below reflect the reviewed
+> version. See [Appendix D, issue 13](../../0.1/en/0x93-Appendix-D_Open-Issues.md).
+
 **Overall merit: 2/5 (Reject — resubmit after major revision)**
 **Novelty 3/5 · Technical depth 2/5 · Presentation 4/5 · Reviewer confidence 4/5**
 
