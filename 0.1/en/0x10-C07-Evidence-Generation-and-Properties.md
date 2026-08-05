@@ -26,8 +26,10 @@ Verification evidence is generated where actions happen, preventing unverified s
 | **7.1.1** | **Verify that** all agent tool and effect invocations are routed through an Action Interception Gateway that runs as a separate process or service from the agent — the agent has no network or credential path to its tools that bypasses the gateway. | 3 |
 | **7.1.2** | **Verify that** for each intercepted action the gateway emits evidence records at three points — request received (before), effect performed (during), and result returned (after) — each independently signed and linkable to the same action ID. | 3 |
 | **7.1.3** | **Verify that** the architecture makes evidence emission a precondition of action release: the gateway does not forward the action to the tool until the *before* record is durably written. | 3 |
+| **7.1.4** | **Verify that** the effect channel is mediated within the same trust boundary as policy evaluation, by at least one of: (a) the credentials and transport for the effect are held inside the attesting environment, which emits the request itself; (b) the mechanism releases a single-use capability cryptographically bound to the evaluated snapshot digest and target resource, which the relying party checks before executing; or (c) egress is confined to an attested enforcement point that admits only requests carrying matching evidence. The conformance claim states which. | 3 |
+| **7.1.5** | **Verify that** the claim does not assert that evidence describes executed actions unless 7.1.4 is met — a system evidencing evaluation but not mediating the effect channel may claim Tier 1–2 only. | 1 |
 
-**Auditor evidence:** 7.1.1 — network policy and credential scoping showing no bypass path; attempt a direct tool call from the agent runtime in test. 7.1.2 — the three records for a sampled action, sharing one action ID. 7.1.3 — gateway configuration/code path for write-before-forward; test by making the evidence store unavailable and observing that actions do not proceed.
+**Auditor evidence:** 7.1.1 — network policy and credential scoping showing no bypass path; attempt a direct tool call from the agent runtime in test. 7.1.2 — the three records for a sampled action, sharing one action ID. 7.1.3 — gateway configuration/code path for write-before-forward; test by making the evidence store unavailable and observing that actions do not proceed. 7.1.4 — the mediation option declared in the claim, plus a substitution test: submit snapshot A to the mechanism while attempting to dispatch action B, and confirm B is refused (option a/c) or rejected by the relying party (option b). 7.1.5 — check the claim's wording against the mediation option actually implemented.
 
 ---
 
@@ -52,8 +54,9 @@ The evidence is produced by the cryptographic mechanism, not by the system opera
 | :--------: | ------------------------------------------------------------------------------------------------------------------- | :---: |
 | **7.3.1** | **Verify that** evidence records are hash-chained or Merkle-anchored so that modifying, inserting, or reordering any record invalidates the chain, and that chain verification runs on a defined schedule with results recorded. | 2 |
 | **7.3.2** | **Verify that** evidence records are signed by keys held by the generating mechanism (gateway, enclave, or logging service) that operator and agent identities cannot access, per the key-custody configuration. | 3 |
+| **7.3.3** | **Verify that** the implementation resists equivocation (presenting divergent histories to different relying parties) by at least one of: cross-verifier consistency checking (gossip), a witness quorum co-signing chain roots, or anchoring to a ledger with single-history consensus — and that the mechanism is named in the claim. | 3 |
 
-**Auditor evidence:** 7.3.1 — chain-verification job schedule and results; alter one record in a test copy and confirm detection. 7.3.2 — key-custody ACLs; confirm operator accounts hold no signing capability for evidence keys.
+**Auditor evidence:** 7.3.1 — chain-verification job schedule and results; alter one record in a test copy and confirm detection. 7.3.2 — key-custody ACLs; confirm operator accounts hold no signing capability for evidence keys. 7.3.3 — the named mechanism and its participants; obtain the same chain root from two independent verifiers or witnesses and confirm they agree.
 
 ---
 
@@ -98,8 +101,9 @@ Tamper-evidence makes alteration detectable; it does not, by itself, make *omiss
 | **7.6.3** | **Verify that** when evidence cannot be generated at the claimed Tier, in-scope actions are refused by the gateway until the pipeline recovers — demonstrated by a fail-closed test on the evidence store. | 4 |
 | **7.6.4** | **Verify that** the evidence store enforces role-based access, and that every read of evidence writes its own access record (who, what, when). | 2 |
 | **7.6.5** | **Verify that** the retention period for evidence is stated in the conformance claim, configured in the store's retention policy, and at least as long as the period the claim covers. | 1 |
+| **7.6.6** | **Verify that** the chain root is anchored externally within a declared maximum interval, that the interval is stated in the claim (it bounds the window in which head truncation is undetectable), and that a missed anchoring deadline raises an alert. | 3 |
 
-**Auditor evidence:** 7.6.1 — failure-event log and its alert route; break the pipeline in test. 7.6.2 — compute sequence continuity over a sampled window; remove a record in a test copy and confirm the gap is detectable. 7.6.3 — fail-closed test results. 7.6.4 — store ACLs and read-access records, including your own audit reads. 7.6.5 — claim text vs. store retention configuration.
+**Auditor evidence:** 7.6.1 — failure-event log and its alert route; break the pipeline in test. 7.6.2 — compute sequence continuity over a sampled window; remove a record in a test copy and confirm the gap is detectable. 7.6.3 — fail-closed test results. 7.6.4 — store ACLs and read-access records, including your own audit reads. 7.6.5 — claim text vs. store retention configuration. 7.6.6 — the declared interval, anchor records over an audit window (confirm none exceeds it), and one alert from a suppressed-anchor test.
 
 ---
 

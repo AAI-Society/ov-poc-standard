@@ -162,6 +162,30 @@ draft status until the working group ratifies them against the primary sources:
   permanently ([Appendix B](0x91-Appendix-B_Proof-Mechanism-Inventory.md)), and whether the
   citations verify against the primary literature.
 
+## Issue 13 — Security-Review Findings (paper red-team)
+
+A [security-venue-style peer review](../../docs/reviews/security-venue-review-paper-v0.1.md) of
+the companion paper identified three defects in the **specification** (not merely the write-up),
+now addressed as draft requirements pending working-group ratification:
+
+* **Execution fidelity / complete mediation** — attestation proves a snapshot was evaluated, not
+  that the evaluated snapshot describes the action that executed. New **C7.1.4** requires the
+  effect channel to be mediated in the same trust boundary (enclave-terminated egress,
+  capability-bound dispatch, or attested-path mediation), and **C7.1.5** forbids claiming
+  executed-action evidence without it.
+* **Equivocation and truncation** — hash chaining detects alteration and in-chain omission but
+  not split-view or head truncation. New **C7.3.3** requires gossip, witness co-signing, or
+  consensus anchoring; new **C7.6.6** requires a declared maximum anchoring interval (which
+  bounds the undetectable truncation window) with alerting on a missed deadline.
+* **Tier-4 halt authority** — C8.3 tested self-enforcement but did not require the halt to sit
+  outside operator control. New **C8.3.5** requires far-end enforcement (relying parties refusing
+  requests without a valid action-bound capability).
+
+Open questions for the working group: what maximum anchoring interval is defensible per risk
+class; whether capability-bound dispatch (which requires relying-party cooperation) should be
+mandatory rather than one option among three at Tier 4; and the utility cost of path-aware
+authorization, which is unmeasured.
+
 ---
 
 *To weigh in on any open issue, join a working group at

@@ -93,6 +93,22 @@ framework; it usually means the framework governs a different object (organizati
 risk processes) than PoC's object (independently verifiable evidence of agent execution). The
 NM gap is, by design, the standard's reason to exist.
 
+## Coding Protocol (required for published coverage figures)
+
+The current sheet is single-coder seed data. Before coverage figures are cited outside this
+repository, the working group applies a two-coder protocol:
+
+1. **Two independent coders** per framework, working from the corpus document and this rubric,
+   blind to each other's codings. At least one coder per framework SHOULD NOT be an author of
+   the requirements being coded (adversarial coding).
+2. **Inter-rater reliability** reported per framework as Cohen's κ over the three-category
+   scale; κ < 0.6 triggers rubric clarification and re-coding rather than adjudication alone.
+3. **Adjudication** of disagreements by a third coder, with the resolution recorded in the
+   sheet's rationale column.
+4. **Requirement-level granularity** replacing the current section-level inheritance.
+5. **Reverse mapping** published alongside: requirements each framework imposes that
+   Proof-of-Control does not cover, so the comparison is two-directional.
+
 ## Coding Status
 
 > **[WG-INPUT NEEDED] — draft seed coding.** The current

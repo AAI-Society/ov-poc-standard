@@ -19,7 +19,7 @@ This is visible in the mapping below: the RMF has the **highest coverage of any 
 
 <!-- BEGIN GENERATED MAPPING (tools/generate_crosswalks.py) -->
 
-**Coverage: 64%** of the 111 Proof-of-Control requirements (0 exact matches, 71 partial matches, 40 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
+**Coverage: 63%** of the 116 Proof-of-Control requirements (0 exact matches, 73 partial matches, 43 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
 
 **How to read the Match column** ([full rubric](rubric.md)): **Exact** — the framework has a clause equivalent in scope and intent. **Partial** — the framework covers the topic, but not with PoC's operator-independent evidence (or not at the same depth). **None** — the framework has no analogous provision.
 
@@ -42,15 +42,15 @@ This is visible in the mapping below: the RMF has the **highest coverage of any 
 | [C6.1 Execution Environment Integrity](../0.1/en/0x10-C06-Security.md) | 4 | Partial | MEASURE 2.7 | MEASURE secure-and-resilient characteristic covers environment integrity aims; attestation not required |
 | [C6.2 Isolation and Confidential Execution](../0.1/en/0x10-C06-Security.md) | 3 | Partial | MEASURE 2.7 | Secure-and-resilient characteristic covers isolation expectations generally |
 | [C6.3 Cryptographic Key Lifecycle](../0.1/en/0x10-C06-Security.md) | 3 | None | — | Key lifecycle not addressed (delegated to security control catalogs) |
-| [C7.1 Generation at the Action Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 3 | None | — | No action-interception evidence concept |
+| [C7.1 Generation at the Action Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | None | — | No action-interception evidence concept |
 | [C7.2 The Contemporaneous Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | Partial | MEASURE 2.8; MANAGE 4.1 | MEASURE documentation and test records are contemporaneous practices; no mechanism-generated evidence |
-| [C7.3 The Tamper-Evident Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | Partial | MEASURE 2.8 | Traceability and documentation expectations; records remain operator-produced |
+| [C7.3 The Tamper-Evident Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 3 | Partial | MEASURE 2.8 | Traceability and documentation expectations; records remain operator-produced |
 | [C7.4 The Transparent Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 1 | Partial | GOVERN 4.2; MAP 4.1 | Transparency and documentation of limitations align with disclosure; no standardized trust-assumption format |
 | [C7.5 The Determinism Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | Partial | MEASURE 2.5 | RMF's validity/reliability framing distinguishes measured facts from aspirations; no claims-discipline requirement |
-| [C7.6 Evidence Custody and Resilience](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | Partial | MANAGE 2.3; MANAGE 4.1 | MANAGE incident response and monitoring cover failure handling; fail-closed evidence gating not addressed |
+| [C7.6 Evidence Custody and Resilience](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 6 | Partial | MANAGE 2.3; MANAGE 4.1 | MANAGE incident response and monitoring cover failure handling; fail-closed evidence gating not addressed |
 | [C8.1 Tier Placement](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 8 | None | — | No evidence-verifiability grading |
 | [C8.2 Mechanism-to-Requirement Fit](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 2 | None | — | No mechanism-fit rule |
-| [C8.3 Chain Integrity and Self-Enforcement (Tier 4)](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 4 | None | — | No self-enforcing execution concept |
+| [C8.3 Chain Integrity and Self-Enforcement (Tier 4)](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 5 | None | — | No self-enforcing execution concept |
 | [C9.1 Locating Evidence on the System Surface](../0.1/en/0x10-C09-System-Surface-MAESTRO.md) | 3 | Partial | MAP 1.1 | MAP requires system context/scope mapping; not per-claim stack location |
 | [C9.2 Layer Coverage](../0.1/en/0x10-C09-System-Surface-MAESTRO.md) | 3 | None | — | Per-layer evidence coverage not addressed |
 | [C10.1 Conformance Claims](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 8 | Partial | GOVERN 4.2 | GOVERN transparency artifacts and RMF profiles resemble scoped claims; no standardized statement |

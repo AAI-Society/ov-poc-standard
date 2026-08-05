@@ -9,7 +9,7 @@
 <p align="center">
   <a href="https://creativecommons.org/licenses/by/4.0/"><img alt="License: CC BY 4.0" src="https://img.shields.io/badge/License-CC%20BY%204.0-blue.svg"></a>
   <a href="0.1/en/0x01-Frontispiece.md"><img alt="Status: Working Draft v0.1.4" src="https://img.shields.io/badge/Status-Working%20Draft%20v0.1.4-orange.svg"></a>
-  <a href="0.1/en"><img alt="Requirements: 111" src="https://img.shields.io/badge/Requirements-111-cfff04.svg"></a>
+  <a href="0.1/en"><img alt="Requirements: 116" src="https://img.shields.io/badge/Requirements-116-cfff04.svg"></a>
   <a href="https://advancedaisociety.org/"><img alt="Steward: Advanced AI Society" src="https://img.shields.io/badge/Steward-Advanced%20AI%20Society-cfff04.svg"></a>
 </p>
 
@@ -79,7 +79,7 @@ Chapters **C1–C6** are the six domains of verification — *what* must be veri
 | [B: Proof-Mechanism & Controls Inventory](0.1/en/0x91-Appendix-B_Proof-Mechanism-Inventory.md) | The 9-mechanism taxonomy and all seven MAESTRO layer control tables |
 | [C: Threat Model](0.1/en/0x92-Appendix-C_Threat-Model.md) | 32 threats: coverage grades and out-of-scope boundaries |
 | [D: Open Working-Group Issues](0.1/en/0x93-Appendix-D_Open-Issues.md) | Every `[WG-INPUT NEEDED]` decision, collected |
-| [E: Audit Checklist](0.1/en/0x94-Appendix-E_Audit-Checklist.md) | All 111 requirements as tickable task lists, with the coverage matrix — generated, never stale |
+| [E: Audit Checklist](0.1/en/0x94-Appendix-E_Audit-Checklist.md) | All 116 requirements as tickable task lists, with the coverage matrix — generated, never stale |
 
 ### Running an audit
 
@@ -88,7 +88,7 @@ The whole standard is available as a working checklist, in whichever form your a
 | Representation | Where | Use it for |
 | --- | --- | --- |
 | Tickable task lists | [Appendix E](0.1/en/0x94-Appendix-E_Audit-Checklist.md) | Working an audit directly on GitHub, or copying into issues/tickets |
-| Coverage matrix | [Appendix E](0.1/en/0x94-Appendix-E_Audit-Checklist.md#coverage-matrix) | Scoping: chapters × levels at a glance (34 L1 / 40 L2 / 26 L3 / 11 L4) |
+| Coverage matrix | [Appendix E](0.1/en/0x94-Appendix-E_Audit-Checklist.md#coverage-matrix) | Scoping: chapters × levels at a glance (35 L1 / 40 L2 / 29 L3 / 12 L4) |
 | CSV export | [`checklist/poc-checklist.csv`](checklist/poc-checklist.csv) | Spreadsheet-driven audits — includes empty `status` and `auditor_notes` columns |
 | JSON export | [`checklist/poc-checklist.json`](checklist/poc-checklist.json) | GRC tooling and automation |
 | Auditor evidence notes | Every chapter section | What to collect and what to test, per requirement ID |
@@ -131,25 +131,25 @@ The standard is led by co-chairs **Ken Huang** and **Tricia Wang**, produced by 
 ## Regulatory Coverage
 
 How much of Proof-of-Control each external framework already addresses — (Exact + Partial
-matches) / 111 requirements, coded per the [mapping rubric](mappings/rubric.md) and reproducible
+matches) / 116 requirements, coded per the [mapping rubric](mappings/rubric.md) and reproducible
 with `python3 mappings/compute_coverage.py`:
 
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="images/diagrams/mapping-coverage-dark.svg">
-    <img alt="Coverage of the 111 Proof-of-Control requirements by external framework" src="images/diagrams/mapping-coverage-light.svg" width="740">
+    <img alt="Coverage of the 116 Proof-of-Control requirements by external framework" src="images/diagrams/mapping-coverage-light.svg" width="740">
   </picture>
 </p>
 
 | Framework | Coverage |
 | --- | :---: |
-| [NIST AI RMF](mappings/nist-ai-rmf.md) | **64%** |
-| [ISO/IEC 42001](mappings/iso-iec-42001.md) | **61%** |
-| [OWASP AISVS](mappings/owasp.md) | **60%** |
-| [EU AI Act](mappings/eu-ai-act.md) | **57%** |
-| [SOC 2](mappings/soc-2.md) | **57%** |
-| [CSA AARM](mappings/csa-aarm.md) | **50%** |
-| [Zero Trust (NIST SP 800-207)](mappings/zero-trust.md) | **44%** |
+| [NIST AI RMF](mappings/nist-ai-rmf.md) | **63%** |
+| [OWASP AISVS](mappings/owasp.md) | **61%** |
+| [ISO/IEC 42001](mappings/iso-iec-42001.md) | **60%** |
+| [EU AI Act](mappings/eu-ai-act.md) | **56%** |
+| [SOC 2](mappings/soc-2.md) | **56%** |
+| [CSA AARM](mappings/csa-aarm.md) | **51%** |
+| [Zero Trust (NIST SP 800-207)](mappings/zero-trust.md) | **45%** |
 | [MITRE ATLAS](mappings/mitre-atlas.md) | **27%** |
 
 The uncovered remainder — evidence gradability, the binary threshold, trust-assumption

@@ -16,18 +16,18 @@ Tick items as you close them out; each chapter's *Auditor evidence* notes say wh
 | [C4 Authorization](0x10-C04-Authorization.md) | 2 | 7 | 3 | — | **12** |
 | [C5 Identity](0x10-C05-Identity.md) | 1 | 3 | 2 | — | **6** |
 | [C6 Security](0x10-C06-Security.md) | 2 | 5 | 2 | 1 | **10** |
-| [C7 Evidence Generation and Properties](0x10-C07-Evidence-Generation-and-Properties.md) | 5 | 4 | 5 | 1 | **15** |
-| [C8 Verifiability Tiers and the Binary Threshold](0x10-C08-Verifiability-Tiers.md) | 7 | — | 3 | 4 | **14** |
+| [C7 Evidence Generation and Properties](0x10-C07-Evidence-Generation-and-Properties.md) | 6 | 4 | 8 | 1 | **19** |
+| [C8 Verifiability Tiers and the Binary Threshold](0x10-C08-Verifiability-Tiers.md) | 7 | — | 3 | 5 | **15** |
 | [C9 System Surface (MAESTRO)](0x10-C09-System-Surface-MAESTRO.md) | 3 | 2 | 1 | — | **6** |
 | [C10 Conformance and Trust-Assumption Disclosure](0x10-C10-Conformance-and-Disclosure.md) | 7 | 4 | 2 | 4 | **17** |
-| **All chapters** | **34** | **40** | **26** | **11** | **111** |
+| **All chapters** | **35** | **40** | **29** | **12** | **116** |
 
 ## Requirements by Level
 
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="../../images/diagrams/checklist-levels-dark.svg">
-    <img alt="111 requirements by level: 34 at Level 1 (Recorded),  40 at Level 2 (Attested),  26 at Level 3 (Independently Verifiable),  11 at Level 4 (Self-Enforcing / Continuous)" src="../../images/diagrams/checklist-levels-light.svg" width="620">
+    <img alt="116 requirements by level: 35 at Level 1 (Recorded),  40 at Level 2 (Attested),  29 at Level 3 (Independently Verifiable),  12 at Level 4 (Self-Enforcing / Continuous)" src="../../images/diagrams/checklist-levels-light.svg" width="620">
   </picture>
 </p>
 
@@ -161,6 +161,8 @@ Tick items as you close them out; each chapter's *Auditor evidence* notes say wh
 - [ ] **7.1.1** `L3` — **Verify that** all agent tool and effect invocations are routed through an Action Interception Gateway that runs as a separate process or service from the agent — the agent has no network or credential path to its tools that bypasses the gateway.
 - [ ] **7.1.2** `L3` — **Verify that** for each intercepted action the gateway emits evidence records at three points — request received (before), effect performed (during), and result returned (after) — each independently signed and linkable to the same action ID.
 - [ ] **7.1.3** `L3` — **Verify that** the architecture makes evidence emission a precondition of action release: the gateway does not forward the action to the tool until the *before* record is durably written.
+- [ ] **7.1.4** `L3` — **Verify that** the effect channel is mediated within the same trust boundary as policy evaluation, by at least one of: (a) the credentials and transport for the effect are held inside the attesting environment, which emits the request itself; (b) the mechanism releases a single-use capability cryptographically bound to the evaluated snapshot digest and target resource, which the relying party checks before executing; or (c) egress is confined to an attested enforcement point that admits only requests carrying matching evidence. The conformance claim states which.
+- [ ] **7.1.5** `L1` — **Verify that** the claim does not assert that evidence describes executed actions unless 7.1.4 is met — a system evidencing evaluation but not mediating the effect channel may claim Tier 1–2 only.
 ### C7.2 The Contemporaneous Property
 
 - [ ] **7.2.1** `L1` — **Verify that** each evidence record is written within the executing transaction of the action it describes — not batch-reconstructed later — and carries the capture timestamp of the event itself.
@@ -169,6 +171,7 @@ Tick items as you close them out; each chapter's *Auditor evidence* notes say wh
 
 - [ ] **7.3.1** `L2` — **Verify that** evidence records are hash-chained or Merkle-anchored so that modifying, inserting, or reordering any record invalidates the chain, and that chain verification runs on a defined schedule with results recorded.
 - [ ] **7.3.2** `L3` — **Verify that** evidence records are signed by keys held by the generating mechanism (gateway, enclave, or logging service) that operator and agent identities cannot access, per the key-custody configuration.
+- [ ] **7.3.3** `L3` — **Verify that** the implementation resists equivocation (presenting divergent histories to different relying parties) by at least one of: cross-verifier consistency checking (gossip), a witness quorum co-signing chain roots, or anchoring to a ledger with single-history consensus — and that the mechanism is named in the claim.
 ### C7.4 The Transparent Property
 
 - [ ] **7.4.1** `L1` — **Verify that** the published trust-assumption disclosure ([C10.2](0x10-C10-Conformance-and-Disclosure.md)) lists, for each evidence mechanism in use, every party, hardware element, and mathematical assumption that must hold for the evidence to be believed.
@@ -183,6 +186,7 @@ Tick items as you close them out; each chapter's *Auditor evidence* notes say wh
 - [ ] **7.6.3** `L4` — **Verify that** when evidence cannot be generated at the claimed Tier, in-scope actions are refused by the gateway until the pipeline recovers — demonstrated by a fail-closed test on the evidence store.
 - [ ] **7.6.4** `L2` — **Verify that** the evidence store enforces role-based access, and that every read of evidence writes its own access record (who, what, when).
 - [ ] **7.6.5** `L1` — **Verify that** the retention period for evidence is stated in the conformance claim, configured in the store's retention policy, and at least as long as the period the claim covers.
+- [ ] **7.6.6** `L3` — **Verify that** the chain root is anchored externally within a declared maximum interval, that the interval is stated in the claim (it bounds the window in which head truncation is undetectable), and that a missed anchoring deadline raises an alert.
 
 *Auditor evidence for these items: see [C7](0x10-C07-Evidence-Generation-and-Properties.md).*
 
@@ -208,6 +212,7 @@ Tick items as you close them out; each chapter's *Auditor evidence* notes say wh
 - [ ] **8.3.2** `L4` — **Verify that** components operating internally below Tier 4 interact with the chain only through interfaces that produce Tier 4 evidence, per the interaction inventory.
 - [ ] **8.3.3** `L4` — **Verify that** operation is mechanically gated on proof validity: in test, invalidating the proof chain (or withholding a required proof) halts the system's in-scope actions.
 - [ ] **8.3.4** `L4` — **Verify that** the claim documents the availability impact of proof-gated operation — expected halt conditions, recovery procedure, and maximum tolerable outage — and that the recovery procedure has been exercised.
+- [ ] **8.3.5** `L4` — **Verify that** the halt is enforced outside the operator's control — for example, relying parties refuse requests lacking a valid, action-bound capability, so absence of valid evidence blocks execution at the far end rather than depending on an operator-side flag that a compromised host could disable.
 
 *Auditor evidence for these items: see [C8](0x10-C08-Verifiability-Tiers.md).*
 

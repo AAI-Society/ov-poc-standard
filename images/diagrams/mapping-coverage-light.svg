@@ -22,52 +22,52 @@
 <text x="174.4" y="104" font-size="11.5" fill="#6b665f" text-anchor="start">partial match</text>
 <rect x="283.6" y="92" width="14" height="14" rx="4" fill="#e6e2da" stroke="#dcd6cd"/>
 <text x="305.6" y="104" font-size="11.5" fill="#6b665f" text-anchor="start">gap — only PoC covers it</text>
-<text x="34" y="124" font-size="11" fill="#a09a91" text-anchor="start">coverage = (exact + partial) / 111 requirements</text>
+<text x="34" y="124" font-size="11" fill="#a09a91" text-anchor="start">coverage = (exact + partial) / 116 requirements</text>
 <text x="304" y="169.5" font-size="12.5" fill="#141414" text-anchor="end">NIST AI RMF</text>
 <clipPath id="clip0"><rect x="320" y="148" width="560" height="34" rx="9"/></clipPath>
 <rect x="320" y="148" width="560" height="34" rx="9" fill="url(#gWarm)" stroke="#c6bfb4"/>
-<rect x="320.0" y="148" width="358.2" height="34" fill="#cfff04" clip-path="url(#clip0)"/>
-<text x="898" y="170.0" font-size="14" fill="#141414" text-anchor="start" font-weight="700">64%</text>
-<text x="304" y="219.5" font-size="12.5" fill="#141414" text-anchor="end">ISO/IEC 42001</text>
+<rect x="320.0" y="148" width="352.4" height="34" fill="#cfff04" clip-path="url(#clip0)"/>
+<text x="898" y="170.0" font-size="14" fill="#141414" text-anchor="start" font-weight="700">63%</text>
+<text x="304" y="219.5" font-size="12.5" fill="#141414" text-anchor="end">OWASP AISVS</text>
 <clipPath id="clip1"><rect x="320" y="198" width="560" height="34" rx="9"/></clipPath>
 <rect x="320" y="198" width="560" height="34" rx="9" fill="url(#gWarm)" stroke="#c6bfb4"/>
-<rect x="320" y="198" width="40.4" height="34" fill="#7a9900" clip-path="url(#clip1)"/>
-<rect x="360.4" y="198" width="302.7" height="34" fill="#cfff04" clip-path="url(#clip1)"/>
+<rect x="320" y="198" width="77.2" height="34" fill="#7a9900" clip-path="url(#clip1)"/>
+<rect x="397.2" y="198" width="265.5" height="34" fill="#cfff04" clip-path="url(#clip1)"/>
 <text x="898" y="220.0" font-size="14" fill="#141414" text-anchor="start" font-weight="700">61%</text>
-<text x="304" y="269.5" font-size="12.5" fill="#141414" text-anchor="end">OWASP AISVS</text>
+<text x="304" y="269.5" font-size="12.5" fill="#141414" text-anchor="end">ISO/IEC 42001</text>
 <clipPath id="clip2"><rect x="320" y="248" width="560" height="34" rx="9"/></clipPath>
 <rect x="320" y="248" width="560" height="34" rx="9" fill="url(#gWarm)" stroke="#c6bfb4"/>
-<rect x="320" y="248" width="80.7" height="34" fill="#7a9900" clip-path="url(#clip2)"/>
-<rect x="400.7" y="248" width="257.3" height="34" fill="#cfff04" clip-path="url(#clip2)"/>
+<rect x="320" y="248" width="38.6" height="34" fill="#7a9900" clip-path="url(#clip2)"/>
+<rect x="358.6" y="248" width="299.3" height="34" fill="#cfff04" clip-path="url(#clip2)"/>
 <text x="898" y="270.0" font-size="14" fill="#141414" text-anchor="start" font-weight="700">60%</text>
 <text x="304" y="319.5" font-size="12.5" fill="#141414" text-anchor="end">EU AI Act</text>
 <clipPath id="clip3"><rect x="320" y="298" width="560" height="34" rx="9"/></clipPath>
 <rect x="320" y="298" width="560" height="34" rx="9" fill="url(#gWarm)" stroke="#c6bfb4"/>
-<rect x="320" y="298" width="40.4" height="34" fill="#7a9900" clip-path="url(#clip3)"/>
-<rect x="360.4" y="298" width="277.5" height="34" fill="#cfff04" clip-path="url(#clip3)"/>
-<text x="898" y="320.0" font-size="14" fill="#141414" text-anchor="start" font-weight="700">57%</text>
+<rect x="320" y="298" width="38.6" height="34" fill="#7a9900" clip-path="url(#clip3)"/>
+<rect x="358.6" y="298" width="275.2" height="34" fill="#cfff04" clip-path="url(#clip3)"/>
+<text x="898" y="320.0" font-size="14" fill="#141414" text-anchor="start" font-weight="700">56%</text>
 <text x="304" y="369.5" font-size="12.5" fill="#141414" text-anchor="end">SOC 2</text>
 <clipPath id="clip4"><rect x="320" y="348" width="560" height="34" rx="9"/></clipPath>
 <rect x="320" y="348" width="560" height="34" rx="9" fill="url(#gWarm)" stroke="#c6bfb4"/>
-<rect x="320" y="348" width="40.4" height="34" fill="#7a9900" clip-path="url(#clip4)"/>
-<rect x="360.4" y="348" width="277.5" height="34" fill="#cfff04" clip-path="url(#clip4)"/>
-<text x="898" y="370.0" font-size="14" fill="#141414" text-anchor="start" font-weight="700">57%</text>
+<rect x="320" y="348" width="38.6" height="34" fill="#7a9900" clip-path="url(#clip4)"/>
+<rect x="358.6" y="348" width="275.2" height="34" fill="#cfff04" clip-path="url(#clip4)"/>
+<text x="898" y="370.0" font-size="14" fill="#141414" text-anchor="start" font-weight="700">56%</text>
 <text x="304" y="419.5" font-size="12.5" fill="#141414" text-anchor="end">CSA AARM</text>
 <clipPath id="clip5"><rect x="320" y="398" width="560" height="34" rx="9"/></clipPath>
 <rect x="320" y="398" width="560" height="34" rx="9" fill="url(#gWarm)" stroke="#c6bfb4"/>
-<rect x="320" y="398" width="55.5" height="34" fill="#7a9900" clip-path="url(#clip5)"/>
-<rect x="375.5" y="398" width="222.0" height="34" fill="#cfff04" clip-path="url(#clip5)"/>
-<text x="898" y="420.0" font-size="14" fill="#141414" text-anchor="start" font-weight="700">50%</text>
+<rect x="320" y="398" width="62.8" height="34" fill="#7a9900" clip-path="url(#clip5)"/>
+<rect x="382.8" y="398" width="222.1" height="34" fill="#cfff04" clip-path="url(#clip5)"/>
+<text x="898" y="420.0" font-size="14" fill="#141414" text-anchor="start" font-weight="700">51%</text>
 <text x="304" y="469.5" font-size="12.5" fill="#141414" text-anchor="end">Zero Trust (NIST SP 800-207)</text>
 <clipPath id="clip6"><rect x="320" y="448" width="560" height="34" rx="9"/></clipPath>
 <rect x="320" y="448" width="560" height="34" rx="9" fill="url(#gWarm)" stroke="#c6bfb4"/>
-<rect x="320" y="448" width="40.4" height="34" fill="#7a9900" clip-path="url(#clip6)"/>
-<rect x="360.4" y="448" width="206.8" height="34" fill="#cfff04" clip-path="url(#clip6)"/>
-<text x="898" y="470.0" font-size="14" fill="#141414" text-anchor="start" font-weight="700">44%</text>
+<rect x="320" y="448" width="38.6" height="34" fill="#7a9900" clip-path="url(#clip6)"/>
+<rect x="358.6" y="448" width="212.4" height="34" fill="#cfff04" clip-path="url(#clip6)"/>
+<text x="898" y="470.0" font-size="14" fill="#141414" text-anchor="start" font-weight="700">45%</text>
 <text x="304" y="519.5" font-size="12.5" fill="#141414" text-anchor="end">MITRE ATLAS</text>
 <clipPath id="clip7"><rect x="320" y="498" width="560" height="34" rx="9"/></clipPath>
 <rect x="320" y="498" width="560" height="34" rx="9" fill="url(#gWarm)" stroke="#c6bfb4"/>
-<rect x="320.0" y="498" width="151.4" height="34" fill="#cfff04" clip-path="url(#clip7)"/>
+<rect x="320.0" y="498" width="149.7" height="34" fill="#cfff04" clip-path="url(#clip7)"/>
 <text x="898" y="520.0" font-size="14" fill="#141414" text-anchor="start" font-weight="700">27%</text>
 <text x="520.0" y="588" font-size="12.5" fill="#6b665f" text-anchor="middle">the uncovered remainder — evidence gradability, the binary threshold, trust-assumption disclosure — is the gap Proof-of-Control exists to close</text>
 </svg>

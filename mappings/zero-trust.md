@@ -23,7 +23,7 @@ Adopting Zero Trust does not give you Proof-of-Control. Anthropic's Zero Trust f
 
 <!-- BEGIN GENERATED MAPPING (tools/generate_crosswalks.py) -->
 
-**Coverage: 44%** of the 111 Proof-of-Control requirements (8 exact matches, 41 partial matches, 62 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
+**Coverage: 45%** of the 116 Proof-of-Control requirements (8 exact matches, 44 partial matches, 64 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
 
 **How to read the Match column** ([full rubric](rubric.md)): **Exact** — the framework has a clause equivalent in scope and intent. **Partial** — the framework covers the topic, but not with PoC's operator-independent evidence (or not at the same depth). **None** — the framework has no analogous provision.
 
@@ -46,15 +46,15 @@ Adopting Zero Trust does not give you Proof-of-Control. Anthropic's Zero Trust f
 | [C6.1 Execution Environment Integrity](../0.1/en/0x10-C06-Security.md) | 4 | Partial | Tenet 5 | Device posture and integrity monitoring inform access decisions; not independently verifiable |
 | [C6.2 Isolation and Confidential Execution](../0.1/en/0x10-C06-Security.md) | 3 | None | — | Isolation proof not addressed |
 | [C6.3 Cryptographic Key Lifecycle](../0.1/en/0x10-C06-Security.md) | 3 | None | — | Key lifecycle not addressed at this level |
-| [C7.1 Generation at the Action Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 3 | Partial | PEP (§3) | The PEP mediates all access like the interception gateway; evidence emission is not required |
+| [C7.1 Generation at the Action Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | Partial | PEP (§3) | The PEP mediates all access like the interception gateway; evidence emission is not required |
 | [C7.2 The Contemporaneous Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | Partial | Tenet 7 | Continuous monitoring produces execution-time logs; operator-produced |
-| [C7.3 The Tamper-Evident Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | None | — | Tamper-evidence of records not required |
+| [C7.3 The Tamper-Evident Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 3 | None | — | Tamper-evidence of records not required |
 | [C7.4 The Transparent Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 1 | None | — | Not addressed |
 | [C7.5 The Determinism Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | None | — | Not addressed |
-| [C7.6 Evidence Custody and Resilience](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | Partial | Deny-by-default posture (§2) | Deny-by-default posture parallels fail-closed; evidence-pipeline gating unspecified |
+| [C7.6 Evidence Custody and Resilience](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 6 | Partial | Deny-by-default posture (§2) | Deny-by-default posture parallels fail-closed; evidence-pipeline gating unspecified |
 | [C8.1 Tier Placement](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 8 | None | — | No verifiability grading |
 | [C8.2 Mechanism-to-Requirement Fit](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 2 | None | — | No mechanism-fit rule |
-| [C8.3 Chain Integrity and Self-Enforcement (Tier 4)](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 4 | None | — | No self-enforcement concept |
+| [C8.3 Chain Integrity and Self-Enforcement (Tier 4)](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 5 | None | — | No self-enforcement concept |
 | [C9.1 Locating Evidence on the System Surface](../0.1/en/0x10-C09-System-Surface-MAESTRO.md) | 3 | None | — | Not addressed |
 | [C9.2 Layer Coverage](../0.1/en/0x10-C09-System-Surface-MAESTRO.md) | 3 | None | — | Not addressed |
 | [C10.1 Conformance Claims](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 8 | None | — | No conformance-claim regime |

@@ -61,10 +61,13 @@ poc_requirement_id,poc_section,source_framework,match_type,framework_clause,rati
 7.1.1,C7.1,CSA_AARM,EM,The AARM runtime gateway,"The AARM runtime gateway is the same interception boundary, mediating all agent actions",seed-01
 7.1.2,C7.1,CSA_AARM,EM,The AARM runtime gateway,"The AARM runtime gateway is the same interception boundary, mediating all agent actions",seed-01
 7.1.3,C7.1,CSA_AARM,EM,The AARM runtime gateway,"The AARM runtime gateway is the same interception boundary, mediating all agent actions",seed-01
+7.1.4,C7.1,CSA_AARM,EM,The AARM runtime gateway,"The AARM runtime gateway is the same interception boundary, mediating all agent actions",seed-01
+7.1.5,C7.1,CSA_AARM,EM,The AARM runtime gateway,"The AARM runtime gateway is the same interception boundary, mediating all agent actions",seed-01
 7.2.1,C7.2,CSA_AARM,PM,Execution-time audit trail,"Enforcement produces execution-time records; operator-run, not operator-independent",seed-01
 7.2.2,C7.2,CSA_AARM,PM,Execution-time audit trail,"Enforcement produces execution-time records; operator-run, not operator-independent",seed-01
 7.3.1,C7.3,CSA_AARM,PM,Gateway receipts,Tamper-evident receipts at the gateway; trust remains rooted in the deployment operator,seed-01
 7.3.2,C7.3,CSA_AARM,PM,Gateway receipts,Tamper-evident receipts at the gateway; trust remains rooted in the deployment operator,seed-01
+7.3.3,C7.3,CSA_AARM,PM,Gateway receipts,Tamper-evident receipts at the gateway; trust remains rooted in the deployment operator,seed-01
 7.4.1,C7.4,CSA_AARM,NM,—,No trust-assumption disclosure,seed-01
 7.5.1,C7.5,CSA_AARM,NM,—,Not addressed,seed-01
 7.5.2,C7.5,CSA_AARM,NM,—,Not addressed,seed-01
@@ -73,6 +76,7 @@ poc_requirement_id,poc_section,source_framework,match_type,framework_clause,rati
 7.6.3,C7.6,CSA_AARM,PM,Deny/failure decisions,Deny/failure decisions at the gateway cover failure events; fail-closed evidence gating unspecified,seed-01
 7.6.4,C7.6,CSA_AARM,PM,Deny/failure decisions,Deny/failure decisions at the gateway cover failure events; fail-closed evidence gating unspecified,seed-01
 7.6.5,C7.6,CSA_AARM,PM,Deny/failure decisions,Deny/failure decisions at the gateway cover failure events; fail-closed evidence gating unspecified,seed-01
+7.6.6,C7.6,CSA_AARM,PM,Deny/failure decisions,Deny/failure decisions at the gateway cover failure events; fail-closed evidence gating unspecified,seed-01
 8.1.1,C8.1,CSA_AARM,NM,—,No verifiability grading,seed-01
 8.1.2,C8.1,CSA_AARM,NM,—,No verifiability grading,seed-01
 8.1.3,C8.1,CSA_AARM,NM,—,No verifiability grading,seed-01
@@ -87,6 +91,7 @@ poc_requirement_id,poc_section,source_framework,match_type,framework_clause,rati
 8.3.2,C8.3,CSA_AARM,NM,—,No self-enforcement concept,seed-01
 8.3.3,C8.3,CSA_AARM,NM,—,No self-enforcement concept,seed-01
 8.3.4,C8.3,CSA_AARM,NM,—,No self-enforcement concept,seed-01
+8.3.5,C8.3,CSA_AARM,NM,—,No self-enforcement concept,seed-01
 9.1.1,C9.1,CSA_AARM,NM,—,Not addressed,seed-01
 9.1.2,C9.1,CSA_AARM,NM,—,Not addressed,seed-01
 9.1.3,C9.1,CSA_AARM,NM,—,Not addressed,seed-01
@@ -172,10 +177,13 @@ poc_requirement_id,poc_section,source_framework,match_type,framework_clause,rati
 7.1.1,C7.1,EU_AI_Act,NM,—,No action-interception or evidence-at-boundary concept,seed-01
 7.1.2,C7.1,EU_AI_Act,NM,—,No action-interception or evidence-at-boundary concept,seed-01
 7.1.3,C7.1,EU_AI_Act,NM,—,No action-interception or evidence-at-boundary concept,seed-01
+7.1.4,C7.1,EU_AI_Act,NM,—,No action-interception or evidence-at-boundary concept,seed-01
+7.1.5,C7.1,EU_AI_Act,NM,—,No action-interception or evidence-at-boundary concept,seed-01
 7.2.1,C7.2,EU_AI_Act,PM,Art. 12,Art 12 requires automatic recording of events over the lifetime; no operator-independent time anchoring,seed-01
 7.2.2,C7.2,EU_AI_Act,PM,Art. 12,Art 12 requires automatic recording of events over the lifetime; no operator-independent time anchoring,seed-01
 7.3.1,C7.3,EU_AI_Act,PM,Art. 12; Art. 19,Art 12/19 logging and retention imply record integrity; evidence remains operator-produced (Tier 2 in PoC terms),seed-01
 7.3.2,C7.3,EU_AI_Act,PM,Art. 12; Art. 19,Art 12/19 logging and retention imply record integrity; evidence remains operator-produced (Tier 2 in PoC terms),seed-01
+7.3.3,C7.3,EU_AI_Act,PM,Art. 12; Art. 19,Art 12/19 logging and retention imply record integrity; evidence remains operator-produced (Tier 2 in PoC terms),seed-01
 7.4.1,C7.4,EU_AI_Act,PM,Art. 13,Art 13 transparency to deployers discloses capabilities and limitations; no trust-assumption disclosure,seed-01
 7.5.1,C7.5,EU_AI_Act,NM,—,No determinism-boundary or claims-discipline provision,seed-01
 7.5.2,C7.5,EU_AI_Act,NM,—,No determinism-boundary or claims-discipline provision,seed-01
@@ -184,6 +192,7 @@ poc_requirement_id,poc_section,source_framework,match_type,framework_clause,rati
 7.6.3,C7.6,EU_AI_Act,PM,Art. 19,Art 19 log retention covers retention duty; fail-closed and omission-detectability not addressed,seed-01
 7.6.4,C7.6,EU_AI_Act,PM,Art. 19,Art 19 log retention covers retention duty; fail-closed and omission-detectability not addressed,seed-01
 7.6.5,C7.6,EU_AI_Act,PM,Art. 19,Art 19 log retention covers retention duty; fail-closed and omission-detectability not addressed,seed-01
+7.6.6,C7.6,EU_AI_Act,PM,Art. 19,Art 19 log retention covers retention duty; fail-closed and omission-detectability not addressed,seed-01
 8.1.1,C8.1,EU_AI_Act,NM,—,No evidence-verifiability grading concept,seed-01
 8.1.2,C8.1,EU_AI_Act,NM,—,No evidence-verifiability grading concept,seed-01
 8.1.3,C8.1,EU_AI_Act,NM,—,No evidence-verifiability grading concept,seed-01
@@ -198,6 +207,7 @@ poc_requirement_id,poc_section,source_framework,match_type,framework_clause,rati
 8.3.2,C8.3,EU_AI_Act,NM,—,No self-enforcing execution concept,seed-01
 8.3.3,C8.3,EU_AI_Act,NM,—,No self-enforcing execution concept,seed-01
 8.3.4,C8.3,EU_AI_Act,NM,—,No self-enforcing execution concept,seed-01
+8.3.5,C8.3,EU_AI_Act,NM,—,No self-enforcing execution concept,seed-01
 9.1.1,C9.1,EU_AI_Act,NM,—,No system-surface location requirement,seed-01
 9.1.2,C9.1,EU_AI_Act,NM,—,No system-surface location requirement,seed-01
 9.1.3,C9.1,EU_AI_Act,NM,—,No system-surface location requirement,seed-01
@@ -283,10 +293,13 @@ poc_requirement_id,poc_section,source_framework,match_type,framework_clause,rati
 7.1.1,C7.1,ISO_42001,NM,—,No action-interception concept,seed-01
 7.1.2,C7.1,ISO_42001,NM,—,No action-interception concept,seed-01
 7.1.3,C7.1,ISO_42001,NM,—,No action-interception concept,seed-01
+7.1.4,C7.1,ISO_42001,NM,—,No action-interception concept,seed-01
+7.1.5,C7.1,ISO_42001,NM,—,No action-interception concept,seed-01
 7.2.1,C7.2,ISO_42001,PM,Cl. 7.5.3,Documented-information controls require contemporaneous records; operator-produced,seed-01
 7.2.2,C7.2,ISO_42001,PM,Cl. 7.5.3,Documented-information controls require contemporaneous records; operator-produced,seed-01
 7.3.1,C7.3,ISO_42001,PM,Cl. 7.5.3,Records control protects integrity of documented information; not mechanism-generated,seed-01
 7.3.2,C7.3,ISO_42001,PM,Cl. 7.5.3,Records control protects integrity of documented information; not mechanism-generated,seed-01
+7.3.3,C7.3,ISO_42001,PM,Cl. 7.5.3,Records control protects integrity of documented information; not mechanism-generated,seed-01
 7.4.1,C7.4,ISO_42001,PM,Annex A.8,Transparency and reporting controls; no trust-assumption format,seed-01
 7.5.1,C7.5,ISO_42001,PM,Cl. 9.1,42001 adopts the verification/validation distinction PoC builds on; no claims-review requirement,seed-01
 7.5.2,C7.5,ISO_42001,PM,Cl. 9.1,42001 adopts the verification/validation distinction PoC builds on; no claims-review requirement,seed-01
@@ -295,6 +308,7 @@ poc_requirement_id,poc_section,source_framework,match_type,framework_clause,rati
 7.6.3,C7.6,ISO_42001,PM,Cl. 7.5.3,Records retention and control of documented information; fail-closed not addressed,seed-01
 7.6.4,C7.6,ISO_42001,PM,Cl. 7.5.3,Records retention and control of documented information; fail-closed not addressed,seed-01
 7.6.5,C7.6,ISO_42001,PM,Cl. 7.5.3,Records retention and control of documented information; fail-closed not addressed,seed-01
+7.6.6,C7.6,ISO_42001,PM,Cl. 7.5.3,Records retention and control of documented information; fail-closed not addressed,seed-01
 8.1.1,C8.1,ISO_42001,NM,—,No verifiability grading,seed-01
 8.1.2,C8.1,ISO_42001,NM,—,No verifiability grading,seed-01
 8.1.3,C8.1,ISO_42001,NM,—,No verifiability grading,seed-01
@@ -309,6 +323,7 @@ poc_requirement_id,poc_section,source_framework,match_type,framework_clause,rati
 8.3.2,C8.3,ISO_42001,NM,—,No self-enforcement concept,seed-01
 8.3.3,C8.3,ISO_42001,NM,—,No self-enforcement concept,seed-01
 8.3.4,C8.3,ISO_42001,NM,—,No self-enforcement concept,seed-01
+8.3.5,C8.3,ISO_42001,NM,—,No self-enforcement concept,seed-01
 9.1.1,C9.1,ISO_42001,PM,Cl. 4.3,AIMS scoping requires defining system boundaries; not per-claim layer fields,seed-01
 9.1.2,C9.1,ISO_42001,PM,Cl. 4.3,AIMS scoping requires defining system boundaries; not per-claim layer fields,seed-01
 9.1.3,C9.1,ISO_42001,PM,Cl. 4.3,AIMS scoping requires defining system boundaries; not per-claim layer fields,seed-01
@@ -394,10 +409,13 @@ poc_requirement_id,poc_section,source_framework,match_type,framework_clause,rati
 7.1.1,C7.1,MITRE_ATLAS,NM,—,No evidence-generation concept,seed-01
 7.1.2,C7.1,MITRE_ATLAS,NM,—,No evidence-generation concept,seed-01
 7.1.3,C7.1,MITRE_ATLAS,NM,—,No evidence-generation concept,seed-01
+7.1.4,C7.1,MITRE_ATLAS,NM,—,No evidence-generation concept,seed-01
+7.1.5,C7.1,MITRE_ATLAS,NM,—,No evidence-generation concept,seed-01
 7.2.1,C7.2,MITRE_ATLAS,NM,—,Not addressed,seed-01
 7.2.2,C7.2,MITRE_ATLAS,NM,—,Not addressed,seed-01
 7.3.1,C7.3,MITRE_ATLAS,PM,ML event-logging mitigations,Logging-of-ML-events mitigation supports detection; integrity mechanisms unspecified,seed-01
 7.3.2,C7.3,MITRE_ATLAS,PM,ML event-logging mitigations,Logging-of-ML-events mitigation supports detection; integrity mechanisms unspecified,seed-01
+7.3.3,C7.3,MITRE_ATLAS,PM,ML event-logging mitigations,Logging-of-ML-events mitigation supports detection; integrity mechanisms unspecified,seed-01
 7.4.1,C7.4,MITRE_ATLAS,NM,—,Not addressed,seed-01
 7.5.1,C7.5,MITRE_ATLAS,NM,—,Not addressed,seed-01
 7.5.2,C7.5,MITRE_ATLAS,NM,—,Not addressed,seed-01
@@ -406,6 +424,7 @@ poc_requirement_id,poc_section,source_framework,match_type,framework_clause,rati
 7.6.3,C7.6,MITRE_ATLAS,NM,—,Not addressed,seed-01
 7.6.4,C7.6,MITRE_ATLAS,NM,—,Not addressed,seed-01
 7.6.5,C7.6,MITRE_ATLAS,NM,—,Not addressed,seed-01
+7.6.6,C7.6,MITRE_ATLAS,NM,—,Not addressed,seed-01
 8.1.1,C8.1,MITRE_ATLAS,NM,—,No verifiability grading,seed-01
 8.1.2,C8.1,MITRE_ATLAS,NM,—,No verifiability grading,seed-01
 8.1.3,C8.1,MITRE_ATLAS,NM,—,No verifiability grading,seed-01
@@ -420,6 +439,7 @@ poc_requirement_id,poc_section,source_framework,match_type,framework_clause,rati
 8.3.2,C8.3,MITRE_ATLAS,NM,—,No self-enforcement concept,seed-01
 8.3.3,C8.3,MITRE_ATLAS,NM,—,No self-enforcement concept,seed-01
 8.3.4,C8.3,MITRE_ATLAS,NM,—,No self-enforcement concept,seed-01
+8.3.5,C8.3,MITRE_ATLAS,NM,—,No self-enforcement concept,seed-01
 9.1.1,C9.1,MITRE_ATLAS,NM,—,Not addressed,seed-01
 9.1.2,C9.1,MITRE_ATLAS,NM,—,Not addressed,seed-01
 9.1.3,C9.1,MITRE_ATLAS,NM,—,Not addressed,seed-01
@@ -505,10 +525,13 @@ poc_requirement_id,poc_section,source_framework,match_type,framework_clause,rati
 7.1.1,C7.1,NIST_AI_RMF,NM,—,No action-interception evidence concept,seed-01
 7.1.2,C7.1,NIST_AI_RMF,NM,—,No action-interception evidence concept,seed-01
 7.1.3,C7.1,NIST_AI_RMF,NM,—,No action-interception evidence concept,seed-01
+7.1.4,C7.1,NIST_AI_RMF,NM,—,No action-interception evidence concept,seed-01
+7.1.5,C7.1,NIST_AI_RMF,NM,—,No action-interception evidence concept,seed-01
 7.2.1,C7.2,NIST_AI_RMF,PM,MEASURE 2.8; MANAGE 4.1,MEASURE documentation and test records are contemporaneous practices; no mechanism-generated evidence,seed-01
 7.2.2,C7.2,NIST_AI_RMF,PM,MEASURE 2.8; MANAGE 4.1,MEASURE documentation and test records are contemporaneous practices; no mechanism-generated evidence,seed-01
 7.3.1,C7.3,NIST_AI_RMF,PM,MEASURE 2.8,Traceability and documentation expectations; records remain operator-produced,seed-01
 7.3.2,C7.3,NIST_AI_RMF,PM,MEASURE 2.8,Traceability and documentation expectations; records remain operator-produced,seed-01
+7.3.3,C7.3,NIST_AI_RMF,PM,MEASURE 2.8,Traceability and documentation expectations; records remain operator-produced,seed-01
 7.4.1,C7.4,NIST_AI_RMF,PM,GOVERN 4.2; MAP 4.1,Transparency and documentation of limitations align with disclosure; no standardized trust-assumption format,seed-01
 7.5.1,C7.5,NIST_AI_RMF,PM,MEASURE 2.5,RMF's validity/reliability framing distinguishes measured facts from aspirations; no claims-discipline requirement,seed-01
 7.5.2,C7.5,NIST_AI_RMF,PM,MEASURE 2.5,RMF's validity/reliability framing distinguishes measured facts from aspirations; no claims-discipline requirement,seed-01
@@ -517,6 +540,7 @@ poc_requirement_id,poc_section,source_framework,match_type,framework_clause,rati
 7.6.3,C7.6,NIST_AI_RMF,PM,MANAGE 2.3; MANAGE 4.1,MANAGE incident response and monitoring cover failure handling; fail-closed evidence gating not addressed,seed-01
 7.6.4,C7.6,NIST_AI_RMF,PM,MANAGE 2.3; MANAGE 4.1,MANAGE incident response and monitoring cover failure handling; fail-closed evidence gating not addressed,seed-01
 7.6.5,C7.6,NIST_AI_RMF,PM,MANAGE 2.3; MANAGE 4.1,MANAGE incident response and monitoring cover failure handling; fail-closed evidence gating not addressed,seed-01
+7.6.6,C7.6,NIST_AI_RMF,PM,MANAGE 2.3; MANAGE 4.1,MANAGE incident response and monitoring cover failure handling; fail-closed evidence gating not addressed,seed-01
 8.1.1,C8.1,NIST_AI_RMF,NM,—,No evidence-verifiability grading,seed-01
 8.1.2,C8.1,NIST_AI_RMF,NM,—,No evidence-verifiability grading,seed-01
 8.1.3,C8.1,NIST_AI_RMF,NM,—,No evidence-verifiability grading,seed-01
@@ -531,6 +555,7 @@ poc_requirement_id,poc_section,source_framework,match_type,framework_clause,rati
 8.3.2,C8.3,NIST_AI_RMF,NM,—,No self-enforcing execution concept,seed-01
 8.3.3,C8.3,NIST_AI_RMF,NM,—,No self-enforcing execution concept,seed-01
 8.3.4,C8.3,NIST_AI_RMF,NM,—,No self-enforcing execution concept,seed-01
+8.3.5,C8.3,NIST_AI_RMF,NM,—,No self-enforcing execution concept,seed-01
 9.1.1,C9.1,NIST_AI_RMF,PM,MAP 1.1,MAP requires system context/scope mapping; not per-claim stack location,seed-01
 9.1.2,C9.1,NIST_AI_RMF,PM,MAP 1.1,MAP requires system context/scope mapping; not per-claim stack location,seed-01
 9.1.3,C9.1,NIST_AI_RMF,PM,MAP 1.1,MAP requires system context/scope mapping; not per-claim stack location,seed-01
@@ -616,10 +641,13 @@ poc_requirement_id,poc_section,source_framework,match_type,framework_clause,rati
 7.1.1,C7.1,NIST_SP_800_207,PM,PEP (§3),The PEP mediates all access like the interception gateway; evidence emission is not required,seed-01
 7.1.2,C7.1,NIST_SP_800_207,PM,PEP (§3),The PEP mediates all access like the interception gateway; evidence emission is not required,seed-01
 7.1.3,C7.1,NIST_SP_800_207,PM,PEP (§3),The PEP mediates all access like the interception gateway; evidence emission is not required,seed-01
+7.1.4,C7.1,NIST_SP_800_207,PM,PEP (§3),The PEP mediates all access like the interception gateway; evidence emission is not required,seed-01
+7.1.5,C7.1,NIST_SP_800_207,PM,PEP (§3),The PEP mediates all access like the interception gateway; evidence emission is not required,seed-01
 7.2.1,C7.2,NIST_SP_800_207,PM,Tenet 7,Continuous monitoring produces execution-time logs; operator-produced,seed-01
 7.2.2,C7.2,NIST_SP_800_207,PM,Tenet 7,Continuous monitoring produces execution-time logs; operator-produced,seed-01
 7.3.1,C7.3,NIST_SP_800_207,NM,—,Tamper-evidence of records not required,seed-01
 7.3.2,C7.3,NIST_SP_800_207,NM,—,Tamper-evidence of records not required,seed-01
+7.3.3,C7.3,NIST_SP_800_207,NM,—,Tamper-evidence of records not required,seed-01
 7.4.1,C7.4,NIST_SP_800_207,NM,—,Not addressed,seed-01
 7.5.1,C7.5,NIST_SP_800_207,NM,—,Not addressed,seed-01
 7.5.2,C7.5,NIST_SP_800_207,NM,—,Not addressed,seed-01
@@ -628,6 +656,7 @@ poc_requirement_id,poc_section,source_framework,match_type,framework_clause,rati
 7.6.3,C7.6,NIST_SP_800_207,PM,Deny-by-default posture (§2),Deny-by-default posture parallels fail-closed; evidence-pipeline gating unspecified,seed-01
 7.6.4,C7.6,NIST_SP_800_207,PM,Deny-by-default posture (§2),Deny-by-default posture parallels fail-closed; evidence-pipeline gating unspecified,seed-01
 7.6.5,C7.6,NIST_SP_800_207,PM,Deny-by-default posture (§2),Deny-by-default posture parallels fail-closed; evidence-pipeline gating unspecified,seed-01
+7.6.6,C7.6,NIST_SP_800_207,PM,Deny-by-default posture (§2),Deny-by-default posture parallels fail-closed; evidence-pipeline gating unspecified,seed-01
 8.1.1,C8.1,NIST_SP_800_207,NM,—,No verifiability grading,seed-01
 8.1.2,C8.1,NIST_SP_800_207,NM,—,No verifiability grading,seed-01
 8.1.3,C8.1,NIST_SP_800_207,NM,—,No verifiability grading,seed-01
@@ -642,6 +671,7 @@ poc_requirement_id,poc_section,source_framework,match_type,framework_clause,rati
 8.3.2,C8.3,NIST_SP_800_207,NM,—,No self-enforcement concept,seed-01
 8.3.3,C8.3,NIST_SP_800_207,NM,—,No self-enforcement concept,seed-01
 8.3.4,C8.3,NIST_SP_800_207,NM,—,No self-enforcement concept,seed-01
+8.3.5,C8.3,NIST_SP_800_207,NM,—,No self-enforcement concept,seed-01
 9.1.1,C9.1,NIST_SP_800_207,NM,—,Not addressed,seed-01
 9.1.2,C9.1,NIST_SP_800_207,NM,—,Not addressed,seed-01
 9.1.3,C9.1,NIST_SP_800_207,NM,—,Not addressed,seed-01
@@ -727,10 +757,13 @@ poc_requirement_id,poc_section,source_framework,match_type,framework_clause,rati
 7.1.1,C7.1,OWASP_AISVS,PM,AISVS C9,C9 requires mediated tool access; out-of-band evidence-emitting gateway is PoC-specific,seed-01
 7.1.2,C7.1,OWASP_AISVS,PM,AISVS C9,C9 requires mediated tool access; out-of-band evidence-emitting gateway is PoC-specific,seed-01
 7.1.3,C7.1,OWASP_AISVS,PM,AISVS C9,C9 requires mediated tool access; out-of-band evidence-emitting gateway is PoC-specific,seed-01
+7.1.4,C7.1,OWASP_AISVS,PM,AISVS C9,C9 requires mediated tool access; out-of-band evidence-emitting gateway is PoC-specific,seed-01
+7.1.5,C7.1,OWASP_AISVS,PM,AISVS C9,C9 requires mediated tool access; out-of-band evidence-emitting gateway is PoC-specific,seed-01
 7.2.1,C7.2,OWASP_AISVS,PM,AISVS C12,C12 logging requires event-time records; operator-produced,seed-01
 7.2.2,C7.2,OWASP_AISVS,PM,AISVS C12,C12 logging requires event-time records; operator-produced,seed-01
 7.3.1,C7.3,OWASP_AISVS,PM,AISVS C12,C12 log protection; mechanism-generated tamper-evidence not required,seed-01
 7.3.2,C7.3,OWASP_AISVS,PM,AISVS C12,C12 log protection; mechanism-generated tamper-evidence not required,seed-01
+7.3.3,C7.3,OWASP_AISVS,PM,AISVS C12,C12 log protection; mechanism-generated tamper-evidence not required,seed-01
 7.4.1,C7.4,OWASP_AISVS,NM,—,No trust-assumption disclosure,seed-01
 7.5.1,C7.5,OWASP_AISVS,NM,—,No determinism-boundary analog,seed-01
 7.5.2,C7.5,OWASP_AISVS,NM,—,No determinism-boundary analog,seed-01
@@ -739,6 +772,7 @@ poc_requirement_id,poc_section,source_framework,match_type,framework_clause,rati
 7.6.3,C7.6,OWASP_AISVS,PM,AISVS C12,C12 monitoring/alerting covers pipeline failures; fail-closed evidence gating not required,seed-01
 7.6.4,C7.6,OWASP_AISVS,PM,AISVS C12,C12 monitoring/alerting covers pipeline failures; fail-closed evidence gating not required,seed-01
 7.6.5,C7.6,OWASP_AISVS,PM,AISVS C12,C12 monitoring/alerting covers pipeline failures; fail-closed evidence gating not required,seed-01
+7.6.6,C7.6,OWASP_AISVS,PM,AISVS C12,C12 monitoring/alerting covers pipeline failures; fail-closed evidence gating not required,seed-01
 8.1.1,C8.1,OWASP_AISVS,NM,—,No evidence-verifiability grading,seed-01
 8.1.2,C8.1,OWASP_AISVS,NM,—,No evidence-verifiability grading,seed-01
 8.1.3,C8.1,OWASP_AISVS,NM,—,No evidence-verifiability grading,seed-01
@@ -753,6 +787,7 @@ poc_requirement_id,poc_section,source_framework,match_type,framework_clause,rati
 8.3.2,C8.3,OWASP_AISVS,NM,—,No self-enforcement concept,seed-01
 8.3.3,C8.3,OWASP_AISVS,NM,—,No self-enforcement concept,seed-01
 8.3.4,C8.3,OWASP_AISVS,NM,—,No self-enforcement concept,seed-01
+8.3.5,C8.3,OWASP_AISVS,NM,—,No self-enforcement concept,seed-01
 9.1.1,C9.1,OWASP_AISVS,NM,—,No stack-location fields for claims,seed-01
 9.1.2,C9.1,OWASP_AISVS,NM,—,No stack-location fields for claims,seed-01
 9.1.3,C9.1,OWASP_AISVS,NM,—,No stack-location fields for claims,seed-01
@@ -838,10 +873,13 @@ poc_requirement_id,poc_section,source_framework,match_type,framework_clause,rati
 7.1.1,C7.1,SOC_2,NM,—,No interception-gateway concept,seed-01
 7.1.2,C7.1,SOC_2,NM,—,No interception-gateway concept,seed-01
 7.1.3,C7.1,SOC_2,NM,—,No interception-gateway concept,seed-01
+7.1.4,C7.1,SOC_2,NM,—,No interception-gateway concept,seed-01
+7.1.5,C7.1,SOC_2,NM,—,No interception-gateway concept,seed-01
 7.2.1,C7.2,SOC_2,PM,CC7.2,CC7.2 audit logging is contemporaneous; operator-produced,seed-01
 7.2.2,C7.2,SOC_2,PM,CC7.2,CC7.2 audit logging is contemporaneous; operator-produced,seed-01
 7.3.1,C7.3,SOC_2,PM,CC7.2,Log protection expectations; signatures/chains not required and operator remains trusted,seed-01
 7.3.2,C7.3,SOC_2,PM,CC7.2,Log protection expectations; signatures/chains not required and operator remains trusted,seed-01
+7.3.3,C7.3,SOC_2,PM,CC7.2,Log protection expectations; signatures/chains not required and operator remains trusted,seed-01
 7.4.1,C7.4,SOC_2,NM,—,No trust-assumption disclosure analog,seed-01
 7.5.1,C7.5,SOC_2,NM,—,No determinism-boundary analog,seed-01
 7.5.2,C7.5,SOC_2,NM,—,No determinism-boundary analog,seed-01
@@ -850,6 +888,7 @@ poc_requirement_id,poc_section,source_framework,match_type,framework_clause,rati
 7.6.3,C7.6,SOC_2,PM,CC7.3–CC7.5,CC7 monitoring and incident handling cover pipeline failures; omission-detectability not addressed,seed-01
 7.6.4,C7.6,SOC_2,PM,CC7.3–CC7.5,CC7 monitoring and incident handling cover pipeline failures; omission-detectability not addressed,seed-01
 7.6.5,C7.6,SOC_2,PM,CC7.3–CC7.5,CC7 monitoring and incident handling cover pipeline failures; omission-detectability not addressed,seed-01
+7.6.6,C7.6,SOC_2,PM,CC7.3–CC7.5,CC7 monitoring and incident handling cover pipeline failures; omission-detectability not addressed,seed-01
 8.1.1,C8.1,SOC_2,NM,—,No verifiability grading,seed-01
 8.1.2,C8.1,SOC_2,NM,—,No verifiability grading,seed-01
 8.1.3,C8.1,SOC_2,NM,—,No verifiability grading,seed-01
@@ -864,6 +903,7 @@ poc_requirement_id,poc_section,source_framework,match_type,framework_clause,rati
 8.3.2,C8.3,SOC_2,NM,—,No self-enforcement concept,seed-01
 8.3.3,C8.3,SOC_2,NM,—,No self-enforcement concept,seed-01
 8.3.4,C8.3,SOC_2,NM,—,No self-enforcement concept,seed-01
+8.3.5,C8.3,SOC_2,NM,—,No self-enforcement concept,seed-01
 9.1.1,C9.1,SOC_2,NM,—,No stack-location requirement,seed-01
 9.1.2,C9.1,SOC_2,NM,—,No stack-location requirement,seed-01
 9.1.3,C9.1,SOC_2,NM,—,No stack-location requirement,seed-01

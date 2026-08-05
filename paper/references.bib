@@ -46,14 +46,6 @@
   howpublished = {\url{https://commandline.microsoft.com/agent-control-specification-runtime-governance/}}
 }
 
-@misc{merklechain2026,
-  author       = {{r/AI\_Agents contributors}},
-  title        = {Signed {M}erkle-chain Audit Log for {AI} Agent Tool Calls: Offline Verifier, Hybrid {PQ}},
-  year         = {2026},
-  howpublished = {\url{https://www.reddit.com/r/AI_Agents/comments/1v2nv08/signed_merklechain_audit_log_for_ai_agent_tool/}},
-  note         = {Community reference implementation discussion}
-}
-
 @misc{netbankaudit2026,
   author       = {{NETBankAudit}},
   title        = {Generative {AI} Controls and Risk Assessments for Financial Institutions},
@@ -356,4 +348,158 @@
   number      = {2119},
   year        = {1997},
   url         = {https://www.rfc-editor.org/rfc/rfc2119}
+}
+
+@inproceedings{merkle1987,
+  author    = {Merkle, Ralph C.},
+  title     = {A Digital Signature Based on a Conventional Encryption Function},
+  booktitle = {Advances in Cryptology --- CRYPTO '87},
+  pages     = {369--378},
+  publisher = {Springer},
+  year      = {1988}
+}
+
+@inproceedings{crosby2009,
+  author    = {Crosby, Scott A. and Wallach, Dan S.},
+  title     = {Efficient Data Structures for Tamper-Evident Logging},
+  booktitle = {18th USENIX Security Symposium},
+  year      = {2009}
+}
+
+@techreport{rfc6962,
+  author      = {Laurie, Ben and Langley, Adam and Kasper, Emilia},
+  title       = {Certificate Transparency},
+  institution = {Internet Engineering Task Force},
+  type        = {RFC},
+  number      = {6962},
+  year        = {2013},
+  url         = {https://www.rfc-editor.org/rfc/rfc6962}
+}
+
+@techreport{rfc9162,
+  author      = {Laurie, Ben and Messeri, Eran and Stradling, Rob},
+  title       = {Certificate Transparency Version 2.0},
+  institution = {Internet Engineering Task Force},
+  type        = {RFC},
+  number      = {9162},
+  year        = {2021},
+  url         = {https://www.rfc-editor.org/rfc/rfc9162}
+}
+
+@techreport{ctgossip,
+  author      = {Nordberg, Linus and Gillmor, Daniel Kahn and Ritter, Tom},
+  title       = {Gossiping in {CT}},
+  institution = {Internet Engineering Task Force},
+  type        = {Internet-Draft},
+  number      = {draft-ietf-trans-gossip-05},
+  year        = {2018},
+  url         = {https://datatracker.ietf.org/doc/draft-ietf-trans-gossip/}
+}
+
+@inproceedings{chase2016,
+  author    = {Chase, Melissa and Meiklejohn, Sarah},
+  title     = {Transparency Overlays and Applications},
+  booktitle = {ACM SIGSAC Conference on Computer and Communications Security (CCS)},
+  year      = {2016}
+}
+
+@inproceedings{chainiac,
+  author    = {Nikitin, Kirill and K{\o}gias, Eleftherios Kokoris and Jovanovic, Philipp
+               and Gailly, Nicolas and Gasser, Linus and Khoffi, Ismail and Cappos, Justin
+               and Ford, Bryan},
+  title     = {{CHAINIAC}: Proactive Software-Update Transparency via Collectively Signed
+               Skipchains and Verified Builds},
+  booktitle = {26th USENIX Security Symposium},
+  year      = {2017}
+}
+
+@techreport{anderson1972,
+  author      = {Anderson, James P.},
+  title       = {Computer Security Technology Planning Study},
+  institution = {ESD/AFSC, Hanscom AFB},
+  type        = {Technical Report},
+  number      = {ESD-TR-73-51},
+  year        = {1972}
+}
+
+@article{saltzer1975,
+  author  = {Saltzer, Jerome H. and Schroeder, Michael D.},
+  title   = {The Protection of Information in Computer Systems},
+  journal = {Proceedings of the IEEE},
+  volume  = {63},
+  number  = {9},
+  pages   = {1278--1308},
+  year    = {1975}
+}
+
+@misc{costan2016,
+  author       = {Costan, Victor and Devadas, Srinivas},
+  title        = {Intel {SGX} Explained},
+  howpublished = {Cryptology ePrint Archive, Report 2016/086},
+  year         = {2016},
+  url          = {https://eprint.iacr.org/2016/086}
+}
+
+@inproceedings{foreshadow,
+  author    = {Van Bulck, Jo and Minkin, Marina and Weisse, Ofir and Genkin, Daniel
+               and Kasikci, Baris and Piessens, Frank and Silberstein, Mark
+               and Wenisch, Thomas F. and Yarom, Yuval and Strackx, Raoul},
+  title     = {Foreshadow: Extracting the Keys to the {Intel SGX} Kingdom with
+               Transient Out-of-Order Execution},
+  booktitle = {27th USENIX Security Symposium},
+  year      = {2018}
+}
+
+@inproceedings{greshake2023,
+  author    = {Greshake, Kai and Abdelnabi, Sahar and Mishra, Shailesh and Endres, Christoph
+               and Holz, Thorsten and Fritz, Mario},
+  title     = {Not What You've Signed Up For: Compromising Real-World {LLM}-Integrated
+               Applications with Indirect Prompt Injection},
+  booktitle = {16th ACM Workshop on Artificial Intelligence and Security (AISec)},
+  year      = {2023}
+}
+
+@inproceedings{agentdojo,
+  author    = {Debenedetti, Edoardo and Zhang, Jie and Balunovi{\'c}, Mislav and Beurer-Kellner,
+               Luca and Fischer, Marc and Tram{\`e}r, Florian},
+  title     = {{AgentDojo}: A Dynamic Environment to Evaluate Prompt Injection Attacks and
+               Defenses for {LLM} Agents},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS),
+               Datasets and Benchmarks Track},
+  year      = {2024}
+}
+
+@inproceedings{injecagent,
+  author    = {Zhan, Qiusi and Liang, Zhixiang and Ying, Zifan and Kang, Daniel},
+  title     = {{InjecAgent}: Benchmarking Indirect Prompt Injections in Tool-Integrated
+               Large Language Model Agents},
+  booktitle = {Findings of the Association for Computational Linguistics (ACL)},
+  year      = {2024}
+}
+
+@inproceedings{toolemu,
+  author    = {Ruan, Yangjun and Dong, Honghua and Wang, Andrew and Pitis, Silviu and Zhou, Yongchao
+               and Ba, Jimmy and Dubois, Yann and Maddison, Chris J. and Hashimoto, Tatsunori},
+  title     = {Identifying the Risks of {LM} Agents with an {LM}-Emulated Sandbox},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2024}
+}
+
+@inproceedings{agentharm,
+  author    = {Andriushchenko, Maksym and Souly, Alexandra and Dziemian, Mateusz and Duenas, Derek
+               and Lin, Maxwell and Wang, Justin and Hendrycks, Dan and Zou, Andy and Kolter, Zico
+               and Fredrikson, Matt and Winsor, Eric and Wynne, Jerome and Gal, Yarin and Davies, Xander},
+  title     = {{AgentHarm}: A Benchmark for Measuring Harmfulness of {LLM} Agents},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2025}
+}
+
+@article{cohen1960,
+  author  = {Cohen, Jacob},
+  title   = {A Coefficient of Agreement for Nominal Scales},
+  journal = {Educational and Psychological Measurement},
+  volume  = {20},
+  number  = {1},
+  pages   = {37--46},
+  year    = {1960}
 }

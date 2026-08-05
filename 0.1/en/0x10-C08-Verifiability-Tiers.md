@@ -73,8 +73,9 @@ Tier 4 is where verification is continuous and built into operation: the system 
 | **8.3.2** | **Verify that** components operating internally below Tier 4 interact with the chain only through interfaces that produce Tier 4 evidence, per the interaction inventory. | 4 |
 | **8.3.3** | **Verify that** operation is mechanically gated on proof validity: in test, invalidating the proof chain (or withholding a required proof) halts the system's in-scope actions. | 4 |
 | **8.3.4** | **Verify that** the claim documents the availability impact of proof-gated operation — expected halt conditions, recovery procedure, and maximum tolerable outage — and that the recovery procedure has been exercised. | 4 |
+| **8.3.5** | **Verify that** the halt is enforced outside the operator's control — for example, relying parties refuse requests lacking a valid, action-bound capability, so absence of valid evidence blocks execution at the far end rather than depending on an operator-side flag that a compromised host could disable. | 4 |
 
-**Auditor evidence:** 8.3.1–8.3.2 — the interaction inventory; sample two interactions and validate their evidence tier. 8.3.3 — the halt test record; re-run it. 8.3.4 — the availability analysis and the recovery-exercise report.
+**Auditor evidence:** 8.3.1–8.3.2 — the interaction inventory; sample two interactions and validate their evidence tier. 8.3.3 — the halt test record; re-run it. 8.3.5 — the enforcement point's configuration; disable the operator-side halt in test and confirm the relying party still refuses unattested requests. 8.3.4 — the availability analysis and the recovery-exercise report.
 
 > **[WG-INPUT NEEDED]** — the binary threshold is the standard's most consequential definition
 > and its most-scrutinized point; the working group must ratify it with dedicated cryptography

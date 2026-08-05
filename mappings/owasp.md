@@ -17,7 +17,7 @@
 
 <!-- BEGIN GENERATED MAPPING (tools/generate_crosswalks.py) -->
 
-**Coverage: 60%** of the 111 Proof-of-Control requirements (16 exact matches, 51 partial matches, 44 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
+**Coverage: 61%** of the 116 Proof-of-Control requirements (16 exact matches, 55 partial matches, 45 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
 
 **How to read the Match column** ([full rubric](rubric.md)): **Exact** — the framework has a clause equivalent in scope and intent. **Partial** — the framework covers the topic, but not with PoC's operator-independent evidence (or not at the same depth). **None** — the framework has no analogous provision.
 
@@ -40,15 +40,15 @@
 | [C6.1 Execution Environment Integrity](../0.1/en/0x10-C06-Security.md) | 4 | Partial | AISVS C4 | C4 infrastructure requirements cover environment hardening; attestation evidence not required |
 | [C6.2 Isolation and Confidential Execution](../0.1/en/0x10-C06-Security.md) | 3 | Exact | AISVS C4; C9 | C4/C9 sandboxing requirements for code execution match isolation-proof scope |
 | [C6.3 Cryptographic Key Lifecycle](../0.1/en/0x10-C06-Security.md) | 3 | Partial | AISVS C4; C5 | C4/C5 key-management expectations; evidence-key custody is PoC-specific |
-| [C7.1 Generation at the Action Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 3 | Partial | AISVS C9 | C9 requires mediated tool access; out-of-band evidence-emitting gateway is PoC-specific |
+| [C7.1 Generation at the Action Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | Partial | AISVS C9 | C9 requires mediated tool access; out-of-band evidence-emitting gateway is PoC-specific |
 | [C7.2 The Contemporaneous Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | Partial | AISVS C12 | C12 logging requires event-time records; operator-produced |
-| [C7.3 The Tamper-Evident Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | Partial | AISVS C12 | C12 log protection; mechanism-generated tamper-evidence not required |
+| [C7.3 The Tamper-Evident Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 3 | Partial | AISVS C12 | C12 log protection; mechanism-generated tamper-evidence not required |
 | [C7.4 The Transparent Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 1 | None | — | No trust-assumption disclosure |
 | [C7.5 The Determinism Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | None | — | No determinism-boundary analog |
-| [C7.6 Evidence Custody and Resilience](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | Partial | AISVS C12 | C12 monitoring/alerting covers pipeline failures; fail-closed evidence gating not required |
+| [C7.6 Evidence Custody and Resilience](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 6 | Partial | AISVS C12 | C12 monitoring/alerting covers pipeline failures; fail-closed evidence gating not required |
 | [C8.1 Tier Placement](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 8 | None | — | No evidence-verifiability grading |
 | [C8.2 Mechanism-to-Requirement Fit](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 2 | None | — | No mechanism-fit rule |
-| [C8.3 Chain Integrity and Self-Enforcement (Tier 4)](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 4 | None | — | No self-enforcement concept |
+| [C8.3 Chain Integrity and Self-Enforcement (Tier 4)](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 5 | None | — | No self-enforcement concept |
 | [C9.1 Locating Evidence on the System Surface](../0.1/en/0x10-C09-System-Surface-MAESTRO.md) | 3 | None | — | No stack-location fields for claims |
 | [C9.2 Layer Coverage](../0.1/en/0x10-C09-System-Surface-MAESTRO.md) | 3 | Partial | AISVS C12 | C12 expects monitoring coverage across components; not layer-matched evidence |
 | [C10.1 Conformance Claims](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 8 | None | — | Verification levels exist but no conformance-statement regime |

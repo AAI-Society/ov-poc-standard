@@ -806,6 +806,32 @@
     "auditor_notes": ""
   },
   {
+    "id": "7.1.4",
+    "chapter": "C7",
+    "chapter_title": "Evidence Generation and Properties",
+    "section": "C7.1",
+    "section_title": "Generation at the Action Boundary",
+    "level": 3,
+    "level_name": "Independently Verifiable",
+    "requirement": "Verify that the effect channel is mediated within the same trust boundary as policy evaluation, by at least one of: (a) the credentials and transport for the effect are held inside the attesting environment, which emits the request itself; (b) the mechanism releases a single-use capability cryptographically bound to the evaluated snapshot digest and target resource, which the relying party checks before executing; or (c) egress is confined to an attested enforcement point that admits only requests carrying matching evidence. The conformance claim states which.",
+    "source_file": "0.1/en/0x10-C07-Evidence-Generation-and-Properties.md",
+    "status": "",
+    "auditor_notes": ""
+  },
+  {
+    "id": "7.1.5",
+    "chapter": "C7",
+    "chapter_title": "Evidence Generation and Properties",
+    "section": "C7.1",
+    "section_title": "Generation at the Action Boundary",
+    "level": 1,
+    "level_name": "Recorded",
+    "requirement": "Verify that the claim does not assert that evidence describes executed actions unless 7.1.4 is met \u2014 a system evidencing evaluation but not mediating the effect channel may claim Tier 1\u20132 only.",
+    "source_file": "0.1/en/0x10-C07-Evidence-Generation-and-Properties.md",
+    "status": "",
+    "auditor_notes": ""
+  },
+  {
     "id": "7.2.1",
     "chapter": "C7",
     "chapter_title": "Evidence Generation and Properties",
@@ -853,6 +879,19 @@
     "level": 3,
     "level_name": "Independently Verifiable",
     "requirement": "Verify that evidence records are signed by keys held by the generating mechanism (gateway, enclave, or logging service) that operator and agent identities cannot access, per the key-custody configuration.",
+    "source_file": "0.1/en/0x10-C07-Evidence-Generation-and-Properties.md",
+    "status": "",
+    "auditor_notes": ""
+  },
+  {
+    "id": "7.3.3",
+    "chapter": "C7",
+    "chapter_title": "Evidence Generation and Properties",
+    "section": "C7.3",
+    "section_title": "The Tamper-Evident Property",
+    "level": 3,
+    "level_name": "Independently Verifiable",
+    "requirement": "Verify that the implementation resists equivocation (presenting divergent histories to different relying parties) by at least one of: cross-verifier consistency checking (gossip), a witness quorum co-signing chain roots, or anchoring to a ledger with single-history consensus \u2014 and that the mechanism is named in the claim.",
     "source_file": "0.1/en/0x10-C07-Evidence-Generation-and-Properties.md",
     "status": "",
     "auditor_notes": ""
@@ -957,6 +996,19 @@
     "level": 1,
     "level_name": "Recorded",
     "requirement": "Verify that the retention period for evidence is stated in the conformance claim, configured in the store's retention policy, and at least as long as the period the claim covers.",
+    "source_file": "0.1/en/0x10-C07-Evidence-Generation-and-Properties.md",
+    "status": "",
+    "auditor_notes": ""
+  },
+  {
+    "id": "7.6.6",
+    "chapter": "C7",
+    "chapter_title": "Evidence Generation and Properties",
+    "section": "C7.6",
+    "section_title": "Evidence Custody and Resilience",
+    "level": 3,
+    "level_name": "Independently Verifiable",
+    "requirement": "Verify that the chain root is anchored externally within a declared maximum interval, that the interval is stated in the claim (it bounds the window in which head truncation is undetectable), and that a missed anchoring deadline raises an alert.",
     "source_file": "0.1/en/0x10-C07-Evidence-Generation-and-Properties.md",
     "status": "",
     "auditor_notes": ""
@@ -1139,6 +1191,19 @@
     "level": 4,
     "level_name": "Self-Enforcing / Continuous",
     "requirement": "Verify that the claim documents the availability impact of proof-gated operation \u2014 expected halt conditions, recovery procedure, and maximum tolerable outage \u2014 and that the recovery procedure has been exercised.",
+    "source_file": "0.1/en/0x10-C08-Verifiability-Tiers.md",
+    "status": "",
+    "auditor_notes": ""
+  },
+  {
+    "id": "8.3.5",
+    "chapter": "C8",
+    "chapter_title": "Verifiability Tiers and the Binary Threshold",
+    "section": "C8.3",
+    "section_title": "Chain Integrity and Self-Enforcement (Tier 4)",
+    "level": 4,
+    "level_name": "Self-Enforcing / Continuous",
+    "requirement": "Verify that the halt is enforced outside the operator's control \u2014 for example, relying parties refuse requests lacking a valid, action-bound capability, so absence of valid evidence blocks execution at the far end rather than depending on an operator-side flag that a compromised host could disable.",
     "source_file": "0.1/en/0x10-C08-Verifiability-Tiers.md",
     "status": "",
     "auditor_notes": ""
