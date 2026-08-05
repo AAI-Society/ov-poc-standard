@@ -48,12 +48,13 @@ CROSSWALKS = {
     "NIST_SP_800_207": "zero-trust.md",
 }
 
-FONT = "-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
+# Advanced AI Society brand: near-black #0a0a0a, lime #cfff04, off-white #f0edea
+FONT = "Montserrat,'Source Sans 3',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
 CHART_THEMES = {
-    "light": {"text": "#1f2328", "muted": "#57606a", "track": "#f6f8fa",
-              "track_stroke": "#d0d7de", "em": "#6f42c1", "pm": "#c4b1e8"},
-    "dark": {"text": "#e6edf3", "muted": "#8b949e", "track": "#161b22",
-             "track_stroke": "#30363d", "em": "#a371f7", "pm": "#5a4b7d"},
+    "light": {"text": "#0a0a0a", "muted": "#6b665f", "track": "#f0edea",
+              "track_stroke": "#d8d3cc", "em": "#7a9900", "pm": "#cfff04"},
+    "dark": {"text": "#f0edea", "muted": "#8f8a82", "track": "#161616",
+             "track_stroke": "#2e2e2e", "em": "#7a9900", "pm": "#cfff04"},
 }
 
 
@@ -136,7 +137,7 @@ def write_svg(cov, total):
              f'each framework already addresses</text>',
              f'<text x="{w / 2}" y="46" font-size="11.5" fill="{t["muted"]}" '
              f'text-anchor="middle">(EM + PM) / {total} requirements — '
-             f'darker: exact match · lighter: partial match · '
+             f'dark lime: exact match · bright lime: partial match · '
              f'gap: what only PoC covers</text>']
         for i, (fw, c) in enumerate(cov.items()):
             y = top + i * (bar_h + gap)

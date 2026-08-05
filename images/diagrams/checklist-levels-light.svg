@@ -1,15 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="640" height="252" viewBox="0 0 640 252" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif">
-<text x="320.0" y="26" font-size="14.5" font-weight="600" fill="#1f2328" text-anchor="middle">111 requirements by level</text>
-<text x="208" y="68.5" font-size="12.5" fill="#1f2328" text-anchor="end">L1 · Recorded</text>
-<rect x="220" y="46" width="297" height="36" rx="8" fill="#ffebe9" stroke="#cf222e" stroke-width="1.5"/>
-<text x="529" y="68.5" font-size="13" font-weight="600" fill="#1f2328" text-anchor="start">34</text>
-<text x="208" y="118.5" font-size="12.5" fill="#1f2328" text-anchor="end">L2 · Attested</text>
-<rect x="220" y="96" width="350" height="36" rx="8" fill="#fff8c5" stroke="#bf8700" stroke-width="1.5"/>
-<text x="582" y="118.5" font-size="13" font-weight="600" fill="#1f2328" text-anchor="start">40</text>
-<text x="208" y="168.5" font-size="12.5" fill="#1f2328" text-anchor="end">L3 · Independently Verifiable</text>
-<rect x="220" y="146" width="227" height="36" rx="8" fill="#dafbe1" stroke="#1a7f37" stroke-width="1.5"/>
-<text x="459" y="168.5" font-size="13" font-weight="600" fill="#1f2328" text-anchor="start">26</text>
-<text x="208" y="218.5" font-size="12.5" fill="#1f2328" text-anchor="end">L4 · Self-Enforcing / Continuous</text>
-<rect x="220" y="196" width="96" height="36" rx="8" fill="#ddf4ff" stroke="#0969da" stroke-width="1.5"/>
-<text x="328" y="218.5" font-size="13" font-weight="600" fill="#1f2328" text-anchor="start">11</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="252" viewBox="0 0 640 252" font-family="Montserrat,'Source Sans 3',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif">
+<text x="320.0" y="26" font-size="14.5" font-weight="600" fill="#0a0a0a" text-anchor="middle">111 requirements by level</text>
+<text x="208" y="68.5" font-size="12.5" fill="#0a0a0a" text-anchor="end">L1 · Recorded</text>
+<rect x="220" y="46" width="297" height="36" rx="8" fill="#ffe3e4" stroke="#bf000f" stroke-width="1.5"/>
+<text x="529" y="68.5" font-size="13" font-weight="600" fill="#0a0a0a" text-anchor="start">34</text>
+<text x="208" y="118.5" font-size="12.5" fill="#0a0a0a" text-anchor="end">L2 · Attested</text>
+<rect x="220" y="96" width="350" height="36" rx="8" fill="#e7e3dd" stroke="#8a857e" stroke-width="1.5"/>
+<text x="582" y="118.5" font-size="13" font-weight="600" fill="#0a0a0a" text-anchor="start">40</text>
+<text x="208" y="168.5" font-size="12.5" fill="#0a0a0a" text-anchor="end">L3 · Independently Verifiable</text>
+<rect x="220" y="146" width="227" height="36" rx="8" fill="#f2ffb8" stroke="#7a9900" stroke-width="1.5"/>
+<text x="459" y="168.5" font-size="13" font-weight="600" fill="#0a0a0a" text-anchor="start">26</text>
+<text x="208" y="218.5" font-size="12.5" fill="#0a0a0a" text-anchor="end">L4 · Self-Enforcing / Continuous</text>
+<rect x="220" y="196" width="96" height="36" rx="8" fill="#cfff04" stroke="#0a0a0a" stroke-width="1.5"/>
+<text x="328" y="218.5" font-size="13" font-weight="600" fill="#0a0a0a" text-anchor="start">11</text>
 </svg>

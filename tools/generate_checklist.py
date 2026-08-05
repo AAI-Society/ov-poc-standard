@@ -146,24 +146,25 @@ def write_markdown(chapters):
     OUT_MD.write_text("\n".join(lines))
 
 
+# Advanced AI Society brand: near-black #0a0a0a, lime #cfff04, off-white #f0edea
 CHART_THEMES = {
     "light": {
-        "text": "#1f2328", "muted": "#57606a",
-        "bars": {"1": ("#ffebe9", "#cf222e", "#58151c"),
-                 "2": ("#fff8c5", "#bf8700", "#664d03"),
-                 "3": ("#dafbe1", "#1a7f37", "#0a3622"),
-                 "4": ("#ddf4ff", "#0969da", "#052c65")},
+        "text": "#0a0a0a", "muted": "#6b665f",
+        "bars": {"1": ("#ffe3e4", "#bf000f", "#7a000a"),
+                 "2": ("#e7e3dd", "#8a857e", "#3d3a36"),
+                 "3": ("#f2ffb8", "#7a9900", "#3d4d00"),
+                 "4": ("#cfff04", "#0a0a0a", "#0a0a0a")},
     },
     "dark": {
-        "text": "#e6edf3", "muted": "#8b949e",
-        "bars": {"1": ("#2d1418", "#f85149", "#ffa198"),
-                 "2": ("#272115", "#bb8009", "#f2cc60"),
-                 "3": ("#12261e", "#2ea043", "#aff5b4"),
-                 "4": ("#121d2f", "#388bfd", "#79c0ff")},
+        "text": "#f0edea", "muted": "#8f8a82",
+        "bars": {"1": ("#2a1214", "#ff6568", "#ff9a9c"),
+                 "2": ("#1d1c1a", "#6e6a63", "#b5b0a8"),
+                 "3": ("#222b00", "#cfff04", "#e3ff66"),
+                 "4": ("#cfff04", "#cfff04", "#0a0a0a")},
     },
 }
 
-FONT = "-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
+FONT = "Montserrat,'Source Sans 3',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
 
 
 def write_level_chart(counts, total):

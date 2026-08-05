@@ -9,8 +9,8 @@
 <p align="center">
   <a href="https://creativecommons.org/licenses/by/4.0/"><img alt="License: CC BY 4.0" src="https://img.shields.io/badge/License-CC%20BY%204.0-blue.svg"></a>
   <a href="0.1/en/0x01-Frontispiece.md"><img alt="Status: Working Draft v0.1.4" src="https://img.shields.io/badge/Status-Working%20Draft%20v0.1.4-orange.svg"></a>
-  <a href="0.1/en"><img alt="Requirements: 111" src="https://img.shields.io/badge/Requirements-111-success.svg"></a>
-  <a href="https://advancedaisociety.org/"><img alt="Steward: Advanced AI Society" src="https://img.shields.io/badge/Steward-Advanced%20AI%20Society-6f42c1.svg"></a>
+  <a href="0.1/en"><img alt="Requirements: 111" src="https://img.shields.io/badge/Requirements-111-cfff04.svg"></a>
+  <a href="https://advancedaisociety.org/"><img alt="Steward: Advanced AI Society" src="https://img.shields.io/badge/Steward-Advanced%20AI%20Society-cfff04.svg"></a>
 </p>
 
 > **📣 Get involved:** Proof-of-Control is developed in the open and stewarded by the
@@ -22,6 +22,10 @@
 The **Proof-of-Control Standard (PoC)** is a catalogue of verifiable requirements for AI agent systems: independent, tamper-evident evidence of what an agent actually did — the data it touched, the authority it exercised, the tools it invoked — in a form anyone can check **without trusting the operator**. Every requirement follows the same philosophy as [OWASP AISVS/ASVS](https://github.com/OWASP/AISVS): **verifiable, testable, and implementable**.
 
 A system has Proof-of-Control when, and only when, its evidence reaches **Tier 3 or Tier 4** of the Verifiability Tiers — a binary threshold that makes the category procurable: *"Does your AI have Proof-of-Control?"* is a yes-or-no question.
+
+> 🐕 **New to the standard? Start with the one-pager:** [**The Smart Leash**](docs/one-pager.md) —
+> the whole standard in one analogy: from *"trust me"* to *"trust my auditor"* to *"trust the
+> math"* to *the leash locks itself*.
 
 ## 🗺️ The Standard at a Glance
 
@@ -187,7 +191,7 @@ PoC uses `v<MAJOR>.<MINOR>` versioning; released folders are locked, mirroring [
 
 The case for the standard — informative, no requirements:
 
-[Introduction & design principles](docs/introduction.md) · [Why verification matters](docs/why-verification-matters.md) · [Standards landscape](docs/standards-landscape.md) · [Use cases](docs/use-cases.md) · [Roadmap](docs/roadmap.md) · [Governance](docs/governance.md) · [Research basis](docs/research-basis.md) · [Reviews](docs/reviews/ciso-review-v0.1.4.md)
+[Introduction & design principles](docs/introduction.md) · [Why verification matters](docs/why-verification-matters.md) · [Standards landscape](docs/standards-landscape.md) · [Use cases](docs/use-cases.md) · [The Smart Leash one-pager](docs/one-pager.md) · [Roadmap](docs/roadmap.md) · [Governance](docs/governance.md) · [Research basis](docs/research-basis.md) · [Reviews](docs/reviews/ciso-review-v0.1.4.md)
 
 ## 🤝 Contributing
 

@@ -17,26 +17,35 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "images" / "diagrams"
 
-FONT = "-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
+# Advanced AI Society brand (advancedaisociety.org): near-black #0a0a0a,
+# electric lime #cfff04, warm off-white #f0edea, reds #ff6568/#bf000f,
+# Montserrat headings / Source Sans 3 body.
+FONT = "Montserrat,'Source Sans 3',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif"
 
 THEMES = {
+    # Semantic keys kept from the previous palette; values are brand-mapped:
+    #   purple -> the accent inversion (black box/lime text on light; lime/black on dark)
+    #   red    -> brand red (Tier 1 / not-PoC)
+    #   yellow -> warm neutral from the #f0edea family (Tier 2)
+    #   green  -> lime tint (Tier 3 / evidence)
+    #   blue   -> solid lime, the brand moment (Tier 4 / Proof-of-Control)
     "light": {
-        "text": "#1f2328", "muted": "#57606a", "line": "#57606a",
-        "box_fill": "#f6f8fa", "box_stroke": "#d0d7de",
-        "purple": "#6f42c1", "purple_text": "#ffffff",
-        "green_fill": "#dafbe1", "green_stroke": "#1a7f37", "green_text": "#0a3622",
-        "yellow_fill": "#fff8c5", "yellow_stroke": "#bf8700", "yellow_text": "#664d03",
-        "red_fill": "#ffebe9", "red_stroke": "#cf222e", "red_text": "#58151c",
-        "blue_fill": "#ddf4ff", "blue_stroke": "#0969da", "blue_text": "#052c65",
+        "text": "#0a0a0a", "muted": "#6b665f", "line": "#6b665f",
+        "box_fill": "#f0edea", "box_stroke": "#d8d3cc",
+        "purple": "#0a0a0a", "purple_text": "#cfff04",
+        "green_fill": "#f2ffb8", "green_stroke": "#7a9900", "green_text": "#3d4d00",
+        "yellow_fill": "#e7e3dd", "yellow_stroke": "#8a857e", "yellow_text": "#3d3a36",
+        "red_fill": "#ffe3e4", "red_stroke": "#bf000f", "red_text": "#7a000a",
+        "blue_fill": "#cfff04", "blue_stroke": "#0a0a0a", "blue_text": "#0a0a0a",
     },
     "dark": {
-        "text": "#e6edf3", "muted": "#8b949e", "line": "#8b949e",
-        "box_fill": "#161b22", "box_stroke": "#30363d",
-        "purple": "#a371f7", "purple_text": "#0d1117",
-        "green_fill": "#12261e", "green_stroke": "#2ea043", "green_text": "#aff5b4",
-        "yellow_fill": "#272115", "yellow_stroke": "#bb8009", "yellow_text": "#f2cc60",
-        "red_fill": "#2d1418", "red_stroke": "#f85149", "red_text": "#ffa198",
-        "blue_fill": "#121d2f", "blue_stroke": "#388bfd", "blue_text": "#79c0ff",
+        "text": "#f0edea", "muted": "#8f8a82", "line": "#8f8a82",
+        "box_fill": "#161616", "box_stroke": "#2e2e2e",
+        "purple": "#cfff04", "purple_text": "#0a0a0a",
+        "green_fill": "#222b00", "green_stroke": "#cfff04", "green_text": "#e3ff66",
+        "yellow_fill": "#1d1c1a", "yellow_stroke": "#6e6a63", "yellow_text": "#b5b0a8",
+        "red_fill": "#2a1214", "red_stroke": "#ff6568", "red_text": "#ff9a9c",
+        "blue_fill": "#cfff04", "blue_stroke": "#cfff04", "blue_text": "#0a0a0a",
     },
 }
 
@@ -374,8 +383,49 @@ def risk_value_quadrant(t, v):
     s.save("risk-value-quadrant", v)
 
 
+def smart_leash(t, v):
+    s = SVG(1080, 300, t)
+    s.text(540, 30, "THE LEASH EVOLVES", 13, t["muted"], bold=True)
+    s.text(540, 52, "trust me  →  trust my auditor  →  trust the math  →  the leash locks itself",
+           13.5, t["text"], bold=True)
+    nodes = [
+        (20, t["yellow_fill"], t["yellow_stroke"], t["yellow_text"], "Iₐ", "PREREQUISITE",
+         ["Whose dog is this?"], ["Collar tag and owner registration:", "identity, provenance, liability."]),
+        (290, t["red_fill"], t["red_stroke"], t["red_text"], "T1", "TIER 1 · ASSERTION",
+         ["The owner's word"], ["“My dog is friendly and stays in", "the yard.” They also write the", "incident report."]),
+        (560, t["yellow_fill"], t["yellow_stroke"], t["yellow_text"], "T2", "TIER 2 · ATTESTATION",
+         ["The inspector's badge"], ["A yearly paper stamp. It can't stop", "the dog jumping the fence today."]),
+        (830, t["blue_fill"], t["blue_stroke"], t["blue_text"], "✓", "TIER 3–4 · PROOF-OF-CONTROL",
+         ["The smart, tamper-proof leash"], ["Anyone can check the proof — and the", "leash locks before the boundary", "is crossed."]),
+    ]
+    # leash line across node centers
+    s.parts.append(
+        f'<defs><linearGradient id="leash" x1="0" y1="0" x2="1" y2="0">'
+        f'<stop offset="0" stop-color="{t["muted"]}"/>'
+        f'<stop offset="0.35" stop-color="{t["red_stroke"]}"/>'
+        f'<stop offset="0.65" stop-color="{t["yellow_stroke"]}"/>'
+        f'<stop offset="1" stop-color="{"#7a9900" if v == "light" else "#cfff04"}"/>'
+        f'</linearGradient></defs>'
+        f'<rect x="60" y="94" width="960" height="4" rx="2" fill="url(#leash)"/>'
+    )
+    for x, fill, stroke, text, dot, tier, q, an in nodes:
+        cx = x + 42
+        s.parts.append(f'<circle cx="{cx}" cy="96" r="17" fill="{fill}" stroke="{stroke}" stroke-width="2"/>')
+        s.text(cx, 101, dot, 12.5, text, bold=True)
+        s.text(x, 138, tier, 10.5, stroke if fill != t["blue_fill"] else ("#7a9900" if v == "light" else "#cfff04"), bold=True, anchor="start")
+        s.text(x, 160, q[0], 14.5, t["text"], bold=True, anchor="start")
+        for i, line in enumerate(an):
+            s.text(x, 181 + i * 17, line, 11.5, t["muted"], anchor="start")
+    s.text(540, 262, "as you move right — verifiability rises, trust required falls", 12, t["muted"])
+    s.parts.append(
+        f'<rect x="330" y="274" width="420" height="2" fill="{t["box_stroke"]}"/>'
+    )
+    s.save("smart-leash", v)
+
+
 DIAGRAMS = [standard_at_a_glance, tier_ladder, conformance_stages, document_map,
-            first_claim_journey, evidence_flow, maestro_stack, risk_value_quadrant]
+            first_claim_journey, evidence_flow, maestro_stack, risk_value_quadrant,
+            smart_leash]
 
 
 def main():

@@ -1,35 +1,35 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="940" height="360" viewBox="0 0 940 360" font-family="-apple-system,'Segoe UI',Helvetica,Arial,sans-serif">
-<rect x="20" y="60" width="180" height="90" rx="10" fill="#f6f8fa" stroke="#d0d7de" stroke-width="1.5"/>
-<text x="110.0" y="101.0" font-size="14" fill="#1f2328" font-weight="600" text-anchor="middle">Agent</text>
-<text x="110.0" y="118.0" font-size="12" fill="#57606a" text-anchor="middle">plans an action</text>
-<rect x="290" y="45" width="240" height="120" rx="10" fill="#6f42c1" stroke="#6f42c1" stroke-width="1.5"/>
-<text x="410.0" y="92.5" font-size="14" fill="#ffffff" font-weight="600" text-anchor="middle">Action Interception</text>
-<text x="410.0" y="109.5" font-size="14" fill="#ffffff" font-weight="600" text-anchor="middle">Gateway</text>
-<text x="410.0" y="126.5" font-size="11.5" fill="#ffffff" text-anchor="middle">out-of-band · C7.1</text>
-<rect x="660" y="60" width="180" height="90" rx="10" fill="#f6f8fa" stroke="#d0d7de" stroke-width="1.5"/>
-<text x="750.0" y="101.0" font-size="14" fill="#1f2328" font-weight="600" text-anchor="middle">Tool / effect</text>
-<text x="750.0" y="118.0" font-size="12" fill="#57606a" text-anchor="middle">executes</text>
-<rect x="290" y="235" width="240" height="100" rx="10" fill="#dafbe1" stroke="#1a7f37" stroke-width="1.5"/>
-<text x="410.0" y="272.5" font-size="14" fill="#0a3622" font-weight="600" text-anchor="middle">Evidence</text>
-<text x="410.0" y="289.5" font-size="11.5" fill="#0a3622" text-anchor="middle">binary · contemporaneous</text>
-<text x="410.0" y="306.5" font-size="11.5" fill="#0a3622" text-anchor="middle">tamper-evident · transparent</text>
-<rect x="640" y="240" width="280" height="90" rx="10" fill="#f6f8fa" stroke="#d0d7de" stroke-width="1.5"/>
-<text x="780.0" y="272.5" font-size="14" fill="#1f2328" font-weight="600" text-anchor="middle">Any verifier</text>
-<text x="780.0" y="289.5" font-size="11.5" fill="#57606a" text-anchor="middle">auditor · insurer · regulator</text>
-<text x="780.0" y="306.5" font-size="11.5" fill="#57606a" text-anchor="middle">no privileged access</text>
-<line x1="200" y1="95" x2="288" y2="95" stroke="#57606a" stroke-width="1.5"/>
-<polygon points="288,95 279,90 279,100" fill="#57606a"/>
-<text x="244" y="87" font-size="10.5" fill="#57606a" text-anchor="middle">action</text>
-<line x1="530" y1="90" x2="658" y2="90" stroke="#57606a" stroke-width="1.5"/>
-<polygon points="658,90 649,85 649,95" fill="#57606a"/>
-<text x="594" y="82" font-size="10.5" fill="#57606a" text-anchor="middle">authorized</text>
-<line x1="658" y1="125" x2="530" y2="125" stroke="#57606a" stroke-width="1.5" stroke-dasharray="6 4"/>
-<polygon points="530,125 539,120 539,130" fill="#57606a"/>
-<text x="594" y="140" font-size="10.5" fill="#57606a" text-anchor="middle">result</text>
-<line x1="410" y1="165" x2="410" y2="233" stroke="#57606a" stroke-width="1.5"/>
-<polygon points="410,233 405,224 415,224" fill="#57606a"/>
-<text x="495" y="195" font-size="10.5" fill="#57606a" text-anchor="middle">before · during · after</text>
-<text x="495" y="210" font-size="10.5" fill="#cf222e" text-anchor="middle">out of scope: rejected + evidenced</text>
-<line x1="530" y1="285" x2="638" y2="285" stroke="#57606a" stroke-width="1.5"/>
-<polygon points="638,285 629,280 629,290" fill="#57606a"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="360" viewBox="0 0 940 360" font-family="Montserrat,'Source Sans 3',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif">
+<rect x="20" y="60" width="180" height="90" rx="10" fill="#f0edea" stroke="#d8d3cc" stroke-width="1.5"/>
+<text x="110.0" y="101.0" font-size="14" fill="#0a0a0a" font-weight="600" text-anchor="middle">Agent</text>
+<text x="110.0" y="118.0" font-size="12" fill="#6b665f" text-anchor="middle">plans an action</text>
+<rect x="290" y="45" width="240" height="120" rx="10" fill="#0a0a0a" stroke="#0a0a0a" stroke-width="1.5"/>
+<text x="410.0" y="92.5" font-size="14" fill="#cfff04" font-weight="600" text-anchor="middle">Action Interception</text>
+<text x="410.0" y="109.5" font-size="14" fill="#cfff04" font-weight="600" text-anchor="middle">Gateway</text>
+<text x="410.0" y="126.5" font-size="11.5" fill="#cfff04" text-anchor="middle">out-of-band · C7.1</text>
+<rect x="660" y="60" width="180" height="90" rx="10" fill="#f0edea" stroke="#d8d3cc" stroke-width="1.5"/>
+<text x="750.0" y="101.0" font-size="14" fill="#0a0a0a" font-weight="600" text-anchor="middle">Tool / effect</text>
+<text x="750.0" y="118.0" font-size="12" fill="#6b665f" text-anchor="middle">executes</text>
+<rect x="290" y="235" width="240" height="100" rx="10" fill="#f2ffb8" stroke="#7a9900" stroke-width="1.5"/>
+<text x="410.0" y="272.5" font-size="14" fill="#3d4d00" font-weight="600" text-anchor="middle">Evidence</text>
+<text x="410.0" y="289.5" font-size="11.5" fill="#3d4d00" text-anchor="middle">binary · contemporaneous</text>
+<text x="410.0" y="306.5" font-size="11.5" fill="#3d4d00" text-anchor="middle">tamper-evident · transparent</text>
+<rect x="640" y="240" width="280" height="90" rx="10" fill="#f0edea" stroke="#d8d3cc" stroke-width="1.5"/>
+<text x="780.0" y="272.5" font-size="14" fill="#0a0a0a" font-weight="600" text-anchor="middle">Any verifier</text>
+<text x="780.0" y="289.5" font-size="11.5" fill="#6b665f" text-anchor="middle">auditor · insurer · regulator</text>
+<text x="780.0" y="306.5" font-size="11.5" fill="#6b665f" text-anchor="middle">no privileged access</text>
+<line x1="200" y1="95" x2="288" y2="95" stroke="#6b665f" stroke-width="1.5"/>
+<polygon points="288,95 279,90 279,100" fill="#6b665f"/>
+<text x="244" y="87" font-size="10.5" fill="#6b665f" text-anchor="middle">action</text>
+<line x1="530" y1="90" x2="658" y2="90" stroke="#6b665f" stroke-width="1.5"/>
+<polygon points="658,90 649,85 649,95" fill="#6b665f"/>
+<text x="594" y="82" font-size="10.5" fill="#6b665f" text-anchor="middle">authorized</text>
+<line x1="658" y1="125" x2="530" y2="125" stroke="#6b665f" stroke-width="1.5" stroke-dasharray="6 4"/>
+<polygon points="530,125 539,120 539,130" fill="#6b665f"/>
+<text x="594" y="140" font-size="10.5" fill="#6b665f" text-anchor="middle">result</text>
+<line x1="410" y1="165" x2="410" y2="233" stroke="#6b665f" stroke-width="1.5"/>
+<polygon points="410,233 405,224 415,224" fill="#6b665f"/>
+<text x="495" y="195" font-size="10.5" fill="#6b665f" text-anchor="middle">before · during · after</text>
+<text x="495" y="210" font-size="10.5" fill="#bf000f" text-anchor="middle">out of scope: rejected + evidenced</text>
+<line x1="530" y1="285" x2="638" y2="285" stroke="#6b665f" stroke-width="1.5"/>
+<polygon points="638,285 629,280 629,290" fill="#6b665f"/>
 </svg>

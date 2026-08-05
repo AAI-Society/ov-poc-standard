@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="300" viewBox="0 0 1080 300" font-family="Montserrat,'Source Sans 3',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif">
+<text x="540" y="30" font-size="13" fill="#8f8a82" font-weight="600" text-anchor="middle">THE LEASH EVOLVES</text>
+<text x="540" y="52" font-size="13.5" fill="#f0edea" font-weight="600" text-anchor="middle">trust me  →  trust my auditor  →  trust the math  →  the leash locks itself</text>
+<defs><linearGradient id="leash" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8f8a82"/><stop offset="0.35" stop-color="#ff6568"/><stop offset="0.65" stop-color="#6e6a63"/><stop offset="1" stop-color="#cfff04"/></linearGradient></defs><rect x="60" y="94" width="960" height="4" rx="2" fill="url(#leash)"/>
+<circle cx="62" cy="96" r="17" fill="#1d1c1a" stroke="#6e6a63" stroke-width="2"/>
+<text x="62" y="101" font-size="12.5" fill="#b5b0a8" font-weight="600" text-anchor="middle">Iₐ</text>
+<text x="20" y="138" font-size="10.5" fill="#6e6a63" font-weight="600" text-anchor="start">PREREQUISITE</text>
+<text x="20" y="160" font-size="14.5" fill="#f0edea" font-weight="600" text-anchor="start">Whose dog is this?</text>
+<text x="20" y="181" font-size="11.5" fill="#8f8a82" text-anchor="start">Collar tag and owner registration:</text>
+<text x="20" y="198" font-size="11.5" fill="#8f8a82" text-anchor="start">identity, provenance, liability.</text>
+<circle cx="332" cy="96" r="17" fill="#2a1214" stroke="#ff6568" stroke-width="2"/>
+<text x="332" y="101" font-size="12.5" fill="#ff9a9c" font-weight="600" text-anchor="middle">T1</text>
+<text x="290" y="138" font-size="10.5" fill="#ff6568" font-weight="600" text-anchor="start">TIER 1 · ASSERTION</text>
+<text x="290" y="160" font-size="14.5" fill="#f0edea" font-weight="600" text-anchor="start">The owner's word</text>
+<text x="290" y="181" font-size="11.5" fill="#8f8a82" text-anchor="start">“My dog is friendly and stays in</text>
+<text x="290" y="198" font-size="11.5" fill="#8f8a82" text-anchor="start">the yard.” They also write the</text>
+<text x="290" y="215" font-size="11.5" fill="#8f8a82" text-anchor="start">incident report.</text>
+<circle cx="602" cy="96" r="17" fill="#1d1c1a" stroke="#6e6a63" stroke-width="2"/>
+<text x="602" y="101" font-size="12.5" fill="#b5b0a8" font-weight="600" text-anchor="middle">T2</text>
+<text x="560" y="138" font-size="10.5" fill="#6e6a63" font-weight="600" text-anchor="start">TIER 2 · ATTESTATION</text>
+<text x="560" y="160" font-size="14.5" fill="#f0edea" font-weight="600" text-anchor="start">The inspector's badge</text>
+<text x="560" y="181" font-size="11.5" fill="#8f8a82" text-anchor="start">A yearly paper stamp. It can't stop</text>
+<text x="560" y="198" font-size="11.5" fill="#8f8a82" text-anchor="start">the dog jumping the fence today.</text>
+<circle cx="872" cy="96" r="17" fill="#cfff04" stroke="#cfff04" stroke-width="2"/>
+<text x="872" y="101" font-size="12.5" fill="#0a0a0a" font-weight="600" text-anchor="middle">✓</text>
+<text x="830" y="138" font-size="10.5" fill="#cfff04" font-weight="600" text-anchor="start">TIER 3–4 · PROOF-OF-CONTROL</text>
+<text x="830" y="160" font-size="14.5" fill="#f0edea" font-weight="600" text-anchor="start">The smart, tamper-proof leash</text>
+<text x="830" y="181" font-size="11.5" fill="#8f8a82" text-anchor="start">Anyone can check the proof — and the</text>
+<text x="830" y="198" font-size="11.5" fill="#8f8a82" text-anchor="start">leash locks before the boundary</text>
+<text x="830" y="215" font-size="11.5" fill="#8f8a82" text-anchor="start">is crossed.</text>
+<text x="540" y="262" font-size="12" fill="#8f8a82" text-anchor="middle">as you move right — verifiability rises, trust required falls</text>
+<rect x="330" y="274" width="420" height="2" fill="#2e2e2e"/>
+</svg>
