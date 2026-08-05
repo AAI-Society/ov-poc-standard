@@ -14,6 +14,7 @@ Provenance is distinct from the other five domains: [Identity](0x10-C05-Identity
     <img alt="The chain of custody: origin, model state with signed manifest, and the action record, connected by hash links a reviewer can walk end-to-end" src="../../images/diagrams/c1-provenance-light.svg" width="900">
   </picture>
 </p>
+
 ---
 
 ## C1.1 Model and Artifact Provenance

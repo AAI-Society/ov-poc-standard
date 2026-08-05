@@ -12,6 +12,7 @@ Produce verifiable evidence of system integrity and access-control enforcement. 
     <img alt="The execution environment attests its measurement to an independent verifier against published reference values; evidence-signing keys live in an HSM" src="../../images/diagrams/c6-security-light.svg" width="900">
   </picture>
 </p>
+
 ---
 
 ## C6.1 Execution Environment Integrity

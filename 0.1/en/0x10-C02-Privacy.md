@@ -14,6 +14,7 @@ Privacy covers what data is touched, under what constraints, and that those cons
     <img alt="The disclosure boundary: the agent touches protected data, but only derived evidence (digests, policy results) crosses; the raw payload never does" src="../../images/diagrams/c2-privacy-light.svg" width="900">
   </picture>
 </p>
+
 ---
 
 ## C2.1 Data-Access Evidence

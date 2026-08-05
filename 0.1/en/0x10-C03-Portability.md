@@ -12,6 +12,7 @@ Produce verifiable evidence of continuity and control across vendors, platforms,
     <img alt="Two attestation domains with their evidence chains, bound by a signed linking record so no unverifiable gap exists at the boundary" src="../../images/diagrams/c3-portability-light.svg" width="900">
   </picture>
 </p>
+
 ---
 
 ## C3.1 Boundary-Crossing Evidence

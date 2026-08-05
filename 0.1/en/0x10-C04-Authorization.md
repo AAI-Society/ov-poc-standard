@@ -12,6 +12,7 @@ Produce verifiable evidence that the system acted within the permissions it was 
     <img alt="The authority envelope: in-scope actions execute and are recorded; an out-of-scope action stops at the interception gateway, blocked and evidenced" src="../../images/diagrams/c4-authorization-light.svg" width="900">
   </picture>
 </p>
+
 ---
 
 ## C4.1 Authority and Scope Enforcement
