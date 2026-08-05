@@ -11,3 +11,4 @@ Thumbs.db
 # Build artifacts
 dist/
 *.pdf
+!paper/main.pdf
