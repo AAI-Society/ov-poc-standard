@@ -188,16 +188,22 @@ with `python3 mappings/compute_coverage.py`:
   </picture>
 </p>
 
-| Framework | Coverage |
-| --- | :---: |
-| [OWASP AISVS](mappings/owasp.md) | **62%** |
-| [ISO/IEC 42001](mappings/iso-iec-42001.md) | **60%** |
-| [NIST AI RMF](mappings/nist-ai-rmf.md) | **60%** |
-| [SOC 2](mappings/soc-2.md) | **55%** |
-| [EU AI Act](mappings/eu-ai-act.md) | **54%** |
-| [CSA AARM](mappings/csa-aarm.md) | **48%** |
-| [Zero Trust (NIST SP 800-207)](mappings/zero-trust.md) | **42%** |
-| [MITRE ATLAS](mappings/mitre-atlas.md) | **25%** |
+<!-- BEGIN GENERATED COVERAGE -->
+
+**Coverage = (EM + PM) / 125 requirements.** Only exact and partial matches count; the NM column is the gap only Proof-of-Control fills.
+
+| Framework | Exact (EM) | Partial (PM) | None (NM) | Coverage |
+| --- | :---: | :---: | :---: | :---: |
+| [OWASP AISVS](mappings/owasp.md) | 16 | 62 | 47 | **62%** |
+| [ISO/IEC 42001](mappings/iso-iec-42001.md) | 8 | 67 | 50 | **60%** |
+| [NIST AI RMF](mappings/nist-ai-rmf.md) | 0 | 75 | 50 | **60%** |
+| [SOC 2](mappings/soc-2.md) | 8 | 61 | 56 | **55%** |
+| [EU AI Act](mappings/eu-ai-act.md) | 8 | 60 | 57 | **54%** |
+| [CSA AARM](mappings/csa-aarm.md) | 13 | 47 | 65 | **48%** |
+| [Zero Trust (NIST SP 800-207)](mappings/zero-trust.md) | 8 | 45 | 72 | **42%** |
+| [MITRE ATLAS](mappings/mitre-atlas.md) | 0 | 31 | 94 | **25%** |
+
+<!-- END GENERATED COVERAGE -->
 
 The uncovered remainder — evidence gradability, the binary threshold, trust-assumption
 disclosure, self-enforcing execution — is the gap Proof-of-Control exists to close. Full

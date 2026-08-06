@@ -63,10 +63,14 @@ def main():
         sec_reqs[r["section"]].append(r["id"])
 
     rows = list(csv.DictReader(open(ROOT / "mappings" / "coding_sheet.csv")))
-    by_fw = defaultdict(dict)  # fw -> section -> row (rows share coding per section)
+    # fw -> section -> [rows]. Coding is per REQUIREMENT, not per section: a
+    # section can hold a mix, and collapsing it to one row (as this generator
+    # once did, by last-write-wins) let a single uncovered requirement flip a
+    # whole section to "None". Sections are summarized below, not overwritten.
+    by_fw = defaultdict(lambda: defaultdict(list))
     counts = defaultdict(lambda: defaultdict(int))
     for row in rows:
-        by_fw[row["source_framework"]][row["poc_section"]] = row
+        by_fw[row["source_framework"]][row["poc_section"]].append(row)
         counts[row["source_framework"]][row["match_type"]] += 1
 
     total = len(reqs)
@@ -87,22 +91,54 @@ def main():
             "**Exact** — the framework has a clause equivalent in scope and intent. "
             "**Partial** — the framework covers the topic, but not with PoC's "
             "operator-independent evidence (or not at the same depth). "
-            "**None** — the framework has no analogous provision.",
+            "**None** — the framework has no analogous provision. Where a section "
+            "holds a mix, the badge shows the strongest match present and the "
+            "**Covered** column shows how many of its requirements are matched at "
+            "all — so a section reading *Partial 3/5* has two requirements this "
+            "framework does not reach.",
             "",
-            "| PoC section | Reqs | Match | Closest framework clause(s) | Rationale |",
-            "| --- | :---: | :---: | --- | --- |",
+            "| PoC section | Reqs | Covered | Match | Closest framework clause(s) | Rationale |",
+            "| --- | :---: | :---: | :---: | --- | --- |",
         ]
         gaps = []
+        RANK = {"EM": 2, "PM": 1, "NM": 0}
         for sec in sorted(by_fw[fw], key=section_sort_key):
-            row = by_fw[fw][sec]
+            sec_rows = by_fw[fw][sec]
             ids = sec_reqs[sec]
             chapter = sec.split(".")[0]
             link = f"[{sec} {sections[sec]}](../0.1/en/{CHAPTER_FILES[chapter]})"
-            if row["match_type"] == "NM":
-                gaps.append((sec, sections[sec], row["rationale"]))
+
+            best = max(sec_rows, key=lambda r: RANK[r["match_type"]])
+            matched = [r for r in sec_rows if r["match_type"] != "NM"]
+            unmatched = [r for r in sec_rows if r["match_type"] == "NM"]
+            n_total, n_matched = len(sec_rows), len(matched)
+
+            # every distinct clause cited anywhere in the section, not just the
+            # one that happened to sort last
+            clauses = []
+            for r in sec_rows:
+                cl = r["framework_clause"].strip()
+                if cl and cl != "—" and cl not in clauses:
+                    clauses.append(cl)
+            clause_text = "; ".join(clauses) if clauses else "—"
+
+            rationale = best["rationale"].rstrip()
+            if unmatched and matched:
+                missing = ", ".join(r["poc_requirement_id"] for r in unmatched)
+                if not rationale.endswith((".", ";", "!", "?")):
+                    rationale += "."
+                rationale += f" Not reached: {missing}."
+
+            if not matched:
+                gaps.append((sec, sections[sec], best["rationale"], None))
+            elif unmatched:
+                gaps.append((sec, sections[sec],
+                             unmatched[0]["rationale"],
+                             [r["poc_requirement_id"] for r in unmatched]))
+
             lines.append(
-                f"| {link} | {len(ids)} | {BADGE[row['match_type']]} | "
-                f"{row['framework_clause']} | {row['rationale']} |"
+                f"| {link} | {n_total} | {n_matched}/{n_total} | "
+                f"{BADGE[best['match_type']]} | {clause_text} | {rationale} |"
             )
         lines += [
             "",
@@ -110,15 +146,24 @@ def main():
             "",
         ]
         if gaps:
-            for sec, title, rationale in gaps:
-                lines.append(f"* **{sec} {title}** — {rationale}")
+            for sec, title, rationale, partial_ids in gaps:
+                if partial_ids:
+                    ids_txt = ", ".join(partial_ids)
+                    lines.append(
+                        f"* **{sec} {title}** — partially reached; "
+                        f"no provision for {ids_txt}: {rationale}")
+                else:
+                    lines.append(f"* **{sec} {title}** — {rationale}")
         else:
             lines.append("* No gaps at section level.")
         lines += [
             "",
-            "*Match granularity is the PoC section; every requirement in a section carries its "
-            "section's coding in the [coding sheet](coding_sheet.csv). Requirement-level "
-            "refinement is the working group's next pass.*",
+            "*Coding granularity is the individual requirement; the section rows above "
+            "summarize the requirements beneath them. Where a section is coded uniformly "
+            "the summary is exact, and where it is mixed the Covered column and the gap "
+            "list name what is missing. Row-level detail is in the "
+            "[coding sheet](coding_sheet.csv). This is seed coding by a single coder and "
+            "has not yet had the second-coder pass the [rubric](rubric.md) requires.*",
             "",
             END,
         ]

@@ -19,42 +19,42 @@
 
 **Coverage: 62%** of the 125 Proof-of-Control requirements (16 exact matches, 62 partial matches, 47 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
 
-**How to read the Match column** ([full rubric](rubric.md)): **Exact** — the framework has a clause equivalent in scope and intent. **Partial** — the framework covers the topic, but not with PoC's operator-independent evidence (or not at the same depth). **None** — the framework has no analogous provision.
+**How to read the Match column** ([full rubric](rubric.md)): **Exact** — the framework has a clause equivalent in scope and intent. **Partial** — the framework covers the topic, but not with PoC's operator-independent evidence (or not at the same depth). **None** — the framework has no analogous provision. Where a section holds a mix, the badge shows the strongest match present and the **Covered** column shows how many of its requirements are matched at all — so a section reading *Partial 3/5* has two requirements this framework does not reach.
 
-| PoC section | Reqs | Match | Closest framework clause(s) | Rationale |
-| --- | :---: | :---: | --- | --- |
-| [C1.1 Model and Artifact Provenance](../0.1/en/0x10-C01-Provenance.md) | 5 | Exact | AISVS C6 | C6 supply chain requires model provenance, signing and verification comparable in scope and specificity |
-| [C1.2 Input and Data Lineage](../0.1/en/0x10-C01-Provenance.md) | 4 | Partial | AISVS C1; C8 | C1 training-data traceability and C8 memory provenance cover lineage; no custody chain to the action record |
-| [C1.3 Compute Substrate Provenance](../0.1/en/0x10-C01-Provenance.md) | 2 | None | — | Substrate attestation not addressed |
-| [C1.4 Privacy-Preserving Provenance](../0.1/en/0x10-C01-Provenance.md) | 2 | None | — | Privacy-preserving provenance not addressed |
-| [C2.1 Data-Access Evidence](../0.1/en/0x10-C02-Privacy.md) | 3 | Partial | AISVS C5; C12 | C5 access control and C12 monitoring cover access logging; no used-vs-disclosed evidence model |
-| [C2.2 Policy and Consent Enforcement](../0.1/en/0x10-C02-Privacy.md) | 5 | Partial | AISVS C1 | Data-governance requirements touch consent and minimization; runtime enforcement evidence not central |
-| [C2.3 Privacy-Preserving Verification Mechanisms](../0.1/en/0x10-C02-Privacy.md) | 3 | None | — | ZK/selective-disclosure mechanisms not addressed |
-| [C2.4 Evidence Handling for Protected Data](../0.1/en/0x10-C02-Privacy.md) | 2 | None | — | Evidence-store minimization not addressed |
-| [C3.1 Boundary-Crossing Evidence](../0.1/en/0x10-C03-Portability.md) | 2 | None | — | Boundary-crossing evidence not addressed |
-| [C3.2 Cross-Environment Continuity](../0.1/en/0x10-C03-Portability.md) | 3 | None | — | Evidence continuity not addressed |
-| [C4.1 Authority and Scope Enforcement](../0.1/en/0x10-C04-Authorization.md) | 8 | Exact | AISVS C9 | C9 agentic security requires tool authorization, schema validation and least-privilege comparable in scope |
-| [C4.2 Delegation](../0.1/en/0x10-C04-Authorization.md) | 4 | Partial | AISVS C9.4 | C9.4 agent identity and credential requirements partially cover delegation validity |
-| [C5.1 Agent and Principal Binding](../0.1/en/0x10-C05-Identity.md) | 4 | Partial | AISVS C5; C9.4 | C9.4 agent identity credentials and rotation; principal-to-agent intent binding is PoC-specific |
-| [C5.2 Inter-Agent Identity](../0.1/en/0x10-C05-Identity.md) | 2 | Partial | AISVS C9; C10 | C9/C10 inter-agent and MCP security cover authenticated agent communication |
-| [C6.1 Execution Environment Integrity](../0.1/en/0x10-C06-Security.md) | 4 | Partial | AISVS C4 | C4 infrastructure requirements cover environment hardening; attestation evidence not required |
-| [C6.2 Isolation and Confidential Execution](../0.1/en/0x10-C06-Security.md) | 3 | Exact | AISVS C4; C9 | C4/C9 sandboxing requirements for code execution match isolation-proof scope |
-| [C6.3 Cryptographic Key Lifecycle](../0.1/en/0x10-C06-Security.md) | 5 | Partial | AISVS C4; C5 | C4/C5 key-management expectations; evidence-key custody is PoC-specific |
-| [C7.1 Generation at the Action Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | Partial | AISVS C9 | C9 requires mediated tool access; out-of-band evidence-emitting gateway is PoC-specific |
-| [C7.2 The Contemporaneous Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | Partial | AISVS C12 | C12 logging requires event-time records; operator-produced |
-| [C7.3 The Tamper-Evident Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | Partial | AISVS C12 | Tamper detection expected; rewriting by a key-holding operator is not addressed |
-| [C7.4 The Transparent Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 1 | None | — | No trust-assumption disclosure |
-| [C7.5 The Determinism Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | None | — | No determinism-boundary analog |
-| [C7.6 Evidence Custody and Resilience](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 6 | Partial | AISVS C12 | C12 monitoring/alerting covers pipeline failures; fail-closed evidence gating not required |
-| [C7.7 The Interoperable Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | Partial | AISVS C3 | Input-validation expectations reach parsing generally; evidence-parser ambiguity not addressed |
-| [C8.1 Tier Placement](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 8 | None | — | No evidence-verifiability grading |
-| [C8.2 Mechanism-to-Requirement Fit](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 2 | None | — | No mechanism-fit rule |
-| [C8.3 Chain Integrity and Self-Enforcement (Tier 4)](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 5 | None | — | No self-enforcement concept |
-| [C9.1 Locating Evidence on the System Surface](../0.1/en/0x10-C09-System-Surface-MAESTRO.md) | 3 | None | — | No stack-location fields for claims |
-| [C9.2 Layer Coverage](../0.1/en/0x10-C09-System-Surface-MAESTRO.md) | 3 | Partial | AISVS C12 | C12 expects monitoring coverage across components; not layer-matched evidence |
-| [C10.1 Conformance Claims](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 8 | None | — | Verification levels exist but no conformance-statement regime |
-| [C10.2 Trust-Assumption Disclosure](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 2 | None | — | No trust-assumption disclosure |
-| [C10.3 Continuously Monitored Operation](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 7 | Partial | AISVS C12 | C12 continuous monitoring aligns in intent; not tier-validated per-action evidence |
+| PoC section | Reqs | Covered | Match | Closest framework clause(s) | Rationale |
+| --- | :---: | :---: | :---: | --- | --- |
+| [C1.1 Model and Artifact Provenance](../0.1/en/0x10-C01-Provenance.md) | 5 | 5/5 | Exact | AISVS C6 | C6 supply chain requires model provenance, signing and verification comparable in scope and specificity |
+| [C1.2 Input and Data Lineage](../0.1/en/0x10-C01-Provenance.md) | 4 | 4/4 | Partial | AISVS C1; C8 | C1 training-data traceability and C8 memory provenance cover lineage; no custody chain to the action record |
+| [C1.3 Compute Substrate Provenance](../0.1/en/0x10-C01-Provenance.md) | 2 | 0/2 | None | — | Substrate attestation not addressed |
+| [C1.4 Privacy-Preserving Provenance](../0.1/en/0x10-C01-Provenance.md) | 2 | 0/2 | None | — | Privacy-preserving provenance not addressed |
+| [C2.1 Data-Access Evidence](../0.1/en/0x10-C02-Privacy.md) | 3 | 3/3 | Partial | AISVS C5; C12 | C5 access control and C12 monitoring cover access logging; no used-vs-disclosed evidence model |
+| [C2.2 Policy and Consent Enforcement](../0.1/en/0x10-C02-Privacy.md) | 5 | 5/5 | Partial | AISVS C1 | Data-governance requirements touch consent and minimization; runtime enforcement evidence not central |
+| [C2.3 Privacy-Preserving Verification Mechanisms](../0.1/en/0x10-C02-Privacy.md) | 3 | 0/3 | None | — | ZK/selective-disclosure mechanisms not addressed |
+| [C2.4 Evidence Handling for Protected Data](../0.1/en/0x10-C02-Privacy.md) | 2 | 0/2 | None | — | Evidence-store minimization not addressed |
+| [C3.1 Boundary-Crossing Evidence](../0.1/en/0x10-C03-Portability.md) | 2 | 0/2 | None | — | Boundary-crossing evidence not addressed |
+| [C3.2 Cross-Environment Continuity](../0.1/en/0x10-C03-Portability.md) | 3 | 0/3 | None | — | Evidence continuity not addressed |
+| [C4.1 Authority and Scope Enforcement](../0.1/en/0x10-C04-Authorization.md) | 8 | 8/8 | Exact | AISVS C9 | C9 agentic security requires tool authorization, schema validation and least-privilege comparable in scope |
+| [C4.2 Delegation](../0.1/en/0x10-C04-Authorization.md) | 4 | 4/4 | Partial | AISVS C9.4 | C9.4 agent identity and credential requirements partially cover delegation validity |
+| [C5.1 Agent and Principal Binding](../0.1/en/0x10-C05-Identity.md) | 4 | 4/4 | Partial | AISVS C5; C9.4 | C9.4 agent identity credentials and rotation; principal-to-agent intent binding is PoC-specific |
+| [C5.2 Inter-Agent Identity](../0.1/en/0x10-C05-Identity.md) | 2 | 2/2 | Partial | AISVS C9; C10 | C9/C10 inter-agent and MCP security cover authenticated agent communication |
+| [C6.1 Execution Environment Integrity](../0.1/en/0x10-C06-Security.md) | 4 | 4/4 | Partial | AISVS C4 | C4 infrastructure requirements cover environment hardening; attestation evidence not required |
+| [C6.2 Isolation and Confidential Execution](../0.1/en/0x10-C06-Security.md) | 3 | 3/3 | Exact | AISVS C4; C9 | C4/C9 sandboxing requirements for code execution match isolation-proof scope |
+| [C6.3 Cryptographic Key Lifecycle](../0.1/en/0x10-C06-Security.md) | 5 | 5/5 | Partial | AISVS C4; C5 | C4/C5 key-management expectations; evidence-key custody is PoC-specific |
+| [C7.1 Generation at the Action Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | 5/5 | Partial | AISVS C9 | C9 requires mediated tool access; out-of-band evidence-emitting gateway is PoC-specific |
+| [C7.2 The Contemporaneous Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | 2/2 | Partial | AISVS C12 | C12 logging requires event-time records; operator-produced |
+| [C7.3 The Tamper-Evident Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | 5/5 | Partial | AISVS C12 | C12 log protection; mechanism-generated tamper-evidence not required |
+| [C7.4 The Transparent Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 1 | 0/1 | None | — | No trust-assumption disclosure |
+| [C7.5 The Determinism Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | 0/2 | None | — | No determinism-boundary analog |
+| [C7.6 Evidence Custody and Resilience](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 6 | 6/6 | Partial | AISVS C12 | C12 monitoring/alerting covers pipeline failures; fail-closed evidence gating not required |
+| [C7.7 The Interoperable Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | 3/5 | Partial | AISVS C12; AISVS C6; AISVS C3 | Structured logging expected; no published claim-set schema. Not reached: 7.7.2, 7.7.4. |
+| [C8.1 Tier Placement](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 8 | 0/8 | None | — | No evidence-verifiability grading |
+| [C8.2 Mechanism-to-Requirement Fit](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 2 | 0/2 | None | — | No mechanism-fit rule |
+| [C8.3 Chain Integrity and Self-Enforcement (Tier 4)](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 5 | 0/5 | None | — | No self-enforcement concept |
+| [C9.1 Locating Evidence on the System Surface](../0.1/en/0x10-C09-System-Surface-MAESTRO.md) | 3 | 0/3 | None | — | No stack-location fields for claims |
+| [C9.2 Layer Coverage](../0.1/en/0x10-C09-System-Surface-MAESTRO.md) | 3 | 3/3 | Partial | AISVS C12 | C12 expects monitoring coverage across components; not layer-matched evidence |
+| [C10.1 Conformance Claims](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 8 | 0/8 | None | — | Verification levels exist but no conformance-statement regime |
+| [C10.2 Trust-Assumption Disclosure](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 2 | 0/2 | None | — | No trust-assumption disclosure |
+| [C10.3 Continuously Monitored Operation](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 7 | 7/7 | Partial | AISVS C12 | C12 continuous monitoring aligns in intent; not tier-validated per-action evidence |
 
 ### Gap Analysis (what this framework does not cover)
 
@@ -66,6 +66,7 @@
 * **C3.2 Cross-Environment Continuity** — Evidence continuity not addressed
 * **C7.4 The Transparent Property** — No trust-assumption disclosure
 * **C7.5 The Determinism Boundary** — No determinism-boundary analog
+* **C7.7 The Interoperable Property** — partially reached; no provision for 7.7.2, 7.7.4: Canonicalization unaddressed
 * **C8.1 Tier Placement** — No evidence-verifiability grading
 * **C8.2 Mechanism-to-Requirement Fit** — No mechanism-fit rule
 * **C8.3 Chain Integrity and Self-Enforcement (Tier 4)** — No self-enforcement concept
@@ -73,7 +74,7 @@
 * **C10.1 Conformance Claims** — Verification levels exist but no conformance-statement regime
 * **C10.2 Trust-Assumption Disclosure** — No trust-assumption disclosure
 
-*Match granularity is the PoC section; every requirement in a section carries its section's coding in the [coding sheet](coding_sheet.csv). Requirement-level refinement is the working group's next pass.*
+*Coding granularity is the individual requirement; the section rows above summarize the requirements beneath them. Where a section is coded uniformly the summary is exact, and where it is mixed the Covered column and the gap list name what is missing. Row-level detail is in the [coding sheet](coding_sheet.csv). This is seed coding by a single coder and has not yet had the second-coder pass the [rubric](rubric.md) requires.*
 
 <!-- END GENERATED MAPPING -->
 

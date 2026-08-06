@@ -7,7 +7,8 @@ Coverage per framework = (EM + PM) / total PoC requirements x 100
 Usage::
 
     python3 mappings/compute_coverage.py
-    python3 mappings/compute_coverage.py --markdown       # emit the README table
+    python3 mappings/compute_coverage.py --markdown       # print the README table
+    python3 mappings/compute_coverage.py --inject         # write it into both READMEs
     python3 mappings/compute_coverage.py --svg            # regenerate the coverage chart
     python3 mappings/compute_coverage.py --sheet mappings/coding_sheet.csv
 
@@ -106,18 +107,45 @@ def print_table(cov, total):
               f"{c['NM']:>4} {c['coverage']:>8}%")
 
 
-def markdown_table(cov):
-    lines = ["| Framework | ✅ Exact (EM) | 🟡 Partial (PM) | ❌ None (NM) | Coverage | Crosswalk |",
-             "| --- | :---: | :---: | :---: | :---: | --- |"]
+BEGIN = "<!-- BEGIN GENERATED COVERAGE -->"
+END = "<!-- END GENERATED COVERAGE -->"
+
+
+def markdown_table(cov, total, prefix=""):
+    """The coverage table, generated. Hand-maintained copies of this drift:
+    the previous one had stale counts, a divisor of 111, and every crosswalk
+    link shifted one row down."""
+    lines = [
+        f"**Coverage = (EM + PM) / {total} requirements.** Only exact and partial "
+        f"matches count; the NM column is the gap only Proof-of-Control fills.",
+        "",
+        "| Framework | Exact (EM) | Partial (PM) | None (NM) | Coverage |",
+        "| --- | :---: | :---: | :---: | :---: |",
+    ]
     for fw, c in cov.items():
         name = DISPLAY_NAMES.get(fw, fw)
         xw = CROSSWALKS.get(fw)
-        link = f"[{name}]({xw})" if xw else name
-        lines.append(f"| {link} | {c['EM']} | {c['PM']} | {c['NM']} | "
-                     f"**{c['coverage']}%** | [{xw}]({xw}) |" if xw else
-                     f"| {name} | {c['EM']} | {c['PM']} | {c['NM']} | "
-                     f"**{c['coverage']}%** | — |")
+        cell = f"[{name}]({prefix}{xw})" if xw else name
+        lines.append(f"| {cell} | {c['EM']} | {c['PM']} | {c['NM']} | "
+                     f"**{c['coverage']}%** |")
     return "\n".join(lines)
+
+
+def inject(cov, total):
+    """Write the table into the README files between markers."""
+    import re
+    targets = [(ROOT / "mappings" / "README.md", ""),
+               (ROOT / "README.md", "mappings/")]
+    for path, prefix in targets:
+        text = path.read_text()
+        if BEGIN not in text:
+            print(f"  {path.name}: no marker, skipped")
+            continue
+        block = BEGIN + "\n\n" + markdown_table(cov, total, prefix) + "\n\n" + END
+        text = re.sub(re.escape(BEGIN) + r".*?" + re.escape(END), lambda _: block,
+                      text, flags=re.DOTALL)
+        path.write_text(text)
+        print(f"  {path.name}: coverage table injected")
 
 
 def write_svg(cov, total):
@@ -179,14 +207,18 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--sheet", default=str(ROOT / "mappings" / "coding_sheet.csv"))
     ap.add_argument("--markdown", action="store_true")
+    ap.add_argument("--inject", action="store_true",
+                    help="write the table into README.md and mappings/README.md")
     ap.add_argument("--svg", action="store_true")
     args = ap.parse_args()
     rows, total = load(Path(args.sheet))
     cov = coverage(rows, total)
     if args.markdown:
-        print(markdown_table(cov))
+        print(markdown_table(cov, total))
     else:
         print_table(cov, total)
+    if args.inject:
+        inject(cov, total)
     if args.svg:
         write_svg(cov, total)
 

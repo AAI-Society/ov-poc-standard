@@ -1125,19 +1125,19 @@ matches. Light: partial. The rest is the gap.}
 \textbf{Framework} & \textbf{Exact} & \textbf{Partial} & \textbf{None} &
 \textbf{Coverage} \\
 \midrule
-NIST AI RMF~\cite{nistairmf} & 0 & 73 & 45 & 62\% \\
-OWASP AISVS~\cite{owaspaisvs} & 16 & 57 & 45 & 62\% \\
-ISO/IEC 42001~\cite{iso42001} & 8 & 64 & 46 & 61\% \\
-SOC 2~\cite{soc2tsc} & 8 & 59 & 51 & 57\% \\
-EU AI Act~\cite{euaiact} & 8 & 57 & 53 & 55\% \\
-CSA AARM~\cite{csaaarm} & 13 & 46 & 59 & 50\% \\
-Zero Trust (SP 800-207)~\cite{sp800207} & 8 & 44 & 66 & 44\% \\
-MITRE ATLAS~\cite{mitreatlas} & 0 & 31 & 87 & 26\% \\
+OWASP AISVS~\cite{owaspaisvs} & 16 & 62 & 47 & 62\% \\
+ISO/IEC 42001~\cite{iso42001} & 8 & 67 & 50 & 60\% \\
+NIST AI RMF~\cite{nistairmf} & 0 & 75 & 50 & 60\% \\
+SOC 2~\cite{soc2tsc} & 8 & 61 & 56 & 55\% \\
+EU AI Act~\cite{euaiact} & 8 & 60 & 57 & 54\% \\
+CSA AARM~\cite{csaaarm} & 13 & 47 & 65 & 48\% \\
+Zero Trust (SP 800-207)~\cite{sp800207} & 8 & 45 & 72 & 42\% \\
+MITRE ATLAS~\cite{mitreatlas} & 0 & 31 & 94 & 25\% \\
 \bottomrule
 \end{tabular}
-\caption{Coverage, one coder, section granularity. The thin Exact column is
-the finding: frameworks want the controls, not operator-independent evidence
-that the controls held.}
+\caption{Coverage of all 125 requirements, coded individually by one coder.
+The thin Exact column is the finding: frameworks want the controls, not
+operator-independent evidence that the controls held.}
 \label{tab:coverage}
 \end{table}
 
@@ -1160,9 +1160,15 @@ at least one coder who did not write the requirements, and disagreements
 resolved by a third. That study is planned, and when it is done it replaces
 Table~\ref{tab:coverage}.
 
-\emph{The grain is too coarse.} We coded at section level and let the
-requirements inside inherit it, which makes things look more uniform than they
-are.
+\emph{The grain used to be too coarse, and fixing it exposed a reporting bug.}
+The original coding was per section, with the requirements inside inheriting
+it, which made things look more uniform than they were. The requirements added
+in this revision are coded individually, which broke the crosswalk generator:
+it had collapsed each section to a single row, so one uncovered requirement
+flipped an entire section from ``partial'' to ``none.'' The section rows now
+summarize the requirements beneath them and name which ones a framework does
+not reach. Most sections are still coded uniformly, so most of the table is
+still coarser than it looks.
 
 \emph{We only looked one way.} We did not measure what those frameworks
 require that \emph{we} miss---and there is plenty: organizational governance

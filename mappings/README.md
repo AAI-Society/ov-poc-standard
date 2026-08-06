@@ -5,7 +5,7 @@ it is the evidence layer that sits alongside them. This directory holds the mapp
 complementary forms, following the reproducible coverage methodology established by
 [HAARF](https://github.com/Task-force-for-AI-agents-in-Healthcare/haarf):
 
-1. **Quantitative coverage mapping** — every one of the 118 PoC requirements coded against each
+1. **Quantitative coverage mapping** — every one of the 125 PoC requirements coded against each
    external framework as Exact Match / Partial Match / No Match, with reproducible coverage
    percentages.
 2. **Qualitative crosswalks** — one narrative document per framework explaining the
@@ -16,7 +16,7 @@ complementary forms, following the reproducible coverage methodology established
 | File | What it is |
 | --- | --- |
 | [`rubric.md`](rubric.md) | The EM / PM / NM match-type definitions, coding instructions, and the coverage formula |
-| [`coding_sheet.csv`](coding_sheet.csv) | Row-level coding: 118 requirements × 8 frameworks = 888 coded rows with rationales |
+| [`coding_sheet.csv`](coding_sheet.csv) | Row-level coding: 125 requirements × 8 frameworks = 1,000 coded rows with rationales |
 | [`compute_coverage.py`](compute_coverage.py) | Validates the sheet and reproduces the coverage percentages and the chart below |
 | [`corpus/README.md`](corpus/README.md) | Provenance of the external framework documents (title, version, access URL) |
 
@@ -34,11 +34,11 @@ python3 mappings/compute_coverage.py --svg    # regenerate the coverage chart
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="../images/diagrams/mapping-coverage-dark.svg">
-    <img alt="Coverage of the 118 Proof-of-Control requirements by external framework" src="../images/diagrams/mapping-coverage-light.svg" width="740">
+    <img alt="Coverage of the 125 Proof-of-Control requirements by external framework" src="../images/diagrams/mapping-coverage-light.svg" width="740">
   </picture>
 </p>
 
-Each of the 118 requirements is coded against each framework with one of three **match types**
+Each of the 125 requirements is coded against each framework with one of three **match types**
 (defined in the [rubric](rubric.md)):
 
 * **EM · Exact Match** — the framework has a clause equivalent in scope and intent.
@@ -47,19 +47,22 @@ Each of the 118 requirements is coded against each framework with one of three *
   *evidence* that the control held.
 * **NM · No Match** — the framework has no analogous provision.
 
-**Coverage = (EM + PM) ÷ 111.** Only exact and partial matches count toward coverage; the NM
-column is the gap only Proof-of-Control fills.
+<!-- BEGIN GENERATED COVERAGE -->
 
-| Framework | Exact (EM) | Partial (PM) | None (NM) | Coverage | Qualitative crosswalk |
-| --- | :---: | :---: | :---: | :---: | --- |
-| NIST AI RMF | 0 | 73 | 45 | **62%** | [nist-ai-rmf.md](nist-ai-rmf.md) |
-| OWASP AISVS | 16 | 57 | 45 | **62%** | [iso-iec-42001.md](iso-iec-42001.md) |
-| ISO/IEC 42001 | 8 | 64 | 46 | **61%** | [owasp.md](owasp.md) |
-| SOC 2 | 8 | 59 | 51 | **57%** | [eu-ai-act.md](eu-ai-act.md) |
-| EU AI Act | 8 | 57 | 53 | **55%** | [soc-2.md](soc-2.md) |
-| CSA AARM | 13 | 46 | 59 | **50%** | [csa-aarm.md](csa-aarm.md) |
-| Zero Trust (NIST SP 800-207) | 8 | 44 | 66 | **44%** | [zero-trust.md](zero-trust.md) |
-| MITRE ATLAS | 0 | 31 | 87 | **26%** | [mitre-atlas.md](mitre-atlas.md) |
+**Coverage = (EM + PM) / 125 requirements.** Only exact and partial matches count; the NM column is the gap only Proof-of-Control fills.
+
+| Framework | Exact (EM) | Partial (PM) | None (NM) | Coverage |
+| --- | :---: | :---: | :---: | :---: |
+| [OWASP AISVS](owasp.md) | 16 | 62 | 47 | **62%** |
+| [ISO/IEC 42001](iso-iec-42001.md) | 8 | 67 | 50 | **60%** |
+| [NIST AI RMF](nist-ai-rmf.md) | 0 | 75 | 50 | **60%** |
+| [SOC 2](soc-2.md) | 8 | 61 | 56 | **55%** |
+| [EU AI Act](eu-ai-act.md) | 8 | 60 | 57 | **54%** |
+| [CSA AARM](csa-aarm.md) | 13 | 47 | 65 | **48%** |
+| [Zero Trust (NIST SP 800-207)](zero-trust.md) | 8 | 45 | 72 | **42%** |
+| [MITRE ATLAS](mitre-atlas.md) | 0 | 31 | 94 | **25%** |
+
+<!-- END GENERATED COVERAGE -->
 
 **Reading the numbers.** Coverage measures how much of *Proof-of-Control* each framework
 already addresses — not the reverse, and not framework quality. Two patterns matter:
