@@ -16,18 +16,18 @@ Tick items as you close them out; each chapter's *Auditor evidence* notes say wh
 | [C4 Authorization](0x10-C04-Authorization.md) | 2 | 7 | 3 | — | **12** |
 | [C5 Identity](0x10-C05-Identity.md) | 1 | 3 | 2 | — | **6** |
 | [C6 Security](0x10-C06-Security.md) | 2 | 6 | 3 | 1 | **12** |
-| [C7 Evidence Generation and Properties](0x10-C07-Evidence-Generation-and-Properties.md) | 6 | 8 | 11 | 1 | **26** |
+| [C7 Evidence Generation and Properties](0x10-C07-Evidence-Generation-and-Properties.md) | 6 | 8 | 13 | 1 | **28** |
 | [C8 Verifiability Tiers and the Binary Threshold](0x10-C08-Verifiability-Tiers.md) | 7 | — | 3 | 5 | **15** |
 | [C9 System Surface (MAESTRO)](0x10-C09-System-Surface-MAESTRO.md) | 3 | 2 | 1 | — | **6** |
 | [C10 Conformance and Trust-Assumption Disclosure](0x10-C10-Conformance-and-Disclosure.md) | 7 | 4 | 2 | 4 | **17** |
-| **All chapters** | **35** | **45** | **33** | **12** | **125** |
+| **All chapters** | **35** | **45** | **35** | **12** | **127** |
 
 ## Requirements by Level
 
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="../../images/diagrams/checklist-levels-dark.svg">
-    <img alt="125 requirements by level: 35 at Level 1 (Recorded),  45 at Level 2 (Attested),  33 at Level 3 (Independently Verifiable),  12 at Level 4 (Self-Enforcing / Continuous)" src="../../images/diagrams/checklist-levels-light.svg" width="620">
+    <img alt="127 requirements by level: 35 at Level 1 (Recorded),  45 at Level 2 (Attested),  35 at Level 3 (Independently Verifiable),  12 at Level 4 (Self-Enforcing / Continuous)" src="../../images/diagrams/checklist-levels-light.svg" width="620">
   </picture>
 </p>
 
@@ -169,6 +169,8 @@ Tick items as you close them out; each chapter's *Auditor evidence* notes say wh
 
 - [ ] **7.2.1** `L1` — **Verify that** each evidence record is written within the executing transaction of the action it describes — not batch-reconstructed later — and carries the capture timestamp of the event itself.
 - [ ] **7.2.2** `L3` — **Verify that** evidence timestamps are anchored to a source outside the operator's control — an RFC 3161 timestamp authority, transparency-log inclusion proof, or consensus time — at least once per defined anchoring interval.
+- [ ] **7.2.3** `L3` — **Verify that** the conformance claim states a maximum **attestation refresh interval** — the longest period, or the largest number of actions, for which evidence may rest on a hardware measurement taken before them — and that the mechanism refreshes within it or refuses to continue.
+- [ ] **7.2.4** `L3` — **Verify that** the hardware attestation cryptographically **binds the evidence signing key**: the key's digest appears in the attested report body (TDX `REPORTDATA`, SEV-SNP `REPORT_DATA`, or equivalent), so that a verifier establishes *this key ran inside this measured environment* rather than receiving a measurement and a key that merely arrived together.
 ### C7.3 The Tamper-Evident Property
 
 - [ ] **7.3.1** `L2` — **Verify that** evidence records are hash-chained or Merkle-anchored so that modifying, inserting, or reordering any record invalidates the chain, and that chain verification runs on a defined schedule with results recorded.

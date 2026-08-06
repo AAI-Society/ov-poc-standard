@@ -23,7 +23,7 @@ Adopting Zero Trust does not give you Proof-of-Control. Anthropic's Zero Trust f
 
 <!-- BEGIN GENERATED MAPPING (tools/generate_crosswalks.py) -->
 
-**Coverage: 42%** of the 125 Proof-of-Control requirements (8 exact matches, 45 partial matches, 72 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
+**Coverage: 43%** of the 127 Proof-of-Control requirements (8 exact matches, 46 partial matches, 73 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
 
 **How to read the Match column** ([full rubric](rubric.md)): **Exact** — the framework has a clause equivalent in scope and intent. **Partial** — the framework covers the topic, but not with PoC's operator-independent evidence (or not at the same depth). **None** — the framework has no analogous provision. Where a section holds a mix, the badge shows the strongest match present and the **Covered** column shows how many of its requirements are matched at all — so a section reading *Partial 3/5* has two requirements this framework does not reach.
 
@@ -47,7 +47,7 @@ Adopting Zero Trust does not give you Proof-of-Control. Anthropic's Zero Trust f
 | [C6.2 Isolation and Confidential Execution](../0.1/en/0x10-C06-Security.md) | 3 | 0/3 | None | — | Isolation proof not addressed |
 | [C6.3 Cryptographic Key Lifecycle](../0.1/en/0x10-C06-Security.md) | 5 | 0/5 | None | — | Key lifecycle not addressed at this level |
 | [C7.1 Generation at the Action Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | 5/5 | Partial | PEP (§3) | The PEP mediates all access like the interception gateway; evidence emission is not required |
-| [C7.2 The Contemporaneous Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | 2/2 | Partial | Tenet 7 | Continuous monitoring produces execution-time logs; operator-produced |
+| [C7.2 The Contemporaneous Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 4 | 3/4 | Partial | Tenet 7; Sec. 3.3; Tenet 5 | Continuous monitoring produces execution-time logs; operator-produced. Not reached: 7.2.4. |
 | [C7.3 The Tamper-Evident Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | 0/5 | None | — | Tamper-evidence of records not required |
 | [C7.4 The Transparent Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 1 | 0/1 | None | — | Not addressed |
 | [C7.5 The Determinism Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | 0/2 | None | — | Not addressed |
@@ -73,6 +73,7 @@ Adopting Zero Trust does not give you Proof-of-Control. Anthropic's Zero Trust f
 * **C3.2 Cross-Environment Continuity** — Evidence continuity not addressed
 * **C6.2 Isolation and Confidential Execution** — Isolation proof not addressed
 * **C6.3 Cryptographic Key Lifecycle** — Key lifecycle not addressed at this level
+* **C7.2 The Contemporaneous Property** — partially reached; no provision for 7.2.4: No attestation report-data binding requirement
 * **C7.3 The Tamper-Evident Property** — Tamper-evidence of records not required
 * **C7.4 The Transparent Property** — Not addressed
 * **C7.5 The Determinism Boundary** — Not addressed

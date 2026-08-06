@@ -884,6 +884,32 @@
     "auditor_notes": ""
   },
   {
+    "id": "7.2.3",
+    "chapter": "C7",
+    "chapter_title": "Evidence Generation and Properties",
+    "section": "C7.2",
+    "section_title": "The Contemporaneous Property",
+    "level": 3,
+    "level_name": "Independently Verifiable",
+    "requirement": "Verify that the conformance claim states a maximum attestation refresh interval \u2014 the longest period, or the largest number of actions, for which evidence may rest on a hardware measurement taken before them \u2014 and that the mechanism refreshes within it or refuses to continue.",
+    "source_file": "0.1/en/0x10-C07-Evidence-Generation-and-Properties.md",
+    "status": "",
+    "auditor_notes": ""
+  },
+  {
+    "id": "7.2.4",
+    "chapter": "C7",
+    "chapter_title": "Evidence Generation and Properties",
+    "section": "C7.2",
+    "section_title": "The Contemporaneous Property",
+    "level": 3,
+    "level_name": "Independently Verifiable",
+    "requirement": "Verify that the hardware attestation cryptographically binds the evidence signing key: the key's digest appears in the attested report body (TDX `REPORTDATA`, SEV-SNP `REPORT_DATA`, or equivalent), so that a verifier establishes *this key ran inside this measured environment* rather than receiving a measurement and a key that merely arrived together.",
+    "source_file": "0.1/en/0x10-C07-Evidence-Generation-and-Properties.md",
+    "status": "",
+    "auditor_notes": ""
+  },
+  {
     "id": "7.3.1",
     "chapter": "C7",
     "chapter_title": "Evidence Generation and Properties",

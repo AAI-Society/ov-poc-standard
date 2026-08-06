@@ -17,7 +17,7 @@ ISO/IEC 42001 defines the management system (AIMS) through which an organization
 
 <!-- BEGIN GENERATED MAPPING (tools/generate_crosswalks.py) -->
 
-**Coverage: 58%** of the 125 Proof-of-Control requirements (0 exact matches, 72 partial matches, 53 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
+**Coverage: 57%** of the 127 Proof-of-Control requirements (0 exact matches, 72 partial matches, 55 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
 
 **How to read the Match column** ([full rubric](rubric.md)): **Exact** — the framework has a clause equivalent in scope and intent. **Partial** — the framework covers the topic, but not with PoC's operator-independent evidence (or not at the same depth). **None** — the framework has no analogous provision. Where a section holds a mix, the badge shows the strongest match present and the **Covered** column shows how many of its requirements are matched at all — so a section reading *Partial 3/5* has two requirements this framework does not reach.
 
@@ -41,7 +41,7 @@ ISO/IEC 42001 defines the management system (AIMS) through which an organization
 | [C6.2 Isolation and Confidential Execution](../0.1/en/0x10-C06-Security.md) | 3 | 0/3 | None | — | Isolation proof not addressed |
 | [C6.3 Cryptographic Key Lifecycle](../0.1/en/0x10-C06-Security.md) | 5 | 5/5 | Partial | ISO/IEC 27001 cryptographic controls (adjunct) | 27001-aligned cryptographic control expectations (key management) without evidence-key specificity |
 | [C7.1 Generation at the Action Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | 0/5 | None | — | No action-interception concept |
-| [C7.2 The Contemporaneous Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | 2/2 | Partial | Cl. 7.5.3 | Documented-information controls require contemporaneous records; operator-produced |
+| [C7.2 The Contemporaneous Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 4 | 2/4 | Partial | Cl. 7.5.3 | Documented-information controls require contemporaneous records; operator-produced. Not reached: 7.2.3, 7.2.4. |
 | [C7.3 The Tamper-Evident Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | 4/5 | Partial | Cl. 7.5.3 | Records control protects integrity of documented information; not mechanism-generated. Not reached: 7.3.4. |
 | [C7.4 The Transparent Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 1 | 1/1 | Partial | Annex A.8 | Transparency and reporting controls; no trust-assumption format |
 | [C7.5 The Determinism Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | 2/2 | Partial | Cl. 9.1 | 42001 adopts the verification/validation distinction PoC builds on; no claims-review requirement |
@@ -68,6 +68,7 @@ ISO/IEC 42001 defines the management system (AIMS) through which an organization
 * **C5.2 Inter-Agent Identity** — Inter-agent identity not addressed
 * **C6.2 Isolation and Confidential Execution** — Isolation proof not addressed
 * **C7.1 Generation at the Action Boundary** — No action-interception concept
+* **C7.2 The Contemporaneous Property** — partially reached; no provision for 7.2.3, 7.2.4: No attestation refresh requirement
 * **C7.3 The Tamper-Evident Property** — partially reached; no provision for 7.3.4: Records control does not reach proof structure
 * **C7.7 The Interoperable Property** — partially reached; no provision for 7.7.2, 7.7.4, 7.7.5: Canonicalization unaddressed
 * **C8.1 Tier Placement** — No verifiability grading

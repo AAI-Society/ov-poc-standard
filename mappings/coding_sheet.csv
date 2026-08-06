@@ -543,6 +543,22 @@ poc_requirement_id,poc_section,source_framework,match_type,framework_clause,rati
 7.2.2,C7.2,NIST_SP_800_207,PM,Tenet 7,Continuous monitoring produces execution-time logs; operator-produced,seed-01
 7.2.2,C7.2,OWASP_AISVS,PM,AISVS C12,C12 logging requires event-time records; operator-produced,seed-01
 7.2.2,C7.2,SOC_2,PM,CC7.2,CC7.2 audit logging is contemporaneous; operator-produced,seed-01
+7.2.3,C7.2,CSA_AARM,NM,—,No hardware-attestation freshness obligation,seed-01
+7.2.3,C7.2,EU_AI_Act,NM,—,Logging duties do not reach attestation staleness,seed-01
+7.2.3,C7.2,ISO_42001,NM,—,No attestation refresh requirement,seed-01
+7.2.3,C7.2,MITRE_ATLAS,NM,—,Mitigation catalogue; attestation lifecycle out of scope,seed-01
+7.2.3,C7.2,NIST_AI_RMF,NM,—,Not addressed,seed-01
+7.2.3,C7.2,NIST_SP_800_207,PM,Sec. 3.3; Tenet 5,"Device posture must be continually reassessed rather than trusted once; the periodicity is architectural guidance, not an attestation-refresh obligation",seed-01
+7.2.3,C7.2,OWASP_AISVS,NM,—,No attestation freshness requirement,seed-01
+7.2.3,C7.2,SOC_2,NM,—,Not addressed,seed-01
+7.2.4,C7.2,CSA_AARM,NM,—,Agent identity binding addressed; attestation-to-key binding is not,seed-01
+7.2.4,C7.2,EU_AI_Act,NM,—,Not addressed,seed-01
+7.2.4,C7.2,ISO_42001,NM,—,Not addressed,seed-01
+7.2.4,C7.2,MITRE_ATLAS,NM,—,Out of scope,seed-01
+7.2.4,C7.2,NIST_AI_RMF,NM,—,Not addressed,seed-01
+7.2.4,C7.2,NIST_SP_800_207,NM,—,No attestation report-data binding requirement,seed-01
+7.2.4,C7.2,OWASP_AISVS,PM,AISVS C6,Key-management expectations cover custody; binding a key into an attestation report body is not required,seed-01
+7.2.4,C7.2,SOC_2,NM,—,Not addressed,seed-01
 7.3.1,C7.3,CSA_AARM,PM,Gateway receipts,Tamper-evident receipts at the gateway; trust remains rooted in the deployment operator,seed-01
 7.3.1,C7.3,EU_AI_Act,PM,Art. 12; Art. 19,Art 12/19 logging and retention imply record integrity; evidence remains operator-produced (Tier 2 in PoC terms),seed-01
 7.3.1,C7.3,ISO_42001,PM,Cl. 7.5.3,Records control protects integrity of documented information; not mechanism-generated,seed-01

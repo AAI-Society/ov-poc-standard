@@ -9,7 +9,7 @@
 <p align="center">
   <a href="https://creativecommons.org/licenses/by/4.0/"><img alt="License: CC BY 4.0" src="https://img.shields.io/badge/License-CC%20BY%204.0-blue.svg"></a>
   <a href="0.1/en/0x01-Frontispiece.md"><img alt="Status: Working Draft v0.1.4" src="https://img.shields.io/badge/Status-Working%20Draft%20v0.1.4-orange.svg"></a>
-  <a href="0.1/en"><img alt="Requirements: 125" src="https://img.shields.io/badge/Requirements-125-cfff04.svg"></a>
+  <a href="0.1/en"><img alt="Requirements: 127" src="https://img.shields.io/badge/Requirements-127-cfff04.svg"></a>
   <a href="https://advancedaisociety.org/"><img alt="Steward: Advanced AI Society" src="https://img.shields.io/badge/Steward-Advanced%20AI%20Society-cfff04.svg"></a>
 </p>
 
@@ -79,7 +79,7 @@ Chapters **C1–C6** are the six domains of verification — *what* must be veri
 | [B: Proof-Mechanism & Controls Inventory](0.1/en/0x91-Appendix-B_Proof-Mechanism-Inventory.md) | The 9-mechanism taxonomy and all seven MAESTRO layer control tables |
 | [C: Threat Model](0.1/en/0x92-Appendix-C_Threat-Model.md) | 32 threats: coverage grades and out-of-scope boundaries |
 | [D: Open Working-Group Issues](0.1/en/0x93-Appendix-D_Open-Issues.md) | Every `[WG-INPUT NEEDED]` decision, collected |
-| [E: Audit Checklist](0.1/en/0x94-Appendix-E_Audit-Checklist.md) | All 125 requirements as tickable task lists, with the coverage matrix — generated, never stale |
+| [E: Audit Checklist](0.1/en/0x94-Appendix-E_Audit-Checklist.md) | All 127 requirements as tickable task lists, with the coverage matrix — generated, never stale |
 
 ## Reference Implementation
 
@@ -102,8 +102,14 @@ python3 schema/validate.py --vectors   # the published evidence test vectors
 python3 schema/cbor_profile.py         # JSON <-> CBOR rendering equivalence
 ```
 
-Headline results (Apple M2 Max, single core; the TEE is modelled in-process, so enclave
-transitions are excluded and latencies are a lower bound): **201 µs** per intercepted step
+**Now measured on real Intel TDX hardware** ([`impl/tdx/`](impl/tdx)): running inside a trust
+domain costs **6.2%** (9.45 us/step), but a single hardware quote costs **39.5 ms** - 2.6x the
+entire 15 ms per-action budget, so per-action attestation is impossible and every deployment
+must amortize. That amortization is a new exposure window, now requirement **C7.2.3**. The
+evidence key is cryptographically bound into the quote's `REPORTDATA` (**C7.2.4**).
+
+Headline results (Apple M2 Max, single core; except where noted the TEE is modelled in-process,
+so enclave transitions are excluded and latencies are a lower bound): **201 µs** per intercepted step
 (p99 255 µs) — **1.3%** of the 15 ms design budget · path-aware evaluation **flat at 0.21 µs**
 from 10 to 50,000 steps, versus linear growth for naive re-evaluation · **11/11 attacks** succeed
 without the derived requirements and are refused or detected with them · a Merkle inclusion
@@ -180,35 +186,35 @@ The standard is led by co-chairs **Ken Huang** and **Tricia Wang**, produced by 
 ## Regulatory Coverage
 
 How much of Proof-of-Control each external framework already addresses — (Exact + Partial
-matches) / 125 requirements, coded per the [mapping rubric](mappings/rubric.md) and reproducible
+matches) / 127 requirements, coded per the [mapping rubric](mappings/rubric.md) and reproducible
 with `python3 mappings/compute_coverage.py`:
 
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="images/diagrams/mapping-coverage-dark.svg">
-    <img alt="Coverage of the 125 Proof-of-Control requirements by external framework" src="images/diagrams/mapping-coverage-light.svg" width="740">
+    <img alt="Coverage of the 127 Proof-of-Control requirements by external framework" src="images/diagrams/mapping-coverage-light.svg" width="740">
   </picture>
 </p>
 
 > **Read the caveat first.** These are single-coder seed estimates with a known upward bias.
-> An [independent review](docs/reviews/mapping-review-2026-08.md) of all 1,000 coded rows
+> An [independent review](docs/reviews/mapping-review-2026-08.md) of all 1,016 coded rows
 > challenged every Exact rating and found 96 citations that name a chapter rather than a
 > checkable clause. Treat the direction as informative and the values as provisional.
 
 <!-- BEGIN GENERATED COVERAGE -->
 
-**Coverage = (EM + PM) / 125 requirements.** Only exact and partial matches count; the NM column is the gap only Proof-of-Control fills.
+**Coverage = (EM + PM) / 127 requirements.** Only exact and partial matches count; the NM column is the gap only Proof-of-Control fills.
 
 | Framework | Exact (EM) | Partial (PM) | None (NM) | Coverage |
 | --- | :---: | :---: | :---: | :---: |
-| [OWASP AISVS](mappings/owasp.md) | 16 | 62 | 47 | **62%** |
-| [NIST AI RMF](mappings/nist-ai-rmf.md) | 0 | 75 | 50 | **60%** |
-| [ISO/IEC 42001](mappings/iso-iec-42001.md) | 0 | 72 | 53 | **58%** |
-| [SOC 2](mappings/soc-2.md) | 0 | 68 | 57 | **54%** |
-| [EU AI Act](mappings/eu-ai-act.md) | 0 | 65 | 60 | **52%** |
-| [CSA AARM](mappings/csa-aarm.md) | 13 | 47 | 65 | **48%** |
-| [Zero Trust (NIST SP 800-207)](mappings/zero-trust.md) | 8 | 45 | 72 | **42%** |
-| [MITRE ATLAS](mappings/mitre-atlas.md) | 0 | 38 | 87 | **30%** |
+| [OWASP AISVS](mappings/owasp.md) | 16 | 63 | 48 | **62%** |
+| [NIST AI RMF](mappings/nist-ai-rmf.md) | 0 | 75 | 52 | **59%** |
+| [ISO/IEC 42001](mappings/iso-iec-42001.md) | 0 | 72 | 55 | **57%** |
+| [SOC 2](mappings/soc-2.md) | 0 | 68 | 59 | **54%** |
+| [EU AI Act](mappings/eu-ai-act.md) | 0 | 65 | 62 | **51%** |
+| [CSA AARM](mappings/csa-aarm.md) | 13 | 47 | 67 | **47%** |
+| [Zero Trust (NIST SP 800-207)](mappings/zero-trust.md) | 8 | 46 | 73 | **43%** |
+| [MITRE ATLAS](mappings/mitre-atlas.md) | 0 | 38 | 89 | **30%** |
 
 <!-- END GENERATED COVERAGE -->
 

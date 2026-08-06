@@ -5,7 +5,7 @@ it is the evidence layer that sits alongside them. This directory holds the mapp
 complementary forms, following the reproducible coverage methodology established by
 [HAARF](https://github.com/Task-force-for-AI-agents-in-Healthcare/haarf):
 
-1. **Quantitative coverage mapping** — every one of the 125 PoC requirements coded against each
+1. **Quantitative coverage mapping** — every one of the 127 PoC requirements coded against each
    external framework as Exact Match / Partial Match / No Match, with reproducible coverage
    percentages.
 2. **Qualitative crosswalks** — one narrative document per framework explaining the
@@ -16,7 +16,7 @@ complementary forms, following the reproducible coverage methodology established
 | File | What it is |
 | --- | --- |
 | [`rubric.md`](rubric.md) | The EM / PM / NM match-type definitions, coding instructions, and the coverage formula |
-| [`coding_sheet.csv`](coding_sheet.csv) | Row-level coding: 125 requirements × 8 frameworks = 1,000 coded rows with rationales |
+| [`coding_sheet.csv`](coding_sheet.csv) | Row-level coding: 127 requirements × 8 frameworks = 1,016 coded rows with rationales |
 | [`compute_coverage.py`](compute_coverage.py) | Validates the sheet and reproduces the coverage percentages and the chart below |
 | [`corpus/README.md`](corpus/README.md) | Provenance of the external framework documents (title, version, access URL) |
 | [`../docs/reviews/mapping-review-2026-08.md`](../docs/reviews/mapping-review-2026-08.md) | Independent review of all 1,000 rows: what was corrected, what was deferred, and why |
@@ -71,11 +71,11 @@ was deliberately left unapplied.
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="../images/diagrams/mapping-coverage-dark.svg">
-    <img alt="Coverage of the 125 Proof-of-Control requirements by external framework" src="../images/diagrams/mapping-coverage-light.svg" width="740">
+    <img alt="Coverage of the 127 Proof-of-Control requirements by external framework" src="../images/diagrams/mapping-coverage-light.svg" width="740">
   </picture>
 </p>
 
-Each of the 125 requirements is coded against each framework with one of three **match types**
+Each of the 127 requirements is coded against each framework with one of three **match types**
 (defined in the [rubric](rubric.md)):
 
 * **EM · Exact Match** — the framework has a clause equivalent in scope and intent.
@@ -93,18 +93,18 @@ Each of the 125 requirements is coded against each framework with one of three *
 
 <!-- BEGIN GENERATED COVERAGE -->
 
-**Coverage = (EM + PM) / 125 requirements.** Only exact and partial matches count; the NM column is the gap only Proof-of-Control fills.
+**Coverage = (EM + PM) / 127 requirements.** Only exact and partial matches count; the NM column is the gap only Proof-of-Control fills.
 
 | Framework | Exact (EM) | Partial (PM) | None (NM) | Coverage |
 | --- | :---: | :---: | :---: | :---: |
-| [OWASP AISVS](owasp.md) | 16 | 62 | 47 | **62%** |
-| [NIST AI RMF](nist-ai-rmf.md) | 0 | 75 | 50 | **60%** |
-| [ISO/IEC 42001](iso-iec-42001.md) | 0 | 72 | 53 | **58%** |
-| [SOC 2](soc-2.md) | 0 | 68 | 57 | **54%** |
-| [EU AI Act](eu-ai-act.md) | 0 | 65 | 60 | **52%** |
-| [CSA AARM](csa-aarm.md) | 13 | 47 | 65 | **48%** |
-| [Zero Trust (NIST SP 800-207)](zero-trust.md) | 8 | 45 | 72 | **42%** |
-| [MITRE ATLAS](mitre-atlas.md) | 0 | 38 | 87 | **30%** |
+| [OWASP AISVS](owasp.md) | 16 | 63 | 48 | **62%** |
+| [NIST AI RMF](nist-ai-rmf.md) | 0 | 75 | 52 | **59%** |
+| [ISO/IEC 42001](iso-iec-42001.md) | 0 | 72 | 55 | **57%** |
+| [SOC 2](soc-2.md) | 0 | 68 | 59 | **54%** |
+| [EU AI Act](eu-ai-act.md) | 0 | 65 | 62 | **51%** |
+| [CSA AARM](csa-aarm.md) | 13 | 47 | 67 | **47%** |
+| [Zero Trust (NIST SP 800-207)](zero-trust.md) | 8 | 46 | 73 | **43%** |
+| [MITRE ATLAS](mitre-atlas.md) | 0 | 38 | 89 | **30%** |
 
 <!-- END GENERATED COVERAGE -->
 

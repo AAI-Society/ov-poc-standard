@@ -25,7 +25,7 @@ Where they meet: AARM mints the tamper-evident receipt at the runtime gateway in
 
 <!-- BEGIN GENERATED MAPPING (tools/generate_crosswalks.py) -->
 
-**Coverage: 48%** of the 125 Proof-of-Control requirements (13 exact matches, 47 partial matches, 65 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
+**Coverage: 47%** of the 127 Proof-of-Control requirements (13 exact matches, 47 partial matches, 67 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
 
 **How to read the Match column** ([full rubric](rubric.md)): **Exact** — the framework has a clause equivalent in scope and intent. **Partial** — the framework covers the topic, but not with PoC's operator-independent evidence (or not at the same depth). **None** — the framework has no analogous provision. Where a section holds a mix, the badge shows the strongest match present and the **Covered** column shows how many of its requirements are matched at all — so a section reading *Partial 3/5* has two requirements this framework does not reach.
 
@@ -49,7 +49,7 @@ Where they meet: AARM mints the tamper-evident receipt at the runtime gateway in
 | [C6.2 Isolation and Confidential Execution](../0.1/en/0x10-C06-Security.md) | 3 | 0/3 | None | — | Isolation proof not addressed |
 | [C6.3 Cryptographic Key Lifecycle](../0.1/en/0x10-C06-Security.md) | 5 | 0/5 | None | — | Key lifecycle not addressed |
 | [C7.1 Generation at the Action Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | 5/5 | Exact | The AARM runtime gateway | The AARM runtime gateway is the same interception boundary, mediating all agent actions |
-| [C7.2 The Contemporaneous Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | 2/2 | Partial | Execution-time audit trail | Enforcement produces execution-time records; operator-run, not operator-independent |
+| [C7.2 The Contemporaneous Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 4 | 2/4 | Partial | Execution-time audit trail | Enforcement produces execution-time records; operator-run, not operator-independent. Not reached: 7.2.3, 7.2.4. |
 | [C7.3 The Tamper-Evident Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | 3/5 | Partial | Gateway receipts | Tamper-evident receipts at the gateway; trust remains rooted in the deployment operator. Not reached: 7.3.4, 7.3.5. |
 | [C7.4 The Transparent Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 1 | 0/1 | None | — | No trust-assumption disclosure |
 | [C7.5 The Determinism Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | 0/2 | None | — | Not addressed |
@@ -77,6 +77,7 @@ Where they meet: AARM mints the tamper-evident receipt at the runtime gateway in
 * **C5.2 Inter-Agent Identity** — Inter-agent identity not addressed
 * **C6.2 Isolation and Confidential Execution** — Isolation proof not addressed
 * **C6.3 Cryptographic Key Lifecycle** — Key lifecycle not addressed
+* **C7.2 The Contemporaneous Property** — partially reached; no provision for 7.2.3, 7.2.4: No hardware-attestation freshness obligation
 * **C7.3 The Tamper-Evident Property** — partially reached; no provision for 7.3.4, 7.3.5: Receipt integrity addressed; per-record proof against a published root not required
 * **C7.4 The Transparent Property** — No trust-assumption disclosure
 * **C7.5 The Determinism Boundary** — Not addressed

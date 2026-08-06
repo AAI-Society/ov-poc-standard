@@ -17,7 +17,7 @@
 
 <!-- BEGIN GENERATED MAPPING (tools/generate_crosswalks.py) -->
 
-**Coverage: 62%** of the 125 Proof-of-Control requirements (16 exact matches, 62 partial matches, 47 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
+**Coverage: 62%** of the 127 Proof-of-Control requirements (16 exact matches, 63 partial matches, 48 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
 
 **How to read the Match column** ([full rubric](rubric.md)): **Exact** — the framework has a clause equivalent in scope and intent. **Partial** — the framework covers the topic, but not with PoC's operator-independent evidence (or not at the same depth). **None** — the framework has no analogous provision. Where a section holds a mix, the badge shows the strongest match present and the **Covered** column shows how many of its requirements are matched at all — so a section reading *Partial 3/5* has two requirements this framework does not reach.
 
@@ -41,7 +41,7 @@
 | [C6.2 Isolation and Confidential Execution](../0.1/en/0x10-C06-Security.md) | 3 | 3/3 | Exact | AISVS C4; C9 | C4/C9 sandboxing requirements for code execution match isolation-proof scope |
 | [C6.3 Cryptographic Key Lifecycle](../0.1/en/0x10-C06-Security.md) | 5 | 5/5 | Partial | AISVS C4; C5 | C4/C5 key-management expectations; evidence-key custody is PoC-specific |
 | [C7.1 Generation at the Action Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | 5/5 | Partial | AISVS C9 | C9 requires mediated tool access; out-of-band evidence-emitting gateway is PoC-specific |
-| [C7.2 The Contemporaneous Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | 2/2 | Partial | AISVS C12 | C12 logging requires event-time records; operator-produced |
+| [C7.2 The Contemporaneous Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 4 | 3/4 | Partial | AISVS C12; AISVS C6 | C12 logging requires event-time records; operator-produced. Not reached: 7.2.3. |
 | [C7.3 The Tamper-Evident Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | 5/5 | Partial | AISVS C12 | C12 log protection; mechanism-generated tamper-evidence not required |
 | [C7.4 The Transparent Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 1 | 0/1 | None | — | No trust-assumption disclosure |
 | [C7.5 The Determinism Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | 0/2 | None | — | No determinism-boundary analog |
@@ -64,6 +64,7 @@
 * **C2.4 Evidence Handling for Protected Data** — Evidence-store minimization not addressed
 * **C3.1 Boundary-Crossing Evidence** — Boundary-crossing evidence not addressed
 * **C3.2 Cross-Environment Continuity** — Evidence continuity not addressed
+* **C7.2 The Contemporaneous Property** — partially reached; no provision for 7.2.3: No attestation freshness requirement
 * **C7.4 The Transparent Property** — No trust-assumption disclosure
 * **C7.5 The Determinism Boundary** — No determinism-boundary analog
 * **C7.7 The Interoperable Property** — partially reached; no provision for 7.7.2, 7.7.4: Canonicalization unaddressed

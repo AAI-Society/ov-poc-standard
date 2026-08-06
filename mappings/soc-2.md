@@ -24,7 +24,7 @@ An insurer or buyer can require Proof-of-Control the way they already require SO
 
 <!-- BEGIN GENERATED MAPPING (tools/generate_crosswalks.py) -->
 
-**Coverage: 54%** of the 125 Proof-of-Control requirements (0 exact matches, 68 partial matches, 57 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
+**Coverage: 54%** of the 127 Proof-of-Control requirements (0 exact matches, 68 partial matches, 59 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
 
 **How to read the Match column** ([full rubric](rubric.md)): **Exact** — the framework has a clause equivalent in scope and intent. **Partial** — the framework covers the topic, but not with PoC's operator-independent evidence (or not at the same depth). **None** — the framework has no analogous provision. Where a section holds a mix, the badge shows the strongest match present and the **Covered** column shows how many of its requirements are matched at all — so a section reading *Partial 3/5* has two requirements this framework does not reach.
 
@@ -48,7 +48,7 @@ An insurer or buyer can require Proof-of-Control the way they already require SO
 | [C6.2 Isolation and Confidential Execution](../0.1/en/0x10-C06-Security.md) | 3 | 0/3 | None | — | Isolation proof not addressed |
 | [C6.3 Cryptographic Key Lifecycle](../0.1/en/0x10-C06-Security.md) | 5 | 5/5 | Partial | CC6.1 | CC6.1 encryption and key management expectations; not evidence-key custody |
 | [C7.1 Generation at the Action Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | 0/5 | None | — | No interception-gateway concept |
-| [C7.2 The Contemporaneous Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | 2/2 | Partial | CC7.2 | CC7.2 audit logging is contemporaneous; operator-produced |
+| [C7.2 The Contemporaneous Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 4 | 2/4 | Partial | CC7.2 | CC7.2 audit logging is contemporaneous; operator-produced. Not reached: 7.2.3, 7.2.4. |
 | [C7.3 The Tamper-Evident Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | 5/5 | Partial | CC7.2 | Log protection expectations; signatures/chains not required and operator remains trusted |
 | [C7.4 The Transparent Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 1 | 0/1 | None | — | No trust-assumption disclosure analog |
 | [C7.5 The Determinism Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | 0/2 | None | — | No determinism-boundary analog |
@@ -75,6 +75,7 @@ An insurer or buyer can require Proof-of-Control the way they already require SO
 * **C5.2 Inter-Agent Identity** — Inter-agent identity not addressed
 * **C6.2 Isolation and Confidential Execution** — Isolation proof not addressed
 * **C7.1 Generation at the Action Boundary** — No interception-gateway concept
+* **C7.2 The Contemporaneous Property** — partially reached; no provision for 7.2.3, 7.2.4: Not addressed
 * **C7.4 The Transparent Property** — No trust-assumption disclosure analog
 * **C7.5 The Determinism Boundary** — No determinism-boundary analog
 * **C7.7 The Interoperable Property** — No evidence-format requirement

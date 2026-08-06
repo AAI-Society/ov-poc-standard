@@ -120,7 +120,7 @@ check? Today, in nearly every deployment, you cannot. The only account of what
 happened is the system's own, and the party writing that account is the party
 you would be checking. We call this the \emph{Verifiability Gap}, and this
 paper is about closing it. We describe \poc{}, an open standard with six
-domains of verification covering 125 testable requirements; four tiers that
+domains of verification covering 127 testable requirements; four tiers that
 grade evidence by \emph{who you must trust to believe it}, with a hard line
 between the tiers where you still trust somebody and the tiers where you do
 not; and an architecture that intercepts every consequential action, decides
@@ -194,7 +194,7 @@ we fixed them, and then we measured what the whole thing costs. Specifically:
 
 \begin{enumerate}[itemsep=1pt,topsep=2pt]
 \item \textbf{The standard} (Section~\ref{sec:standard}): six domains of
-verification with 125 testable requirements, four evidence properties, four
+verification with 127 testable requirements, four evidence properties, four
 tiers that grade evidence by how much trust it demands, and three stages of
 how thoroughly a claim was checked.
 \item \textbf{The architecture} (Section~\ref{sec:arch}): interception of
@@ -394,7 +394,7 @@ when its evidence reaches the top two tiers~\cite{pocspec}. We use MUST and
 SHOULD in the RFC~2119 sense~\cite{rfc2119}.
 
 \subsection{The six things worth having evidence about}
-The requirements---125 of them, each phrased as something you can go and
+The requirements---127 of them, each phrased as something you can go and
 check---are grouped into six domains:
 
 \begin{enumerate}[itemsep=1pt,topsep=2pt]
@@ -1086,7 +1086,7 @@ tell the difference.
 \label{sec:gap}
 
 Before claiming a gap exists, you should check whether somebody already filled
-it. So we took all 125 requirements and, one at a time, asked of eight
+it. So we took all 127 requirements and, one at a time, asked of eight
 existing frameworks: does this framework already require this?
 
 \subsection{How we did it}
@@ -1095,7 +1095,7 @@ agents~\cite{haarf2026}, each requirement gets one of three marks against each
 framework. \emph{Exact}: they ask for the same thing, at the same depth.
 \emph{Partial}: they ask about the same topic, but without demanding evidence
 somebody outside the company can check, or not in as much detail.
-\emph{None}: they do not address it. Coverage is (Exact + Partial) over 125.
+\emph{None}: they do not address it. Coverage is (Exact + Partial) over 127.
 The sheet, the rubric, and the script are public, so you can re-derive the
 numbers or re-code a framework you think we got wrong.
 
@@ -1196,17 +1196,17 @@ matches. Light: partial. The rest is the gap.}
 \textbf{Framework} & \textbf{Exact} & \textbf{Partial} & \textbf{None} &
 \textbf{Coverage} \\
 \midrule
-OWASP AISVS~\cite{owaspaisvs} & 16 & 62 & 47 & 62\% \\
-NIST AI RMF~\cite{nistairmf} & 0 & 75 & 50 & 60\% \\
-ISO/IEC 42001~\cite{iso42001} & 0 & 72 & 53 & 58\% \\
-SOC 2~\cite{soc2tsc} & 0 & 68 & 57 & 54\% \\
-EU AI Act~\cite{euaiact} & 0 & 65 & 60 & 52\% \\
-CSA AARM~\cite{csaaarm} & 13 & 47 & 65 & 48\% \\
-Zero Trust (SP 800-207)~\cite{sp800207} & 8 & 45 & 72 & 42\% \\
-MITRE ATLAS~\cite{mitreatlas} & 0 & 38 & 87 & 30\% \\
+OWASP AISVS~\cite{owaspaisvs} & 16 & 63 & 48 & 62\% \\
+NIST AI RMF~\cite{nistairmf} & 0 & 75 & 52 & 59\% \\
+ISO/IEC 42001~\cite{iso42001} & 0 & 72 & 55 & 57\% \\
+SOC 2~\cite{soc2tsc} & 0 & 68 & 59 & 54\% \\
+EU AI Act~\cite{euaiact} & 0 & 65 & 62 & 51\% \\
+CSA AARM~\cite{csaaarm} & 13 & 47 & 67 & 47\% \\
+Zero Trust (SP 800-207)~\cite{sp800207} & 8 & 46 & 73 & 43\% \\
+MITRE ATLAS~\cite{mitreatlas} & 0 & 38 & 89 & 30\% \\
 \bottomrule
 \end{tabular}
-\caption{Coverage of all 125 requirements, coded individually by one coder.
+\caption{Coverage of all 127 requirements, coded individually by one coder.
 The thin Exact column is the finding: frameworks want the controls, not
 operator-independent evidence that the controls held.}
 \label{tab:coverage}
@@ -1687,6 +1687,111 @@ The useful conclusion is that the dominant cost in our measurements is not
 inherent. Anyone who reads Table~\ref{tab:latency}, concludes ``signing is too
 expensive,'' and starts redesigning should read Figure~\ref{fig:batch} first.
 
+\subsection{On real hardware, at last}
+\label{sec:tdx}
+
+Everything above was measured with the enclave as an in-process object, and we
+have been careful to say so. That stand-in reproduces the protocol but leaves
+the load-bearing claim untested: that a verifier can establish \emph{which code
+produced this evidence} without trusting the operator. So we ran the pipeline
+inside a real Intel TDX trust domain on Google Cloud, with an identical
+non-confidential instance of the same shape as a control, so that the cost of
+the trust domain is isolated rather than confounded with a change of CPU.
+
+\paragraph{The binding.} A quote on its own proves that some measured
+environment exists. It says nothing about which signing key belongs to it, and
+an operator who could pair an honest quote with a key held outside the domain
+would defeat the whole arrangement. TDX provides 64 bytes of
+\texttt{REPORTDATA} that the hardware copies into what it signs, so we put the
+digest of the evidence public key there. The hardware signature then covers the
+measurement \emph{and} the key together, and the statement a verifier receives
+is the one that matters---this key lives inside this measured
+environment---rather than two facts that merely arrived in the same envelope.
+
+It works. The instance reports \texttt{Intel TDX} and \texttt{tdx: Guest
+detected}; a quote is 8{,}000 bytes and carries a real
+MRTD (\texttt{c1ee9c16e3af\ldots}); the quote commits to our key, and rejects a
+key we did not attest. This is requirement C7.2.4, and it is the first claim in
+this paper established by hardware rather than by argument.
+
+\paragraph{The cost, which is not where we expected it.}
+Table~\ref{tab:tdx} has the numbers, and they separate cleanly into two very
+different quantities.
+
+\begin{table}[ht]
+\centering\small
+\begin{tabular}{@{}lrr@{}}
+\toprule
+& \textbf{Measured} & \textbf{Relative} \\
+\midrule
+Software pipeline, TDX off (control) & \SI{152.88}{\micro\second} & --- \\
+Software pipeline, inside the TD & \SI{162.33}{\micro\second} & $+6.2\%$ \\
+\midrule
+\textbf{Trust-domain overhead} & \textbf{\SI{9.45}{\micro\second}} & \textbf{6.2\%} \\
+\textbf{One hardware quote} & \textbf{\SI{39.5}{\milli\second}} & \textbf{4{,}180$\times$ the overhead} \\
+\bottomrule
+\end{tabular}
+\caption{The pipeline on Intel TDX (GCP \texttt{c3-standard-4}) against an
+identical non-confidential instance. Running inside the trust domain is nearly
+free; attesting it is not.}
+\label{tab:tdx}
+\end{table}
+
+Running \emph{inside} a trust domain costs 6.2\%---about ten microseconds a
+step. That is the number we had no way to measure before and were careful not
+to guess at, and it is small enough to be uninteresting, which is the best kind
+of result for a design that depends on it.
+
+Producing a \emph{quote} costs \SI{39.5}{\milli\second}. That is about four
+thousand times the per-step overhead, and 2.6 times the entire
+\SI{15}{\milli\second} budget for a single action. Attesting once per action is
+therefore not expensive but impossible, and no amount of engineering will close
+a gap of that shape. Every real deployment will take one quote and use it for
+many actions: amortized over 100 actions the cost falls to
+\SI{557}{\micro\second} a step, and over 1{,}000 to \SI{202}{\micro\second},
+which is back inside the budget.
+
+\paragraph{Which creates an exposure window we had not named.} If a quote is
+taken once and covers the next thousand actions, then those actions rest on a
+measurement made before them. Should the measured code change in between, their
+evidence attests an environment that is no longer the one that ran, and nothing
+in the record says so.
+
+This is the same shape as the anchoring interval $\Delta$ of
+\S\ref{sec:deltameasured}: a parameter that trades cost against how much can
+happen unobserved, where the only wrong answer is not to state it. So it
+becomes a requirement in the same form. C7.2.3 obliges a conformance claim to
+declare a maximum attestation refresh interval and to refresh within it or stop.
+We would not have thought to write that requirement from the software model,
+because in the software model a measurement is free and staleness never arises.
+
+\paragraph{What this still does not establish.} The reviewers of this paper
+asked for a real TEE, and this is one, but it answers a narrower question than
+the one they were asking. It shows the protocol runs on real hardware, what the
+hardware costs, and that the key binding holds. It does \emph{not} demonstrate
+resistance to a hostile host: we did not compromise a hypervisor, and Google
+operates the one underneath this. The adversary of \S\ref{sec:security} owns the
+OS; what we have shown is that the construction works on hardware that claims to
+resist such an adversary, not that the resistance holds.
+
+\paragraph{And who you must still trust.} The most useful output of running on
+real hardware was the list it forced us to write down. To believe a measurement
+from this deployment, a verifier accepts: Intel, that the TDX module and CPU
+behave as specified and the provisioning key is not misissued; Intel's
+certification service, that the collateral fetched to check the quote is
+authentic; the quoting enclave, that it signs reports honestly; Google, that the
+host does not extract domain memory by some route outside the TDX threat model,
+and that the firmware measured into the runtime registers is what it says;
+and whoever publishes reference values, that the MRTD being compared against
+belongs to the code one believes it does.
+
+Anchoring the evidence log removes \emph{none} of these. It makes the
+\emph{history} publicly auditable, which is a real and separate property. The
+\emph{measurement} is still established by that chain of parties. Our tier
+definitions say that at Tier 3 there is nobody left to trust, and this list is
+the plain refutation of that sentence---which we take up in
+\S\ref{sec:discussion}.
+
 \subsection{The question a chain cannot answer}
 \label{sec:merkle}
 
@@ -1822,6 +1927,19 @@ things we have not settled.
 the hardware is not there. Enclave transition cost is unmeasured, and a real
 deployment will be slower than what we report. Running this on TDX or SEV-SNP
 and measuring again is the obvious next job.
+
+\paragraph{Our tier definitions overclaim, and we now have the receipts.} The
+standard says that at Tier 3 there is nobody left to trust. \S\ref{sec:tdx}
+lists five parties a verifier must still accept to believe a measurement from
+our own TDX deployment, and anchoring removes none of them. The sentence
+conflates two properties that a careful reader will separate for us: evidence
+can be \emph{publicly verifiable}---anyone may check it with published
+tools---without being \emph{trust-independent}, and hardware attestation buys
+the first while leaving a vendor chain intact underneath the second. The tiers
+should be defined by which assumptions remain at each level and stated
+explicitly in every conformance claim, and until they are, a Tier 3 claim says
+less than its own definition promises. We would rather print that here than let
+it be discovered.
 
 \textbf{(2)~We verify what happened, not whether it was wise.} No claim about
 correctness, fairness, or intent. An agent that does something harmful

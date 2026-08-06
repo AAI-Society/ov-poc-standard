@@ -17,7 +17,7 @@ The coverage below is accordingly the lowest of any coded framework — and that
 
 <!-- BEGIN GENERATED MAPPING (tools/generate_crosswalks.py) -->
 
-**Coverage: 30%** of the 125 Proof-of-Control requirements (0 exact matches, 38 partial matches, 87 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
+**Coverage: 30%** of the 127 Proof-of-Control requirements (0 exact matches, 38 partial matches, 89 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
 
 **How to read the Match column** ([full rubric](rubric.md)): **Exact** — the framework has a clause equivalent in scope and intent. **Partial** — the framework covers the topic, but not with PoC's operator-independent evidence (or not at the same depth). **None** — the framework has no analogous provision. Where a section holds a mix, the badge shows the strongest match present and the **Covered** column shows how many of its requirements are matched at all — so a section reading *Partial 3/5* has two requirements this framework does not reach.
 
@@ -41,7 +41,7 @@ The coverage below is accordingly the lowest of any coded framework — and that
 | [C6.2 Isolation and Confidential Execution](../0.1/en/0x10-C06-Security.md) | 3 | 3/3 | Partial | Execution-restriction / sandboxing mitigations | Sandboxing/restricting execution mitigations align with isolation requirements |
 | [C6.3 Cryptographic Key Lifecycle](../0.1/en/0x10-C06-Security.md) | 5 | 0/5 | None | — | Key lifecycle not addressed |
 | [C7.1 Generation at the Action Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | 1/5 | Partial | AML.M0028 — AI Agent Tools Permissions Configuration; AML.M0032 — Segmentation of AI Agent Components | ATLAS covers applying inherited permissions/restrictions to tools and enforcing boundaries around tools and data sources. It does not require attested mediation, action-bound capabilities, or matching evidence. Not reached: 7.1.1, 7.1.2, 7.1.3, 7.1.5. |
-| [C7.2 The Contemporaneous Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | 1/2 | Partial | AML.M0024 — AI Telemetry Logging | ATLAS calls for logging deployed-model inputs/outputs and agent intermediate actions, decisions, data access, and tool use. It does not require recording inside the same transaction or rule out later reconstruction. Not reached: 7.2.2. |
+| [C7.2 The Contemporaneous Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 4 | 1/4 | Partial | AML.M0024 — AI Telemetry Logging | ATLAS calls for logging deployed-model inputs/outputs and agent intermediate actions, decisions, data access, and tool use. It does not require recording inside the same transaction or rule out later reconstruction. Not reached: 7.2.2, 7.2.3, 7.2.4. |
 | [C7.3 The Tamper-Evident Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | 3/5 | Partial | ML event-logging mitigations | Logging-of-ML-events mitigation supports detection; integrity mechanisms unspecified. Not reached: 7.3.4, 7.3.5. |
 | [C7.4 The Transparent Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 1 | 0/1 | None | — | Not addressed |
 | [C7.5 The Determinism Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | 0/2 | None | — | Not addressed |
@@ -70,7 +70,7 @@ The coverage below is accordingly the lowest of any coded framework — and that
 * **C5.2 Inter-Agent Identity** — Inter-agent identity not addressed
 * **C6.3 Cryptographic Key Lifecycle** — Key lifecycle not addressed
 * **C7.1 Generation at the Action Boundary** — partially reached; no provision for 7.1.1, 7.1.2, 7.1.3, 7.1.5: No evidence-generation concept
-* **C7.2 The Contemporaneous Property** — partially reached; no provision for 7.2.2: Not addressed
+* **C7.2 The Contemporaneous Property** — partially reached; no provision for 7.2.2, 7.2.3, 7.2.4: Not addressed
 * **C7.3 The Tamper-Evident Property** — partially reached; no provision for 7.3.4, 7.3.5: Adversary-technique catalogue; log structure out of scope
 * **C7.4 The Transparent Property** — Not addressed
 * **C7.5 The Determinism Boundary** — Not addressed

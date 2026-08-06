@@ -15,6 +15,9 @@ python3 bench/bench_frontier.py   # the declassification frontier
 python3 bench/bench_ops.py        # deep scaling, anchoring interval, batching, retention
 python3 bench/bench_merkle.py     # inclusion and consistency proofs vs chain replay
 
+# on a real Intel TDX confidential VM (creates and deletes two GCP instances):
+./tdx/run_on_gcp.sh
+
 cd ..
 python3 schema/validate.py --vectors   # the published evidence test vectors
 python3 schema/cbor_profile.py         # JSON <-> CBOR rendering equivalence
@@ -252,6 +255,55 @@ with:    history rewritten: the chain presented at step 8 has head
 This became requirement **C7.3.5**, whose wording — "compares the recomputed
 root against the anchored value rather than only against a step count" — exists
 because we made exactly that mistake.
+
+## On real Intel TDX hardware
+
+Everything above models the enclave in-process. [`tdx/run_on_gcp.sh`](tdx/run_on_gcp.sh)
+runs the same pipeline inside a real Intel TDX trust domain on GCP, with an identical
+non-confidential instance as the control so trust-domain cost is isolated rather than
+confounded with a change of CPU.
+
+```bash
+./impl/tdx/run_on_gcp.sh [PROJECT] [ZONE]   # creates two VMs, deletes them on exit
+```
+
+**The key binding works.** A quote proves a measured environment exists; it says nothing about
+which signing key belongs to it. We put the digest of the evidence public key into TDX
+`REPORTDATA`, so the hardware signature covers the measurement *and* the key. Measured: an
+8,000-byte DCAP quote, real MRTD `c1ee9c16e3af...`, commits to our key and rejects one we did
+not attest. That is requirement **C7.2.4**.
+
+**The cost is not where we expected it.**
+
+| | Measured | Relative |
+| --- | ---: | ---: |
+| Software pipeline, TDX off (control) | 152.88 us | - |
+| Software pipeline, inside the TD | 162.33 us | +6.2% |
+| **Trust-domain overhead** | **9.45 us** | **6.2%** |
+| **One hardware quote** | **39.5 ms** | **4,180x the overhead** |
+
+Running *inside* a trust domain is nearly free. Producing a *quote* costs 39.5 ms, which is
+2.6x the entire 15 ms per-action budget on its own. Per-action attestation is not expensive, it
+is impossible; every deployment amortizes:
+
+| Quote every | Cost per step |
+| ---: | ---: |
+| 1 action | 39,666 us |
+| 10 actions | 4,113 us |
+| 100 actions | 557 us |
+| 1,000 actions | 202 us |
+
+**Which creates an exposure window.** Actions after a quote rest on a measurement taken before
+them; if the measured code changed in between, their evidence attests an environment that is no
+longer the one that ran. Same shape as the anchoring interval, and now requirement **C7.2.3**:
+declare a maximum attestation refresh interval, refresh within it, or stop.
+
+**What it does not show.** The protocol runs on real hardware and the binding holds. It does not
+demonstrate resistance to a hostile host - we did not compromise a hypervisor, and Google runs
+the one underneath. Nor does it make the evidence trust-free: to believe a measurement, a
+verifier still accepts Intel, Intel's certification service, the quoting enclave, Google, and
+whoever publishes reference values. Anchoring makes the *history* auditable; it does not
+establish the *measurement*.
 
 ## Two defects this round's review found
 

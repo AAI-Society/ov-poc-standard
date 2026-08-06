@@ -17,7 +17,7 @@ Concretely: regulators today cannot verify that a high-risk system operated with
 
 <!-- BEGIN GENERATED MAPPING (tools/generate_crosswalks.py) -->
 
-**Coverage: 52%** of the 125 Proof-of-Control requirements (0 exact matches, 65 partial matches, 60 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
+**Coverage: 51%** of the 127 Proof-of-Control requirements (0 exact matches, 65 partial matches, 62 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
 
 **How to read the Match column** ([full rubric](rubric.md)): **Exact** — the framework has a clause equivalent in scope and intent. **Partial** — the framework covers the topic, but not with PoC's operator-independent evidence (or not at the same depth). **None** — the framework has no analogous provision. Where a section holds a mix, the badge shows the strongest match present and the **Covered** column shows how many of its requirements are matched at all — so a section reading *Partial 3/5* has two requirements this framework does not reach.
 
@@ -41,7 +41,7 @@ Concretely: regulators today cannot verify that a high-risk system operated with
 | [C6.2 Isolation and Confidential Execution](../0.1/en/0x10-C06-Security.md) | 3 | 3/3 | Partial | Art. 15 | Art 15 cybersecurity covers isolation expectations generally; no proof-of-isolation requirement |
 | [C6.3 Cryptographic Key Lifecycle](../0.1/en/0x10-C06-Security.md) | 5 | 0/5 | None | — | No key-lifecycle provisions |
 | [C7.1 Generation at the Action Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | 0/5 | None | — | No action-interception or evidence-at-boundary concept |
-| [C7.2 The Contemporaneous Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | 2/2 | Partial | Art. 12 | Art 12 requires automatic recording of events over the lifetime; no operator-independent time anchoring |
+| [C7.2 The Contemporaneous Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 4 | 2/4 | Partial | Art. 12 | Art 12 requires automatic recording of events over the lifetime; no operator-independent time anchoring. Not reached: 7.2.3, 7.2.4. |
 | [C7.3 The Tamper-Evident Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | 5/5 | Partial | Art. 12; Art. 19; Art. 12 | Art 12/19 logging and retention imply record integrity; evidence remains operator-produced (Tier 2 in PoC terms) |
 | [C7.4 The Transparent Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 1 | 1/1 | Partial | Art. 13 | Art 13 transparency to deployers discloses capabilities and limitations; no trust-assumption disclosure |
 | [C7.5 The Determinism Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | 0/2 | None | — | No determinism-boundary or claims-discipline provision |
@@ -68,6 +68,7 @@ Concretely: regulators today cannot verify that a high-risk system operated with
 * **C5.2 Inter-Agent Identity** — No inter-agent identity provisions
 * **C6.3 Cryptographic Key Lifecycle** — No key-lifecycle provisions
 * **C7.1 Generation at the Action Boundary** — No action-interception or evidence-at-boundary concept
+* **C7.2 The Contemporaneous Property** — partially reached; no provision for 7.2.3, 7.2.4: Logging duties do not reach attestation staleness
 * **C7.5 The Determinism Boundary** — No determinism-boundary or claims-discipline provision
 * **C7.7 The Interoperable Property** — partially reached; no provision for 7.7.2, 7.7.3, 7.7.4, 7.7.5: Canonicalization unaddressed
 * **C8.1 Tier Placement** — No evidence-verifiability grading concept
