@@ -19,6 +19,7 @@
 \usepackage{enumitem}
 \usepackage{microtype}
 \usepackage{caption}
+\usepackage{siunitx}
 \usepackage{amsthm}
 \newtheorem{definition}{Definition}
 \newtheorem{theorem}{Theorem}
@@ -132,14 +133,20 @@ mapping showing that eight leading frameworks (NIST AI RMF, ISO/IEC~42001,
 OWASP AISVS, EU AI Act, SOC~2, CSA AARM, NIST SP~800-207, MITRE ATLAS)
 address 27--63\% of PoC requirements---almost entirely as partial matches
 that require the control but not operator-independent evidence of it. We
-state a formal policy model, an adversary model with four security
-properties and the assumptions each depends on, engineering design targets,
-and an integration roadmap across ISO/IEC JTC~1/SC~42, IETF RATS, and NIST
-AI~600-1. \textbf{Scope.} This is a specification and design paper: we
-report the standard, its formal treatment, and a descriptive gap analysis. A
-reference implementation and its measurement are ongoing work and are
-\emph{not} claimed here; Section~\ref{sec:targets} states design targets, not
-results.}
+state a formal policy model and an adversary model with four security
+properties, proving execution fidelity under capability-bound dispatch and
+showing that two properties do \emph{not} follow from attestation alone.
+We report an open-source reference implementation and its measurement: the
+software pipeline costs \SI{191}{\micro\second} per intercepted step
+(p99 \SI{237}{\micro\second}), 1.3\% of a \SI{15}{\milli\second} budget;
+path-aware evaluation is flat at \SI{0.21}{\micro\second} across a
+500$\times$ increase in path length, versus linear growth for naive
+re-evaluation; and eight attacks---including snapshot substitution,
+truncation, and split-view---succeed without the derived requirements and are
+refused or detected with them. The utility measurement is the consequential
+one: path-aware authorization falsely rejects 42.2\% of benign workflows
+without an explicit declassification point and 0\% with one, reproducing
+the label-creep result from information-flow control.}
 
 \clearpage
 
@@ -187,20 +194,19 @@ resist without the additional requirements we derive here
 (4)~a descriptive gap analysis mapping all 116 requirements against eight
 regulatory and security frameworks, with its methodological limits stated
 (Section~\ref{sec:gap}); and
-(5)~engineering design targets and an integration roadmap across ISO/IEC
-JTC~1/SC~42~\cite{jtc1sc42,nemko2025}, the IETF RATS working
-group~\cite{ietfrats}, the Agent Control
-Specification~\cite{acs2026,acsms2026}, and NIST AI~600-1~\cite{nist6001}
-(Sections~\ref{sec:targets}--\ref{sec:discussion}).
+(5)~an open-source reference implementation, an eight-scenario attack
+harness that runs each attack with and without the requirement that addresses
+it, and measurements of latency, path-length scaling, verification cost, and
+the utility cost of path-aware authorization
+(Section~\ref{sec:eval}).
 
-\emph{What this paper is not.} We do not report an implementation or
-performance measurements. \poc{} is a standard under public comment; a
-reference implementation of the enclave-resident policy engine and evidence
-pipeline is in progress, and its evaluation---latency distributions under
-realistic multi-step agent workloads, and utility cost of path-aware
-authorization---is deferred to a systems paper. Section~\ref{sec:targets}
-states the budgets such an implementation must meet; treating them as
-results would be unwarranted.
+\emph{Scope of the implementation.} A hardware TEE was not available; the
+attesting environment is modelled in-process, so reported latencies exclude
+enclave transition costs and are a lower bound on end-to-end deployment
+latency. Everything else---signing, chaining, canonicalization, policy
+evaluation, capability minting and checking, anchoring, gossip, and
+verification---is real code exercised by real attacks. We state this boundary
+explicitly rather than extrapolating an overhead we did not measure.
 
 \section{Background and Motivation}
 \label{sec:background}
@@ -719,7 +725,7 @@ differences precisely rather than reinventing the field:
   outside the claim---consistent with the determinism boundary.
 \item \textbf{Inherited problems.} Label creep and the declassification
   problem~\cite{sabelfeld2003} predict directly the utility cost we flag as
-  unmeasured (Section~\ref{sec:targets}): a monitor that accumulates
+  unmeasured (Section~\ref{sec:eval}): a monitor that accumulates
   restrictions along a path will eventually refuse legitimate work, and the
   practical question is where declassification points belong. IFC's history
   suggests this, not cryptography, is the binding constraint on deployment.
@@ -730,7 +736,7 @@ differences precisely rather than reinventing the field:
 
 Evaluating $\Pi$ against the full path $p_t$ is not implementable as written:
 $|p_t|$ grows without bound, and a per-step cost linear in $t$ violates the
-latency target of Section~\ref{sec:targets}. \poc{} therefore requires
+latency target of Section~\ref{sec:eval}. \poc{} therefore requires
 policies to be expressible over a \emph{bounded path summary}: a state
 $\phi_t$ with $|\phi_t| \le B$ for a fixed $B$, updated by a fold
 \begin{equation}
@@ -952,7 +958,7 @@ Skill-composition attacks & P1 &
 Path-aware evaluation: $\Pi$ takes the partial path as an argument
 (Section~\ref{sec:formal}), so composed escalation is inside the decision
 boundary. Residual: utility cost, unquantified
-(Sections~\ref{sec:ifc},~\ref{sec:targets}). \\
+(Sections~\ref{sec:ifc},~\ref{sec:utility}). \\
 Cascading sub-agent exploitation & P1--P4 &
 Delegation hooks enforce constraint inheritance; sub-agent evidence verified
 via multi-verifier topologies~\cite{multiverifier}. \\
@@ -1155,28 +1161,181 @@ specification, and no implementation comparison is claimed.}
 \label{tab:compare}
 \end{table}
 
-\section{Design Targets and Open Engineering Questions}
-\label{sec:targets}
+\section{Implementation and Evaluation}
+\label{sec:eval}
 
-Because agent workflows involve synchronous tool invocations, governance must
-operate at machine speed. We state design targets that a conformant
-implementation should meet; \textbf{these are budgets, not measurements}, and
-validating them is the purpose of the reference implementation now in
-progress.
+We implemented the pipeline of Section~\ref{sec:arch} and evaluated it along
+four axes: correctness against the requirements, resistance to the attacks of
+Section~\ref{sec:security}, cost, and utility. The implementation is
+open source in the specification repository.
 
-\begin{itemize}[itemsep=2pt]
-\item \textbf{Interception overhead:} a target of $<15$\,ms added latency per
-  intercepted step, decomposed into enclave transition, snapshot
-  canonicalization, policy evaluation, signing, and chain append. Each term
-  is measurable and each is contested in the literature; enclave transition
-  and canonicalization are the terms we expect to dominate.
-\item \textbf{Anchoring interval $\Delta$:} the undetectable truncation
-  window (Section~\ref{sec:security}) is bounded by $\Delta$, so $\Delta$
-  trades verifiability against anchoring cost. The standard requires $\Delta$
-  be declared; Table~\ref{tab:delta} gives working guidance derived from the
-  quantity actually at risk---the volume of in-scope action that can be
-  suppressed within one window---rather than from convention.
-\end{itemize}
+\paragraph{What is implemented, and what is modelled.} Real: Ed25519 signing
+and verification, SHA-256 hash chaining with monotonic indices, canonical
+serialization, path-aware policy evaluation over a bounded summary,
+capability minting and relying-party verification, anchoring, gossip-based
+equivocation detection, and fail-closed behaviour on evidence-pipeline
+failure. Modelled: the hardware TEE. No TDX/SEV-SNP machine was available, so
+the Attesting Environment is an in-process object whose signing key is never
+exposed through its API and whose measurement is a digest of the policy-engine
+identity and bundle. This reproduces the protocol structure the theorems
+concern, but not hardware isolation; \textbf{reported latencies therefore
+exclude enclave transitions and are a lower bound}. Measurements: Apple M2
+Max, Python 3.11, single core, 5{,}000 iterations after 200 warm-up steps.
+
+\subsection{Attack harness}
+Each of eight scenarios runs against a deployment \emph{without} the relevant
+requirement and \emph{with} it (Table~\ref{tab:attacks}). All eight attacks
+succeed without the requirement; all eight are refused or detected with it.
+
+\begin{table}[ht]
+\centering\footnotesize
+\begin{tabular}{@{}p{0.5cm}p{3.3cm}p{4.6cm}p{5.2cm}@{}}
+\toprule
+& \textbf{Attack} & \textbf{Without the requirement} & \textbf{With it} \\
+\midrule
+A1 & Snapshot substitution & Succeeds on first attempt: evidence attests a
+benign action while a malicious one executes & Refused: request does not match
+the evidenced snapshot \\
+A2 & Log alteration & Succeeds against unsigned operator logs &
+Detected: invalid signature at record 2 \\
+A3 & Omission of a step & Succeeds: a dropped step is indistinguishable from
+one that never happened & Detected: sequence gap at step 3 \\
+A4 & Head truncation & Succeeds: the truncated prefix is internally consistent
+& Detected: anchor covers 8 steps, 5 presented \\
+A5 & Split-view & Succeeds: each verifier's chain is internally consistent &
+Detected: divergent roots at a common index \\
+A6 & Path-composition escalation & Succeeds: read and egress each within grant
+& Blocked: egress after confidential read \\
+A7 & Capability replay & Succeeds without single-use semantics &
+Refused: nonce replay \\
+A8 & Evidence-pipeline failure & Succeeds: the system keeps acting while
+logging is down & Refused: fail-closed, failure recorded \\
+\bottomrule
+\end{tabular}
+\caption{Attack harness. A1 is the empirical form of
+Proposition~\ref{prop:necessity}: without a check binding the executed request
+to the evidenced snapshot, the adversary wins with probability~1---here, on
+the first attempt.}
+\label{tab:attacks}
+\end{table}
+
+\subsection{Cost}
+Table~\ref{tab:latency} breaks down a single intercepted step. Signing
+dominates at 87\% of the step; policy evaluation is negligible at
+\SI{0.35}{\micro\second}. The end-to-end figure exceeds the component sum
+because a step signs twice (evidence token and capability) and serializes the
+token. Against the \SI{15}{\milli\second} design target, the software pipeline
+consumes 1.3\%, leaving 78$\times$ headroom---the margin available for enclave
+transitions in a hardware deployment. Single-core throughput is
+5{,}233 steps/s.
+
+\begin{table}[ht]
+\centering\small
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+\textbf{Component} & \textbf{Mean} & \textbf{p95} & \textbf{p99} \\
+\midrule
+Canonicalization + digest & \SI{3.65}{\micro\second} & \SI{3.83}{\micro\second} & \SI{7.00}{\micro\second} \\
+Policy evaluation (path-aware) & \SI{0.35}{\micro\second} & \SI{0.42}{\micro\second} & \SI{0.71}{\micro\second} \\
+Ed25519 signing & \SI{83.42}{\micro\second} & \SI{95.88}{\micro\second} & \SI{110.04}{\micro\second} \\
+Chain append & \SI{0.67}{\micro\second} & \SI{0.79}{\micro\second} & \SI{3.38}{\micro\second} \\
+\midrule
+\textbf{End-to-end gateway step} & \textbf{\SI{191.08}{\micro\second}} & \textbf{\SI{215.96}{\micro\second}} & \textbf{\SI{237.00}{\micro\second}} \\
+\bottomrule
+\end{tabular}
+\caption{Per-step latency, excluding enclave transitions.}
+\label{tab:latency}
+\end{table}
+
+\subsection{Path-length scaling}
+Section~\ref{sec:complexity} claims per-step cost independent of path length
+under a bounded summary. Measured (Table~\ref{tab:scaling}), the bounded
+summary is flat at \SI{0.21}{\micro\second} across a 500$\times$ increase in
+path length, while naive re-evaluation of the full path grows linearly and
+would exhaust the \SI{15}{\milli\second} budget at roughly 22{,}000 steps.
+The complexity claim is therefore not merely asymptotic bookkeeping: it is the
+difference between a monitor that survives long-running agents and one that
+does not.
+
+\begin{table}[ht]
+\centering\small
+\begin{tabular}{@{}rrr@{}}
+\toprule
+\textbf{Path length} & \textbf{Bounded summary} & \textbf{Naive full path} \\
+\midrule
+10 & \SI{0.208}{\micro\second} & \SI{5.79}{\micro\second} \\
+100 & \SI{0.208}{\micro\second} & \SI{64.92}{\micro\second} \\
+1{,}000 & \SI{0.208}{\micro\second} & \SI{663.88}{\micro\second} \\
+5{,}000 & \SI{0.209}{\micro\second} & \SI{3379.17}{\micro\second} \\
+\bottomrule
+\end{tabular}
+\caption{Per-step policy evaluation cost at depth. The bounded summary is
+flat; the naive baseline is linear.}
+\label{tab:scaling}
+\end{table}
+
+Independent verification costs \SI{190}{\micro\second} per record and is
+linear: a verifier checks a 5{,}000-step agent history in
+\SI{0.95}{\second} using only published keys and reference values---the
+operative point being that this requires no cooperation from the operator.
+
+\subsection{Utility cost of path-aware authorization}
+\label{sec:utility}
+The measurement that matters most for deployability is what path-awareness
+costs in refused legitimate work. We ran 2{,}000 randomized workflows (70\%
+benign, 30\% attempting read-then-egress escalation) through the path-aware
+monitor.
+
+\begin{table}[ht]
+\centering\small
+\begin{tabular}{@{}lrr@{}}
+\toprule
+\textbf{Configuration} & \textbf{False-rejection rate} & \textbf{Malicious blocked} \\
+\midrule
+No declassification point & 42.2\% & 74.6\% \\
+With explicit declassification & \textbf{0.0\%} & 71.8\% \\
+\bottomrule
+\end{tabular}
+\caption{Utility cost on 2{,}000 randomized workflows. Without a
+declassification point, label creep refuses nearly half of benign work.}
+\label{tab:utility}
+\end{table}
+
+The result reproduces, in the agent setting, the classical information-flow
+finding that motivated Section~\ref{sec:ifc}: a monitor accumulating labels
+along a path suffers \emph{label creep} and becomes unusable, and the
+practical remedy is not a weaker policy but an explicit declassification
+point---here a redaction step that resets the accumulated label before
+egress. Adding one eliminates false rejections at a cost of 2.8 points of
+detection. The design implication is a requirement-level one: \textbf{a
+deployment that mandates path-aware authorization without specifying where
+declassification occurs will refuse roughly half of its legitimate work},
+and no amount of implementation tuning fixes that. We regard this as the
+strongest argument in the paper for treating IFC as the intellectual parent of
+path-aware authorization rather than as unrelated prior art.
+
+\subsection{Threats to validity}
+The TEE is modelled, so enclave transition cost is unmeasured and end-to-end
+latency in a hardware deployment will be higher. The implementation is
+single-process, excluding network and IPC costs between gateway, enclave, and
+relying party. Workloads are synthetic: the qualitative utility result (label
+creep, remedied by declassification) is robust, but the specific 42.2\% is a
+property of our workload model, not a universal constant. The implementation
+is Python, so absolute latencies are conservative and the durable result is
+the relative component breakdown. The privacy-preserving evidence options of
+the Privacy domain are specified but not implemented.
+
+\subsection{Remaining design parameters}
+Two parameters are set by policy rather than measurement.
+The \textbf{anchoring interval $\Delta$} bounds the window in which head
+truncation is undetectable (Section~\ref{sec:security});
+Table~\ref{tab:delta} gives working guidance derived from the volume of
+in-scope action a single window can conceal.
+For the \textbf{privacy path}, an implementation admitting zero-knowledge
+evidence must state the relation proven, the setup assumption, and the leakage
+profile: ``uses ZKPs'' is not a conformance claim, and the tier assigned
+depends on setup provenance, since a single-party trusted setup reintroduces
+exactly the party-trust the threshold forbids.
 
 \begin{table}[ht]
 \centering\footnotesize
@@ -1202,39 +1361,11 @@ Low direct harm; evidential value & $\le 1$\,h &
 Value is reconstructive; batching is appropriate. \\
 \bottomrule
 \end{tabular}
-\caption{Working guidance for the anchoring interval $\Delta$. $\Delta$
-bounds the window in which head truncation is undetectable
-(Section~\ref{sec:security}), so it should be chosen from the harm that one
-window's worth of suppressed actions can cause. These are proposals for
+\caption{Working guidance for the anchoring interval $\Delta$, chosen from the
+harm one window's worth of suppressed actions can cause. Proposals for
 working-group ratification, not measured results.}
 \label{tab:delta}
 \end{table}
-
-\begin{itemize}[itemsep=2pt]
-\item \textbf{Path-aware authorization utility cost:} evaluating against
-  carried context can reject workflows that per-action evaluation would
-  admit. The false-rejection rate on realistic benign workloads is
-  \emph{unmeasured}, and a monitor that blocks legitimate work will not be
-  deployed. Quantifying this---on agent benchmarks such
-  as~\cite{agentdojo,toolemu}---is required future work and may bound how
-  aggressive path-awareness can be.
-\item \textbf{Privacy-mechanism obligations:} where C2 admits a
-  zero-knowledge path, an implementation must state the relation proven
-  (e.g., ``the accessed field set is a subset of the consented set for
-  purpose $p$''), the setup assumption, and the leakage profile of the
-  disclosed statement. ``Uses ZKPs'' is not a conformance claim; the tier
-  assigned depends on setup provenance, since a single-party trusted setup
-  reintroduces exactly the party-trust the threshold forbids.
-\end{itemize}
-
-Implementation strategies we expect to be necessary---policy engines compiled
-to WebAssembly or native code executing inside the enclave to avoid IPC per
-step, hardware-accelerated Ed25519/ECDSA~P-256 signing, and asynchronous
-anchoring off the hot path---are stated as engineering guidance, not results.
-The verification-bandwidth economics motivating the budget are
-structural~\cite{catalini2026}: as execution cost falls toward zero,
-verification becomes the scarce factor, so checking must be cheap, binary,
-and mechanical.
 
 \section{Discussion}
 \label{sec:discussion}
@@ -1246,10 +1377,11 @@ the work does not yet establish.
 
 \subsection{Limitations and status}
 Six limitations are stated deliberately.
-\textbf{(1)~No implementation or measurement.} This paper specifies and
-analyzes; it does not evaluate a running system. The design targets of
-Section~\ref{sec:targets} are unvalidated, and the reference implementation
-is ongoing work.
+\textbf{(1)~The TEE is modelled, not deployed.} The reference implementation
+exercises the full protocol and every check in it, but the attesting
+environment is in-process: enclave transition cost is unmeasured, and a
+hardware deployment will exceed the reported latencies. Deploying on TDX or
+SEV-SNP and re-measuring is the immediate next step.
 \textbf{(2)~Determinism boundary.} \poc{} verifies execution facts, not
 output correctness, fairness, or intent; validation remains a human
 responsibility, and an in-scope harmful action is a safety question the
@@ -1281,10 +1413,12 @@ cadence---are tracked publicly in the specification's open-issues register.
 \subsection{Document status}
 \poc{} is a working draft under public comment, developed openly with a
 public specification repository, audit checklist, coding sheets, and figure
-tooling. This paper documents the standard and its formal treatment; a
-systems paper reporting the reference implementation and its measurement is
-the intended companion. We invite adversarial review of the binary threshold,
-the mediation requirement, and the coverage coding in particular.
+tooling. This paper documents the standard, its formal treatment, and a reference
+implementation with an attack harness and measurements, all open source in the
+specification repository. We invite adversarial review of the binary
+threshold, the mediation requirement, the coverage coding, and---most
+usefully---replication of the utility measurement on production agent traces,
+which is the result most likely to change deployment guidance.
 
 \section{Conclusion}
 
@@ -1293,8 +1427,10 @@ for what an autonomous system did, does not scale to agents no one can
 watch. \poc{} replaces attestation with mechanism-generated,
 hardware-anchored, independently checkable evidence: six domains of
 verifiable facts, a binary threshold that makes verifiability procurable,
-an architecture that intercepts every consequential action, and a coverage
-evaluation demonstrating that no existing framework occupies this layer.
+an architecture that intercepts every consequential action, a reference
+implementation in which eight attacks are refused or detected at a software
+cost of \SI{191}{\micro\second} per step, and a coverage analysis showing
+that no existing framework occupies this layer.
 The specification, audit checklist, coding sheets, and reference tooling
 are developed openly under the Advanced AI Society and are freely licensed
 for implementation.

@@ -15,3 +15,7 @@ dist/
 
 # LaTeX/minted intermediates
 paper/_minted*
+
+# Python
+__pycache__/
+*.pyc

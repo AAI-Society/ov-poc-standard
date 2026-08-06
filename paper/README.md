@@ -5,6 +5,10 @@ Cryptographic Oversight in Autonomous AI Execution*.
 
 **Status: working draft for co-author review — not yet submitted.**
 
+The measured results in Section 9 come from the reference implementation in
+[`../impl/`](../impl/README.md); regenerate them with `python3 bench/bench.py` and
+`python3 attacks/run_attacks.py` from that directory.
+
 ## Build
 
 ```bash
