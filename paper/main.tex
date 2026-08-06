@@ -134,7 +134,11 @@ ten steps or five thousand. Eight attacks work against the naive design and
 fail against ours. And the measurement we did not expect: a monitor that
 watches the whole path refuses 42\% of perfectly legitimate work unless you
 give it an explicit place to forget---which is exactly what people who study
-information flow have been saying for fifty years.}
+information flow have been saying for fifty years. Finally, because evidence
+has to be believable long after it is written, we measure what it costs to
+make it survive quantum computers: the hash chain already does, and swapping
+the signatures for FIPS~204 ML-DSA costs a factor of 38 in signature
+size---a storage bill, not a cryptography problem.}
 
 \clearpage
 
@@ -198,8 +202,9 @@ exactly what has to be added.
 existing frameworks already ask for, coded requirement by requirement, with an
 honest account of what that measurement can and cannot tell you.
 \item \textbf{The implementation} (Section~\ref{sec:eval}): working code, an
-attack harness that runs eight attacks with and without each defense, and
-measurements of what it all costs.
+attack harness that runs eight attacks with and without each defense,
+measurements of what it all costs, and what it takes to make the evidence
+outlive the signature scheme that protects it.
 \end{enumerate}
 
 \paragraph{One thing we could not do.} We did not have a machine with a real
@@ -1469,8 +1474,9 @@ less than it appears to, and a monitor that watches the path will refuse half
 your work unless you tell it where to forget.
 
 We also built it, which is how we learned that the cryptography costs
-\SI{191}{\micro\second} and is not the problem, and that the policy design
-costs 42\% of your legitimate work and is. The specification, the code, the
+\SI{191}{\micro\second} and is not the problem, that the policy design costs
+42\% of your legitimate work and is, and that making the whole thing survive
+quantum computers is a storage bill rather than a redesign. The specification, the code, the
 attacks, and the numbers are all open. If any of it is wrong, it should be
 possible for you to find out---which, in the end, is the entire point.
 
