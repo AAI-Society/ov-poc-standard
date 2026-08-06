@@ -81,6 +81,27 @@ Chapters **C1–C6** are the six domains of verification — *what* must be veri
 | [D: Open Working-Group Issues](0.1/en/0x93-Appendix-D_Open-Issues.md) | Every `[WG-INPUT NEEDED]` decision, collected |
 | [E: Audit Checklist](0.1/en/0x94-Appendix-E_Audit-Checklist.md) | All 116 requirements as tickable task lists, with the coverage matrix — generated, never stale |
 
+## Reference Implementation
+
+A working implementation of the evidence pipeline — interception, path-aware policy, signed hash
+chain, capability-bound dispatch, anchoring, gossip, and independent verification — with an
+attack harness and benchmarks: [`impl/`](impl/README.md).
+
+```bash
+cd impl
+python3 tests/test_core.py        # 14 correctness tests, mapped to requirement IDs
+python3 attacks/run_attacks.py    # 8 attacks, run with and without each requirement
+python3 bench/bench.py            # latency, scaling, verification, utility
+```
+
+Headline results (Apple M2 Max, single core; the TEE is modelled in-process, so enclave
+transitions are excluded and latencies are a lower bound): **191 µs** per intercepted step
+(p99 237 µs) — **1.3%** of the 15 ms design budget · path-aware evaluation **flat at 0.21 µs**
+from 10 to 5,000 steps, versus linear growth for naive re-evaluation · **8/8 attacks** succeed
+without the derived requirements and are refused or detected with them · path-aware
+authorization falsely rejects **42.2%** of benign workflows without a declassification point
+and **0%** with one.
+
 ### Running an audit
 
 The whole standard is available as a working checklist, in whichever form your audit runs on:
