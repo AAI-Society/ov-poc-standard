@@ -188,6 +188,11 @@ with `python3 mappings/compute_coverage.py`:
   </picture>
 </p>
 
+> **Read the caveat first.** These are single-coder seed estimates with a known upward bias.
+> An [independent review](docs/reviews/mapping-review-2026-08.md) of all 1,000 coded rows
+> challenged every Exact rating and found 96 citations that name a chapter rather than a
+> checkable clause. Treat the direction as informative and the values as provisional.
+
 <!-- BEGIN GENERATED COVERAGE -->
 
 **Coverage = (EM + PM) / 125 requirements.** Only exact and partial matches count; the NM column is the gap only Proof-of-Control fills.
@@ -195,13 +200,13 @@ with `python3 mappings/compute_coverage.py`:
 | Framework | Exact (EM) | Partial (PM) | None (NM) | Coverage |
 | --- | :---: | :---: | :---: | :---: |
 | [OWASP AISVS](mappings/owasp.md) | 16 | 62 | 47 | **62%** |
-| [ISO/IEC 42001](mappings/iso-iec-42001.md) | 8 | 67 | 50 | **60%** |
 | [NIST AI RMF](mappings/nist-ai-rmf.md) | 0 | 75 | 50 | **60%** |
-| [SOC 2](mappings/soc-2.md) | 8 | 61 | 56 | **55%** |
-| [EU AI Act](mappings/eu-ai-act.md) | 8 | 60 | 57 | **54%** |
+| [ISO/IEC 42001](mappings/iso-iec-42001.md) | 0 | 72 | 53 | **58%** |
+| [SOC 2](mappings/soc-2.md) | 0 | 68 | 57 | **54%** |
+| [EU AI Act](mappings/eu-ai-act.md) | 0 | 65 | 60 | **52%** |
 | [CSA AARM](mappings/csa-aarm.md) | 13 | 47 | 65 | **48%** |
 | [Zero Trust (NIST SP 800-207)](mappings/zero-trust.md) | 8 | 45 | 72 | **42%** |
-| [MITRE ATLAS](mappings/mitre-atlas.md) | 0 | 31 | 94 | **25%** |
+| [MITRE ATLAS](mappings/mitre-atlas.md) | 0 | 38 | 87 | **30%** |
 
 <!-- END GENERATED COVERAGE -->
 

@@ -106,7 +106,7 @@ poc_requirement_id,poc_section,source_framework,match_type,framework_clause,rati
 2.1.1,C2.1,CSA_AARM,PM,Runtime gateway — data-action gating,Runtime gating of data-touching actions produces access records; operator-run audit trail,seed-01
 2.1.1,C2.1,EU_AI_Act,PM,Art. 12,Art 12 automatic event recording covers data-access logging; used-vs-disclosed distinction and non-exposure of content not required,seed-01
 2.1.1,C2.1,ISO_42001,PM,Annex A.7; Cl. 7.5,AIMS records and data management cover access documentation; no evidence-content constraints,seed-01
-2.1.1,C2.1,MITRE_ATLAS,NM,—,Privacy evidence outside ATLAS scope,seed-01
+2.1.1,C2.1,MITRE_ATLAS,PM,AML.M0024 — AI Telemetry Logging,"ATLAS directs deployed AI systems to log data access, agentic intermediate actions and decisions, and tool use. It does not prescribe the PoC field set, cryptographic evidence, or independent verification.",codex-review-01
 2.1.1,C2.1,NIST_AI_RMF,PM,MEASURE 2.10,MEASURE privacy risk and GOVERN accountability cover access recording; no used-vs-disclosed evidence model,seed-01
 2.1.1,C2.1,NIST_SP_800_207,PM,PEP logging (§3),Policy enforcement point logging records resource access; no evidence-content model,seed-01
 2.1.1,C2.1,OWASP_AISVS,PM,AISVS C5; C12,C5 access control and C12 monitoring cover access logging; no used-vs-disclosed evidence model,seed-01
@@ -122,7 +122,7 @@ poc_requirement_id,poc_section,source_framework,match_type,framework_clause,rati
 2.1.3,C2.1,CSA_AARM,PM,Runtime gateway — data-action gating,Runtime gating of data-touching actions produces access records; operator-run audit trail,seed-01
 2.1.3,C2.1,EU_AI_Act,PM,Art. 12,Art 12 automatic event recording covers data-access logging; used-vs-disclosed distinction and non-exposure of content not required,seed-01
 2.1.3,C2.1,ISO_42001,PM,Annex A.7; Cl. 7.5,AIMS records and data management cover access documentation; no evidence-content constraints,seed-01
-2.1.3,C2.1,MITRE_ATLAS,NM,—,Privacy evidence outside ATLAS scope,seed-01
+2.1.3,C2.1,MITRE_ATLAS,PM,AML.M0024 — AI Telemetry Logging,"Logging AI inputs/outputs, data access, and tool use is relevant to distinguishing information used from information disclosed, but ATLAS does not require separate queryable fields or verifiable evidence.",codex-review-01
 2.1.3,C2.1,NIST_AI_RMF,PM,MEASURE 2.10,MEASURE privacy risk and GOVERN accountability cover access recording; no used-vs-disclosed evidence model,seed-01
 2.1.3,C2.1,NIST_SP_800_207,PM,PEP logging (§3),Policy enforcement point logging records resource access; no evidence-content model,seed-01
 2.1.3,C2.1,OWASP_AISVS,PM,AISVS C5; C12,C5 access control and C12 monitoring cover access logging; no used-vs-disclosed evidence model,seed-01
@@ -146,7 +146,7 @@ poc_requirement_id,poc_section,source_framework,match_type,framework_clause,rati
 2.2.3,C2.2,CSA_AARM,PM,Policy evaluation at the action boundary,Policy enforcement at the action boundary covers purpose/consent policy checks at runtime,seed-01
 2.2.3,C2.2,EU_AI_Act,PM,Art. 10,Art 10 data governance plus GDPR interplay covers purpose/consent obligations; runtime enforcement evidence not required,seed-01
 2.2.3,C2.2,ISO_42001,PM,Annex A.5; Annex A.7,Data management and impact-assessment controls cover purpose and consent obligations,seed-01
-2.2.3,C2.2,MITRE_ATLAS,NM,—,Consent/purpose enforcement outside scope,seed-01
+2.2.3,C2.2,MITRE_ATLAS,PM,AML.M0026 — Privileged AI Agent Permissions Configuration; AML.M0028 — AI Agent Tools Permissions Configuration,"These mitigations require least-privilege controls on an agent and on its tool access. They do not require query rewriting/field allow-lists, enforcement-event records, or PoC-grade evidence.",codex-review-01
 2.2.3,C2.2,NIST_AI_RMF,PM,GOVERN 1.1; MANAGE 1.3,GOVERN/MANAGE address privacy values and controls; runtime enforcement evidence not required,seed-01
 2.2.3,C2.2,NIST_SP_800_207,PM,Policy Engine (§3),Policy engine evaluates per-request context including data policies,seed-01
 2.2.3,C2.2,OWASP_AISVS,PM,AISVS C1,Data-governance requirements touch consent and minimization; runtime enforcement evidence not central,seed-01
@@ -314,7 +314,7 @@ poc_requirement_id,poc_section,source_framework,match_type,framework_clause,rati
 4.2.1,C4.2,CSA_AARM,PM,Authority evaluation at the boundary,Authority evaluation at the boundary partially covers delegation checks,seed-01
 4.2.1,C4.2,EU_AI_Act,NM,—,No delegation-chain provisions,seed-01
 4.2.1,C4.2,ISO_42001,NM,—,Delegation chains not addressed,seed-01
-4.2.1,C4.2,MITRE_ATLAS,NM,—,Delegation chains not addressed,seed-01
+4.2.1,C4.2,MITRE_ATLAS,PM,AML.M0027 — Single-User AI Agent Permissions Configuration; AML.M0028 — AI Agent Tools Permissions Configuration,"ATLAS calls for delegated access from the user and for tools to receive the calling agent's permissions, identities, and restrictions. It does not specify signed-token validation or recording validation outcomes.",codex-review-01
 4.2.1,C4.2,NIST_AI_RMF,NM,—,Delegation chains not addressed,seed-01
 4.2.1,C4.2,NIST_SP_800_207,PM,Tenet 4,Dynamic authorization covers authority scoping; delegation chains not addressed,seed-01
 4.2.1,C4.2,OWASP_AISVS,PM,AISVS C9.4,C9.4 agent identity and credential requirements partially cover delegation validity,seed-01
@@ -330,7 +330,7 @@ poc_requirement_id,poc_section,source_framework,match_type,framework_clause,rati
 4.2.3,C4.2,CSA_AARM,PM,Authority evaluation at the boundary,Authority evaluation at the boundary partially covers delegation checks,seed-01
 4.2.3,C4.2,EU_AI_Act,NM,—,No delegation-chain provisions,seed-01
 4.2.3,C4.2,ISO_42001,NM,—,Delegation chains not addressed,seed-01
-4.2.3,C4.2,MITRE_ATLAS,NM,—,Delegation chains not addressed,seed-01
+4.2.3,C4.2,MITRE_ATLAS,PM,AML.M0027 — Single-User AI Agent Permissions Configuration,ATLAS states that an agent acting for a user should not receive permissions the user would not receive. It does not mandate structural scope intersection or logged rejection events.,codex-review-01
 4.2.3,C4.2,NIST_AI_RMF,NM,—,Delegation chains not addressed,seed-01
 4.2.3,C4.2,NIST_SP_800_207,PM,Tenet 4,Dynamic authorization covers authority scoping; delegation chains not addressed,seed-01
 4.2.3,C4.2,OWASP_AISVS,PM,AISVS C9.4,C9.4 agent identity and credential requirements partially cover delegation validity,seed-01
@@ -514,7 +514,7 @@ poc_requirement_id,poc_section,source_framework,match_type,framework_clause,rati
 7.1.4,C7.1,CSA_AARM,EM,The AARM runtime gateway,"The AARM runtime gateway is the same interception boundary, mediating all agent actions",seed-01
 7.1.4,C7.1,EU_AI_Act,NM,—,No action-interception or evidence-at-boundary concept,seed-01
 7.1.4,C7.1,ISO_42001,NM,—,No action-interception concept,seed-01
-7.1.4,C7.1,MITRE_ATLAS,NM,—,No evidence-generation concept,seed-01
+7.1.4,C7.1,MITRE_ATLAS,PM,AML.M0028 — AI Agent Tools Permissions Configuration; AML.M0032 — Segmentation of AI Agent Components,"ATLAS covers applying inherited permissions/restrictions to tools and enforcing boundaries around tools and data sources. It does not require attested mediation, action-bound capabilities, or matching evidence.",codex-review-01
 7.1.4,C7.1,NIST_AI_RMF,NM,—,No action-interception evidence concept,seed-01
 7.1.4,C7.1,NIST_SP_800_207,PM,PEP (§3),The PEP mediates all access like the interception gateway; evidence emission is not required,seed-01
 7.1.4,C7.1,OWASP_AISVS,PM,AISVS C9,C9 requires mediated tool access; out-of-band evidence-emitting gateway is PoC-specific,seed-01
@@ -530,7 +530,7 @@ poc_requirement_id,poc_section,source_framework,match_type,framework_clause,rati
 7.2.1,C7.2,CSA_AARM,PM,Execution-time audit trail,"Enforcement produces execution-time records; operator-run, not operator-independent",seed-01
 7.2.1,C7.2,EU_AI_Act,PM,Art. 12,Art 12 requires automatic recording of events over the lifetime; no operator-independent time anchoring,seed-01
 7.2.1,C7.2,ISO_42001,PM,Cl. 7.5.3,Documented-information controls require contemporaneous records; operator-produced,seed-01
-7.2.1,C7.2,MITRE_ATLAS,NM,—,Not addressed,seed-01
+7.2.1,C7.2,MITRE_ATLAS,PM,AML.M0024 — AI Telemetry Logging,"ATLAS calls for logging deployed-model inputs/outputs and agent intermediate actions, decisions, data access, and tool use. It does not require recording inside the same transaction or rule out later reconstruction.",codex-review-01
 7.2.1,C7.2,NIST_AI_RMF,PM,MEASURE 2.8; MANAGE 4.1,MEASURE documentation and test records are contemporaneous practices; no mechanism-generated evidence,seed-01
 7.2.1,C7.2,NIST_SP_800_207,PM,Tenet 7,Continuous monitoring produces execution-time logs; operator-produced,seed-01
 7.2.1,C7.2,OWASP_AISVS,PM,AISVS C12,C12 logging requires event-time records; operator-produced,seed-01
@@ -864,69 +864,69 @@ poc_requirement_id,poc_section,source_framework,match_type,framework_clause,rati
 9.2.3,C9.2,OWASP_AISVS,PM,AISVS C12,C12 expects monitoring coverage across components; not layer-matched evidence,seed-01
 9.2.3,C9.2,SOC_2,PM,CC7.2,CC7 expects logging coverage of in-scope systems; not layer-matched evidence,seed-01
 10.1.1,C10.1,CSA_AARM,PM,CSA conformance regime,CSA conformance regime with independent review partially parallels claim requirements,seed-01
-10.1.1,C10.1,EU_AI_Act,EM,Art. 43; Art. 47–48,"Art 43 conformity assessment and Art 47 EU declaration of conformity require a published, scoped, versioned conformance claim",seed-01
-10.1.1,C10.1,ISO_42001,EM,Cl. 4.3; Statement of Applicability,"Management-system conformity with a statement of applicability parallels a scoped, versioned conformance statement",seed-01
+10.1.1,C10.1,EU_AI_Act,PM,"Art. 43; Art. 47; Annex V, point 7",The Act provides conformity-assessment routes and an EU declaration; Annex V identifies a notified body and certificate only where applicable. It does not require one of PoC's three named stages or identify a continuous-monitoring regime in the statement.,codex-review-01
+10.1.1,C10.1,ISO_42001,PM,Cl. 4.3; Cl. 6.1.3 d),"Scope and the statement of applicability provide partial management-system conformance documentation, but do not require PoC’s three claim stages or identification of an assessor/monitoring regime.",codex-review-01
 10.1.1,C10.1,MITRE_ATLAS,NM,—,No conformance regime,seed-01
 10.1.1,C10.1,NIST_AI_RMF,PM,GOVERN 4.2,GOVERN transparency artifacts and RMF profiles resemble scoped claims; no standardized statement,seed-01
 10.1.1,C10.1,NIST_SP_800_207,NM,—,No conformance-claim regime,seed-01
 10.1.1,C10.1,OWASP_AISVS,NM,—,Verification levels exist but no conformance-statement regime,seed-01
-10.1.1,C10.1,SOC_2,EM,System description & management assertion,"System description, boundaries, and management assertion in a SOC 2 report parallel the scoped conformance statement",seed-01
+10.1.1,C10.1,SOC_2,PM,Management assertion; SOC 2 system description,"A SOC 2 engagement includes management's assertion and a scoped system description, but does not require the claim to declare one of PoC's stages or name a continuous-monitoring regime.",codex-review-01
 10.1.2,C10.1,CSA_AARM,PM,CSA conformance regime,CSA conformance regime with independent review partially parallels claim requirements,seed-01
-10.1.2,C10.1,EU_AI_Act,EM,Art. 43; Art. 47–48,"Art 43 conformity assessment and Art 47 EU declaration of conformity require a published, scoped, versioned conformance claim",seed-01
-10.1.2,C10.1,ISO_42001,EM,Cl. 4.3; Statement of Applicability,"Management-system conformity with a statement of applicability parallels a scoped, versioned conformance statement",seed-01
+10.1.2,C10.1,EU_AI_Act,NM,—,No AI Act provision requires a declaration to list PoC domains C1–C6 or prohibits unlisted domains from appearing in PoC marketing.,codex-review-01
+10.1.2,C10.1,ISO_42001,PM,Cl. 4.3; Cl. 6.1.3 d),"The statement of applicability identifies applicable controls, but it does not require PoC C1–C6 domain listings or restrict all marketing claims for omitted domains.",codex-review-01
 10.1.2,C10.1,MITRE_ATLAS,NM,—,No conformance regime,seed-01
 10.1.2,C10.1,NIST_AI_RMF,PM,GOVERN 4.2,GOVERN transparency artifacts and RMF profiles resemble scoped claims; no standardized statement,seed-01
 10.1.2,C10.1,NIST_SP_800_207,NM,—,No conformance-claim regime,seed-01
 10.1.2,C10.1,OWASP_AISVS,NM,—,Verification levels exist but no conformance-statement regime,seed-01
-10.1.2,C10.1,SOC_2,EM,System description & management assertion,"System description, boundaries, and management assertion in a SOC 2 report parallel the scoped conformance statement",seed-01
+10.1.2,C10.1,SOC_2,PM,SOC 2 system description,"A system description identifies the system and scoped services, but it does not require a closed list of PoC C1–C6 domains or prohibit unlisted domains from product marketing.",codex-review-01
 10.1.3,C10.1,CSA_AARM,PM,CSA conformance regime,CSA conformance regime with independent review partially parallels claim requirements,seed-01
-10.1.3,C10.1,EU_AI_Act,EM,Art. 43; Art. 47–48,"Art 43 conformity assessment and Art 47 EU declaration of conformity require a published, scoped, versioned conformance claim",seed-01
-10.1.3,C10.1,ISO_42001,EM,Cl. 4.3; Statement of Applicability,"Management-system conformity with a statement of applicability parallels a scoped, versioned conformance statement",seed-01
+10.1.3,C10.1,EU_AI_Act,NM,—,The Act does not require every asserted fact in an EU declaration to resolve to a claim-register evidence stream.,codex-review-01
+10.1.3,C10.1,ISO_42001,NM,—,ISO/IEC 42001 does not require every published verifiable fact to resolve to an evidence stream in a claim register.,codex-review-01
 10.1.3,C10.1,MITRE_ATLAS,NM,—,No conformance regime,seed-01
 10.1.3,C10.1,NIST_AI_RMF,PM,GOVERN 4.2,GOVERN transparency artifacts and RMF profiles resemble scoped claims; no standardized statement,seed-01
 10.1.3,C10.1,NIST_SP_800_207,NM,—,No conformance-claim regime,seed-01
 10.1.3,C10.1,OWASP_AISVS,NM,—,Verification levels exist but no conformance-statement regime,seed-01
-10.1.3,C10.1,SOC_2,EM,System description & management assertion,"System description, boundaries, and management assertion in a SOC 2 report parallel the scoped conformance statement",seed-01
+10.1.3,C10.1,SOC_2,PM,Management assertion; SOC 2 examination evidence,"Management assertions and auditor procedures concern support for the report, but SOC 2 does not require every asserted fact to resolve to a named evidence stream in a claim register.",codex-review-01
 10.1.4,C10.1,CSA_AARM,PM,CSA conformance regime,CSA conformance regime with independent review partially parallels claim requirements,seed-01
-10.1.4,C10.1,EU_AI_Act,EM,Art. 43; Art. 47–48,"Art 43 conformity assessment and Art 47 EU declaration of conformity require a published, scoped, versioned conformance claim",seed-01
-10.1.4,C10.1,ISO_42001,EM,Cl. 4.3; Statement of Applicability,"Management-system conformity with a statement of applicability parallels a scoped, versioned conformance statement",seed-01
+10.1.4,C10.1,EU_AI_Act,PM,Art. 47; Annex V; Art. 11 and Annex IV,"Annex V requires system identification and declaration metadata, while technical documentation contains substantial system information. Neither requires PoC domains, per-claim evidence properties/tier, mechanisms for each claim, or trust-assumption disclosure in the statement.",codex-review-01
+10.1.4,C10.1,ISO_42001,PM,Cl. 4.3; Cl. 6.1.3 d),"ISO/IEC 42001 scope and applicability documentation partially address system boundary and controls, but not PoC tiers, mechanisms, evidence properties, or trust-assumption disclosures.",codex-review-01
 10.1.4,C10.1,MITRE_ATLAS,NM,—,No conformance regime,seed-01
 10.1.4,C10.1,NIST_AI_RMF,PM,GOVERN 4.2,GOVERN transparency artifacts and RMF profiles resemble scoped claims; no standardized statement,seed-01
 10.1.4,C10.1,NIST_SP_800_207,NM,—,No conformance-claim regime,seed-01
 10.1.4,C10.1,OWASP_AISVS,NM,—,Verification levels exist but no conformance-statement regime,seed-01
-10.1.4,C10.1,SOC_2,EM,System description & management assertion,"System description, boundaries, and management assertion in a SOC 2 report parallel the scoped conformance statement",seed-01
+10.1.4,C10.1,SOC_2,PM,SOC 2 system description,"The system description covers identification, boundaries, components, and certain system information. It does not require PoC domains, per-claim evidence properties, tiers, mechanisms, or a trust-assumption disclosure.",codex-review-01
 10.1.5,C10.1,CSA_AARM,PM,CSA conformance regime,CSA conformance regime with independent review partially parallels claim requirements,seed-01
-10.1.5,C10.1,EU_AI_Act,EM,Art. 43; Art. 47–48,"Art 43 conformity assessment and Art 47 EU declaration of conformity require a published, scoped, versioned conformance claim",seed-01
-10.1.5,C10.1,ISO_42001,EM,Cl. 4.3; Statement of Applicability,"Management-system conformity with a statement of applicability parallels a scoped, versioned conformance statement",seed-01
+10.1.5,C10.1,EU_AI_Act,PM,"Art. 47; Annex V, point 8","Annex V requires place and date of issue and signature metadata, but does not require citation of the exact version of the external PoC standard.",codex-review-01
+10.1.5,C10.1,ISO_42001,PM,Cl. 7.5.2; Cl. 7.5.3,"Documented information is identified and controlled, but ISO/IEC 42001 does not require a public conformance statement to cite the exact version of PoC or its claim date.",codex-review-01
 10.1.5,C10.1,MITRE_ATLAS,NM,—,No conformance regime,seed-01
 10.1.5,C10.1,NIST_AI_RMF,PM,GOVERN 4.2,GOVERN transparency artifacts and RMF profiles resemble scoped claims; no standardized statement,seed-01
 10.1.5,C10.1,NIST_SP_800_207,NM,—,No conformance-claim regime,seed-01
 10.1.5,C10.1,OWASP_AISVS,NM,—,Verification levels exist but no conformance-statement regime,seed-01
-10.1.5,C10.1,SOC_2,EM,System description & management assertion,"System description, boundaries, and management assertion in a SOC 2 report parallel the scoped conformance statement",seed-01
+10.1.5,C10.1,SOC_2,PM,Management assertion; SOC 2 report period/date,"SOC 2 reports and assertions identify a date or period, but do not require citation of the exact version of a conformance standard.",codex-review-01
 10.1.6,C10.1,CSA_AARM,PM,CSA conformance regime,CSA conformance regime with independent review partially parallels claim requirements,seed-01
-10.1.6,C10.1,EU_AI_Act,EM,Art. 43; Art. 47–48,"Art 43 conformity assessment and Art 47 EU declaration of conformity require a published, scoped, versioned conformance claim",seed-01
-10.1.6,C10.1,ISO_42001,EM,Cl. 4.3; Statement of Applicability,"Management-system conformity with a statement of applicability parallels a scoped, versioned conformance statement",seed-01
+10.1.6,C10.1,EU_AI_Act,PM,"Art. 11; Annex IV, sections 1–2","Technical documentation addresses intended purpose and system design/context, but it does not require a conformance statement to enumerate action classes excluded from scope and give a rationale for each exclusion.",codex-review-01
+10.1.6,C10.1,ISO_42001,PM,Cl. 4.3,"The AIMS scope is relevant to defining organizational boundaries, but it does not require enumerated agent-action classes, exclusions, and a rationale for each exclusion.",codex-review-01
 10.1.6,C10.1,MITRE_ATLAS,NM,—,No conformance regime,seed-01
 10.1.6,C10.1,NIST_AI_RMF,PM,GOVERN 4.2,GOVERN transparency artifacts and RMF profiles resemble scoped claims; no standardized statement,seed-01
 10.1.6,C10.1,NIST_SP_800_207,NM,—,No conformance-claim regime,seed-01
 10.1.6,C10.1,OWASP_AISVS,NM,—,Verification levels exist but no conformance-statement regime,seed-01
-10.1.6,C10.1,SOC_2,EM,System description & management assertion,"System description, boundaries, and management assertion in a SOC 2 report parallel the scoped conformance statement",seed-01
+10.1.6,C10.1,SOC_2,PM,SOC 2 system description,"System boundaries and components are central to the system description, but SOC 2 does not require classes of agent actions or an enumerated, reasoned list of excluded action classes.",codex-review-01
 10.1.7,C10.1,CSA_AARM,PM,CSA conformance regime,CSA conformance regime with independent review partially parallels claim requirements,seed-01
-10.1.7,C10.1,EU_AI_Act,EM,Art. 43; Art. 47–48,"Art 43 conformity assessment and Art 47 EU declaration of conformity require a published, scoped, versioned conformance claim",seed-01
-10.1.7,C10.1,ISO_42001,EM,Cl. 4.3; Statement of Applicability,"Management-system conformity with a statement of applicability parallels a scoped, versioned conformance statement",seed-01
+10.1.7,C10.1,EU_AI_Act,PM,Art. 47(1),"The EU declaration is required to be machine-readable, but the Act does not require a public comparison schema, publication for insurers/assessors, or machine-readable per-claim data.",codex-review-01
+10.1.7,C10.1,ISO_42001,NM,—,"ISO/IEC 42001 documented-information controls do not require public, machine-readable conformance claims or a published schema.",codex-review-01
 10.1.7,C10.1,MITRE_ATLAS,NM,—,No conformance regime,seed-01
 10.1.7,C10.1,NIST_AI_RMF,PM,GOVERN 4.2,GOVERN transparency artifacts and RMF profiles resemble scoped claims; no standardized statement,seed-01
 10.1.7,C10.1,NIST_SP_800_207,NM,—,No conformance-claim regime,seed-01
 10.1.7,C10.1,OWASP_AISVS,NM,—,Verification levels exist but no conformance-statement regime,seed-01
-10.1.7,C10.1,SOC_2,EM,System description & management assertion,"System description, boundaries, and management assertion in a SOC 2 report parallel the scoped conformance statement",seed-01
+10.1.7,C10.1,SOC_2,NM,—,SOC 2 does not require that the statement or per-claim data be publicly published in a documented machine-readable schema or be programmatically comparable across implementations.,codex-review-01
 10.1.8,C10.1,CSA_AARM,PM,CSA conformance regime,CSA conformance regime with independent review partially parallels claim requirements,seed-01
-10.1.8,C10.1,EU_AI_Act,EM,Art. 43; Art. 47–48,"Art 43 conformity assessment and Art 47 EU declaration of conformity require a published, scoped, versioned conformance claim",seed-01
-10.1.8,C10.1,ISO_42001,EM,Cl. 4.3; Statement of Applicability,"Management-system conformity with a statement of applicability parallels a scoped, versioned conformance statement",seed-01
+10.1.8,C10.1,EU_AI_Act,NM,—,The Act does not require automated operational discovery to reconcile a declared inventory or require shadow agent deployments to become recorded findings.,codex-review-01
+10.1.8,C10.1,ISO_42001,NM,—,ISO/IEC 42001 does not require automated inventory discovery reconciliation or recording undeclared agent deployments as shadow-system findings.,codex-review-01
 10.1.8,C10.1,MITRE_ATLAS,NM,—,No conformance regime,seed-01
 10.1.8,C10.1,NIST_AI_RMF,PM,GOVERN 4.2,GOVERN transparency artifacts and RMF profiles resemble scoped claims; no standardized statement,seed-01
 10.1.8,C10.1,NIST_SP_800_207,NM,—,No conformance-claim regime,seed-01
 10.1.8,C10.1,OWASP_AISVS,NM,—,Verification levels exist but no conformance-statement regime,seed-01
-10.1.8,C10.1,SOC_2,EM,System description & management assertion,"System description, boundaries, and management assertion in a SOC 2 report parallel the scoped conformance statement",seed-01
+10.1.8,C10.1,SOC_2,PM,CC7.2; CC8.1,"Monitoring and change-management controls are partial analogs to discovering and managing operational systems. They do not require scheduled reconciliation of declared inventory against automated discovery, nor recorded shadow-agent findings.",codex-review-01
 10.2.1,C10.2,CSA_AARM,NM,—,No trust-assumption disclosure,seed-01
 10.2.1,C10.2,EU_AI_Act,PM,Art. 13,Art 13 requires disclosing limitations and residual risks to deployers; not categorized trust assumptions,seed-01
 10.2.1,C10.2,ISO_42001,PM,Cl. 6.1; Statement of Applicability,Statement of applicability and risk treatment disclose residuals; not categorized trust assumptions,seed-01

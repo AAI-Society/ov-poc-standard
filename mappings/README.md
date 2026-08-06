@@ -47,6 +47,13 @@ Each of the 125 requirements is coded against each framework with one of three *
   *evidence* that the control held.
 * **NM · No Match** — the framework has no analogous provision.
 
+> **These numbers are seed-quality and biased upward.** An independent review of all 1,000
+> coded rows found 192 proposed changes and 96 unauditable citations, and challenged every
+> one of the 61 Exact ratings. The clearest errors are corrected; the changes that turn on a
+> framework's exact wording are recorded, not applied, because they move coverage in the
+> direction that flatters this standard. See
+> [the review](../docs/reviews/mapping-review-2026-08.md) before citing any figure below.
+
 <!-- BEGIN GENERATED COVERAGE -->
 
 **Coverage = (EM + PM) / 125 requirements.** Only exact and partial matches count; the NM column is the gap only Proof-of-Control fills.
@@ -54,13 +61,13 @@ Each of the 125 requirements is coded against each framework with one of three *
 | Framework | Exact (EM) | Partial (PM) | None (NM) | Coverage |
 | --- | :---: | :---: | :---: | :---: |
 | [OWASP AISVS](owasp.md) | 16 | 62 | 47 | **62%** |
-| [ISO/IEC 42001](iso-iec-42001.md) | 8 | 67 | 50 | **60%** |
 | [NIST AI RMF](nist-ai-rmf.md) | 0 | 75 | 50 | **60%** |
-| [SOC 2](soc-2.md) | 8 | 61 | 56 | **55%** |
-| [EU AI Act](eu-ai-act.md) | 8 | 60 | 57 | **54%** |
+| [ISO/IEC 42001](iso-iec-42001.md) | 0 | 72 | 53 | **58%** |
+| [SOC 2](soc-2.md) | 0 | 68 | 57 | **54%** |
+| [EU AI Act](eu-ai-act.md) | 0 | 65 | 60 | **52%** |
 | [CSA AARM](csa-aarm.md) | 13 | 47 | 65 | **48%** |
 | [Zero Trust (NIST SP 800-207)](zero-trust.md) | 8 | 45 | 72 | **42%** |
-| [MITRE ATLAS](mitre-atlas.md) | 0 | 31 | 94 | **25%** |
+| [MITRE ATLAS](mitre-atlas.md) | 0 | 38 | 87 | **30%** |
 
 <!-- END GENERATED COVERAGE -->
 

@@ -17,7 +17,7 @@ ISO/IEC 42001 defines the management system (AIMS) through which an organization
 
 <!-- BEGIN GENERATED MAPPING (tools/generate_crosswalks.py) -->
 
-**Coverage: 60%** of the 125 Proof-of-Control requirements (8 exact matches, 67 partial matches, 50 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
+**Coverage: 58%** of the 125 Proof-of-Control requirements (0 exact matches, 72 partial matches, 53 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
 
 **How to read the Match column** ([full rubric](rubric.md)): **Exact** — the framework has a clause equivalent in scope and intent. **Partial** — the framework covers the topic, but not with PoC's operator-independent evidence (or not at the same depth). **None** — the framework has no analogous provision. Where a section holds a mix, the badge shows the strongest match present and the **Covered** column shows how many of its requirements are matched at all — so a section reading *Partial 3/5* has two requirements this framework does not reach.
 
@@ -52,7 +52,7 @@ ISO/IEC 42001 defines the management system (AIMS) through which an organization
 | [C8.3 Chain Integrity and Self-Enforcement (Tier 4)](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 5 | 0/5 | None | — | No self-enforcement concept |
 | [C9.1 Locating Evidence on the System Surface](../0.1/en/0x10-C09-System-Surface-MAESTRO.md) | 3 | 3/3 | Partial | Cl. 4.3 | AIMS scoping requires defining system boundaries; not per-claim layer fields |
 | [C9.2 Layer Coverage](../0.1/en/0x10-C09-System-Surface-MAESTRO.md) | 3 | 0/3 | None | — | Layer-matched evidence not addressed |
-| [C10.1 Conformance Claims](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 8 | 8/8 | Exact | Cl. 4.3; Statement of Applicability | Management-system conformity with a statement of applicability parallels a scoped, versioned conformance statement |
+| [C10.1 Conformance Claims](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 8 | 5/8 | Partial | Cl. 4.3; Cl. 6.1.3 d); Cl. 7.5.2; Cl. 7.5.3; Cl. 4.3 | Scope and the statement of applicability provide partial management-system conformance documentation, but do not require PoC’s three claim stages or identification of an assessor/monitoring regime. Not reached: 10.1.3, 10.1.7, 10.1.8. |
 | [C10.2 Trust-Assumption Disclosure](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 2 | 2/2 | Partial | Cl. 6.1; Statement of Applicability | Statement of applicability and risk treatment disclose residuals; not categorized trust assumptions |
 | [C10.3 Continuously Monitored Operation](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 7 | 7/7 | Partial | Cl. 9.2–9.3; Cl. 10 | Internal audit and continual improvement provide ongoing checking; not per-action validation |
 
@@ -74,6 +74,7 @@ ISO/IEC 42001 defines the management system (AIMS) through which an organization
 * **C8.2 Mechanism-to-Requirement Fit** — No mechanism-fit rule
 * **C8.3 Chain Integrity and Self-Enforcement (Tier 4)** — No self-enforcement concept
 * **C9.2 Layer Coverage** — Layer-matched evidence not addressed
+* **C10.1 Conformance Claims** — partially reached; no provision for 10.1.3, 10.1.7, 10.1.8: ISO/IEC 42001 does not require every published verifiable fact to resolve to an evidence stream in a claim register.
 
 *Coding granularity is the individual requirement; the section rows above summarize the requirements beneath them. Where a section is coded uniformly the summary is exact, and where it is mixed the Covered column and the gap list name what is missing. Row-level detail is in the [coding sheet](coding_sheet.csv). This is seed coding by a single coder and has not yet had the second-coder pass the [rubric](rubric.md) requires.*
 

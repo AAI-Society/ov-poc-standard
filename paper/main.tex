@@ -1126,13 +1126,13 @@ matches. Light: partial. The rest is the gap.}
 \textbf{Coverage} \\
 \midrule
 OWASP AISVS~\cite{owaspaisvs} & 16 & 62 & 47 & 62\% \\
-ISO/IEC 42001~\cite{iso42001} & 8 & 67 & 50 & 60\% \\
 NIST AI RMF~\cite{nistairmf} & 0 & 75 & 50 & 60\% \\
-SOC 2~\cite{soc2tsc} & 8 & 61 & 56 & 55\% \\
-EU AI Act~\cite{euaiact} & 8 & 60 & 57 & 54\% \\
+ISO/IEC 42001~\cite{iso42001} & 0 & 72 & 53 & 58\% \\
+SOC 2~\cite{soc2tsc} & 0 & 68 & 57 & 54\% \\
+EU AI Act~\cite{euaiact} & 0 & 65 & 60 & 52\% \\
 CSA AARM~\cite{csaaarm} & 13 & 47 & 65 & 48\% \\
 Zero Trust (SP 800-207)~\cite{sp800207} & 8 & 45 & 72 & 42\% \\
-MITRE ATLAS~\cite{mitreatlas} & 0 & 31 & 94 & 25\% \\
+MITRE ATLAS~\cite{mitreatlas} & 0 & 38 & 87 & 30\% \\
 \bottomrule
 \end{tabular}
 \caption{Coverage of all 125 requirements, coded individually by one coder.
@@ -1153,12 +1153,35 @@ everyone else scores badly on it. So this table says we are working somewhere
 different. It does not say we are working somewhere \emph{useful}. That is a
 separate argument and these numbers do not make it.
 
-\emph{One person coded it.} That means there is no measure of agreement at
-all. The published rubric specifies what a real study looks like: two
-independent coders per framework, Cohen's $\kappa$ reported~\cite{cohen1960},
-at least one coder who did not write the requirements, and disagreements
-resolved by a third. That study is planned, and when it is done it replaces
-Table~\ref{tab:coverage}.
+\emph{One person coded it, and an independent review found that it shows.}
+There is no measure of agreement at all. The published rubric specifies what a
+real study looks like: two independent coders per framework, Cohen's
+$\kappa$ reported~\cite{cohen1960}, at least one coder who did not write the
+requirements, and disagreements resolved by a third. That study is planned, and
+when it is done it replaces Table~\ref{tab:coverage}.
+
+In the meantime we ran an automated independent pass over all 1{,}000 coded
+rows, and it is worth reporting what came back because it was not flattering.
+It proposed 192 changes and found 96 citations that do not name a checkable
+clause. Three findings we verified ourselves. Most citations point at a chapter
+heading rather than a requirement---for two frameworks, essentially all of
+them---so a reader cannot look up what we claim. Six hundred and ninety-two of
+the thousand rows carry a rationale repeated word-for-word on four or more
+rows, which is the mechanical signature of coding by block rather than by
+requirement. And every one of the 61 Exact matches was challenged, which in
+hindsight we should have caught ourselves: if our thesis is that no existing
+framework requires operator-independent evidence, then a sheet claiming 61
+exact matches was arguing against this paper. We have removed the ones we could
+verify were wrong on their face---the C10 conformance-statement rows, which
+describe an artifact this standard defines and no other framework can therefore
+match exactly.
+
+We did \emph{not} apply the 91 proposed downgrades that turn on what a
+framework's clause actually says. Those move the coverage numbers, and they
+move them downward, which widens the gap this paper exists to describe. That is
+exactly the direction a motivated coder drifts, so they wait for a human with
+the source document open. The full review is published with the
+repository.
 
 \emph{The grain used to be too coarse, and fixing it exposed a reporting bug.}
 The original coding was per section, with the requirements inside inheriting

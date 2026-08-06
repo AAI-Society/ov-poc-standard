@@ -17,7 +17,7 @@ Concretely: regulators today cannot verify that a high-risk system operated with
 
 <!-- BEGIN GENERATED MAPPING (tools/generate_crosswalks.py) -->
 
-**Coverage: 54%** of the 125 Proof-of-Control requirements (8 exact matches, 60 partial matches, 57 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
+**Coverage: 52%** of the 125 Proof-of-Control requirements (0 exact matches, 65 partial matches, 60 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
 
 **How to read the Match column** ([full rubric](rubric.md)): **Exact** — the framework has a clause equivalent in scope and intent. **Partial** — the framework covers the topic, but not with PoC's operator-independent evidence (or not at the same depth). **None** — the framework has no analogous provision. Where a section holds a mix, the badge shows the strongest match present and the **Covered** column shows how many of its requirements are matched at all — so a section reading *Partial 3/5* has two requirements this framework does not reach.
 
@@ -52,7 +52,7 @@ Concretely: regulators today cannot verify that a high-risk system operated with
 | [C8.3 Chain Integrity and Self-Enforcement (Tier 4)](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 5 | 0/5 | None | — | No self-enforcing execution concept |
 | [C9.1 Locating Evidence on the System Surface](../0.1/en/0x10-C09-System-Surface-MAESTRO.md) | 3 | 0/3 | None | — | No system-surface location requirement |
 | [C9.2 Layer Coverage](../0.1/en/0x10-C09-System-Surface-MAESTRO.md) | 3 | 0/3 | None | — | No per-layer evidence coverage requirement |
-| [C10.1 Conformance Claims](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 8 | 8/8 | Exact | Art. 43; Art. 47–48 | Art 43 conformity assessment and Art 47 EU declaration of conformity require a published, scoped, versioned conformance claim |
+| [C10.1 Conformance Claims](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 8 | 5/8 | Partial | Art. 43; Art. 47; Annex V, point 7; Art. 47; Annex V; Art. 11 and Annex IV; Art. 47; Annex V, point 8; Art. 11; Annex IV, sections 1–2; Art. 47(1) | The Act provides conformity-assessment routes and an EU declaration; Annex V identifies a notified body and certificate only where applicable. It does not require one of PoC's three named stages or identify a continuous-monitoring regime in the statement. Not reached: 10.1.2, 10.1.3, 10.1.8. |
 | [C10.2 Trust-Assumption Disclosure](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 2 | 2/2 | Partial | Art. 13 | Art 13 requires disclosing limitations and residual risks to deployers; not categorized trust assumptions |
 | [C10.3 Continuously Monitored Operation](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 7 | 7/7 | Partial | Art. 72 | Art 72 post-market monitoring requires ongoing surveillance; not per-action evidence validation |
 
@@ -75,6 +75,7 @@ Concretely: regulators today cannot verify that a high-risk system operated with
 * **C8.3 Chain Integrity and Self-Enforcement (Tier 4)** — No self-enforcing execution concept
 * **C9.1 Locating Evidence on the System Surface** — No system-surface location requirement
 * **C9.2 Layer Coverage** — No per-layer evidence coverage requirement
+* **C10.1 Conformance Claims** — partially reached; no provision for 10.1.2, 10.1.3, 10.1.8: No AI Act provision requires a declaration to list PoC domains C1–C6 or prohibits unlisted domains from appearing in PoC marketing.
 
 *Coding granularity is the individual requirement; the section rows above summarize the requirements beneath them. Where a section is coded uniformly the summary is exact, and where it is mixed the Covered column and the gap list name what is missing. Row-level detail is in the [coding sheet](coding_sheet.csv). This is seed coding by a single coder and has not yet had the second-coder pass the [rubric](rubric.md) requires.*
 
