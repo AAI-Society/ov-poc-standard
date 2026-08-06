@@ -767,6 +767,32 @@
     "auditor_notes": ""
   },
   {
+    "id": "6.3.4",
+    "chapter": "C6",
+    "chapter_title": "Security",
+    "section": "C6.3",
+    "section_title": "Cryptographic Key Lifecycle",
+    "level": 2,
+    "level_name": "Attested",
+    "requirement": "Verify that every evidence record and capability identifies the signature algorithm used, and that the conformance claim declares a cryptographic migration path \u2014 so a verifier knows what to check and an operator can change algorithms without invalidating already-published evidence.",
+    "source_file": "0.1/en/0x10-C06-Security.md",
+    "status": "",
+    "auditor_notes": ""
+  },
+  {
+    "id": "6.3.5",
+    "chapter": "C6",
+    "chapter_title": "Security",
+    "section": "C6.3",
+    "section_title": "Cryptographic Key Lifecycle",
+    "level": 3,
+    "level_name": "Independently Verifiable",
+    "requirement": "Verify that where the declared evidence retention period (C7.6.5) extends beyond the period for which the signature scheme is projected to remain unforgeable, the implementation uses a post-quantum or hybrid signature scheme (e.g., FIPS 204 ML-DSA), or re-anchors and re-signs retained evidence under a current scheme before the projection lapses. Evidence is only worth what its signature is worth at the moment it is examined.",
+    "source_file": "0.1/en/0x10-C06-Security.md",
+    "status": "",
+    "auditor_notes": ""
+  },
+  {
     "id": "7.1.1",
     "chapter": "C7",
     "chapter_title": "Evidence Generation and Properties",

@@ -53,8 +53,10 @@ Every mechanism in this standard ultimately rests on keys. A signing key with no
 | **6.3.1** | **Verify that** evidence-signing and attestation keys are generated in and non-exportable from hardware-backed key management (HSM or equivalent), per the key inventory. | 2 |
 | **6.3.2** | **Verify that** each evidence-producing key has a documented rotation schedule, that rotations occur on schedule, and that each rotation writes a signed record linking the old and new key identities. | 2 |
 | **6.3.3** | **Verify that** the documented key-compromise procedure includes revocation, identification of all evidence signed by the affected key (queryable by key ID), re-grading of affected claims, and notification of relying parties — and that the procedure has been exercised at least annually. | 2 |
+| **6.3.4** | **Verify that** every evidence record and capability identifies the signature algorithm used, and that the conformance claim declares a cryptographic migration path — so a verifier knows what to check and an operator can change algorithms without invalidating already-published evidence. | 2 |
+| **6.3.5** | **Verify that** where the declared evidence retention period ([C7.6.5](0x10-C07-Evidence-Generation-and-Properties.md)) extends beyond the period for which the signature scheme is projected to remain unforgeable, the implementation uses a post-quantum or hybrid signature scheme (e.g., FIPS 204 ML-DSA), or re-anchors and re-signs retained evidence under a current scheme before the projection lapses. Evidence is only worth what its signature is worth at the moment it is examined. | 3 |
 
-**Auditor evidence:** 6.3.1 — key inventory with HSM attributes; confirm non-exportability settings. 6.3.2 — rotation schedule vs. actual rotation records; verify one old-to-new linking record. 6.3.3 — the procedure document and the most recent exercise report; run a query for evidence by key ID.
+**Auditor evidence:** 6.3.1 — key inventory with HSM attributes; confirm non-exportability settings. 6.3.2 — rotation schedule vs. actual rotation records; verify one old-to-new linking record. 6.3.3 — the procedure document and the most recent exercise report; run a query for evidence by key ID. 6.3.4 — sampled records carrying an algorithm identifier, plus the declared migration path. 6.3.5 — compare the declared retention period against the scheme's projected viability; if retention is longer, confirm PQ/hybrid signing or an executed re-signing cycle.
 
 ---
 
@@ -62,5 +64,6 @@ Every mechanism in this standard ultimately rests on keys. A signing key with no
 
 * [OWASP Top 10 for Agentic Applications](https://genai.owasp.org/) and OWASP AIVSS — Security-domain alignment targets
 * [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework) — Security-domain external alignment target
+* [FIPS 204 ML-DSA](https://csrc.nist.gov/pubs/fips/204/final) · [FIPS 205 SLH-DSA](https://csrc.nist.gov/pubs/fips/205/final) — post-quantum signatures for long-lived evidence (C6.3.5); measured cost in [`impl/`](../../impl/README.md#post-quantum-signing)
 * [MITRE ATLAS](https://atlas.mitre.org/)
 * Crosswalks: [Confidential Computing](../../mappings/confidential-computing.md), [MAESTRO L4 runtime attestation](0x91-Appendix-B_Proof-Mechanism-Inventory.md), [OWASP](../../mappings/owasp.md), [NIST AI RMF](../../mappings/nist-ai-rmf.md)

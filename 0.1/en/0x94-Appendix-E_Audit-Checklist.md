@@ -15,19 +15,19 @@ Tick items as you close them out; each chapter's *Auditor evidence* notes say wh
 | [C3 Portability](0x10-C03-Portability.md) | 1 | 2 | 2 | — | **5** |
 | [C4 Authorization](0x10-C04-Authorization.md) | 2 | 7 | 3 | — | **12** |
 | [C5 Identity](0x10-C05-Identity.md) | 1 | 3 | 2 | — | **6** |
-| [C6 Security](0x10-C06-Security.md) | 2 | 5 | 2 | 1 | **10** |
+| [C6 Security](0x10-C06-Security.md) | 2 | 6 | 3 | 1 | **12** |
 | [C7 Evidence Generation and Properties](0x10-C07-Evidence-Generation-and-Properties.md) | 6 | 4 | 8 | 1 | **19** |
 | [C8 Verifiability Tiers and the Binary Threshold](0x10-C08-Verifiability-Tiers.md) | 7 | — | 3 | 5 | **15** |
 | [C9 System Surface (MAESTRO)](0x10-C09-System-Surface-MAESTRO.md) | 3 | 2 | 1 | — | **6** |
 | [C10 Conformance and Trust-Assumption Disclosure](0x10-C10-Conformance-and-Disclosure.md) | 7 | 4 | 2 | 4 | **17** |
-| **All chapters** | **35** | **40** | **29** | **12** | **116** |
+| **All chapters** | **35** | **41** | **30** | **12** | **118** |
 
 ## Requirements by Level
 
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="../../images/diagrams/checklist-levels-dark.svg">
-    <img alt="116 requirements by level: 35 at Level 1 (Recorded),  40 at Level 2 (Attested),  29 at Level 3 (Independently Verifiable),  12 at Level 4 (Self-Enforcing / Continuous)" src="../../images/diagrams/checklist-levels-light.svg" width="620">
+    <img alt="118 requirements by level: 35 at Level 1 (Recorded),  41 at Level 2 (Attested),  30 at Level 3 (Independently Verifiable),  12 at Level 4 (Self-Enforcing / Continuous)" src="../../images/diagrams/checklist-levels-light.svg" width="620">
   </picture>
 </p>
 
@@ -151,6 +151,8 @@ Tick items as you close them out; each chapter's *Auditor evidence* notes say wh
 - [ ] **6.3.1** `L2` — **Verify that** evidence-signing and attestation keys are generated in and non-exportable from hardware-backed key management (HSM or equivalent), per the key inventory.
 - [ ] **6.3.2** `L2` — **Verify that** each evidence-producing key has a documented rotation schedule, that rotations occur on schedule, and that each rotation writes a signed record linking the old and new key identities.
 - [ ] **6.3.3** `L2` — **Verify that** the documented key-compromise procedure includes revocation, identification of all evidence signed by the affected key (queryable by key ID), re-grading of affected claims, and notification of relying parties — and that the procedure has been exercised at least annually.
+- [ ] **6.3.4** `L2` — **Verify that** every evidence record and capability identifies the signature algorithm used, and that the conformance claim declares a cryptographic migration path — so a verifier knows what to check and an operator can change algorithms without invalidating already-published evidence.
+- [ ] **6.3.5** `L3` — **Verify that** where the declared evidence retention period ([C7.6.5](0x10-C07-Evidence-Generation-and-Properties.md)) extends beyond the period for which the signature scheme is projected to remain unforgeable, the implementation uses a post-quantum or hybrid signature scheme (e.g., FIPS 204 ML-DSA), or re-anchors and re-signs retained evidence under a current scheme before the projection lapses. Evidence is only worth what its signature is worth at the moment it is examined.
 
 *Auditor evidence for these items: see [C6](0x10-C06-Security.md).*
 

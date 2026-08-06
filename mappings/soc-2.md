@@ -24,7 +24,7 @@ An insurer or buyer can require Proof-of-Control the way they already require SO
 
 <!-- BEGIN GENERATED MAPPING (tools/generate_crosswalks.py) -->
 
-**Coverage: 56%** of the 116 Proof-of-Control requirements (8 exact matches, 57 partial matches, 51 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
+**Coverage: 57%** of the 118 Proof-of-Control requirements (8 exact matches, 59 partial matches, 51 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
 
 **How to read the Match column** ([full rubric](rubric.md)): **Exact** — the framework has a clause equivalent in scope and intent. **Partial** — the framework covers the topic, but not with PoC's operator-independent evidence (or not at the same depth). **None** — the framework has no analogous provision.
 
@@ -46,7 +46,7 @@ An insurer or buyer can require Proof-of-Control the way they already require SO
 | [C5.2 Inter-Agent Identity](../0.1/en/0x10-C05-Identity.md) | 2 | None | — | Inter-agent identity not addressed |
 | [C6.1 Execution Environment Integrity](../0.1/en/0x10-C06-Security.md) | 4 | Partial | CC7.1–CC7.2 | CC6/CC7 operations monitoring cover control operation; attestation vs reference values not required |
 | [C6.2 Isolation and Confidential Execution](../0.1/en/0x10-C06-Security.md) | 3 | None | — | Isolation proof not addressed |
-| [C6.3 Cryptographic Key Lifecycle](../0.1/en/0x10-C06-Security.md) | 3 | Partial | CC6.1 | CC6.1 encryption and key management expectations; not evidence-key custody |
+| [C6.3 Cryptographic Key Lifecycle](../0.1/en/0x10-C06-Security.md) | 5 | Partial | CC6.1 | CC6.1 encryption and key management expectations; not evidence-key custody |
 | [C7.1 Generation at the Action Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | None | — | No interception-gateway concept |
 | [C7.2 The Contemporaneous Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | Partial | CC7.2 | CC7.2 audit logging is contemporaneous; operator-produced |
 | [C7.3 The Tamper-Evident Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 3 | Partial | CC7.2 | Log protection expectations; signatures/chains not required and operator remains trusted |

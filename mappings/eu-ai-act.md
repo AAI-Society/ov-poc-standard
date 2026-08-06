@@ -17,7 +17,7 @@ Concretely: regulators today cannot verify that a high-risk system operated with
 
 <!-- BEGIN GENERATED MAPPING (tools/generate_crosswalks.py) -->
 
-**Coverage: 56%** of the 116 Proof-of-Control requirements (8 exact matches, 57 partial matches, 51 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
+**Coverage: 55%** of the 118 Proof-of-Control requirements (8 exact matches, 57 partial matches, 53 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
 
 **How to read the Match column** ([full rubric](rubric.md)): **Exact** — the framework has a clause equivalent in scope and intent. **Partial** — the framework covers the topic, but not with PoC's operator-independent evidence (or not at the same depth). **None** — the framework has no analogous provision.
 
@@ -39,7 +39,7 @@ Concretely: regulators today cannot verify that a high-risk system operated with
 | [C5.2 Inter-Agent Identity](../0.1/en/0x10-C05-Identity.md) | 2 | None | — | No inter-agent identity provisions |
 | [C6.1 Execution Environment Integrity](../0.1/en/0x10-C06-Security.md) | 4 | Partial | Art. 15 | Art 15 accuracy/robustness/cybersecurity requires environment controls; attestation vs golden values not required |
 | [C6.2 Isolation and Confidential Execution](../0.1/en/0x10-C06-Security.md) | 3 | Partial | Art. 15 | Art 15 cybersecurity covers isolation expectations generally; no proof-of-isolation requirement |
-| [C6.3 Cryptographic Key Lifecycle](../0.1/en/0x10-C06-Security.md) | 3 | None | — | No key-lifecycle provisions |
+| [C6.3 Cryptographic Key Lifecycle](../0.1/en/0x10-C06-Security.md) | 5 | None | — | No key-lifecycle provisions |
 | [C7.1 Generation at the Action Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | None | — | No action-interception or evidence-at-boundary concept |
 | [C7.2 The Contemporaneous Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | Partial | Art. 12 | Art 12 requires automatic recording of events over the lifetime; no operator-independent time anchoring |
 | [C7.3 The Tamper-Evident Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 3 | Partial | Art. 12; Art. 19 | Art 12/19 logging and retention imply record integrity; evidence remains operator-produced (Tier 2 in PoC terms) |

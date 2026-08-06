@@ -17,7 +17,7 @@ ISO/IEC 42001 defines the management system (AIMS) through which an organization
 
 <!-- BEGIN GENERATED MAPPING (tools/generate_crosswalks.py) -->
 
-**Coverage: 60%** of the 116 Proof-of-Control requirements (8 exact matches, 62 partial matches, 46 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
+**Coverage: 61%** of the 118 Proof-of-Control requirements (8 exact matches, 64 partial matches, 46 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
 
 **How to read the Match column** ([full rubric](rubric.md)): **Exact** — the framework has a clause equivalent in scope and intent. **Partial** — the framework covers the topic, but not with PoC's operator-independent evidence (or not at the same depth). **None** — the framework has no analogous provision.
 
@@ -39,7 +39,7 @@ ISO/IEC 42001 defines the management system (AIMS) through which an organization
 | [C5.2 Inter-Agent Identity](../0.1/en/0x10-C05-Identity.md) | 2 | None | — | Inter-agent identity not addressed |
 | [C6.1 Execution Environment Integrity](../0.1/en/0x10-C06-Security.md) | 4 | Partial | Cl. 8 (via ISO/IEC 27001 alignment) | Security controls via ISO 27001 alignment cover environment integrity; attestation not required |
 | [C6.2 Isolation and Confidential Execution](../0.1/en/0x10-C06-Security.md) | 3 | None | — | Isolation proof not addressed |
-| [C6.3 Cryptographic Key Lifecycle](../0.1/en/0x10-C06-Security.md) | 3 | Partial | ISO/IEC 27001 cryptographic controls (adjunct) | 27001-aligned cryptographic control expectations (key management) without evidence-key specificity |
+| [C6.3 Cryptographic Key Lifecycle](../0.1/en/0x10-C06-Security.md) | 5 | Partial | ISO/IEC 27001 cryptographic controls (adjunct) | 27001-aligned cryptographic control expectations (key management) without evidence-key specificity |
 | [C7.1 Generation at the Action Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | None | — | No action-interception concept |
 | [C7.2 The Contemporaneous Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | Partial | Cl. 7.5.3 | Documented-information controls require contemporaneous records; operator-produced |
 | [C7.3 The Tamper-Evident Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 3 | Partial | Cl. 7.5.3 | Records control protects integrity of documented information; not mechanism-generated |

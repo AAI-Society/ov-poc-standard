@@ -17,7 +17,7 @@
 
 <!-- BEGIN GENERATED MAPPING (tools/generate_crosswalks.py) -->
 
-**Coverage: 61%** of the 116 Proof-of-Control requirements (16 exact matches, 55 partial matches, 45 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
+**Coverage: 62%** of the 118 Proof-of-Control requirements (16 exact matches, 57 partial matches, 45 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
 
 **How to read the Match column** ([full rubric](rubric.md)): **Exact** — the framework has a clause equivalent in scope and intent. **Partial** — the framework covers the topic, but not with PoC's operator-independent evidence (or not at the same depth). **None** — the framework has no analogous provision.
 
@@ -39,7 +39,7 @@
 | [C5.2 Inter-Agent Identity](../0.1/en/0x10-C05-Identity.md) | 2 | Partial | AISVS C9; C10 | C9/C10 inter-agent and MCP security cover authenticated agent communication |
 | [C6.1 Execution Environment Integrity](../0.1/en/0x10-C06-Security.md) | 4 | Partial | AISVS C4 | C4 infrastructure requirements cover environment hardening; attestation evidence not required |
 | [C6.2 Isolation and Confidential Execution](../0.1/en/0x10-C06-Security.md) | 3 | Exact | AISVS C4; C9 | C4/C9 sandboxing requirements for code execution match isolation-proof scope |
-| [C6.3 Cryptographic Key Lifecycle](../0.1/en/0x10-C06-Security.md) | 3 | Partial | AISVS C4; C5 | C4/C5 key-management expectations; evidence-key custody is PoC-specific |
+| [C6.3 Cryptographic Key Lifecycle](../0.1/en/0x10-C06-Security.md) | 5 | Partial | AISVS C4; C5 | C4/C5 key-management expectations; evidence-key custody is PoC-specific |
 | [C7.1 Generation at the Action Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | Partial | AISVS C9 | C9 requires mediated tool access; out-of-band evidence-emitting gateway is PoC-specific |
 | [C7.2 The Contemporaneous Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | Partial | AISVS C12 | C12 logging requires event-time records; operator-produced |
 | [C7.3 The Tamper-Evident Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 3 | Partial | AISVS C12 | C12 log protection; mechanism-generated tamper-evidence not required |

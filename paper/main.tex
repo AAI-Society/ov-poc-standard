@@ -119,7 +119,7 @@ check? Today, in nearly every deployment, you cannot. The only account of what
 happened is the system's own, and the party writing that account is the party
 you would be checking. We call this the \emph{Verifiability Gap}, and this
 paper is about closing it. We describe \poc{}, an open standard with six
-domains of verification covering 116 testable requirements; four tiers that
+domains of verification covering 118 testable requirements; four tiers that
 grade evidence by \emph{who you must trust to believe it}, with a hard line
 between the tiers where you still trust somebody and the tiers where you do
 not; and an architecture that intercepts every consequential action, decides
@@ -182,7 +182,7 @@ Specifically:
 
 \begin{enumerate}[itemsep=1pt,topsep=2pt]
 \item \textbf{The standard} (Section~\ref{sec:standard}): six domains of
-verification with 116 testable requirements, four evidence properties, four
+verification with 118 testable requirements, four evidence properties, four
 tiers that grade evidence by how much trust it demands, and three stages of
 how thoroughly a claim was checked.
 \item \textbf{The architecture} (Section~\ref{sec:arch}): interception of
@@ -359,7 +359,7 @@ when its evidence reaches the top two tiers~\cite{pocspec}. We use MUST and
 SHOULD in the RFC~2119 sense~\cite{rfc2119}.
 
 \subsection{The six things worth having evidence about}
-The requirements---116 of them, each phrased as something you can go and
+The requirements---118 of them, each phrased as something you can go and
 check---are grouped into six domains:
 
 \begin{enumerate}[itemsep=1pt,topsep=2pt]
@@ -988,7 +988,7 @@ tell the difference.
 \label{sec:gap}
 
 Before claiming a gap exists, you should check whether somebody already filled
-it. So we took all 116 requirements and, one at a time, asked of eight
+it. So we took all 118 requirements and, one at a time, asked of eight
 existing frameworks: does this framework already require this?
 
 \subsection{How we did it}
@@ -997,7 +997,7 @@ agents~\cite{haarf2026}, each requirement gets one of three marks against each
 framework. \emph{Exact}: they ask for the same thing, at the same depth.
 \emph{Partial}: they ask about the same topic, but without demanding evidence
 somebody outside the company can check, or not in as much detail.
-\emph{None}: they do not address it. Coverage is (Exact + Partial) over 116.
+\emph{None}: they do not address it. Coverage is (Exact + Partial) over 118.
 The sheet, the rubric, and the script are public, so you can re-derive the
 numbers or re-code a framework you think we got wrong.
 
@@ -1032,14 +1032,14 @@ matches. Light: partial. The rest is the gap.}
 \textbf{Framework} & \textbf{Exact} & \textbf{Partial} & \textbf{None} &
 \textbf{Coverage} \\
 \midrule
-NIST AI RMF~\cite{nistairmf} & 0 & 73 & 43 & 63\% \\
-OWASP AISVS~\cite{owaspaisvs} & 16 & 55 & 45 & 61\% \\
-ISO/IEC 42001~\cite{iso42001} & 8 & 62 & 46 & 60\% \\
-EU AI Act~\cite{euaiact} & 8 & 57 & 51 & 56\% \\
-SOC 2~\cite{soc2tsc} & 8 & 57 & 51 & 56\% \\
-CSA AARM~\cite{csaaarm} & 13 & 46 & 57 & 51\% \\
-Zero Trust (SP 800-207)~\cite{sp800207} & 8 & 44 & 64 & 45\% \\
-MITRE ATLAS~\cite{mitreatlas} & 0 & 31 & 85 & 27\% \\
+NIST AI RMF~\cite{nistairmf} & 0 & 73 & 45 & 62\% \\
+OWASP AISVS~\cite{owaspaisvs} & 16 & 57 & 45 & 62\% \\
+ISO/IEC 42001~\cite{iso42001} & 8 & 64 & 46 & 61\% \\
+SOC 2~\cite{soc2tsc} & 8 & 59 & 51 & 57\% \\
+EU AI Act~\cite{euaiact} & 8 & 57 & 53 & 55\% \\
+CSA AARM~\cite{csaaarm} & 13 & 46 & 59 & 50\% \\
+Zero Trust (SP 800-207)~\cite{sp800207} & 8 & 44 & 66 & 44\% \\
+MITRE ATLAS~\cite{mitreatlas} & 0 & 31 & 87 & 26\% \\
 \bottomrule
 \end{tabular}
 \caption{Coverage, one coder, section granularity. The thin Exact column is
@@ -1294,6 +1294,74 @@ result is solid---label creep is real and declassification fixes it---but
 Python, so the absolute numbers are conservative; the breakdown between
 components is the part that will hold up. And we did not implement the
 privacy-preserving evidence options at all.
+
+\subsection{Signatures that have to outlive the attacker}
+\label{sec:pq}
+
+There is one more thing worth measuring, and it comes from taking the purpose
+of the system seriously. Evidence is not a session key. A record made today
+may be looked at in a dispute, an audit, or a courtroom ten or twenty years
+from now, and it is worth exactly what its signature is worth \emph{at the
+moment somebody looks}. So a signature scheme with an expiry date does not
+merely expire. It reaches back and destroys the value of evidence about things
+that happened years earlier. For most systems post-quantum migration is about
+protecting future traffic; for an evidence system it is about protecting the
+past.
+
+The good news is that most of the machinery does not care. The hash chain, the
+sequence numbers, and the anchoring are already post-quantum: the best known
+quantum attack on preimages is Grover's, which buys a square root, leaving
+SHA-256 at about 128 bits. So the structure survives. What has to migrate is
+the signatures---on tokens, on capabilities, and on published roots.
+
+We measured what that swap costs (Table~\ref{tab:pq}), using NIST's ML-DSA
+(FIPS 204) against Ed25519.
+
+\begin{table}[ht]
+\centering\small
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+\textbf{Scheme} & \textbf{Signature} & \textbf{Public key} &
+\textbf{Record} & \textbf{Per million actions} \\
+\midrule
+Ed25519 (classical) & 64 B & 32 B & 928 B & \SI{0.93}{\giga\byte} \\
+ML-DSA-44 & 2{,}420 B & 1{,}312 B & 10{,}352 B & \SI{10.35}{\giga\byte} \\
+ML-DSA-65 & 3{,}309 B & 1{,}952 B & 13{,}908 B & \SI{13.91}{\giga\byte} \\
+Hybrid Ed25519 + ML-DSA-44 & 2{,}484 B & 1{,}344 B & 10{,}608 B & \SI{10.61}{\giga\byte} \\
+\bottomrule
+\end{tabular}
+\caption{Cost of post-quantum evidence signatures. Records carry two
+signatures (token and capability), hex-encoded. Sizes are
+implementation-independent; see the caveat below about timing.}
+\label{tab:pq}
+\end{table}
+
+The headline is size, not speed. A signature goes from 64 bytes to 2{,}420---%
+a factor of 38---and because an evidence chain stores one per action, the
+whole record grows about eleven-fold, from roughly \SI{0.9}{\giga\byte} to
+\SI{10}{\giga\byte} per million actions. That is the real bill, and it is a
+storage and bandwidth conversation, not a cryptography one.
+
+\paragraph{A caveat we want to be loud about.} Our Ed25519 is a C-backed
+library and our ML-DSA is a pure-Python reference implementation, so the
+timings are not comparable and we are deliberately not putting them in the
+table. Pure-Python ML-DSA signing measured tens of milliseconds, which would
+blow the whole latency budget---but that number says something about our
+Python, not about ML-DSA. Optimized implementations are competitive with
+Ed25519, and verification in particular is fast. Anyone who cites a timing
+comparison from this section is citing an artifact. The size numbers are the
+ones that transfer.
+
+\paragraph{What we changed in the standard.} Two requirements. First, every
+record and capability must name the algorithm that signed it, and a claim must
+declare a migration path---so a verifier knows what to check and an operator
+can change schemes without orphaning evidence already published. Second, if
+the declared retention period runs past the period the signature scheme is
+expected to survive, then the implementation either signs post-quantum or
+hybrid, or re-signs and re-anchors retained evidence before the projection
+lapses. Hybrid is the sensible default during transition: you pay 2{,}484
+bytes instead of 2{,}420 and you are covered whichever way the next decade
+goes.
 
 \subsection{Two numbers we chose rather than measured}
 The \textbf{publishing interval $\Delta$} decides how much recent history an

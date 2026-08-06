@@ -58,6 +58,8 @@ poc_requirement_id,poc_section,source_framework,match_type,framework_clause,rati
 6.3.1,C6.3,CSA_AARM,NM,—,Key lifecycle not addressed,seed-01
 6.3.2,C6.3,CSA_AARM,NM,—,Key lifecycle not addressed,seed-01
 6.3.3,C6.3,CSA_AARM,NM,—,Key lifecycle not addressed,seed-01
+6.3.4,C6.3,CSA_AARM,NM,—,Key lifecycle not addressed,seed-01
+6.3.5,C6.3,CSA_AARM,NM,—,Key lifecycle not addressed,seed-01
 7.1.1,C7.1,CSA_AARM,EM,The AARM runtime gateway,"The AARM runtime gateway is the same interception boundary, mediating all agent actions",seed-01
 7.1.2,C7.1,CSA_AARM,EM,The AARM runtime gateway,"The AARM runtime gateway is the same interception boundary, mediating all agent actions",seed-01
 7.1.3,C7.1,CSA_AARM,EM,The AARM runtime gateway,"The AARM runtime gateway is the same interception boundary, mediating all agent actions",seed-01
@@ -174,6 +176,8 @@ poc_requirement_id,poc_section,source_framework,match_type,framework_clause,rati
 6.3.1,C6.3,EU_AI_Act,NM,—,No key-lifecycle provisions,seed-01
 6.3.2,C6.3,EU_AI_Act,NM,—,No key-lifecycle provisions,seed-01
 6.3.3,C6.3,EU_AI_Act,NM,—,No key-lifecycle provisions,seed-01
+6.3.4,C6.3,EU_AI_Act,NM,—,No key-lifecycle provisions,seed-01
+6.3.5,C6.3,EU_AI_Act,NM,—,No key-lifecycle provisions,seed-01
 7.1.1,C7.1,EU_AI_Act,NM,—,No action-interception or evidence-at-boundary concept,seed-01
 7.1.2,C7.1,EU_AI_Act,NM,—,No action-interception or evidence-at-boundary concept,seed-01
 7.1.3,C7.1,EU_AI_Act,NM,—,No action-interception or evidence-at-boundary concept,seed-01
@@ -290,6 +294,8 @@ poc_requirement_id,poc_section,source_framework,match_type,framework_clause,rati
 6.3.1,C6.3,ISO_42001,PM,ISO/IEC 27001 cryptographic controls (adjunct),27001-aligned cryptographic control expectations (key management) without evidence-key specificity,seed-01
 6.3.2,C6.3,ISO_42001,PM,ISO/IEC 27001 cryptographic controls (adjunct),27001-aligned cryptographic control expectations (key management) without evidence-key specificity,seed-01
 6.3.3,C6.3,ISO_42001,PM,ISO/IEC 27001 cryptographic controls (adjunct),27001-aligned cryptographic control expectations (key management) without evidence-key specificity,seed-01
+6.3.4,C6.3,ISO_42001,PM,ISO/IEC 27001 cryptographic controls (adjunct),27001-aligned cryptographic control expectations (key management) without evidence-key specificity,seed-01
+6.3.5,C6.3,ISO_42001,PM,ISO/IEC 27001 cryptographic controls (adjunct),27001-aligned cryptographic control expectations (key management) without evidence-key specificity,seed-01
 7.1.1,C7.1,ISO_42001,NM,—,No action-interception concept,seed-01
 7.1.2,C7.1,ISO_42001,NM,—,No action-interception concept,seed-01
 7.1.3,C7.1,ISO_42001,NM,—,No action-interception concept,seed-01
@@ -406,6 +412,8 @@ poc_requirement_id,poc_section,source_framework,match_type,framework_clause,rati
 6.3.1,C6.3,MITRE_ATLAS,NM,—,Key lifecycle not addressed,seed-01
 6.3.2,C6.3,MITRE_ATLAS,NM,—,Key lifecycle not addressed,seed-01
 6.3.3,C6.3,MITRE_ATLAS,NM,—,Key lifecycle not addressed,seed-01
+6.3.4,C6.3,MITRE_ATLAS,NM,—,Key lifecycle not addressed,seed-01
+6.3.5,C6.3,MITRE_ATLAS,NM,—,Key lifecycle not addressed,seed-01
 7.1.1,C7.1,MITRE_ATLAS,NM,—,No evidence-generation concept,seed-01
 7.1.2,C7.1,MITRE_ATLAS,NM,—,No evidence-generation concept,seed-01
 7.1.3,C7.1,MITRE_ATLAS,NM,—,No evidence-generation concept,seed-01
@@ -522,6 +530,8 @@ poc_requirement_id,poc_section,source_framework,match_type,framework_clause,rati
 6.3.1,C6.3,NIST_AI_RMF,NM,—,Key lifecycle not addressed (delegated to security control catalogs),seed-01
 6.3.2,C6.3,NIST_AI_RMF,NM,—,Key lifecycle not addressed (delegated to security control catalogs),seed-01
 6.3.3,C6.3,NIST_AI_RMF,NM,—,Key lifecycle not addressed (delegated to security control catalogs),seed-01
+6.3.4,C6.3,NIST_AI_RMF,NM,—,Key lifecycle not addressed (delegated to security control catalogs),seed-01
+6.3.5,C6.3,NIST_AI_RMF,NM,—,Key lifecycle not addressed (delegated to security control catalogs),seed-01
 7.1.1,C7.1,NIST_AI_RMF,NM,—,No action-interception evidence concept,seed-01
 7.1.2,C7.1,NIST_AI_RMF,NM,—,No action-interception evidence concept,seed-01
 7.1.3,C7.1,NIST_AI_RMF,NM,—,No action-interception evidence concept,seed-01
@@ -638,6 +648,8 @@ poc_requirement_id,poc_section,source_framework,match_type,framework_clause,rati
 6.3.1,C6.3,NIST_SP_800_207,NM,—,Key lifecycle not addressed at this level,seed-01
 6.3.2,C6.3,NIST_SP_800_207,NM,—,Key lifecycle not addressed at this level,seed-01
 6.3.3,C6.3,NIST_SP_800_207,NM,—,Key lifecycle not addressed at this level,seed-01
+6.3.4,C6.3,NIST_SP_800_207,NM,—,Key lifecycle not addressed at this level,seed-01
+6.3.5,C6.3,NIST_SP_800_207,NM,—,Key lifecycle not addressed at this level,seed-01
 7.1.1,C7.1,NIST_SP_800_207,PM,PEP (§3),The PEP mediates all access like the interception gateway; evidence emission is not required,seed-01
 7.1.2,C7.1,NIST_SP_800_207,PM,PEP (§3),The PEP mediates all access like the interception gateway; evidence emission is not required,seed-01
 7.1.3,C7.1,NIST_SP_800_207,PM,PEP (§3),The PEP mediates all access like the interception gateway; evidence emission is not required,seed-01
@@ -754,6 +766,8 @@ poc_requirement_id,poc_section,source_framework,match_type,framework_clause,rati
 6.3.1,C6.3,OWASP_AISVS,PM,AISVS C4; C5,C4/C5 key-management expectations; evidence-key custody is PoC-specific,seed-01
 6.3.2,C6.3,OWASP_AISVS,PM,AISVS C4; C5,C4/C5 key-management expectations; evidence-key custody is PoC-specific,seed-01
 6.3.3,C6.3,OWASP_AISVS,PM,AISVS C4; C5,C4/C5 key-management expectations; evidence-key custody is PoC-specific,seed-01
+6.3.4,C6.3,OWASP_AISVS,PM,AISVS C4; C5,C4/C5 key-management expectations; evidence-key custody is PoC-specific,seed-01
+6.3.5,C6.3,OWASP_AISVS,PM,AISVS C4; C5,C4/C5 key-management expectations; evidence-key custody is PoC-specific,seed-01
 7.1.1,C7.1,OWASP_AISVS,PM,AISVS C9,C9 requires mediated tool access; out-of-band evidence-emitting gateway is PoC-specific,seed-01
 7.1.2,C7.1,OWASP_AISVS,PM,AISVS C9,C9 requires mediated tool access; out-of-band evidence-emitting gateway is PoC-specific,seed-01
 7.1.3,C7.1,OWASP_AISVS,PM,AISVS C9,C9 requires mediated tool access; out-of-band evidence-emitting gateway is PoC-specific,seed-01
@@ -870,6 +884,8 @@ poc_requirement_id,poc_section,source_framework,match_type,framework_clause,rati
 6.3.1,C6.3,SOC_2,PM,CC6.1,CC6.1 encryption and key management expectations; not evidence-key custody,seed-01
 6.3.2,C6.3,SOC_2,PM,CC6.1,CC6.1 encryption and key management expectations; not evidence-key custody,seed-01
 6.3.3,C6.3,SOC_2,PM,CC6.1,CC6.1 encryption and key management expectations; not evidence-key custody,seed-01
+6.3.4,C6.3,SOC_2,PM,CC6.1,CC6.1 encryption and key management expectations; not evidence-key custody,seed-01
+6.3.5,C6.3,SOC_2,PM,CC6.1,CC6.1 encryption and key management expectations; not evidence-key custody,seed-01
 7.1.1,C7.1,SOC_2,NM,—,No interception-gateway concept,seed-01
 7.1.2,C7.1,SOC_2,NM,—,No interception-gateway concept,seed-01
 7.1.3,C7.1,SOC_2,NM,—,No interception-gateway concept,seed-01

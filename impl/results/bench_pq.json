@@ -1,0 +1,68 @@
+{
+  "environment": {
+    "platform": "macOS-26.5-arm64-arm-64bit",
+    "python": "3.11.11"
+  },
+  "caveat": "Ed25519 is C/Rust-backed; ML-DSA is a pure-Python reference implementation. Time comparisons overstate ML-DSA cost by a large factor and should not be cited as representative. Size comparisons are implementation-independent.",
+  "schemes": [
+    {
+      "scheme": "Ed25519 (classical)",
+      "impl": "C/Rust",
+      "sign_us": 80.9,
+      "verify_us": 176.0,
+      "sig_bytes": 64,
+      "pk_bytes": 32,
+      "pq": false
+    },
+    {
+      "scheme": "ML-DSA-44 (FIPS 204)",
+      "impl": "pure Python (reference)",
+      "sign_us": 17712.3,
+      "verify_us": 4217.3,
+      "sig_bytes": 2420,
+      "pk_bytes": 1312,
+      "pq": true
+    },
+    {
+      "scheme": "ML-DSA-65 (FIPS 204)",
+      "impl": "pure Python (reference)",
+      "sign_us": 26826.4,
+      "verify_us": 6626.5,
+      "sig_bytes": 3309,
+      "pk_bytes": 1952,
+      "pq": true
+    },
+    {
+      "scheme": "Hybrid Ed25519 + ML-DSA-44",
+      "impl": "mixed",
+      "sign_us": 16741.3,
+      "verify_us": 4490.5,
+      "sig_bytes": 2484,
+      "pk_bytes": 1344,
+      "pq": true
+    }
+  ],
+  "storage": [
+    {
+      "scheme": "Ed25519 (classical)",
+      "record_bytes": 928,
+      "gb_per_million_actions": 0.928
+    },
+    {
+      "scheme": "ML-DSA-44 (FIPS 204)",
+      "record_bytes": 10352,
+      "gb_per_million_actions": 10.352
+    },
+    {
+      "scheme": "ML-DSA-65 (FIPS 204)",
+      "record_bytes": 13908,
+      "gb_per_million_actions": 13.908
+    },
+    {
+      "scheme": "Hybrid Ed25519 + ML-DSA-44",
+      "record_bytes": 10608,
+      "gb_per_million_actions": 10.608
+    }
+  ],
+  "note_hash_chain": "The hash chain, sequence numbering, and Merkle anchoring are already post-quantum: Grover gives at best a square-root speedup, leaving SHA-256 at ~128-bit security. Only signatures migrate."
+}

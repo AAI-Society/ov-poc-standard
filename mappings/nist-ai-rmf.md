@@ -19,7 +19,7 @@ This is visible in the mapping below: the RMF has the **highest coverage of any 
 
 <!-- BEGIN GENERATED MAPPING (tools/generate_crosswalks.py) -->
 
-**Coverage: 63%** of the 116 Proof-of-Control requirements (0 exact matches, 73 partial matches, 43 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
+**Coverage: 62%** of the 118 Proof-of-Control requirements (0 exact matches, 73 partial matches, 45 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
 
 **How to read the Match column** ([full rubric](rubric.md)): **Exact** — the framework has a clause equivalent in scope and intent. **Partial** — the framework covers the topic, but not with PoC's operator-independent evidence (or not at the same depth). **None** — the framework has no analogous provision.
 
@@ -41,7 +41,7 @@ This is visible in the mapping below: the RMF has the **highest coverage of any 
 | [C5.2 Inter-Agent Identity](../0.1/en/0x10-C05-Identity.md) | 2 | None | — | Inter-agent identity not addressed |
 | [C6.1 Execution Environment Integrity](../0.1/en/0x10-C06-Security.md) | 4 | Partial | MEASURE 2.7 | MEASURE secure-and-resilient characteristic covers environment integrity aims; attestation not required |
 | [C6.2 Isolation and Confidential Execution](../0.1/en/0x10-C06-Security.md) | 3 | Partial | MEASURE 2.7 | Secure-and-resilient characteristic covers isolation expectations generally |
-| [C6.3 Cryptographic Key Lifecycle](../0.1/en/0x10-C06-Security.md) | 3 | None | — | Key lifecycle not addressed (delegated to security control catalogs) |
+| [C6.3 Cryptographic Key Lifecycle](../0.1/en/0x10-C06-Security.md) | 5 | None | — | Key lifecycle not addressed (delegated to security control catalogs) |
 | [C7.1 Generation at the Action Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | None | — | No action-interception evidence concept |
 | [C7.2 The Contemporaneous Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | Partial | MEASURE 2.8; MANAGE 4.1 | MEASURE documentation and test records are contemporaneous practices; no mechanism-generated evidence |
 | [C7.3 The Tamper-Evident Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 3 | Partial | MEASURE 2.8 | Traceability and documentation expectations; records remain operator-produced |
