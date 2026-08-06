@@ -113,443 +113,457 @@ added only upon explicit consent and substantive contribution.}}}
 \end{center}
 \vspace{-0.5em}
 \noindent{\small
-Autonomous AI agents plan multi-step workflows, invoke external APIs, modify
-application state, and delegate sub-tasks with minimal real-time human
-supervision---exposing a systemic vulnerability we call the
-\emph{Verifiability Gap}: the structural impossibility of confirming that an
-agent operated within its authorized policy boundaries and that its controls
-remained active and unmanipulated. Legacy mechanisms (system prompts, static
-access control, embedded guardrails, post-hoc log auditing) fail against
-non-deterministic, path-dependent execution at machine speed. We introduce
-\poc{} (PoC), an open standard for runtime verifiability comprising: (i) six
-\emph{domains of verification} enumerating 111 auditable requirements;
-(ii) four \emph{Verifiability Tiers} grading evidence by who must be trusted
-to believe it, with a \emph{binary threshold} separating authenticated
-documentation from mechanism-generated evidence; (iii) a reference
-architecture coupling lifecycle interception hooks with hardware-isolated
-policy evaluation under IETF RATS (RFC~9334), emitting Entity Attestation
-Tokens over a signed Merkle execution chain; and (iv) a reproducible coverage
-mapping showing that eight leading frameworks (NIST AI RMF, ISO/IEC~42001,
-OWASP AISVS, EU AI Act, SOC~2, CSA AARM, NIST SP~800-207, MITRE ATLAS)
-address 27--63\% of PoC requirements---almost entirely as partial matches
-that require the control but not operator-independent evidence of it. We
-state a formal policy model and an adversary model with four security
-properties, proving execution fidelity under capability-bound dispatch and
-showing that two properties do \emph{not} follow from attestation alone.
-We report an open-source reference implementation and its measurement: the
-software pipeline costs \SI{191}{\micro\second} per intercepted step
-(p99 \SI{237}{\micro\second}), 1.3\% of a \SI{15}{\milli\second} budget;
-path-aware evaluation is flat at \SI{0.21}{\micro\second} across a
-500$\times$ increase in path length, versus linear growth for naive
-re-evaluation; and eight attacks---including snapshot substitution,
-truncation, and split-view---succeed without the derived requirements and are
-refused or detected with them. The utility measurement is the consequential
-one: path-aware authorization falsely rejects 42.2\% of benign workflows
-without an explicit declassification point and 0\% with one, reproducing
-the label-creep result from information-flow control.}
+Suppose you let a piece of software act for you: read your records, call your
+tools, move your money. Afterward it tells you what it did. How would you
+check? Today, in nearly every deployment, you cannot. The only account of what
+happened is the system's own, and the party writing that account is the party
+you would be checking. We call this the \emph{Verifiability Gap}, and this
+paper is about closing it. We describe \poc{}, an open standard with six
+domains of verification covering 116 testable requirements; four tiers that
+grade evidence by \emph{who you must trust to believe it}, with a hard line
+between the tiers where you still trust somebody and the tiers where you do
+not; and an architecture that intercepts every consequential action, decides
+it inside a protected environment, and emits a signed record chained to
+everything before it. We prove that this arrangement does \emph{not} do what
+you would assume it does---an attester that signs ``I evaluated this
+snapshot'' says nothing about what the machine actually went on to do---and we
+show what you have to add to fix it. Then we built the thing and measured it.
+The software costs \SI{191}{\micro\second} per action, about one percent of
+our budget. Checking the path an agent took costs the same whether the path is
+ten steps or five thousand. Eight attacks work against the naive design and
+fail against ours. And the measurement we did not expect: a monitor that
+watches the whole path refuses 42\% of perfectly legitimate work unless you
+give it an explicit place to forget---which is exactly what people who study
+information flow have been saying for fifty years.}
 
 \clearpage
 
-\section{Introduction}
+\section{The Problem}
 \label{sec:intro}
 
-The rapid evolution from passive natural-language generation to autonomous
-agentic execution represents a foundational shift in computational
-infrastructure~\cite{paloalto2026,airia2026}. Autonomous agents now plan
-multi-step operational workflows, query complex databases, invoke external
-APIs, modify application state, and delegate sub-tasks to secondary agents
-with minimal real-time human supervision. While this autonomy unlocks
-substantial productivity, it exposes a systemic architectural vulnerability:
-the \emph{Verifiability Gap}---the absence of independent evidence of what an
-AI system did~\cite{pocspec}.
+A few years ago software did what you told it, step by step, and if you wanted
+to know what it had done you read the log. Now we have agents. You give one an
+objective in a sentence, and it decides for itself what to do: which database
+to query, which API to call, what to try next when the first thing fails,
+which sub-agent to hand a piece of the job to. It does this at machine speed,
+and it does not do the same thing twice~\cite{paloalto2026,airia2026}.
 
-The Verifiability Gap describes the structural impossibility of
-confirming---either during execution or retrospectively---that an autonomous
-agent operated within its authorized policy boundaries, that mandatory
-security controls remained active and uncompromised, and that the agent's
-state transitions were free from malicious manipulation or reasoning failure.
-Because agents execute complex, non-deterministic actions at machine speed,
-human oversight and traditional log-auditing workflows cannot maintain
-effective operational control~\cite{catalini2026}. Existing governance
-implementations rely almost exclusively on operator self-attestation, static
-permissions, or unanchored application logs, none of which provide open,
-cryptographically verifiable proof of policy
-compliance.
+That is genuinely useful. It also breaks something we have quietly relied on
+for a long time, which is the ability to find out afterward what happened.
 
-\paragraph{Contributions and scope.} This paper contributes:
-(1)~the \poc{} standard---six domains of verification, four evidence
-properties, four Verifiability Tiers with a binary threshold, four
-requirement levels aligned to the tiers, and three conformance stages---as a
-catalogue of 116 auditable requirements (Section~\ref{sec:standard});
-(2)~a reference architecture integrating lifecycle interception with
-hardware-backed attestation under IETF RATS~\cite{rfc9334}, Entity
-Attestation Tokens~\cite{rfc9711}, and a signed hash-chained execution
-history in the tamper-evident-logging
-lineage~\cite{merkle1987,crosby2009,rfc6962} (Section~\ref{sec:arch});
-(3)~a formal policy model and an adversary model with four stated security
-properties, the assumptions each depends on, and two attacks
-(snapshot substitution, split-view) that the architecture does \emph{not}
-resist without the additional requirements we derive here
-(Sections~\ref{sec:formal}--\ref{sec:security});
-(4)~a descriptive gap analysis mapping all 116 requirements against eight
-regulatory and security frameworks, with its methodological limits stated
-(Section~\ref{sec:gap}); and
-(5)~an open-source reference implementation, an eight-scenario attack
-harness that runs each attack with and without the requirement that addresses
-it, and measurements of latency, path-length scaling, verification cost, and
-the utility cost of path-aware authorization
-(Section~\ref{sec:eval}).
+Here is the situation exactly. An agent reads a customer record, calls three
+tools, and issues a refund. It reports success. Did it open only the records
+it was allowed to open, or did it look at others while it was in there? Did it
+stay inside the authority you gave it, or did something it read along the way
+talk it into doing more? You cannot tell. There is a log, but the machine that
+performed the actions is the machine that wrote the log, and if that machine
+is compromised---or if the company running it would simply rather you did not
+know---the log says whatever they want it to say. An agent reporting that it
+behaved is not evidence that it behaved.
 
-\emph{Scope of the implementation.} A hardware TEE was not available; the
-attesting environment is modelled in-process, so reported latencies exclude
-enclave transition costs and are a lower bound on end-to-end deployment
-latency. Everything else---signing, chaining, canonicalization, policy
-evaluation, capability minting and checking, anchoring, gossip, and
-verification---is real code exercised by real attacks. We state this boundary
-explicitly rather than extrapolating an overhead we did not measure.
+We call this the \emph{Verifiability Gap}: the absence of independent evidence
+of what an AI system did~\cite{pocspec}. It is not a policy gap. Nobody is
+confused about what the agent \emph{should} do. It is an evidence gap---and
+those are different problems with different fixes.
 
-\section{Background and Motivation}
-\label{sec:background}
+The reason it matters more every year is arithmetic. As machines get cheaper
+at doing things, they do more things, and the number of actions somebody ought
+to check grows with them. But the checking is still done by people, and there
+are the same number of people as before. Catalini, Hui and Wu work this out
+carefully~\cite{catalini2026}: the cost of doing falls toward zero while the
+cost of verifying is pinned to human attention. So verification becomes the
+scarce thing. If you want to check machine work at machine scale, the checking
+has to be done by machines too, and the evidence has to be the kind a machine
+can check.
 
-\subsection{Path dependency and non-deterministic execution}
-Unlike legacy software executing deterministic decision trees, agents operate
-within LLM reasoning loops that yield non-deterministic, path-dependent
-trajectories. Given a single objective, an agent
-dynamically determines its intermediate steps, selects tools, interprets
-unstructured outputs, and modifies its path from real-time observations.
-Compliance therefore cannot be validated prior to deployment, and evaluating
-an individual tool call in isolation fails to mitigate path-dependent risk:
-an agent reading confidential records early and issuing an outbound network
-request later creates a cumulative exfiltration risk that single-step
-inspection cannot detect. Empirical agent-security benchmarks establish both
-the attack surface and the weakness of per-call defenses: indirect prompt
-injection reliably hijacks tool-integrated agents through retrieved
-content~\cite{greshake2023,injecagent}, sandboxed emulation surfaces harmful
-trajectories that per-step review misses~\cite{toolemu}, and dynamic agent
-environments show that defenses effective on isolated prompts degrade over
-multi-step tool-calling sequences~\cite{agentdojo,agentharm}. The underlying
-structure is not new: a sequence of individually permitted operations that
-together violate a policy is the classical information-flow
-problem~\cite{denning1976,goguen1982}, which we return to in
-Section~\ref{sec:ifc}.
+\paragraph{What we did.} We wrote a standard, we analyzed it, we found two
+holes in our own design, we fixed them, and then we built it and measured it.
+Specifically:
 
-\subsection{Why legacy governance fails}
-Current AI risk management relies on three primary control mechanisms, none
-of which resolves the Verifiability Gap.
-
-\emph{System prompts and in-context instructions} inhabit the same logical
-stream as untrusted user inputs, retrieved documents, and tool outputs; this
-co-mingling renders them vulnerable to direct and indirect prompt injection.
-Prompting is a probabilistic steering mechanism, not a deterministic
-boundary: if a model deviates from its system prompt, no execution barrier
-prevents the action.
-
-\emph{Role-based access control and static identity} restrict which
-endpoints an agent may call but operate without contextual awareness. An
-agent holding valid credentials for both internal database reads and
-external messaging retains the technical capability to exfiltrate data;
-static IAM cannot evaluate the context, sequence, or cumulative risk of
-individually authorized permissions~\cite{sp800207}.
-
-\emph{Application-embedded guardrails} run under the agent's own execution
-authority. For agents with code-generation or system-command tools, internal
-guardrails provide weak isolation---a compromised process can bypass its own
-application-level checks---and they generate local, unauthenticated logs
-that cannot be audited independently of the host
-operator~\cite{netbankaudit2026}.
-
-\subsection{The collapse of the post-hoc audit window}
-The operational window for an autonomous exploit has collapsed toward zero:
-indirect prompt injections embedded in public web pages or internal
-repositories can hijack a reasoning loop instantly~\cite{airia2026}.
-Retrospective SIEM auditing is insufficient because application logs lack
-cryptographic immutability; an operator---or an adversary with
-persistence---can modify, append, or delete entries post-execution.
-Verification must therefore shift from reactive log auditing to inline,
-machine-speed cryptographic attestation anchored to hardware roots of
-trust~\cite{redhat2026,eqty2026}.
-
-\section{Related Work}
-\label{sec:related}
-
-\paragraph{Runtime governance for agents.} The Agent Control Specification
-defines portable interception middleware, policy manifests, and semantic
-conventions for agent runtimes~\cite{acs2026,acsms2026}, and CSA's AARM defines
-approve/modify/defer/deny enforcement at the action
-boundary~\cite{csaaarm}. These supply the \emph{enforcement} half of agentic
-assurance; \poc{} supplies the complementary \emph{evidence} half---the
-operator-independent proof that enforcement occurred.
-
-\paragraph{Remote attestation and confidential computing.} The IETF RATS
-architecture~\cite{rfc9334,ratsarch}, Entity Attestation
-Tokens~\cite{rfc9711,tcg2024}, multi-verifier
-topologies~\cite{multiverifier}, and hardware TEEs with verifiable-compute
-toolchains~\cite{redhat2026,eqty2026} provide the mechanism families \poc{}
-builds on. These prove properties of \emph{platforms and artifacts}; \poc{}
-extends them into a conformance regime for \emph{agent behavior}.
-
-\paragraph{Empirical agent-safety evaluation.} Benchmarks for
-tool-integrated agents---AgentDojo~\cite{agentdojo},
-InjecAgent~\cite{injecagent}, ToolEmu~\cite{toolemu}, and
-AgentHarm~\cite{agentharm}---establish that defenses evaluated on isolated
-prompts degrade over multi-step trajectories, and that harmful outcomes
-frequently arise from sequences of individually plausible tool calls. \poc{}
-absorbs this as a normative requirement (path-aware authorization) rather
-than as a detection heuristic.
-
-\paragraph{Identity substrate.} Decentralized identity work---W3C
-DIDs~\cite{w3cdid} and the Verifiable Credentials data
-model~\cite{w3cvc2}---together with supply-chain attestation
-formats~\cite{slsa,c2pa} provides the identity and provenance substrate the
-C1 and C5 domains build on.
-
-\paragraph{Tamper-evident logging and transparency.} The evidence chain is a
-direct descendant of Merkle authentication trees~\cite{merkle1987}, history
-trees for tamper-evident logging~\cite{crosby2009}, and Certificate
-Transparency~\cite{rfc6962,rfc9162}. That literature also supplies the
-attacks we must resist: a log operator can equivocate (present divergent
-views to different auditors) or truncate, which is why CT requires gossip and
-consistency proofs~\cite{ctgossip,chase2016}, and why systems such as
-CHAINIAC add collective signing~\cite{chainiac}. Section~\ref{sec:security}
-applies these results to agent evidence; to our knowledge, prior agent
-governance work does not.
-
-\paragraph{Reference monitors and complete mediation.} The requirement that
-\emph{every} security-relevant operation be mediated by a tamper-proof,
-always-invoked, verifiable mechanism is the reference-monitor
-concept~\cite{anderson1972} and the complete-mediation
-principle~\cite{saltzer1975}. Section~\ref{sec:mediation} argues that agent
-evidence architectures satisfy the ``verifiable'' clause via attestation but
-must be designed explicitly for ``always-invoked,'' and that a system meeting
-only the former produces an authenticated record that may not describe the
-action that actually executed.
-
-\paragraph{TEE limitations.} Enclave-based designs inherit a documented
-attack surface---architectural disclosure~\cite{costan2016}, transient
-execution and side-channel attacks~\cite{foreshadow}---and a vendor-rooted
-trust anchor. Section~\ref{sec:security} states these as explicit assumptions
-rather than treating hardware attestation as trust-free.
-
-\paragraph{Standards and regulation.} NIST AI RMF~\cite{nistairmf} and its
-generative-AI profile~\cite{nist6001}, ISO/IEC 42001~\cite{iso42001} and
-23894~\cite{iso23894}, SOC~2~\cite{soc2tsc}, the EU AI Act~\cite{euaiact},
-OWASP AISVS~\cite{owaspaisvs}, MITRE ATLAS~\cite{mitreatlas}, and zero-trust
-architecture~\cite{sp800207} govern adjacent layers; Section~\ref{sec:eval}
-quantifies exactly how much of \poc{} each already covers, following the
-coverage-mapping methodology introduced by HAARF for healthcare agent
-regulation~\cite{haarf2026}.
-
-\section{The \poc{} Standard}
-\label{sec:standard}
-
-\poc{} is \emph{open verification} that the controls governing an agent
-system are implemented and hold, graded by how independently that can be
-verified. For each control it claims, across six domains, a conformant
-implementation \textsc{must} produce evidence---generated by the enforcing
-mechanism at execution time---that the control held; place that evidence on
-the Verifiability Tiers; and disclose its residual trust assumptions. A
-system has \poc{} when, and only when, its evidence reaches Tier~3 or
-Tier~4~\cite{pocspec}. Requirements language follows RFC~2119~\cite{rfc2119}.
-
-\subsection{Six domains of verification}
-The standard enumerates 111 requirements across six domains, each stated as
-a testable \emph{verify-that} obligation with auditor evidence guidance:
-
-\begin{enumerate}[itemsep=1pt]
-\item \textbf{Provenance} (C1): which model ran; lineage, artifact, and
-  supply-chain origin, bound by hash-linked custody chains and signed
-  manifests~\cite{slsa,c2pa}.
-\item \textbf{Privacy} (C2): what data was read and written, evidenced
-  without re-leaking the data being protected~\cite{euaiact}.
-\item \textbf{Portability} (C3): boundary crossings---organizational,
-  jurisdictional, compute---with signed linking records so the evidence
-  chain survives migrations.
-\item \textbf{Authorization} (C4): authority granted, decisions within or
-  against it, delegation validity; \emph{path-aware} evaluation so a
-  composed sequence of individually authorized calls cannot exceed the
-  authority of its steps (Section~\ref{sec:ifc}).
-\item \textbf{Identity} (C5): which agent and which principal ran, bound by
-  short-lived delegation tokens, DIDs, and verifiable
-  credentials~\cite{w3cdid,w3cvc2}.
-\item \textbf{Security} (C6): integrity of the execution environment,
-  controls held, tools invoked, key lifecycle in hardware-backed custody.
+\begin{enumerate}[itemsep=1pt,topsep=2pt]
+\item \textbf{The standard} (Section~\ref{sec:standard}): six domains of
+verification with 116 testable requirements, four evidence properties, four
+tiers that grade evidence by how much trust it demands, and three stages of
+how thoroughly a claim was checked.
+\item \textbf{The architecture} (Section~\ref{sec:arch}): interception of
+every consequential action, decided inside a hardware-protected environment,
+under the IETF attestation architecture~\cite{rfc9334}, emitting signed
+tokens~\cite{rfc9711} chained together in the manner of tamper-evident
+logs~\cite{merkle1987,crosby2009,rfc6962}.
+\item \textbf{The analysis} (Sections~\ref{sec:formal}--\ref{sec:security}):
+a precise statement of what an attacker can do, four properties we want, and
+proofs. Two of the four do \emph{not} follow from the obvious design. We show
+exactly what has to be added.
+\item \textbf{The comparison} (Section~\ref{sec:gap}): how much of this eight
+existing frameworks already ask for, coded requirement by requirement, with an
+honest account of what that measurement can and cannot tell you.
+\item \textbf{The implementation} (Section~\ref{sec:eval}): working code, an
+attack harness that runs eight attacks with and without each defense, and
+measurements of what it all costs.
 \end{enumerate}
 
-Four cross-cutting chapters govern evidence generation and properties
-(binary, contemporaneous, tamper-evident, transparent), tier grading,
-system-surface location on the seven MAESTRO layers~\cite{csamaestro}, and
-conformance with standardized trust-assumption disclosure.
+\paragraph{One thing we could not do.} We did not have a machine with a real
+hardware enclave, so in our implementation the protected environment is a
+software stand-in: the signing key is never handed out, the ``measurement'' is
+a digest of the policy code, and every step of the protocol runs for real. But
+hardware isolation is not there. That means our timings leave out the cost of
+crossing into a real enclave, and the true number will be larger. We say so
+rather than guessing at a number we did not measure.
 
-\subsection{Verifiability Tiers and the binary threshold}
+\section{Why the Obvious Answers Don't Work}
+\label{sec:background}
+
+Before describing what we did, it is worth being clear about why the things
+people already do are not enough. Not because they are bad---they are
+useful---but because each one answers a different question.
+
+\subsection{The path is the problem}
+\label{sec:path}
+
+Old software followed a decision tree you could read in advance. An agent does
+not. Given one objective it invents its own sequence of steps, reads whatever
+comes back, and changes its mind. So you cannot check compliance before it
+runs; there is nothing fixed to check.
+
+Worse, you cannot check it one step at a time either, and this is the part
+people miss. Consider two actions. First, the agent reads a confidential
+customer record---which it is allowed to do; that is its job. Second, it makes
+an outbound network call---which it is also allowed to do; it has to talk to
+partners. Look at either action alone and you see nothing wrong. Look at them
+in sequence and you are watching data walk out the door.
+
+This is not a new observation. It is the oldest observation in the field of
+information flow~\cite{denning1976,goguen1982}. What is new is the setting:
+benchmarks for tool-using agents show that defenses which work fine on
+isolated prompts fall apart over multi-step
+sequences~\cite{agentdojo,agentharm}, that content retrieved from the world
+hijacks agents reliably~\cite{greshake2023,injecagent}, and that harm usually
+arrives as a series of individually reasonable calls~\cite{toolemu}. We
+return to the information-flow connection in Section~\ref{sec:ifc}, because it
+turns out to predict our most important measurement.
+
+\subsection{Three things people do, and what each one misses}
+
+\paragraph{Telling the model to behave.} You write a system prompt: do not do
+X, always do Y. The trouble is that the instruction lives in the same stream
+of text as everything the agent reads---user input, retrieved documents, tool
+output. There is no wall between ``what I was told by my owner'' and ``what I
+read on a web page.'' So a web page can tell it something else. And even
+setting attacks aside, a prompt is a suggestion with statistical force, not a
+barrier. If the model steps over the line, nothing stops it. There is no line;
+there is only a preference.
+
+\paragraph{Permissions.} Give the agent credentials for exactly the endpoints
+it needs. This is real and you should do it. But permissions are blind to
+context and to history~\cite{sp800207}. An agent that legitimately needs to
+read the customer database, and legitimately needs to send email, has
+everything it needs to exfiltrate the customer database by email, and every
+individual call is authorized. That is the path problem again, and a
+permission system cannot see it because it looks at one call at a time.
+
+\paragraph{Guardrails inside the application.} Put the checks in the agent's
+own code. Now ask: what happens when the agent is running generated code, or
+has a shell tool? The checks are running with the same authority as the thing
+they are checking. A process can skip its own checks. And the log it writes is
+its own log~\cite{netbankaudit2026}. This is the deep problem with all three:
+\emph{the thing being checked is doing the checking}.
+
+\subsection{Why looking afterward is too late}
+
+The usual backstop is the audit: collect the logs, look later. Two things have
+gone wrong with that.
+
+First, the time available has collapsed. An instruction hidden in a web page
+can redirect an agent instantly, and the money moves before anyone reads
+anything~\cite{airia2026}. Afterward is measured in weeks; the event was
+measured in milliseconds.
+
+Second---and this is the fatal one---ordinary logs are not evidence. They are
+a story the system tells about itself. Anyone who controls the machine can
+edit them, add to them, or quietly leave things out. So the audit rests on
+trusting the operator, which is precisely the thing you were trying not to
+have to do.
+
+What you want instead is evidence made \emph{by the mechanism, as the action
+happens}, anchored to something the operator cannot
+reach~\cite{redhat2026,eqty2026}.
+
+\section{What Others Have Built}
+\label{sec:related}
+
+\paragraph{Governing agents at runtime.} The Agent Control Specification
+defines where to put the hooks and how to carry policy between
+systems~\cite{acs2026,acsms2026}, and CSA's AARM defines what to do at the
+boundary: approve, modify, defer, deny~\cite{csaaarm}. That is the enforcement
+half, and it is necessary. But the record it leaves is still the operator's
+record. Enforcement decides what an agent may do; we are after evidence of
+what it did.
+
+\paragraph{Attestation.} The IETF's remote attestation
+architecture~\cite{rfc9334,ratsarch} gives us the vocabulary and the roles,
+entity attestation tokens give us the format~\cite{rfc9711,tcg2024}, there is
+work on using several verifiers at once~\cite{multiverifier}, and hardware
+enclaves plus verifiable-compute tooling give us somewhere to stand that the
+host cannot reach into~\cite{redhat2026,eqty2026}. These prove things about
+\emph{platforms and code}. We are extending them to say something about
+\emph{what an agent did}.
+
+\paragraph{Tamper-evident logs.} Chaining records so that changing one breaks
+the rest goes back to Merkle~\cite{merkle1987} and was worked out properly for
+logging by Crosby and Wallach~\cite{crosby2009}, then deployed at scale in
+Certificate Transparency~\cite{rfc6962,rfc9162}. That literature also tells us
+what such logs \emph{cannot} do on their own: an operator can show different
+histories to different people, or simply stop showing you the recent
+part. Which is why Certificate Transparency needs gossip and consistency
+proofs~\cite{ctgossip,chase2016}, and why systems like CHAINIAC bring in
+witnesses~\cite{chainiac}. We use those results in
+Section~\ref{sec:security}; as far as we can tell, nobody has applied them to
+agent evidence.
+
+\paragraph{Reference monitors.} The idea that every security-relevant
+operation must go through a mechanism that is tamper-proof, always invoked,
+and small enough to verify is Anderson's~\cite{anderson1972}, and
+``always invoked'' is Saltzer and Schroeder's complete
+mediation~\cite{saltzer1975}. Section~\ref{sec:mediation} is really just this
+old requirement, applied carefully, and finding that the obvious agent design
+fails it.
+
+\paragraph{What enclaves cannot promise.} Enclaves have been attacked, by
+architectural analysis~\cite{costan2016} and by transient-execution
+tricks~\cite{foreshadow}, and their trust ultimately roots in a chip vendor.
+We therefore write those down as assumptions instead of pretending they are
+free.
+
+\paragraph{Standards and regulation.} NIST's risk framework~\cite{nistairmf}
+and its generative profile~\cite{nist6001}, ISO/IEC 42001~\cite{iso42001} and
+23894~\cite{iso23894}, SOC~2~\cite{soc2tsc}, the EU AI Act~\cite{euaiact},
+OWASP AISVS~\cite{owaspaisvs}, MITRE ATLAS~\cite{mitreatlas}, and zero-trust
+architecture~\cite{sp800207} all govern neighboring ground.
+Section~\ref{sec:gap} measures exactly how much of what we ask for they
+already ask for, using the coding method HAARF developed for healthcare
+agents~\cite{haarf2026}.
+
+\paragraph{Identity.} Decentralized identifiers~\cite{w3cdid}, verifiable
+credentials~\cite{w3cvc2}, and supply-chain attestation
+formats~\cite{slsa,c2pa} give us the pieces for saying which agent acted on
+whose behalf, and where the model came from.
+
+\section{The Standard}
+\label{sec:standard}
+
+Here is the whole idea in one sentence: \emph{for every control you claim, the
+mechanism that enforces it must produce evidence, while it runs, that it held;
+you must say how independently that evidence can be checked; and you must say
+what you are still asking people to take on faith.} A system has \poc{} only
+when its evidence reaches the top two tiers~\cite{pocspec}. We use MUST and
+SHOULD in the RFC~2119 sense~\cite{rfc2119}.
+
+\subsection{The six things worth having evidence about}
+The requirements---116 of them, each phrased as something you can go and
+check---are grouped into six domains:
+
+\begin{enumerate}[itemsep=1pt,topsep=2pt]
+\item \textbf{Provenance}: which model actually ran, and where it and its
+inputs came from, tied together with signed manifests and hash
+links~\cite{slsa,c2pa}.
+\item \textbf{Privacy}: what data was read and written---proved without
+handing over the data you are protecting, which is the awkward part.
+\item \textbf{Portability}: what crossed which boundary, between companies,
+jurisdictions, or clouds, with the evidence chain surviving the trip.
+\item \textbf{Authorization}: what authority was granted, whether each action
+stayed inside it, and whether delegation was valid---judged over the
+\emph{path}, not one action at a time.
+\item \textbf{Identity}: which agent, on whose behalf~\cite{w3cdid,w3cvc2}.
+\item \textbf{Security}: whether the environment was intact, whether the
+controls held, which tools were called, and who holds the keys.
+\end{enumerate}
+
+Four more chapters cut across all six: how evidence is generated and what
+properties it must have, how it is graded, where in the stack it applies
+(we use the seven MAESTRO layers~\cite{csamaestro}), and how a claim is
+checked and what residual trust must be disclosed.
+
+\subsection{Four tiers, and the line that matters}
 \label{sec:tiers}
 
-Evidence is graded by \emph{who must be trusted to believe it}
-(Figure~\ref{fig:ladder}). Cryptography alone does not raise the tier;
-removing the trusted party does. An operator-signed log is cryptographic and
-still Tier~2. A vendor-rooted TEE attestation is Tier~2 unless composed with
-independent anchoring (e.g., a public transparency log). The \emph{binary
-threshold} falls between Tier~2 and Tier~3: below it, authenticated
-documentation; above it, mechanism-generated evidence. The threshold makes
-the category procurable---``does your AI have \poc{}?'' is a yes-or-no
-question, the pattern used by every category-defining certification
-(FIPS~140, Common Criteria, PCI~DSS, CSA STAR).
+The grading question is not ``did you use cryptography?'' Cryptography is
+everywhere and proves nothing by itself. The question is: \emph{who do I have
+to trust to believe this?} (Figure~\ref{fig:ladder}.)
+
+At Tier~1 you trust the operator: they say so. At Tier~2 you trust somebody
+else---an auditor, a certificate authority, a chip vendor. Note that a signed
+log is Tier~2: the signature proves the log was not edited after it was
+written, and proves exactly nothing about whether it was true when it was
+written. At Tier~3, there is nobody left to trust; anyone can check the
+evidence with published tools. At Tier~4, checking is not optional---the
+system cannot act unless the evidence exists.
+
+The line falls between Tier~2 and Tier~3. Below it you have authenticated
+paperwork. Above it you have evidence. We insist on a hard line rather than a
+smooth scale for a practical reason: a buyer can ask a yes-or-no question.
+``Does your system have \poc{}?'' is a question a procurement officer can put
+in a contract. ``How far along the trust-minimization spectrum are you?'' is
+not. Every certification that ever built a market did this---FIPS validated or
+not, PCI compliant or not.
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.86\linewidth]{figures/tier-ladder.pdf}
-\caption{The four Verifiability Tiers. The binary threshold falls between
-Tiers 2 and 3: below it, authenticated documentation (a party must still be
-trusted); above it, mechanism-generated evidence. Requirement levels 1--4
-align one-to-one with the tiers; meeting all Level 1--3 requirements in the
-claimed domains is the minimum for a \poc{} claim.}
+\caption{The four tiers, graded by who you must trust. The hard line sits
+between Tier~2 and Tier~3: below it, authenticated paperwork; above it,
+evidence a stranger can check. Requirement levels 1--4 line up one-for-one
+with the tiers.}
 \label{fig:ladder}
 \end{figure}
 
-Conformance is graded on a separate axis by three named stages---%
-Self-Declared, Third-Party Assessed, Continuously Monitored---each requiring
-a standardized conformance statement with declared system boundary, in-scope
-action classes, per-claim tiers, mechanisms, and trust-assumption
-disclosure. The declared inventory \textsc{must} be reconciled against
-automated discovery from observability streams so undeclared (``shadow'')
-agents surface as findings.
+Separately from the evidence, we grade how carefully the \emph{claim} was
+checked: the operator says so (Self-Declared), an accredited assessor checked
+(Third-Party Assessed), or it is checked continuously as the system runs
+(Continuously Monitored). And because you cannot govern what you have not
+found, the declared inventory of agents must be reconciled against what
+automatic discovery actually finds.
 
-\section{Reference Architecture}
+\section{How It Works}
 \label{sec:arch}
 
-The reference architecture integrates runtime lifecycle interception with
-hardware-backed attestation under the IETF RATS architecture
-(RFC~9334)~\cite{rfc9334,ratsarch}. Figure~\ref{fig:arch} shows the
-end-to-end pipeline and its mapping onto RATS roles: every consequential
-action is intercepted, reduced to a canonical state snapshot, evaluated
-inside a hardware enclave that the operator cannot reach into, and released
-only after signed evidence exists; Figure~\ref{fig:flow} shows the same
-boundary from the evidence-generation perspective.
+The architecture is easier to describe than it sounds
+(Figure~\ref{fig:arch}). Every time the agent is about to do something that
+matters, we stop it. We write down exactly what it is proposing to do, in a
+form that hashes to a fixed value. We hand that description to a protected
+environment the host cannot reach into. That environment checks it against the
+policy, decides, adds a link to a chain of everything decided so far, signs
+the result, and hands back a token. Only then does the action go out. If the
+evidence cannot be written, the action does not happen.
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.92\linewidth]{figures/reference-architecture.pdf}
-\caption{The \poc{} reference architecture and its IETF RATS role mapping.
-The agent host (Attester) routes every lifecycle event through an ACS
-interception point; the hardware TEE enclave (Attesting Environment)
-verifies the policy bundle, evaluates the snapshot, extends the signed
-Merkle chain, and emits the Entity Attestation Token (Evidence), which a
-Verifier checks against published reference values before a Relying Party
-executes the request.}
+\caption{The pipeline, and how it maps onto the IETF attestation roles. The
+agent host is the Attester; the enclave is the Attesting Environment; the
+token is Evidence; a Verifier checks it against published reference values
+before a Relying Party will act.}
 \label{fig:arch}
 \end{figure}
+
+\subsection{Where we stop the agent}
+There are eight places, taken from the Agent Control
+Specification~\cite{acs2026,acsms2026}: when a task starts; when context is
+assembled (retrieval, memory); when a plan is formed; before a tool call;
+after a tool result comes back; when memory is written; when a sub-task is
+handed to another agent; and when the task finishes. At each one we build the
+snapshot and get back one of four answers: \textsc{allow}, \textsc{deny},
+\textsc{modify} (sanitize it and proceed), or \textsc{escalate} (ask a
+human).
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.95\linewidth]{figures/evidence-flow.pdf}
-\caption{Evidence generation at the action boundary. The out-of-band Action
-Interception Gateway mediates every tool call, writes evidence before the
-action is released, and emits records any verifier can check without
-privileged access; out-of-scope actions are rejected and evidenced.}
+\caption{The same boundary, seen from the evidence side. Nothing gets out
+without a record, including the things that were refused.}
 \label{fig:flow}
 \end{figure}
 
-\subsection{Lifecycle interception hooks}
-\poc{} mandates standardized middleware hooks across the agent execution
-loop, leveraging the open Agent Control Specification
-(ACS)~\cite{acs2026,acsms2026}: \emph{task initialization}, \emph{context
-assembly} (RAG/memory injection), \emph{plan generation}, \emph{pre-call
-tool invocation}, \emph{post-call tool result}, \emph{memory write},
-\emph{sub-agent delegation} (with constraint inheritance), and \emph{task
-completion}. At each point the host constructs a canonical state
-snapshot---agent identity, execution history, proposed action, environmental
-context---submitted to an isolated policy engine that returns a binding
-decision: \textsc{allow}, \textsc{deny}, \textsc{modify} (inline
-sanitization), or \textsc{escalate} (human-in-the-loop authorization). The
-gateway does not forward an action until the corresponding evidence record
-is durably written, and in-scope actions fail closed when evidence cannot be
-generated at the claimed tier.
+\subsection{The roles, in the standard vocabulary}
+Mapping onto the attestation architecture~\cite{rfc9334}: the machine running
+the agent and the hooks is the \emph{Attester}; the layer holding the runtime,
+the model context, and the proposed action is the \emph{Target Environment};
+the enclave that measures the policy code, checks the bundle signature,
+evaluates, and signs is the \emph{Attesting Environment}; the signed token is
+\emph{Evidence}~\cite{rfc9711,tcg2024}; whoever compares that against
+published reference values is a \emph{Verifier}; and whoever refuses to act
+without a good answer is a \emph{Relying Party}. Chains of sub-agents are
+handled with several verifiers~\cite{multiverifier}.
 
-\subsection{RATS role mapping}
-The runtime maps onto RATS roles~\cite{rfc9334}: the \emph{Attester} is the
-platform housing the agent runtime, hooks, and policy engine; the
-\emph{Target Environment} is the operational layer containing the runtime,
-model context, and proposed action; the \emph{Attesting Environment} is a
-cryptographically isolated TEE (Intel TDX, AMD SEV-SNP, NVIDIA Confidential
-Computing)~\cite{redhat2026,eqty2026} that measures the policy-engine
-binaries, verifies the policy-bundle signature, evaluates the snapshot, and
-signs the proof; \emph{Evidence} is an Entity Attestation Token (CWT/JWT)
-carrying measurements, claims, step index, verdict, and platform
-signatures~\cite{rfc9711,tcg2024}; a \emph{Verifier} compares Evidence
-against reference values to produce an Attestation Result; and
-\emph{Relying Parties} (API gateways, downstream services) require valid
-results before executing tool requests. Sub-agent delegation chains are
-governed by composite multi-verifier topologies~\cite{multiverifier}.
-
-\subsection{Complete mediation: binding the snapshot to the effect}
+\subsection{The mistake we almost made}
 \label{sec:mediation}
 
-An enclave that evaluates a snapshot attests a precise statement: \emph{given
-this snapshot, the authorized policy produced this verdict}. It does not, by
-itself, attest that the snapshot faithfully described the action the host
-subsequently performed. If the host constructs the snapshot and separately
-holds the tool credentials and network path, a compromised host can submit
-snapshot $\sigma$ describing a benign action, obtain an \textsc{allow} token,
-and dispatch a different action $a^{\dagger}$---producing evidence that is
-cryptographically impeccable and materially false. We call this
-\emph{snapshot substitution}; it is the agent-governance instance of the
-classical reference-monitor requirement that mediation be
-always-invoked~\cite{anderson1972,saltzer1975}, and it is not closed by
-attestation alone.
+Now here is the interesting part, and it is the part we got wrong at first.
 
-\poc{} therefore requires that the \emph{effect channel} be mediated within
-the same trust boundary as policy evaluation. Concretely, at least one of the
-following must hold for every in-scope action class, and which one must be
-stated in the conformance claim:
+The enclave signs a statement. It is worth reading that statement carefully,
+because it is narrower than it looks. What it says is: \emph{given this
+description, the authorized policy said yes.} That is all. It does not say the
+description was true. It does not say the machine then went and did that
+thing.
+
+So suppose the host is compromised. The host is what builds the description,
+and the host is also what holds the credentials and the network connection. It
+can hand the enclave a description of something harmless, collect a perfectly
+genuine \textsc{allow} token, and then go do something else entirely. Every
+signature checks out. The evidence is impeccable. And it is a lie.
+
+We call this \emph{snapshot substitution}. It is not a clever attack; it is
+what happens if you forget Anderson's rule that the monitor has to be
+\emph{always invoked}, not merely present~\cite{anderson1972,saltzer1975}. You
+have built a tamper-evident diary when you thought you were building a
+reference monitor.
+
+The fix is that the channel through which the effect actually happens has to
+be inside the same trust boundary as the decision. Concretely, one of these
+must be true, and the claim has to say which:
 
 \begin{enumerate}[itemsep=1pt,topsep=2pt]
-\item \textbf{Enclave-terminated egress.} The credentials and transport used
-  to perform the effect are held inside the Attesting Environment, which
-  emits the request itself after evaluation; the host cannot reach the tool
-  endpoint independently.
-\item \textbf{Capability-bound dispatch.} The enclave releases a
-  single-use, action-bound capability (a token cryptographically committing
-  to $H(\sigma_t^{\mathrm{snap}})$ and the target resource) that the relying
-  party verifies before executing, so an unbound request is rejected at the
-  far end.
-\item \textbf{Attested-path mediation.} Egress is confined to a network path
-  whose enforcement point is itself attested and configured to admit only
-  requests carrying a valid, matching Evidence token.
+\item \textbf{The enclave makes the call itself.} It holds the credentials and
+the connection; the host has no path to the endpoint.
+\item \textbf{The enclave issues a ticket.} A single-use capability
+cryptographically tied to the description and the target, which the far end
+checks before doing anything. A request without a matching ticket is refused
+where it lands.
+\item \textbf{The path is attested.} Traffic can only leave through an
+enforcement point that is itself attested and only admits requests carrying
+matching evidence.
 \end{enumerate}
 
-Option~2 requires cooperation from relying parties and is the only one that
-survives a fully compromised host without enclave-terminated I/O; options~1
-and~3 shrink the trusted computing base rather than eliminating host
-involvement. A deployment that adopts none of these may still claim Tiers~1--2,
-but \textsc{must not} claim that its evidence describes executed actions.
+Option~2 is the only one that survives a fully compromised host without
+putting the network stack inside the enclave; options~1 and~3 shrink the
+problem rather than removing it. If you do none of these, you may still claim
+the lower tiers---but you must not claim your evidence describes what your
+system did, because it does not.
 
-\subsection{Merkle-chain execution history}
-Each intercepted step $t$ generates a leaf
+\subsection{Chaining the records}
+Each step makes a link:
 \begin{equation}
 L_t = H\!\left(L_{t-1} \,\|\, H(\sigma_t^{\mathrm{snap}}) \,\|\, d_t\right),
 \qquad L_0 = H(\mathrm{seed}_{\mathrm{init}}),
 \end{equation}
-where $\sigma_t^{\mathrm{snap}}$ is the canonical snapshot, $d_t$ the
-verdict, and $H$ a collision-resistant hash. The Attesting Environment signs
-each leaf with an enclave-bound key; per-source monotonic sequence indices
-make \emph{omission} detectable within a chain a verifier observes
-contiguously. Following the tamper-evident-logging
-literature~\cite{merkle1987,crosby2009}, the accumulated root is periodically
-anchored to a public transparency log or distributed trust root
-(asynchronously, off the hot path). As Section~\ref{sec:security} shows,
-hash chaining and anchoring alone do not resist equivocation or truncation:
-the standard additionally requires bounded anchoring intervals and
-cross-verifier consistency checking, in the manner of Certificate
-Transparency gossip~\cite{rfc6962,ctgossip,chase2016}.
+where $\sigma_t^{\mathrm{snap}}$ is the description, $d_t$ the decision, and
+$H$ a hash nobody knows how to find collisions in. The enclave signs each
+link. Numbering the steps means a missing one leaves a hole. Periodically the
+running total is published somewhere public, off the critical path.
 
-\subsection{Canonical evidence schema}
+That much is standard~\cite{merkle1987,crosby2009}. It is also not enough, and
+Section~\ref{sec:security} shows exactly how it fails---an operator can stop
+publishing, or publish two different histories to two different people. Fixing
+those needs bounded publishing intervals and people comparing notes, which is
+what Certificate Transparency figured out~\cite{rfc6962,ctgossip,chase2016}.
+
+\subsection{What a record actually contains}
 \label{sec:schema}
 
-Every intercepted step yields one Evidence token: an Entity Attestation
-Token~\cite{rfc9711} carrying the \poc{} claim set alongside the hardware
-attestation submodule. Listing~\ref{lst:eat} shows a representative token
-(JWT rendering; the CBOR/CWT encoding is byte-equivalent in claim
-structure), produced at the pre-call tool-invocation hook for a payment
-API request.
+Listing~\ref{lst:eat} is a real token, from the tool-call hook, for a payment
+API request. It is an entity attestation token~\cite{rfc9711} with our claims
+inside it. Table~\ref{tab:claims} says what every field means.
+
+Three choices in there are worth pointing out. First, \emph{the data never
+leaves}: the token carries a hash of the description, not the description, so
+anyone can later confirm what was evaluated by hashing it, and the evidence
+store never becomes a second copy of your customer database. Second,
+\emph{history is load-bearing}: the step number and the running total tie this
+record to every record before it, so quietly dropping an inconvenient step
+breaks arithmetic rather than merely being impolite. Third, \emph{the rules are
+pinned}: the bundle hash names the exact policy that produced this answer, so
+``which rules were in force?'' is something you check, not something you
+reconstruct from a change log and hope.
+
+\paragraph{How you check one.} It is mechanical, and worth walking through
+because there is nothing clever in it. (1)~Check the signature against the
+platform's attestation roots. (2)~Compare the enclave measurement to the
+published golden value---this is what tells you the code that decided was the
+code you think decided. (3)~Check the policy bundle hash against the registry.
+(4)~Check the nonce is fresh, so this is not an old token being waved at you
+again. (5)~Check the step numbers run consecutively and the running totals
+agree with the other tokens you have seen. (6)~Only now believe the verdict.
+Every one of those steps uses published material. You never ask the operator
+for anything. That is the entire point.
 
 \begin{listing}[p]
 \begin{minted}[bgcolor=codepanel, fontsize=\scriptsize, frame=lines,
@@ -628,454 +642,386 @@ profile; ``HW'' rows form the hardware-attestation submodule.}
 \label{tab:claims}
 \end{listing}
 
-Table~\ref{tab:claims} defines each claim. Three design decisions matter.
-First, \emph{payloads never leave the boundary}: the token carries
-\texttt{canonical\_snapshot\_hash}, a commitment to the full evaluated
-state, rather than the state itself---so a third party can later confirm
-exactly what was evaluated (by hashing a disclosed snapshot) without the
-evidence store ever holding raw data (the C2 privacy requirements).
-Second, \emph{history is load-bearing}: \texttt{step\_index} and
-\texttt{merkle\_root} bind this token to every token before it, which is
-what makes silent omission of an inconvenient step as detectable as
-alteration. Third, \emph{the policy is pinned}:
-\texttt{policy\_bundle\_hash} identifies the exact rule set that produced
-the verdict, so ``which policy was in force?'' is a claim to check, not a
-change-log to reconstruct.
-
-
-
-\paragraph{How a verifier consumes the token.} Verification is a fixed,
-mechanical sequence: (1)~validate \texttt{attestation\_signature} against
-the platform's attestation roots (composed with independent anchoring per
-the Tier-3 rule of Section~\ref{sec:tiers}); (2)~compare
-\texttt{mr\_config} to the published golden measurement of the policy
-engine; (3)~check \texttt{policy\_bundle\_hash} against the signed bundle
-registry; (4)~confirm \texttt{nonce} freshness; (5)~confirm
-\texttt{step\_index} continuity and \texttt{merkle\_root} consistency
-with previously seen tokens for this \texttt{agent\_id}; and only then
-(6)~accept \texttt{verdict} as evidence that the control held for this
-action. Every step uses published materials---no privileged access to the
-operator's infrastructure is required, which is precisely what places this
-evidence above the binary threshold.
-
-
-
-\FloatBarrier
-\section{Formal Model}
+\section{Writing It Down Precisely}
 \label{sec:formal}
 
-Let $\mathcal{A}$ be the space of agent actions, $\mathcal{I}$ the space of
-cryptographically verifiable agent identities, and $\mathcal{S}$ the space
-of host state snapshots. The executed steps up to time $t$ form the partial
-path $p_t = \langle a_0, a_1, \dots, a_{t-1} \rangle \in \mathcal{A}^{*}$. A
-compliance policy is a deterministic evaluation function
+Words like ``the policy decides'' are fine until two people disagree about
+what they mean, so here it is in symbols.
+
+Let $\mathcal{A}$ be the actions an agent can propose, $\mathcal{I}$ the
+identities it can act under, and $\mathcal{S}$ the states of the machine. The
+steps taken so far form a path $p_t = \langle a_0, \dots, a_{t-1}\rangle \in
+\mathcal{A}^{*}$. A policy is a function that looks at all four things and
+gives one of four answers:
 \begin{equation}
-\Pi : \mathcal{A} \times \mathcal{I} \times \mathcal{S} \times
-\mathcal{A}^{*} \longrightarrow \mathcal{D},
-\qquad
+\Pi : \mathcal{A} \times \mathcal{I} \times \mathcal{S} \times \mathcal{A}^{*}
+      \longrightarrow \mathcal{D},
+\quad
 \mathcal{D} = \{\textsc{allow},\ \textsc{deny},\
                \textsc{modify}(a'),\ \textsc{escalate}(h)\},
 \end{equation}
-where $a' \in \mathcal{A}$ is a sanitized payload and $h$ a human-oversight
-routing profile. \poc{} requires $\Pi$ to execute inside an isolated
-enclave, producing per-step proof
+where $a'$ is a cleaned-up version of the action and $h$ says which human to
+ask. This function has to run inside the enclave, and it produces, for each
+step, a proof
 \begin{equation}
 \pi_t = \mathrm{Sign}_{k_{\mathrm{AE}}}\!\left(
   H(\sigma_t^{\mathrm{snap}}) \,\|\, d_t \,\|\, t \,\|\, L_t \right),
 \end{equation}
-with $k_{\mathrm{AE}}$ accessible exclusively to the Attesting Environment.
-The path argument makes the policy \emph{path-aware}: $\Pi$ evaluates the
-proposed action against context carried from upstream invocations, so
-composition attacks that are invisible to per-action evaluation are within
-the decision boundary. A deliberate \emph{determinism
-boundary} limits claims: \poc{} verifies deterministic facts of execution
-(which model ran, on what input, under which authority, producing which
-effect); it does not represent output correctness, model reasoning,
-fairness, or future behavior as verified. Verification is performed, not
-validation~\cite{iso42001}.
+with $k_{\mathrm{AE}}$ a key nothing outside the enclave can use.
 
-\subsection{Relation to information-flow control}
+The fourth argument is the one that matters. Because $\Pi$ sees the path, the
+read-then-send trick from Section~\ref{sec:path} is inside what the policy can
+reason about, instead of being invisible to it.
+
+And here is what we are careful \emph{not} to claim. We verify facts about
+execution: which model ran, on what input, under whose authority, producing
+what effect. We do not verify that the output was correct, or fair, or wise,
+or that the boundaries somebody chose were the right boundaries. Those are
+human judgments and they stay human judgments~\cite{iso42001}. It is easy to
+let a system like this drift into implying more than it proves, and we would
+rather draw the line ourselves than have someone else draw it for us later.
+
+\subsection{This is information flow, and we should say so}
 \label{sec:ifc}
 
-Path-aware authorization is deliberately close to, and strictly weaker than,
-information-flow control (IFC). The motivating hazard---an agent reads
-sensitive data at step $i$ and emits at step $j$, with each step individually
-permitted---is the canonical IFC scenario, formalized as noninterference by
-Goguen and Meseguer~\cite{goguen1982} over Denning's lattice
-model~\cite{denning1976,denning1977} and realized in language- and
-OS-level systems~\cite{myers1997,myers1999,sabelfeld2003,histar,flume}. We
-inherit both the framing and the known difficulties, and we state the
-differences precisely rather than reinventing the field:
+Watching a path to catch read-then-send is not a new idea. It is information
+flow control, which has been studied since the 1970s: Denning's lattice
+model~\cite{denning1976,denning1977}, noninterference as
+Goguen and Meseguer defined it~\cite{goguen1982}, and decades of systems that
+carry labels around at the language and operating-system
+level~\cite{myers1997,myers1999,sabelfeld2003,histar,flume}.
+
+So rather than pretend we invented something, let us be exact about the
+differences, because they are real:
 
 \begin{itemize}[itemsep=2pt,topsep=2pt]
-\item \textbf{Granularity.} Classical IFC tracks labels at variable, object,
-  or process granularity inside a trusted runtime. \poc{} tracks at the
-  granularity of \emph{intercepted actions} at a boundary, because the agent
-  runtime (an LLM loop with opaque internal state) is precisely what we
-  decline to trust. We therefore obtain a coarser but externally checkable
-  approximation.
-\item \textbf{Objective.} IFC systems \emph{enforce} a flow property, often
-  with a soundness theorem relative to a semantics. \poc{} enforces a policy
-  \emph{and produces evidence} that the enforcement occurred, verifiable by a
-  third party who did not observe execution. Evidence, not enforcement, is
-  the contribution; the enforcement is an IFC-style monitor.
-\item \textbf{Guarantee.} We claim no noninterference result. An agent whose
-  permitted actions are themselves harmful, or which leaks through channels
-  outside the intercepted set (timing, content of permitted egress), is
-  outside the claim---consistent with the determinism boundary.
-\item \textbf{Inherited problems.} Label creep and the declassification
-  problem~\cite{sabelfeld2003} predict directly the utility cost we flag as
-  unmeasured (Section~\ref{sec:eval}): a monitor that accumulates
-  restrictions along a path will eventually refuse legitimate work, and the
-  practical question is where declassification points belong. IFC's history
-  suggests this, not cryptography, is the binding constraint on deployment.
+\item \textbf{How fine-grained.} Classical systems label variables and
+processes inside a runtime they trust. We label \emph{actions at a boundary},
+because the runtime here is a language model whose insides we specifically
+decline to trust. Ours is coarser. It is also checkable from outside, which
+theirs is not.
+\item \textbf{What we are after.} Those systems \emph{enforce} a flow
+property. We enforce a policy \emph{and hand you evidence} that we did, which
+you can check without having watched. The evidence is the contribution; the
+enforcement is an old idea done at a new place.
+\item \textbf{What we promise.} No noninterference theorem. An agent whose
+permitted actions are themselves harmful, or which leaks through a channel we
+never intercept---timing, or the content of a permitted message---is outside
+what we claim.
+\item \textbf{What we inherit.} Label creep and the declassification
+problem~\cite{sabelfeld2003}. A monitor that accumulates restrictions along a
+path eventually refuses to let anyone do anything. The literature has been
+saying this for fifty years. We did not believe it hard enough until we
+measured it in Section~\ref{sec:utility}, where it cost us 42\% of legitimate
+work.
 \end{itemize}
 
-\subsection{Path state and evaluation complexity}
+\subsection{Keeping the cost from growing}
 \label{sec:complexity}
 
-Evaluating $\Pi$ against the full path $p_t$ is not implementable as written:
-$|p_t|$ grows without bound, and a per-step cost linear in $t$ violates the
-latency target of Section~\ref{sec:eval}. \poc{} therefore requires
-policies to be expressible over a \emph{bounded path summary}: a state
-$\phi_t$ with $|\phi_t| \le B$ for a fixed $B$, updated by a fold
+Written as above, $\Pi$ takes the whole path as an argument, and the path
+grows forever. If evaluating step $t$ costs something proportional to $t$,
+then a long-running agent eventually stalls. That is not acceptable, so we
+require policies to be expressible over a \emph{bounded summary}: a state
+$\phi_t$ of size at most $B$, updated by folding in one step at a time,
 \begin{equation}
 \phi_t = \mathsf{upd}(\phi_{t-1}, a_{t-1}, d_{t-1}), \qquad
 \phi_0 = \phi_{\mathrm{init}},
 \end{equation}
-so that $\Pi(a, \iota, s, p_t) = \tilde{\Pi}(a, \iota, s, \phi_t)$ for the
-implemented $\tilde{\Pi}$. The summary is the IFC analogue of a label: it
-carries the accumulated sensitivity, authority, and provenance facts the
-policy needs (for example, ``a record classified $c$ has been read'',
-``$n$ tool calls remain within budget''), and nothing else.
+so the implemented policy sees $\tilde{\Pi}(a, \iota, s, \phi_t)$ instead of
+the whole history. The summary is doing the same job an IFC label does: it
+carries the few facts the rules need---the highest classification read so far,
+how much budget is left, whether anything has been declassified---and forgets
+the rest.
 
-Two consequences follow. \emph{(i)~Cost.} Per-step evaluation is
-$O(|\tilde{\Pi}| + B)$, independent of path length, and the snapshot
-committed in evidence includes $H(\phi_t)$ so a verifier can confirm the
-policy was evaluated against the correct accumulated state. \emph{(ii)~
-Expressiveness limit.} Policies requiring unbounded history---``never
-contact an endpoint not seen in the first $k$ steps'' for unbounded $k$, or
-exact multiset equality over arbitrary-length paths---are outside the
-implementable fragment and must be approximated. This is a real restriction,
-and it is the price of a fixed per-step budget; we state it rather than
-leaving path-awareness unbounded and unimplementable.
+Two things follow. The cost per step is $O(|\tilde{\Pi}| + B)$, flat no matter
+how long the agent runs, and we commit $H(\phi_t)$ in the evidence so a
+verifier can confirm the policy was evaluated against the right accumulated
+state. But we also give something up: rules that need unbounded history
+(``never contact an endpoint you did not see in the first $k$ steps'' for
+arbitrary $k$) cannot be expressed exactly and must be approximated. That is a
+real restriction. We would rather state it than quietly leave the design
+unimplementable. Section~\ref{sec:eval} shows the flat cost is not just theory.
 
-\section{Adversary Model and Security Analysis}
+\section{What an Attacker Can Do}
 \label{sec:security}
 
-\subsection{Adversary model}
-We consider a probabilistic polynomial-time adversary $\mathcal{A}$ that may:
-(i)~fully control the host operating system, container runtime, orchestration
-layer, and network, including the ability to start, stop, reorder, replay, and
-drop messages; (ii)~act as the \emph{operator} of the deployment, with the
-motive to appear compliant---this is the distinguishing case for evidence
-systems, where the party producing the record is the party under scrutiny;
-(iii)~supply arbitrary untrusted content into the agent's context (indirect
-prompt injection~\cite{greshake2023,injecagent}); and (iv)~compose otherwise
-permitted skills and tool calls into sequences of its choosing.
+\subsection{Who we are up against}
+We assume an attacker $\mathcal{A}$ who can run in polynomial time and who
+(i)~owns the operating system, the container, the orchestration, and the
+network---start, stop, reorder, replay, drop whatever it likes; (ii)~\emph{is
+the operator}, and wants to look compliant. That second one is unusual and it
+is the whole point: in an evidence system, the party writing the record is the
+party being examined. Also (iii)~can put any text it likes in front of the
+agent~\cite{greshake2023,injecagent}, and (iv)~can string together permitted
+actions in any order.
 
-We assume: \textbf{(A1)}~the signature scheme and hash function are
-existentially unforgeable and collision-resistant; \textbf{(B1)}~the Attesting
-Environment preserves confidentiality of its signing key and integrity of its
-measured code---an assumption known to be imperfect in practice under
-architectural and transient-execution
-attacks~\cite{costan2016,foreshadow}; \textbf{(C1)}~the platform attestation
-root (chip vendor or its delegate) does not issue forged endorsements---a
-\emph{party} assumption, which is exactly why the standard caps vendor-rooted
-evidence at Tier~2 absent independent anchoring; and \textbf{(D1)}~verifiers
-can obtain published reference values and, for the properties below,
-communicate with at least one other verifier or monitor.
+What we assume it cannot do: \textbf{(A1)}~forge signatures or find hash
+collisions; \textbf{(B1)}~get inside the enclave---and we should be honest
+that this assumption has been dented in practice~\cite{costan2016,foreshadow};
+\textbf{(C1)}~get the chip vendor to vouch for a lie, which is a
+\emph{person} we are trusting, and exactly why vendor-rooted evidence alone
+does not get above Tier~2; and \textbf{(D1)}~cut every verifier off from every
+other verifier.
 
-\subsection{Security properties}
-We state four properties an evidence system should satisfy, each relative to
-the assumptions above.
-
+\subsection{Four things we want, and which ones we get}
 \begin{description}[itemsep=2pt,leftmargin=1.4em]
-\item[P1 (Verdict integrity).] For each token, the verdict was produced by
-  the authorized policy bundle evaluating the committed snapshot. \emph{Holds
-  under (A1),(B1),(C1)}: the enclave measurement pins the policy engine, the
-  bundle hash pins the rules, and the signature binds the verdict to
-  $H(\sigma_t^{\mathrm{snap}})$.
-\item[P2 (Execution fidelity).] The evidence describes the action that
-  actually executed. \emph{Does not hold from attestation alone}: it requires
-  complete mediation of the effect channel (Section~\ref{sec:mediation}).
-  Without one of the three mediation options, $\mathcal{A}$ mounts snapshot
-  substitution and P2 fails while P1 still holds---an authenticated,
-  false record.
-\item[P3 (History integrity: append-only, no omission).] No prior step can be
-  altered, reordered, or silently dropped from a chain a verifier observes.
-  \emph{Holds within an observed prefix} under (A1) by hash chaining and
-  monotonic indices; \emph{fails against truncation} at the head, since a
-  verifier who has seen nothing later cannot distinguish ``no further steps''
-  from ``steps withheld.'' The standard therefore requires anchoring within a
-  bounded interval $\Delta$, which reduces the undetectable window to at most
-  $\Delta$ and makes a missing anchor itself an alarm.
-\item[P4 (Non-equivocation).] All relying parties see the same history.
-  \emph{Does not hold from signing and anchoring alone}: $\mathcal{A}$ can
-  fork the chain and present divergent prefixes to different verifiers
-  (split-view), a known attack on transparency
-  systems~\cite{rfc6962,ctgossip,chase2016}. Mitigation requires
-  cross-verifier consistency checking (gossip), a witness quorum
-  co-signing roots~\cite{chainiac}, or anchoring to a ledger with
-  single-history consensus; the standard requires one of these for Tier-3
-  claims where multiple relying parties act on the same agent's evidence.
+\item[P1 (The verdict is real).] The decision in the token came from the
+authorized rules applied to the description in the token. \emph{We get this}
+under (A1), (B1), (C1): the measurement pins the code, the bundle hash pins
+the rules, and the signature ties the verdict to the description.
+\item[P2 (The evidence describes what happened).] \emph{We do not get this}
+from attestation. This is snapshot substitution from
+Section~\ref{sec:mediation}: without mediating the effect channel,
+$\mathcal{A}$ produces a true statement about a fictional action. P1 holds
+while P2 fails, which is the worst kind of failure---a perfect record of the
+wrong thing.
+\item[P3 (Nothing was changed or dropped).] \emph{We get this within a stretch
+of history you actually see}: chaining catches edits, numbering catches holes.
+\emph{We do not get it at the end}: if the operator simply stops showing you
+the last few steps, nothing in the chain complains, because a chain cannot
+tell you about a link you were never handed. Publishing the running total on a
+bounded schedule fixes this, and shrinks the blind spot to the publishing
+interval $\Delta$.
+\item[P4 (Everyone sees the same history).] \emph{We do not get this} from
+signing and publishing alone. The operator can keep two sets of books and show
+each verifier a different one; both are internally perfect. This is the
+split-view attack, well known in transparency
+systems~\cite{rfc6962,ctgossip,chase2016}. The fix is that verifiers must
+compare notes---gossip, a quorum of witnesses~\cite{chainiac}, or a ledger
+that only admits one history.
 \end{description}
 
-\subsection{Formal treatment of P2 and P4}
-\label{sec:proofs}
-
-P1 and P3 follow directly from standard signature and hash-chain arguments.
-P2 and P4 are the properties round-one analysis showed do \emph{not} follow
-from attestation and chaining alone, so we state them precisely.
-
-\begin{definition}[Evidenced execution]
-\label{def:evidenced}
-Fix an agent identity $\iota$ and a relying party $R$. An effect $e$ executed
-at $R$ is \emph{evidenced} if there exists a token $\tau$ accepted by a
-verifier such that $\tau$ commits to a snapshot digest
-$H(\sigma^{\mathrm{snap}})$, a target resource $r$, and verdict
-$d = \textsc{allow}$, where $\sigma^{\mathrm{snap}}$ describes exactly $e$ and
-$r$ is the endpoint at which $e$ occurred.
-\end{definition}
-
-\begin{definition}[Execution-fidelity experiment $\mathsf{Exp}^{\mathrm{fid}}$]
-$\mathcal{A}$ controls the host, network, and operator role as in
-Section~\ref{sec:security}. $\mathcal{A}$ interacts arbitrarily with the
-Attesting Environment $\mathcal{E}$, obtaining tokens and capabilities of its
-choice. $\mathcal{A}$ wins if a compliant relying party $R$ executes an
-effect $e$ that is \emph{not} evidenced per Definition~\ref{def:evidenced}.
-\end{definition}
-
-\begin{theorem}[Execution fidelity under capability-bound dispatch]
-\label{thm:fidelity}
-Let $\mathcal{E}$ release, for each \textsc{allow} verdict, a single-use
-capability $c = \mathrm{Sign}_{k_{\mathcal{E}}}(H(\sigma^{\mathrm{snap}})
-\,\|\, r \,\|\, \mathrm{nonce})$, and let compliant $R$ execute a request
-only if it presents a $c$ that (i)~verifies under an enclave key whose
-measurement matches a published reference value, (ii)~names $R$'s own
-resource $r$, (iii)~carries an unused nonce, and (iv)~matches the request's
-canonical form against $H(\sigma^{\mathrm{snap}})$. Then for any PPT
-$\mathcal{A}$,
-\[
-\Pr[\mathcal{A} \text{ wins } \mathsf{Exp}^{\mathrm{fid}}]
-\;\le\; \mathbf{Adv}^{\mathrm{EUF\text{-}CMA}}_{\mathrm{Sig}}(\mathcal{A})
-\;+\; \mathbf{Adv}^{\mathrm{coll}}_{H}(\mathcal{A}),
-\]
-under assumptions (A1), (B1), (C1).
-\end{theorem}
-
-\begin{proof}[Proof sketch]
-Suppose $\mathcal{A}$ wins: $R$ executed $e$ with no token evidencing $e$ at
-$r$. By $R$'s check~(i), the presented $c$ verified under $k_{\mathcal{E}}$,
-which by (B1) never leaves $\mathcal{E}$ and by (C1) is bound to the attested
-measurement; so either $\mathcal{A}$ forged a signature---bounding this case
-by $\mathbf{Adv}^{\mathrm{EUF\text{-}CMA}}$---or $c$ was genuinely issued by
-$\mathcal{E}$. In the latter case, by check~(iv) the executed request's
-canonical form hashes to the $H(\sigma^{\mathrm{snap}})$ inside $c$. If
-$\sigma^{\mathrm{snap}}$ did not describe $e$, then two distinct canonical
-forms share a digest, bounding this case by
-$\mathbf{Adv}^{\mathrm{coll}}_{H}$. Otherwise $\sigma^{\mathrm{snap}}$
-describes $e$; by check~(ii) the resource matches, and $\mathcal{E}$ issues
-$c$ only on an \textsc{allow} verdict whose token it also emits---so $e$ is
-evidenced, contradicting the win condition. Check~(iii) prevents replay of a
-capability against a second effect. \end{proof}
-
-\begin{proposition}[Necessity of mediation]
-\label{prop:necessity}
-Without a check binding the executed request to $H(\sigma^{\mathrm{snap}})$
-at the point of effect, $\Pr[\mathcal{A} \text{ wins }
-\mathsf{Exp}^{\mathrm{fid}}] = 1$ for an adversary controlling the host.
-\end{proposition}
-\begin{proof}
-$\mathcal{A}$ submits $\sigma$ describing benign $e'$, obtains an
-\textsc{allow} token, and dispatches $e \ne e'$ using host-held credentials.
-No verifier check is violated: the token is genuine and $\mathcal{E}$'s
-statement (``policy allows $e'$'') is true. $e$ is unevidenced, so
-$\mathcal{A}$ wins with certainty. \end{proof}
-
-Proposition~\ref{prop:necessity} is why C7.1.4 is a requirement rather than a
-recommendation: an evidence architecture without effect mediation admits a
-total break of P2 while every signature verifies.
-
-\begin{definition}[Equivocation]
-$\mathcal{A}$ equivocates if two verifiers $V_1, V_2$ accept chains
-$\Lambda_1, \Lambda_2$ for the same $\iota$ such that neither is a prefix of
-the other.
-\end{definition}
-
-\begin{theorem}[Equivocation is detectable and attributable]
-\label{thm:equiv}
-Let each chain root at index $i$ be signed by $\mathcal{E}$, and let $V_1$
-and $V_2$ exchange (root, index) pairs---by direct gossip, via a witness
-quorum of which at least one member is honest, or through a
-single-history ledger. If $\mathcal{A}$ equivocates, then under (A1) and
-(D1) the honest parties jointly hold two validly signed roots at a common
-index with distinct values, which constitutes a non-repudiable proof of
-equivocation attributable to $k_{\mathcal{E}}$; detection probability is $1$.
-\end{theorem}
-
-\begin{proof}[Proof sketch]
-Non-prefix chains differ at some least index $i$. Both $V_1$ and $V_2$ hold
-signed roots at $i$; exchanging them under (D1) reveals distinct values.
-Forging either root reduces to signature forgery, excluded by (A1). The pair
-is self-contained evidence, so detection does not depend on trusting either
-verifier's account. \end{proof}
-
-Theorem~\ref{thm:equiv} clarifies the requirement's shape: gossip does not
-\emph{prevent} equivocation, it makes it detectable and attributable---the
-same guarantee Certificate Transparency provides~\cite{rfc6962,chase2016},
-and the reason C7.3.3 accepts any of three mechanisms that establish a shared
-view. Without such a mechanism, the split-view attack succeeds silently.
-
-Table~\ref{tab:threats} maps representative threats to the property they
-attack and the requirement that addresses them.
+Table~\ref{tab:threats} maps the threats to which property they attack.
 
 \begin{table}[ht]
 \centering\footnotesize
 \begin{tabular}{@{}p{4.0cm}p{1.5cm}p{8.2cm}@{}}
 \toprule
-\textbf{Threat} & \textbf{Attacks} & \textbf{Mitigation and residual risk} \\
+\textbf{Threat} & \textbf{Attacks} & \textbf{What stops it, and what is left over} \\
 \midrule
-Operator suppresses enforcement or edits records & P1, P3 &
-Policy logic and signing keys are enclave-isolated; altering the bundle
-changes the measurement and verifiers reject. Residual: (B1),(C1). \\
-Snapshot substitution (dispatch $\ne$ evaluated action) & P2 &
-Complete mediation of the effect channel (Section~\ref{sec:mediation}).
-Residual: options 1 and 3 still trust host non-interference with transport
-configuration. \\
-Log truncation at the head & P3 &
-Bounded anchoring interval $\Delta$; missing anchors alarm. Residual: actions
-within the final $\Delta$ window. \\
-Split-view / equivocation & P4 &
-Gossip, witness co-signing, or consensus anchoring. Residual: colluding
-witnesses. \\
-Indirect prompt injection & P1 (indirect) &
-The enclave evaluates deterministic rules independently of model reasoning,
-so an injected instruction cannot itself authorize an out-of-scope action.
-Residual: in-scope harmful actions---a safety, not verifiability,
-question~\cite{greshake2023,toolemu}. \\
-Skill-composition attacks & P1 &
-Path-aware evaluation: $\Pi$ takes the partial path as an argument
-(Section~\ref{sec:formal}), so composed escalation is inside the decision
-boundary. Residual: utility cost, unquantified
-(Sections~\ref{sec:ifc},~\ref{sec:utility}). \\
-Cascading sub-agent exploitation & P1--P4 &
-Delegation hooks enforce constraint inheritance; sub-agent evidence verified
-via multi-verifier topologies~\cite{multiverifier}. \\
-Enclave compromise & P1--P4 &
-Out of scope by (B1); disclosed as a trust assumption and bounded by
-re-attestation and key rotation. \\
+Operator turns off enforcement or edits records & P1, P3 &
+Rules and keys live in the enclave; changing the rules changes the
+measurement and verifiers stop believing it. Left over: (B1), (C1). \\
+Snapshot substitution & P2 &
+Mediate the effect channel (Section~\ref{sec:mediation}). Left over: options 1
+and 3 still trust the host not to fiddle with transport configuration. \\
+Stop publishing recent history & P3 &
+Bounded publishing interval $\Delta$; a missing publication is itself an
+alarm. Left over: whatever happened in the last $\Delta$. \\
+Two sets of books & P4 &
+Gossip, witnesses, or consensus. Left over: witnesses who collude. \\
+Injected instructions from the world & P1 (indirectly) &
+The enclave applies fixed rules and does not read persuasion, so an injected
+instruction cannot authorize an out-of-scope action. Left over: harmful
+actions that are inside scope---a safety problem, not a verifiability
+one~\cite{greshake2023,toolemu}. \\
+Stringing permitted actions together & P1 &
+The policy sees the path (Section~\ref{sec:formal}). Left over: the cost in
+refused legitimate work, measured in Section~\ref{sec:utility}. \\
+Sub-agents used as cutouts & P1--P4 &
+Constraints are inherited; sub-agent evidence checked by several
+verifiers~\cite{multiverifier}. \\
+Breaking the enclave & P1--P4 &
+Out of scope by (B1)---disclosed, not solved, and bounded by re-attestation
+and key rotation. \\
 \bottomrule
 \end{tabular}
-\caption{Threats mapped to the security property attacked and the mitigating
-requirement. Properties P2 and P4 are \emph{not} obtained from attestation
-and hash chaining alone---the analysis that motivates the additional
-requirements in Sections~\ref{sec:mediation} and~\ref{sec:security}.}
+\caption{Threats against properties. P2 and P4 are the ones you do
+\emph{not} get for free, which is why the standard has extra requirements for
+them.}
 \label{tab:threats}
 \end{table}
 
-\subsection{Constructing Tier 4}
+\subsection{Proving the two hard ones}
+\label{sec:proofs}
+
+P1 and P3 are ordinary signature-and-chain arguments. P2 and P4 are the
+interesting ones, so we state them properly.
+
+\begin{definition}[Evidenced execution]
+\label{def:evidenced}
+Fix an agent $\iota$ and a relying party $R$. An effect $e$ carried out at $R$
+is \emph{evidenced} if some token $\tau$ that a verifier accepts commits to a
+description digest $H(\sigma^{\mathrm{snap}})$, a target $r$, and the verdict
+\textsc{allow}, where $\sigma^{\mathrm{snap}}$ describes exactly $e$ and $r$
+is where $e$ happened.
+\end{definition}
+
+\begin{definition}[The execution-fidelity game $\mathsf{Exp}^{\mathrm{fid}}$]
+$\mathcal{A}$ has the powers listed above and may talk to the enclave
+$\mathcal{E}$ as much as it likes, collecting tokens and tickets. It wins if a
+compliant relying party $R$ carries out an effect $e$ that is not evidenced in
+the sense of Definition~\ref{def:evidenced}.
+\end{definition}
+
+In plain words: the attacker wins if it can get something done that the
+paperwork does not describe.
+
+\begin{theorem}[Tickets give you execution fidelity]
+\label{thm:fidelity}
+Suppose for each \textsc{allow} the enclave issues
+$c = \mathrm{Sign}_{k_{\mathcal{E}}}(H(\sigma^{\mathrm{snap}}) \,\|\, r
+\,\|\, \mathrm{nonce})$, and a compliant $R$ acts only when the request
+carries a $c$ that (i)~verifies under an enclave key whose measurement matches
+the published value, (ii)~names $R$'s own resource, (iii)~carries an unused
+nonce, and (iv)~matches the request itself against
+$H(\sigma^{\mathrm{snap}})$. Then for any polynomial-time $\mathcal{A}$,
+\[
+\Pr[\mathcal{A} \text{ wins } \mathsf{Exp}^{\mathrm{fid}}]
+\;\le\; \mathbf{Adv}^{\mathrm{EUF\text{-}CMA}}_{\mathrm{Sig}}(\mathcal{A})
+\;+\; \mathbf{Adv}^{\mathrm{coll}}_{H}(\mathcal{A}),
+\]
+under (A1), (B1), (C1).
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+Say $\mathcal{A}$ wins: $R$ did $e$, and no token describes $e$ at $r$. By
+check~(i) the ticket verified under the enclave key, which by (B1) never
+leaves and by (C1) is tied to the attested measurement. So either
+$\mathcal{A}$ forged a signature---that case is bounded by
+$\mathbf{Adv}^{\mathrm{EUF\text{-}CMA}}$---or the enclave really issued the
+ticket. If it really issued it, then by check~(iv) the request that was
+carried out hashes to the digest inside the ticket. If the description had
+been of something other than $e$, two different descriptions would share a
+digest, which is bounded by $\mathbf{Adv}^{\mathrm{coll}}_{H}$. Otherwise the
+description \emph{is} of $e$; by check~(ii) the target matches; and the
+enclave only issues tickets alongside an \textsc{allow} token it also emits.
+So $e$ is evidenced---contradiction. Check~(iii) stops a ticket being reused
+for a second effect. \end{proof}
+
+\begin{proposition}[Without the far-end check you lose immediately]
+\label{prop:necessity}
+If nothing at the point of effect ties the request to
+$H(\sigma^{\mathrm{snap}})$, then an attacker owning the host wins with
+probability 1.
+\end{proposition}
+\begin{proof}
+Hand the enclave a description of something harmless, take the genuine
+\textsc{allow}, then use the host's own credentials to do something else.
+No check anywhere is violated: the token is real and the enclave's statement
+is true. The effect is unevidenced, so the attacker wins every time. \end{proof}
+
+We want to be blunt about what Proposition~\ref{prop:necessity} means, because
+it is the thing we would most like a reader to take away. It is not a corner
+case or a hardening tip. It says that an evidence architecture without effect
+mediation is broken at probability one while every signature verifies
+perfectly. That is why the requirement is a MUST.
+
+\begin{definition}[Equivocation]
+$\mathcal{A}$ equivocates if two verifiers accept histories for the same agent
+where neither is a prefix of the other.
+\end{definition}
+
+\begin{theorem}[Two sets of books can be caught, and pinned on someone]
+\label{thm:equiv}
+Suppose each running total at index $i$ is signed by the enclave, and two
+verifiers exchange (total, index) pairs---directly, through a witness quorum
+with at least one honest member, or via a single-history ledger. If
+$\mathcal{A}$ equivocates, then under (A1) and (D1) the honest parties end up
+jointly holding two validly signed totals at the same index with different
+values. That is a non-repudiable proof of equivocation, attributable to the
+enclave key. Detection probability is 1.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+Two histories that are not prefixes of one another differ at some earliest
+index $i$. Both verifiers hold signed totals at $i$; when they compare, the
+values differ. Forging either reduces to signature forgery, ruled out by (A1).
+And the pair stands on its own---you do not have to believe either verifier's
+story about it. \end{proof}
+
+Notice what Theorem~\ref{thm:equiv} does \emph{not} say. Gossip does not
+prevent an operator from keeping two sets of books. It makes it impossible to
+keep them secret, and it produces a receipt with a name on it. That is the
+same guarantee Certificate Transparency provides~\cite{rfc6962,chase2016}, and
+it is worth being precise about, because ``we use gossip'' sounds like
+prevention and is not.
+
+\subsection{Building Tier 4}
 \label{sec:tier4}
-Tier~4 requires that verification gate operation: the system cannot perform
-in-scope actions unless integrity holds. This is a construction, not an
-assertion, and it follows directly from mediation option~2 of
-Section~\ref{sec:mediation}. Let the relying party accept a request only if
-it carries a capability $c_t$ committing to $H(\sigma_t^{\mathrm{snap}})$,
-the target resource, and a fresh nonce, signed by the enclave key whose
-measurement matches a published reference value. Then:
+Tier~4 says the system cannot act unless verification succeeds. That has to be
+a construction, not a promise, and it falls out of the ticket scheme. If the
+far end refuses any request without a valid ticket, then: when the enclave is
+not running, or its measurement does not match, no ticket exists, so nothing
+happens. The system fails closed \emph{because of how it is built}, not
+because somebody left a flag set. And the decision to stop is not the
+operator's to make---which is the difference between this and a ``halt''
+variable in a process the operator controls and can patch out. What is left
+over is the far end's own enforcement and the chip vendor (C1), both of which
+must appear in the disclosure.
 
-\begin{itemize}[itemsep=1pt,topsep=2pt]
-\item if the enclave is not running, or its measurement does not match, no
-  valid $c_t$ can be produced, and every in-scope request is refused at the
-  relying party---the system \emph{fails closed by construction} rather than
-  by operator policy;
-\item the halting decision is therefore \emph{not under operator control},
-  which is the property Tier~4 claims and which an in-process ``halt'' flag
-  cannot provide, since a compromised host can patch it out;
-\item the residual dependency is the relying party's enforcement and the
-  attestation root (C1), both of which must appear in the trust-assumption
-  disclosure.
-\end{itemize}
+This also settles a tension people notice: a TEE attestation on its own is
+Tier~2, because (C1) is a person you are trusting. You get to Tier~3 by adding
+independent anchoring, so nobody has to take the vendor's word about which
+code ran, and to Tier~4 by making valid evidence a precondition of acting. The
+tiers grade the shape of the trust, not the brand of the cryptography.
 
-This construction also clarifies the vendor-root tension: a TEE attestation
-alone remains Tier~2, because (C1) is a party assumption. A deployment
-reaches Tier~3 by composing it with independent anchoring so that a verifier
-need not rely solely on the vendor's word about which code ran, and Tier~4 by
-additionally making valid evidence a precondition of execution. The tiers
-therefore grade \emph{trust structure}, not mechanism labels---consistent
-with the standard's own rule that cryptography is a mechanism, not a tier.
-
-\subsection{Deployability of capability-bound dispatch}
+\subsection{Will anyone actually do this?}
 \label{sec:deploy}
 
-Theorem~\ref{thm:fidelity} places a real burden on the ecosystem: relying
-parties must verify capabilities. This is the strongest objection to the
-architecture, and plausibly why it does not already exist. Three observations
-bound the difficulty.
+Theorem~\ref{thm:fidelity} asks the far end to check tickets, and it is fair
+to ask whether that is realistic. Three things.
 
-\emph{The mechanism is not new.} Action-bound capabilities are the classical
-capability model~\cite{dennis1966,levy1984} in modern dress, and macaroons
-already provide exactly the needed shape---bearer tokens with cryptographic
-caveats, verifiable by the target service without contacting the
-issuer~\cite{macaroons}, deployed over ordinary HTTP headers. A relying-party
-check is a signature verification plus a caveat comparison, not new
-infrastructure.
+\emph{The mechanism is old.} Action-bound tickets are capabilities, which have
+been around since the 1960s~\cite{dennis1966,levy1984}, and macaroons already
+give you exactly this shape---bearer tokens with cryptographic caveats,
+checkable by the service without calling anyone~\cite{macaroons}, over
+ordinary HTTP headers. A check is a signature verification and a comparison,
+not a new industry.
 
-\emph{Adoption is incremental, and the first steps need no third party.}
-Mediation options 1 and 3 (Section~\ref{sec:mediation}) are unilateral: an
-operator can terminate egress inside the enclave, or route it through an
-attested proxy, with no cooperation from anyone. Within an organization, the
-API gateway is already a relying party under the same administrative control,
-so capability checking can be enabled there first. Cross-organizational
-enforcement follows contractually (as SOC~2 evidence requirements already
-propagate through vendor agreements), and only then by standardization---%
-which is the purpose of the EAT profile work in Appendix~\ref{sec:sdo}.
+\emph{You can start alone.} Options 1 and 3 need nobody's cooperation: run
+egress from inside the enclave, or force it through an attested proxy. Inside
+one company, the API gateway is already under your control, so you can turn on
+ticket checking there first. Partners come next by contract---which is how SOC
+2 requirements already propagate---and standardization last, which is what the
+attestation-token profile work is for.
 
-\emph{The residual gap is honest.} Endpoints that will never verify
-capabilities---arbitrary third-party SaaS, legacy systems---can be covered
-only by options 1 or 3, whose guarantee is weaker: they shrink the trusted
-computing base rather than removing host involvement, and a deployment must
-disclose which option covers which action class. We do not claim a universal
-solution; we claim a specified property, three implementations of it with
-different residual trust, and a disclosure requirement that makes the
-difference legible to a relying party.
+\emph{Some endpoints will never do it.} Arbitrary third-party services and
+legacy systems can only be covered by options 1 or 3, whose guarantee is
+weaker. We are not claiming a universal answer. We are claiming a property,
+three ways to get it with different amounts left over, and a rule that you
+have to say which one you used---so the person relying on your evidence can
+tell the difference.
 
-\section{Gap Analysis: What Existing Frameworks Already Require}
+\section{How Much of This Do Existing Rules Already Ask For?}
 \label{sec:gap}
 
-This section characterizes where \poc{} sits relative to existing frameworks.
-We describe it as a \emph{gap analysis} rather than an evaluation: it
-measures coverage of our own requirement set, so it cannot by construction
-validate that set. Its purpose is descriptive---to locate the layer \poc{}
-occupies---and its limitations are stated below.
+Before claiming a gap exists, you should check whether somebody already filled
+it. So we took all 116 requirements and, one at a time, asked of eight
+existing frameworks: does this framework already require this?
 
-\subsection{Method}
-Following the coding methodology of HAARF~\cite{haarf2026}, every \poc{}
-requirement was coded against eight frameworks as Exact Match (equivalent
-clause in scope and intent), Partial Match (same topic, but without
-operator-independent evidence or at lesser depth), or No Match. Coverage
-$=(\mathrm{EM}+\mathrm{PM})/N$ over the $N=116$ requirements. Coding is at
-section granularity with per-row rationales and clause attributions; the
-sheet, rubric, and computation script are public, so any reader can re-derive
-the numbers or re-code a framework.
+\subsection{How we did it}
+Using the coding method HAARF worked out for healthcare
+agents~\cite{haarf2026}, each requirement gets one of three marks against each
+framework. \emph{Exact}: they ask for the same thing, at the same depth.
+\emph{Partial}: they ask about the same topic, but without demanding evidence
+somebody outside the company can check, or not in as much detail.
+\emph{None}: they do not address it. Coverage is (Exact + Partial) over 116.
+The sheet, the rubric, and the script are public, so you can re-derive the
+numbers or re-code a framework you think we got wrong.
 
-\subsection{Results}
-Figure~\ref{fig:coverage} and Table~\ref{tab:coverage} report the mapping.
-Two patterns are consistent. First, the partial-match band is wide and the
-exact-match band thin: NIST AI RMF attains the highest coverage with zero
-exact matches, because governance frameworks require nearly every control
-\poc{} verifies while never requiring mechanism-generated evidence that the
-control held. Second, no-match concentrates in the evidence-property,
-tier-grading, and disclosure chapters: no coded framework grades evidence by
-how independently it can be verified, requires trust-assumption disclosure,
-or specifies self-enforcing execution.
+\subsection{What came out}
+Figure~\ref{fig:coverage} and Table~\ref{tab:coverage} have the results, and
+two patterns are worth staring at.
+
+The first is that the Partial column is enormous and the Exact column is thin.
+The NIST risk framework scores highest overall---and gets \emph{zero} exact
+matches. Read that again, because it is the whole story of this paper in one
+number. These frameworks ask for nearly every control we ask for. What they do
+not ask for, essentially anywhere, is machine-made evidence that the control
+actually held, checkable by someone who does not trust you.
+
+The second is where the None column bunches up: in the chapters about evidence
+properties, grading, and disclosure. No framework we coded grades evidence by
+how independently it can be checked, or requires you to write down what you
+are still asking people to take on faith.
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.9\linewidth]{figures/mapping-coverage.pdf}
-\caption{Coverage of the \poc{} requirements by eight external frameworks
-(single-coder seed data; see limitations). Dark lime: exact matches; bright
-lime: partial matches; the remaining track is the residual gap.}
+\caption{How much of \poc{} eight frameworks already require. Dark: exact
+matches. Light: partial. The rest is the gap.}
 \label{fig:coverage}
 \end{figure}
 
@@ -1096,44 +1042,53 @@ Zero Trust (SP 800-207)~\cite{sp800207} & 8 & 44 & 64 & 45\% \\
 MITRE ATLAS~\cite{mitreatlas} & 0 & 31 & 85 & 27\% \\
 \bottomrule
 \end{tabular}
-\caption{Requirement-level coverage (single-coder seed data). The
-exact-match band is thin everywhere: frameworks require the \emph{controls}
-but rarely operator-independent \emph{evidence} that they held.}
+\caption{Coverage, one coder, section granularity. The thin Exact column is
+the finding: frameworks want the controls, not operator-independent evidence
+that the controls held.}
 \label{tab:coverage}
 \end{table}
 
-\subsection{Limitations of this analysis}
+\subsection{Why you should not lean too hard on these numbers}
 \label{sec:gaplimits}
-Four limitations bound what may be concluded. \textbf{(i)~Direction.} The
-metric asks how much of \poc{} each framework covers; a novel requirement set
-scores incumbents low by construction, so these numbers argue that \poc{}
-occupies a distinct layer---not that it is correct or necessary.
-\textbf{(ii)~Single coder.} The seed coding was performed by one author, and
-inter-rater reliability is therefore undefined. The public rubric specifies a
-two-coder protocol with Cohen's $\kappa$~\cite{cohen1960} reported per
-framework, and adversarial re-coding by parties who did not author the
-requirements; that study is planned and its results will supersede
-Table~\ref{tab:coverage}. \textbf{(iii)~Granularity.} Codings are assigned at
-section level and inherited by the requirements within a section, which
-overstates uniformity. \textbf{(iv)~One-directional.} We do not report the
-reverse mapping---requirements those frameworks impose that \poc{} omits
-(e.g., NIST AI RMF's organizational governance functions, ISO/IEC~42001's
-management-system obligations, SOC~2's availability and processing-integrity
-criteria). \poc{} is deliberately narrower than any of them; a complete
-comparison must show both directions, and the reverse map is future work.
 
-\subsection{Comparison with runtime governance systems}
-Table~\ref{tab:compare} compares \poc{} against the mechanisms it is most
-often conflated with. Because \poc{} is a standard rather than a deployed
-system, the comparison is on \emph{specified} properties: what each approach
-requires an implementation to provide. The closest active work---%
-ACS~\cite{acs2026,acsms2026} and CSA AARM~\cite{csaaarm}---specifies runtime
-interception and enforcement but leaves the resulting record under operator
-control; transparency-log systems~\cite{rfc6962,chainiac} provide
-non-equivocation machinery but are not agent-aware; confidential-computing
-pipelines~\cite{eqty2026} attest computation but do not model agent
-authority or delegation. \poc{}'s contribution is the composition and the
-grading rule, not any single mechanism.
+Now, a warning, and we mean this seriously. It is very easy to fool yourself
+with a table like that, and the person most likely to be fooled is us.
+
+\emph{The measurement points the way we wanted it to.} We asked how much of
+\emph{our} list other people cover. Invent any sufficiently novel list and
+everyone else scores badly on it. So this table says we are working somewhere
+different. It does not say we are working somewhere \emph{useful}. That is a
+separate argument and these numbers do not make it.
+
+\emph{One person coded it.} That means there is no measure of agreement at
+all. The published rubric specifies what a real study looks like: two
+independent coders per framework, Cohen's $\kappa$ reported~\cite{cohen1960},
+at least one coder who did not write the requirements, and disagreements
+resolved by a third. That study is planned, and when it is done it replaces
+Table~\ref{tab:coverage}.
+
+\emph{The grain is too coarse.} We coded at section level and let the
+requirements inside inherit it, which makes things look more uniform than they
+are.
+
+\emph{We only looked one way.} We did not measure what those frameworks
+require that \emph{we} miss---and there is plenty: organizational governance
+in the NIST framework, management-system obligations in ISO/IEC~42001,
+availability and processing integrity in SOC~2. We are deliberately narrower
+than all of them. An honest comparison shows both directions, and ours only
+shows one so far.
+
+\subsection{Compared with the closest things}
+Table~\ref{tab:compare} compares us against the systems we are most often
+confused with. The comparison is on \emph{specified} properties---what each
+approach requires an implementation to do---because that is the only fair
+comparison available. ACS and AARM~\cite{acs2026,acsms2026,csaaarm} specify
+interception and enforcement, then leave the record with the operator.
+Transparency logs~\cite{rfc6962,chainiac} have the non-equivocation machinery
+but know nothing about agents. Confidential-computing pipelines~\cite{eqty2026}
+attest computation but have no notion of an agent's authority or delegation.
+What we are contributing is the combination and the grading rule, not any one
+of the parts.
 
 \begin{table}[ht]
 \centering\footnotesize
@@ -1142,50 +1097,49 @@ grading rule, not any single mechanism.
 \textbf{Property} & \textbf{Prompts / guardrails} & \textbf{Static RBAC} &
 \textbf{ACS / AARM} & \textbf{Transparency logs} & \textbf{\poc{}} \\
 \midrule
-Mediates every action & No & At API layer & Yes & N/A & Yes (required) \\
-Path-aware decisions & No & No & Partial & N/A & Yes (required) \\
-Record integrity & None & Operator logs & Operator-run receipts &
-Hash-chained, gossiped & Hash-chained + anchored \\
-Independently checkable & No & No & With operator access & Yes &
+Every action goes through it & No & At the API layer & Yes & N/A & Yes \\
+Decisions consider the path & No & No & Partly & N/A & Yes \\
+Record integrity & None & Operator's logs & Operator's receipts &
+Chained, gossiped & Chained + anchored \\
+A stranger can check it & No & No & With operator access & Yes &
 Yes (Tier 3+) \\
-Non-equivocation & No & No & Not specified & Yes (with gossip) &
+Everyone sees one history & No & No & Unspecified & Yes (with gossip) &
 Required at Tier 3+ \\
-Execution fidelity (P2) & No & No & Not specified & N/A &
+Evidence describes what happened & No & No & Unspecified & N/A &
 Required (mediation) \\
-Trust disclosure & No & No & No & Implicit & Standardized \\
+Says what you still trust & No & No & No & Implicitly & Standardized \\
 \bottomrule
 \end{tabular}
-\caption{Specified properties of \poc{} against adjacent approaches.
-Entries describe what each approach \emph{requires}; \poc{} is a
-specification, and no implementation comparison is claimed.}
+\caption{What each approach \emph{requires}. We are a specification; no claim
+is made here about deployed performance.}
 \label{tab:compare}
 \end{table}
 
-\section{Implementation and Evaluation}
+\section{Does It Actually Work?}
 \label{sec:eval}
 
-We implemented the pipeline of Section~\ref{sec:arch} and evaluated it along
-four axes: correctness against the requirements, resistance to the attacks of
-Section~\ref{sec:security}, cost, and utility. The implementation is
-open source in the specification repository.
+Talking about a design is easy. We built it and measured it, because that is
+the only way to find out whether the arguments above survive contact with a
+computer. The code is open source in the specification repository.
 
-\paragraph{What is implemented, and what is modelled.} Real: Ed25519 signing
-and verification, SHA-256 hash chaining with monotonic indices, canonical
-serialization, path-aware policy evaluation over a bounded summary,
-capability minting and relying-party verification, anchoring, gossip-based
-equivocation detection, and fail-closed behaviour on evidence-pipeline
-failure. Modelled: the hardware TEE. No TDX/SEV-SNP machine was available, so
-the Attesting Environment is an in-process object whose signing key is never
-exposed through its API and whose measurement is a digest of the policy-engine
-identity and bundle. This reproduces the protocol structure the theorems
-concern, but not hardware isolation; \textbf{reported latencies therefore
-exclude enclave transitions and are a lower bound}. Measurements: Apple M2
-Max, Python 3.11, single core, 5{,}000 iterations after 200 warm-up steps.
+\paragraph{What is real, and what is pretend.} Real: the signing and
+verification, the hashing and chaining, the canonical descriptions, the
+path-aware policy over a bounded summary, the tickets and the far-end checks,
+the anchoring, the gossip, and the fail-closed behavior when the evidence
+store goes away. Pretend: the hardware. We had no TDX or SEV-SNP machine, so
+the enclave is an in-process object whose key is never handed out and whose
+``measurement'' is a digest of the policy code. That reproduces the structure
+the theorems are about, but not hardware isolation. \textbf{So our timings
+leave out the cost of crossing into a real enclave, and the real number will
+be bigger.} We would rather report a lower bound we measured than a total we
+invented. Everything below: Apple M2 Max, Python 3.11, one core, 5{,}000
+iterations after 200 warm-ups.
 
-\subsection{Attack harness}
-Each of eight scenarios runs against a deployment \emph{without} the relevant
-requirement and \emph{with} it (Table~\ref{tab:attacks}). All eight attacks
-succeed without the requirement; all eight are refused or detected with it.
+\subsection{The attacks}
+We wrote eight attacks and ran each one twice: once against a system missing
+the relevant requirement, once against a system with it
+(Table~\ref{tab:attacks}). All eight work when the requirement is missing. All
+eight are refused or caught when it is there.
 
 \begin{table}[ht]
 \centering\footnotesize
@@ -1193,75 +1147,79 @@ succeed without the requirement; all eight are refused or detected with it.
 \toprule
 & \textbf{Attack} & \textbf{Without the requirement} & \textbf{With it} \\
 \midrule
-A1 & Snapshot substitution & Succeeds on first attempt: evidence attests a
-benign action while a malicious one executes & Refused: request does not match
-the evidenced snapshot \\
-A2 & Log alteration & Succeeds against unsigned operator logs &
-Detected: invalid signature at record 2 \\
-A3 & Omission of a step & Succeeds: a dropped step is indistinguishable from
-one that never happened & Detected: sequence gap at step 3 \\
-A4 & Head truncation & Succeeds: the truncated prefix is internally consistent
-& Detected: anchor covers 8 steps, 5 presented \\
-A5 & Split-view & Succeeds: each verifier's chain is internally consistent &
-Detected: divergent roots at a common index \\
-A6 & Path-composition escalation & Succeeds: read and egress each within grant
-& Blocked: egress after confidential read \\
-A7 & Capability replay & Succeeds without single-use semantics &
-Refused: nonce replay \\
-A8 & Evidence-pipeline failure & Succeeds: the system keeps acting while
-logging is down & Refused: fail-closed, failure recorded \\
+A1 & Snapshot substitution & Works first try: the record describes a harmless
+action while a malicious one runs & Refused: request does not match the
+evidenced description \\
+A2 & Editing the log & Works against unsigned operator logs &
+Caught: bad signature at record 2 \\
+A3 & Dropping a step & Works: a dropped step looks like a step that never
+happened & Caught: gap at step 3 \\
+A4 & Hiding recent history & Works: the shortened history is internally
+perfect & Caught: published total covers 8 steps, 5 shown \\
+A5 & Two sets of books & Works: each verifier's copy is internally perfect &
+Caught: different totals at the same index \\
+A6 & Read then send & Works: each action is inside the grant &
+Blocked: egress after a confidential read \\
+A7 & Reusing a ticket & Works without single-use tickets &
+Refused: nonce already used \\
+A8 & Evidence pipeline down & Works: the system keeps acting while logging is
+broken & Refused: fails closed, failure recorded \\
 \bottomrule
 \end{tabular}
-\caption{Attack harness. A1 is the empirical form of
-Proposition~\ref{prop:necessity}: without a check binding the executed request
-to the evidenced snapshot, the adversary wins with probability~1---here, on
-the first attempt.}
+\caption{The attack harness. A1 is Proposition~\ref{prop:necessity} in the
+flesh: without the far-end check, the attacker wins on the first attempt.}
 \label{tab:attacks}
 \end{table}
 
-\subsection{Cost}
-Table~\ref{tab:latency} breaks down a single intercepted step. Signing
-dominates at 87\% of the step; policy evaluation is negligible at
-\SI{0.35}{\micro\second}. The end-to-end figure exceeds the component sum
-because a step signs twice (evidence token and capability) and serializes the
-token. Against the \SI{15}{\milli\second} design target, the software pipeline
-consumes 1.3\%, leaving 78$\times$ headroom---the margin available for enclave
-transitions in a hardware deployment. Single-core throughput is
-5{,}233 steps/s.
+\subsection{What it costs}
+Table~\ref{tab:latency} breaks a single intercepted action into pieces. The
+signing is 87\% of it. The policy evaluation---the part everyone worries
+about---is \SI{0.35}{\micro\second}, which is nothing. The total,
+\SI{191}{\micro\second}, is 1.3\% of our \SI{15}{\milli\second} budget. Put
+the other way: there is 78 times more room than we are using, and that room is
+what a real enclave transition would eat into. One core does 5{,}233 actions a
+second.
+
+(The total is bigger than the sum of the parts because a full step signs twice
+---once for the record, once for the ticket---and serializes the token.)
 
 \begin{table}[ht]
 \centering\small
 \begin{tabular}{@{}lrrr@{}}
 \toprule
-\textbf{Component} & \textbf{Mean} & \textbf{p95} & \textbf{p99} \\
+\textbf{Piece} & \textbf{Mean} & \textbf{p95} & \textbf{p99} \\
 \midrule
-Canonicalization + digest & \SI{3.65}{\micro\second} & \SI{3.83}{\micro\second} & \SI{7.00}{\micro\second} \\
-Policy evaluation (path-aware) & \SI{0.35}{\micro\second} & \SI{0.42}{\micro\second} & \SI{0.71}{\micro\second} \\
-Ed25519 signing & \SI{83.42}{\micro\second} & \SI{95.88}{\micro\second} & \SI{110.04}{\micro\second} \\
-Chain append & \SI{0.67}{\micro\second} & \SI{0.79}{\micro\second} & \SI{3.38}{\micro\second} \\
+Building and hashing the description & \SI{3.65}{\micro\second} & \SI{3.83}{\micro\second} & \SI{7.00}{\micro\second} \\
+Deciding (path-aware) & \SI{0.35}{\micro\second} & \SI{0.42}{\micro\second} & \SI{0.71}{\micro\second} \\
+Signing (Ed25519) & \SI{83.42}{\micro\second} & \SI{95.88}{\micro\second} & \SI{110.04}{\micro\second} \\
+Adding the link & \SI{0.67}{\micro\second} & \SI{0.79}{\micro\second} & \SI{3.38}{\micro\second} \\
 \midrule
-\textbf{End-to-end gateway step} & \textbf{\SI{191.08}{\micro\second}} & \textbf{\SI{215.96}{\micro\second}} & \textbf{\SI{237.00}{\micro\second}} \\
+\textbf{One whole action} & \textbf{\SI{191.08}{\micro\second}} & \textbf{\SI{215.96}{\micro\second}} & \textbf{\SI{237.00}{\micro\second}} \\
 \bottomrule
 \end{tabular}
-\caption{Per-step latency, excluding enclave transitions.}
+\caption{Cost of one intercepted action, not counting enclave transitions.}
 \label{tab:latency}
 \end{table}
 
-\subsection{Path-length scaling}
-Section~\ref{sec:complexity} claims per-step cost independent of path length
-under a bounded summary. Measured (Table~\ref{tab:scaling}), the bounded
-summary is flat at \SI{0.21}{\micro\second} across a 500$\times$ increase in
-path length, while naive re-evaluation of the full path grows linearly and
-would exhaust the \SI{15}{\milli\second} budget at roughly 22{,}000 steps.
-The complexity claim is therefore not merely asymptotic bookkeeping: it is the
-difference between a monitor that survives long-running agents and one that
-does not.
+\subsection{Does it stay cheap as the agent runs longer?}
+Section~\ref{sec:complexity} claimed the bounded summary makes the per-step
+cost independent of how long the agent has been going. That is the kind of
+claim that is easy to make and easy to be wrong about, so we measured it
+(Table~\ref{tab:scaling}). From 10 steps to 5{,}000---a factor of 500---the
+cost per step does not move: \SI{0.208}{\micro\second} to
+\SI{0.209}{\micro\second}. The naive version, which re-reads the whole history
+every time, grows exactly as you would expect and would blow the entire
+\SI{15}{\milli\second} budget somewhere around 22{,}000 steps.
+
+So this is not bookkeeping. It is the difference between a monitor that
+survives a long-running agent and one that gets slower until somebody turns it
+off.
 
 \begin{table}[ht]
 \centering\small
 \begin{tabular}{@{}rrr@{}}
 \toprule
-\textbf{Path length} & \textbf{Bounded summary} & \textbf{Naive full path} \\
+\textbf{Steps so far} & \textbf{Bounded summary} & \textbf{Re-reading everything} \\
 \midrule
 10 & \SI{0.208}{\micro\second} & \SI{5.79}{\micro\second} \\
 100 & \SI{0.208}{\micro\second} & \SI{64.92}{\micro\second} \\
@@ -1269,180 +1227,194 @@ does not.
 5{,}000 & \SI{0.209}{\micro\second} & \SI{3379.17}{\micro\second} \\
 \bottomrule
 \end{tabular}
-\caption{Per-step policy evaluation cost at depth. The bounded summary is
-flat; the naive baseline is linear.}
+\caption{Cost of deciding one action, at depth. Flat versus linear.}
 \label{tab:scaling}
 \end{table}
 
-Independent verification costs \SI{190}{\micro\second} per record and is
-linear: a verifier checks a 5{,}000-step agent history in
-\SI{0.95}{\second} using only published keys and reference values---the
-operative point being that this requires no cooperation from the operator.
+Checking, from outside, costs \SI{190}{\micro\second} per record and grows
+linearly: a stranger can verify a 5{,}000-step history in under a second using
+nothing but published keys and reference values. The important word there is
+\emph{stranger}. No cooperation from the operator is required at any point.
 
-\subsection{Utility cost of path-aware authorization}
+\subsection{The measurement we did not expect}
 \label{sec:utility}
-The measurement that matters most for deployability is what path-awareness
-costs in refused legitimate work. We ran 2{,}000 randomized workflows (70\%
-benign, 30\% attempting read-then-egress escalation) through the path-aware
-monitor.
+
+Everything above says the machinery is cheap. This section says the policy is
+expensive, and in a way that no amount of faster code will fix.
+
+We ran 2{,}000 randomized workflows---70\% ordinary work, 30\% trying the
+read-then-send trick---past the path-aware monitor and counted how often it
+refused work it should have allowed.
 
 \begin{table}[ht]
 \centering\small
 \begin{tabular}{@{}lrr@{}}
 \toprule
-\textbf{Configuration} & \textbf{False-rejection rate} & \textbf{Malicious blocked} \\
+\textbf{Setup} & \textbf{Legitimate work refused} & \textbf{Attacks blocked} \\
 \midrule
-No declassification point & 42.2\% & 74.6\% \\
-With explicit declassification & \textbf{0.0\%} & 71.8\% \\
+No place to forget & 42.2\% & 74.6\% \\
+With an explicit declassification step & \textbf{0.0\%} & 71.8\% \\
 \bottomrule
 \end{tabular}
-\caption{Utility cost on 2{,}000 randomized workflows. Without a
-declassification point, label creep refuses nearly half of benign work.}
+\caption{What path-awareness costs, over 2{,}000 randomized workflows.}
 \label{tab:utility}
 \end{table}
 
-The result reproduces, in the agent setting, the classical information-flow
-finding that motivated Section~\ref{sec:ifc}: a monitor accumulating labels
-along a path suffers \emph{label creep} and becomes unusable, and the
-practical remedy is not a weaker policy but an explicit declassification
-point---here a redaction step that resets the accumulated label before
-egress. Adding one eliminates false rejections at a cost of 2.8 points of
-detection. The design implication is a requirement-level one: \textbf{a
-deployment that mandates path-aware authorization without specifying where
-declassification occurs will refuse roughly half of its legitimate work},
-and no amount of implementation tuning fixes that. We regard this as the
-strongest argument in the paper for treating IFC as the intellectual parent of
-path-aware authorization rather than as unrelated prior art.
+Forty-two percent. Nearly half of perfectly ordinary work, refused, by a
+monitor doing precisely what we told it to do. Not a bug---the rule was
+``don't send after reading something sensitive,'' and it enforced exactly
+that, forever, because nothing ever cleared the flag.
 
-\subsection{Threats to validity}
-The TEE is modelled, so enclave transition cost is unmeasured and end-to-end
-latency in a hardware deployment will be higher. The implementation is
-single-process, excluding network and IPC costs between gateway, enclave, and
-relying party. Workloads are synthetic: the qualitative utility result (label
-creep, remedied by declassification) is robust, but the specific 42.2\% is a
-property of our workload model, not a universal constant. The implementation
-is Python, so absolute latencies are conservative and the durable result is
-the relative component breakdown. The privacy-preserving evidence options of
-the Privacy domain are specified but not implemented.
+Add one thing---an explicit point where data is redacted and the accumulated
+label is reset---and the false rejections go to zero, at a cost of 2.8 points
+of detection.
 
-\subsection{Remaining design parameters}
-Two parameters are set by policy rather than measurement.
-The \textbf{anchoring interval $\Delta$} bounds the window in which head
-truncation is undetectable (Section~\ref{sec:security});
-Table~\ref{tab:delta} gives working guidance derived from the volume of
-in-scope action a single window can conceal.
-For the \textbf{privacy path}, an implementation admitting zero-knowledge
-evidence must state the relation proven, the setup assumption, and the leakage
-profile: ``uses ZKPs'' is not a conformance claim, and the tier assigned
-depends on setup provenance, since a single-party trusted setup reintroduces
-exactly the party-trust the threshold forbids.
+Now, we should be honest: the information-flow people have been telling
+everyone this since the 1970s. It is called label creep, and the standard
+answer is declassification~\cite{sabelfeld2003}. We cited that literature in
+Section~\ref{sec:ifc} and we still did not really believe it until the number
+came out of our own machine. That is the useful thing about building
+something.
+
+The consequence for anyone deploying this is not subtle: \textbf{if you
+require path-aware authorization without saying where declassification
+happens, you will refuse about half your legitimate work.} No implementation
+tuning fixes that, because it is not an implementation problem. It also
+settles the question of whether path-awareness is really just information flow
+with new words: it is close enough that it fails the same way, which is the
+best evidence that the old literature is the right place to look for the
+remedies.
+
+\subsection{Reasons to doubt these numbers}
+The enclave is pretend, so a real deployment costs more than
+\SI{191}{\micro\second}. Everything runs in one process, so no network or IPC
+costs are included. The workflows are synthetic: the shape of the utility
+result is solid---label creep is real and declassification fixes it---but
+42.2\% is a property of our workload model and yours will differ. It is
+Python, so the absolute numbers are conservative; the breakdown between
+components is the part that will hold up. And we did not implement the
+privacy-preserving evidence options at all.
+
+\subsection{Two numbers we chose rather than measured}
+The \textbf{publishing interval $\Delta$} decides how much recent history an
+operator can hide (Section~\ref{sec:security}), so it should come from how
+much harm one window's worth of hidden actions could do.
+Table~\ref{tab:delta} is our working guidance. For the \textbf{privacy path},
+anyone using zero-knowledge evidence has to state the relation being proven,
+the setup assumption, and what the disclosed statement leaks. ``We use ZKPs''
+is not a claim anyone can check---and if the setup was run by one party, you
+have quietly reintroduced exactly the trusted party the whole scheme exists to
+remove.
 
 \begin{table}[ht]
 \centering\footnotesize
 \begin{tabular}{@{}p{3.3cm}p{2.3cm}p{2.0cm}p{6.3cm}@{}}
 \toprule
-\textbf{Action class} & \textbf{Exposure per window} & \textbf{Suggested
-$\Delta$} & \textbf{Rationale} \\
+\textbf{Kind of action} & \textbf{What one window risks} & \textbf{Suggested
+$\Delta$} & \textbf{Why} \\
 \midrule
-Irreversible external effect (payment, trade, medication order) &
-Unbounded financial or safety harm & $\le 1$\,s, or per-action anchoring &
-Truncation must not be able to hide a completed irreversible act; per-action
-anchoring collapses the window to zero at the cost of one round trip. \\
-Reversible external effect (ticket, message, provisioning) &
+Irreversible (payment, trade, medication order) &
+Unbounded money or safety harm & $\le 1$\,s, or publish every action &
+You must not be able to hide a completed irreversible act; publishing per
+action shrinks the window to zero at the cost of a round trip. \\
+Reversible (ticket, message, provisioning) &
 Bounded, recoverable & $\le 1$\,min &
-Recovery is possible if detection is prompt; anchoring cost amortizes over
-many actions. \\
-Read-only access to regulated data & Disclosure already occurred &
+You can undo it if you find out soon; publishing cost spreads over many
+actions. \\
+Reading regulated data & The disclosure already happened &
 $\le 5$\,min &
-The act cannot be undone, but detection latency drives breach-notification
-timelines rather than loss magnitude. \\
-Internal, non-effecting steps (planning, retrieval) &
-Low direct harm; evidential value & $\le 1$\,h &
-Value is reconstructive; batching is appropriate. \\
+Nothing to undo, but detection speed drives breach-notification clocks. \\
+Internal steps (planning, retrieval) &
+Little direct harm & $\le 1$\,h &
+Value is reconstructive; batching is fine. \\
 \bottomrule
 \end{tabular}
-\caption{Working guidance for the anchoring interval $\Delta$, chosen from the
-harm one window's worth of suppressed actions can cause. Proposals for
-working-group ratification, not measured results.}
+\caption{Working guidance for $\Delta$, chosen from the harm one window can
+conceal. Proposals for the working group, not measurements.}
 \label{tab:delta}
 \end{table}
 
-\section{Discussion}
+\section{What We Still Don't Know}
 \label{sec:discussion}
 
-Standards-integration targets (ISO/IEC JTC~1/SC~42, IETF RATS, ACS, NIST
-AI~600-1) and the phased implementation roadmap are given in
-Appendices~\ref{sec:sdo} and~\ref{sec:roadmapapp}; this section states what
-the work does not yet establish.
+Standards-integration targets and the phased rollout are in
+Appendices~\ref{sec:sdo} and~\ref{sec:roadmapapp}. This section is for the
+things we have not settled.
 
-\subsection{Limitations and status}
-Six limitations are stated deliberately.
-\textbf{(1)~The TEE is modelled, not deployed.} The reference implementation
-exercises the full protocol and every check in it, but the attesting
-environment is in-process: enclave transition cost is unmeasured, and a
-hardware deployment will exceed the reported latencies. Deploying on TDX or
-SEV-SNP and re-measuring is the immediate next step.
-\textbf{(2)~Determinism boundary.} \poc{} verifies execution facts, not
-output correctness, fairness, or intent; validation remains a human
-responsibility, and an in-scope harmful action is a safety question the
-standard explicitly does not claim to solve.
-\textbf{(3)~Trust is reduced, not eliminated.} Tier~3--4 claims rest on
-assumptions (A1),(B1),(C1) of Section~\ref{sec:security}; TEE compromise and
-vendor-root failure are out of scope by assumption, and enclave attack
-literature~\cite{costan2016,foreshadow} shows these assumptions are
-imperfect. The standard's response is mandatory disclosure, not a claim of
-trustlessness.
-\textbf{(4)~Gap analysis is single-coder and one-directional}
-(Section~\ref{sec:gaplimits}); the multi-coder study with $\kappa$ and the
-reverse mapping are pending.
-\textbf{(5)~Binary-threshold formalization.} The Tier-2/Tier-3 line is under
-dedicated cryptographic and complexity-theoretic review, including
-impossibility results bounding what agentic verification can achieve
-efficiently; a formal characterization may move the line.
-\textbf{(6)~Availability coupling.} Tier-4 fail-closed operation makes
-availability depend on the evidence path; deployments must assess and
-disclose this, and the construction of Section~\ref{sec:tier4} deliberately
-places the halt outside operator control, which is a safety property and an
-operational risk simultaneously.
+\subsection{The honest list}
+\textbf{(1)~The enclave is pretend.} The protocol is exercised for real, but
+the hardware is not there. Enclave transition cost is unmeasured, and a real
+deployment will be slower than what we report. Running this on TDX or SEV-SNP
+and measuring again is the obvious next job.
 
-Open working-group questions---identity/authorization ownership,
-verifiable-but-unlinkable identity, evidence continuity across jurisdictions
-as a possible fifth evidence property, and continuous-monitoring
-cadence---are tracked publicly in the specification's open-issues register.
+\textbf{(2)~We verify what happened, not whether it was wise.} No claim about
+correctness, fairness, or intent. An agent that does something harmful
+entirely within its permissions is a safety problem, and we do not solve
+safety problems.
 
-\subsection{Document status}
-\poc{} is a working draft under public comment, developed openly with a
-public specification repository, audit checklist, coding sheets, and figure
-tooling. This paper documents the standard, its formal treatment, and a reference
-implementation with an attack harness and measurements, all open source in the
-specification repository. We invite adversarial review of the binary
-threshold, the mediation requirement, the coverage coding, and---most
-usefully---replication of the utility measurement on production agent traces,
-which is the result most likely to change deployment guidance.
+\textbf{(3)~Trust is reduced, not abolished.} Everything above Tier~2 rests on
+(A1), (B1), (C1). Enclaves have been broken~\cite{costan2016,foreshadow}, and
+the chip vendor is a party you are trusting. Our answer is to make you write
+that down, not to pretend it is not there.
+
+\textbf{(4)~The framework comparison is one coder and one direction}
+(Section~\ref{sec:gaplimits}). Treat it as a sketch.
+
+\textbf{(5)~The hard line may move.} Where exactly Tier~2 ends and Tier~3
+begins is under review by people who do cryptography and complexity theory for
+a living, including work on what is provably impossible to verify efficiently.
+If they tell us the line is in the wrong place, the line moves.
+
+\textbf{(6)~Failing closed means failing.} At Tier~4, if evidence cannot be
+produced, work stops. That is the property we want and also an availability
+risk, and both facts have to be disclosed. You do not get to advertise only
+the first one.
+
+Open questions the working group is still arguing about---who owns identity
+binding, whether unlinkable-but-verifiable identity should be allowed, whether
+evidence continuity across jurisdictions is a fifth property, and how
+continuous ``continuous'' has to be---are tracked publicly.
+
+\subsection{Where this stands}
+\poc{} is a working draft under public comment, with a public repository
+containing the specification, the audit checklist, the coding sheets, and the
+implementation with its attack harness and benchmarks. We would rather have
+this attacked than admired. The most useful thing anyone could do is run the
+utility measurement on real agent traces instead of our synthetic ones,
+because that number---not the cryptography---is what will decide whether this
+is deployable.
 
 \section{Conclusion}
 
-The claims-based world, in which relying parties accept an operator's word
-for what an autonomous system did, does not scale to agents no one can
-watch. \poc{} replaces attestation with mechanism-generated,
-hardware-anchored, independently checkable evidence: six domains of
-verifiable facts, a binary threshold that makes verifiability procurable,
-an architecture that intercepts every consequential action, a reference
-implementation in which eight attacks are refused or detected at a software
-cost of \SI{191}{\micro\second} per step, and a coverage analysis showing
-that no existing framework occupies this layer.
-The specification, audit checklist, coding sheets, and reference tooling
-are developed openly under the Advanced AI Society and are freely licensed
-for implementation.
+The way we have always known what software did is that we asked it and it told
+us. That worked when software followed instructions, and it does not work now
+that software makes decisions, at machine speed, in situations nobody
+enumerated in advance. Asking an agent what it did is not a check on the
+agent; it is a conversation with the party you would be checking.
+
+What we have described is the alternative: evidence made by the mechanism
+while it acts, chained so gaps show, published so nobody can keep two sets of
+books, tied to the effect so it cannot describe a fiction, and gradable so a
+buyer can ask one yes-or-no question. We proved the parts that are provable,
+and we were careful to say which parts are not: an attester by itself proves
+less than it appears to, and a monitor that watches the path will refuse half
+your work unless you tell it where to forget.
+
+We also built it, which is how we learned that the cryptography costs
+\SI{191}{\micro\second} and is not the problem, and that the policy design
+costs 42\% of your legitimate work and is. The specification, the code, the
+attacks, and the numbers are all open. If any of it is wrong, it should be
+possible for you to find out---which, in the end, is the entire point.
+
 
 \section*{Acknowledgments}
 This work is developed within the \poc{} Initiative of the Advanced AI
-Society. The authors thank the domain working groups and contributors whose
-input shaped the draft standard, including Bob Blessing-Hartley, Advait
-Patel, David Thomson, Drummond Reed, and Hart Montgomery (Linux Foundation
+Society. We thank the domain working groups and contributors whose input
+shaped the draft standard, including Bob Blessing-Hartley, Advait Patel,
+David Thomson, Drummond Reed, and Hart Montgomery (Linux Foundation
 Decentralized Trust), and the Cloud Security Alliance MAESTRO and AARM
-communities. The \poc{} Lab is being established as a community lab at
-Linux Foundation Decentralized Trust.
+communities. The \poc{} Lab is being established as a community lab at Linux
+Foundation Decentralized Trust.
 
 \appendix
 
