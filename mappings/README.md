@@ -20,6 +20,7 @@ complementary forms, following the reproducible coverage methodology established
 | [`compute_coverage.py`](compute_coverage.py) | Validates the sheet and reproduces the coverage percentages and the chart below |
 | [`corpus/README.md`](corpus/README.md) | Provenance of the external framework documents (title, version, access URL) |
 | [`../docs/reviews/mapping-review-2026-08.md`](../docs/reviews/mapping-review-2026-08.md) | Independent review of all 1,000 rows: what was corrected, what was deferred, and why |
+| [`review/`](review) | The cross-model audit: prompt, output schema, runner, and consolidator — so the pass can be repeated or contradicted |
 
 ```bash
 python3 mappings/compute_coverage.py          # reproduce the numbers
@@ -27,6 +28,39 @@ python3 mappings/compute_coverage.py --inject # rewrite the tables in both READM
 python3 mappings/compute_coverage.py --svg    # regenerate the coverage chart
 python3 tools/generate_crosswalks.py          # rebuild the per-framework crosswalk pages
 ```
+
+## Auditing the coding with a different model
+
+The requirements and this coding sheet were produced by the same party, which is the weakest
+possible arrangement: whoever decides that a framework does not already cover a requirement is
+the person who wrote the requirement and has an interest in the answer. The
+[rubric](rubric.md) calls for two independent human coders with Cohen's kappa; that study has
+not been run.
+
+What can be run cheaply is a **cross-model audit** — ask a model from a different vendor to
+review every row, with no access to the original reasoning:
+
+```bash
+./mappings/review/run_review.sh              # all eight frameworks, in parallel
+python3 mappings/review/consolidate.py       # triage the results
+```
+
+The output is a **triage list, not a patch.** The obvious failure mode is fabrication: a model
+asked for a clause citation will produce a plausible-looking one, and a fabricated citation is
+worse than none because it survives casual review. Three safeguards, and they are the whole
+value of the exercise:
+
+1. **An acceptance rule fixed in advance.** Apply a change only if it can be verified *without*
+   trusting the reviewer about a framework's contents. In the 2026 pass this admitted 31 of 192
+   proposals.
+2. **Check which way the errors point.** If every proposed correction happens to favour your
+   standard, that is a finding about the audit, not about the sheet. The 2026 pass proposed 37
+   changes that *raised* external coverage, which is why the rest were taken seriously.
+3. **Spot-check one factual claim against a published source.** The 2026 pass claimed the MITRE
+   ATLAS coding used a stale mitigation set; that was checkable, and it was correct.
+
+See [the 2026 review](../docs/reviews/mapping-review-2026-08.md) for what this found and what
+was deliberately left unapplied.
 
 ## Coverage Results
 

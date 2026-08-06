@@ -83,10 +83,12 @@ This matters because an AI Bill of Materials is close to the same idea as PoC's 
 
 ## Reproducing this
 
+The prompt, output schema, runner and consolidator are in
+[`mappings/review/`](../../mappings/review):
+
 ```bash
-# one review per framework, in parallel
-codex exec --sandbox read-only --output-schema schema.json \
-  "$(cat prompt.md; echo; cat <FRAMEWORK>.txt)"
+./mappings/review/run_review.sh              # all eight frameworks, in parallel
+python3 mappings/review/consolidate.py       # triage the results
 ```
 
 The prompt asks for miscodings in both directions, demands a specific clause for every proposal, and instructs the reviewer to mark confidence `low` rather than invent a clause number. Fabricated citations are the obvious failure mode of this method; the ATLAS check above is the spot-check that gave some confidence it was not happening here, and it is the kind of check anyone repeating this should run before believing any of it.

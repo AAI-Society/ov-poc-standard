@@ -22,3 +22,6 @@ __pycache__/
 
 # Local agent scratch
 .claude/
+
+# Cross-model review working directory (regenerable)
+.review-work/

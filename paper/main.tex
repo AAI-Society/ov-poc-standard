@@ -208,7 +208,13 @@ proofs. Two of the four do \emph{not} follow from the obvious design. We show
 exactly what has to be added.
 \item \textbf{The comparison} (Section~\ref{sec:gap}): how much of this eight
 existing frameworks already ask for, coded requirement by requirement, with an
-honest account of what that measurement can and cannot tell you.
+honest account of what that measurement can and cannot tell you---including a
+\emph{cross-model audit} of our own coding
+(Section~\ref{sec:crossmodel}), because the party that wrote the requirements
+should not be the only party deciding whether anyone else already covers them.
+The procedure, its acceptance rule, and what it caught us doing are all
+reported; we recommend it for any coverage mapping where the author and the
+coder are the same.
 \item \textbf{The interoperable claim set} (Section~\ref{sec:interop}): a
 machine-readable schema in two renderings, a canonical serialization that fixes
 exactly which bytes a signature covers, and signed test vectors including ten
@@ -1094,6 +1100,73 @@ somebody outside the company can check, or not in as much detail.
 The sheet, the rubric, and the script are public, so you can re-derive the
 numbers or re-code a framework you think we got wrong.
 
+\subsection{Checking the coding with a different model}
+\label{sec:crossmodel}
+
+There is an awkward fact about the paragraph you just read. The requirements
+and the coding sheet were both produced by the first author working with a
+language model, which means the party deciding whether a framework already
+covers a requirement was the same party that wrote the requirement and has an
+interest in the answer being ``no.'' That is the weakest possible arrangement,
+and saying ``draft seed coding'' in a footnote does not fix it.
+
+The two-coder study the rubric calls for is the real answer and it has not been
+run. What we could do cheaply was ask a \emph{different} model, from a
+different vendor, to audit all 1{,}000 rows---one independent pass per
+framework, with no access to our reasoning, told to look for miscodings in both
+directions and to name a specific clause for every proposal. We are describing
+the procedure in some detail because the cheap version of this is worthless and
+the difference is entirely in the protocol.
+
+The obvious failure mode is fabrication. A model asked for a clause citation
+will happily produce a plausible-looking one, and a fabricated citation is
+worse than no citation because it survives casual review. Three things guard
+against it here.
+
+\paragraph{An acceptance rule set in advance.} A proposed change is applied
+only if it can be verified without trusting the reviewer about a framework's
+contents. Everything else is recorded, not applied. In practice this admitted
+31 of 192 proposals. Twenty-four were Exact ratings on our own
+conformance-statement requirements, which can be settled by reading the
+requirement text: those describe an artifact this standard defines, so nothing
+external can be equivalent in scope and intent to it, and no knowledge of SOC 2
+is needed to know that. Seven cited MITRE ATLAS mitigation identifiers we
+confirmed exist. The remaining 161---including all 91 proposed
+\textsc{partial}-to-\textsc{none} downgrades---wait for a human with the source
+document open.
+
+\paragraph{A check on which way the errors point.} Applying everything would
+have removed about 64 covered rows and taken 9 to 15 points off most
+frameworks. That direction \emph{flatters us}: less external coverage means a
+wider gap for this standard to fill. An audit that only ever finds errors in
+your favor is not an audit, so the direction of the proposed corrections is
+itself a measurement. This one was not one-directional---37 proposals said we
+had \emph{missed} real coverage---which is the main reason we took the rest
+seriously.
+
+\paragraph{A factual spot-check.} The reviewer claimed our MITRE ATLAS coding
+used a stale mitigation set. That is checkable against a published source, so
+we checked it, and it was right: ATLAS now includes AI Bill of Materials
+(AML.M0023), AI Telemetry Logging (M0024), Maintain AI Dataset Provenance
+(M0025) and agent-specific permission mitigations (M0026--M0028), none of which
+appeared in our sheet. We had been citing \emph{Sanitize Training Data} for the
+rows about an agent bill of materials, when ATLAS has a bill-of-materials
+mitigation that is nearly the same idea. Correcting it moved ATLAS coverage
+from 25\% to 30\%---\emph{up}, against the flattering direction, which is
+exactly the kind of finding that suggests a reviewer is reading rather than
+pattern-matching.
+
+The whole thing cost a few minutes of compute. We think a cross-model pass with
+a stated acceptance rule is worth doing for any coverage mapping, coding study,
+or requirements traceability matrix where the author and the coder are the same
+party---not because a second model is an authority, but because it is an
+independent generator of specific, checkable objections, and specific
+objections are what a defensive author will not produce alone. It does not
+replace human coders, it does not produce a $\kappa$, and it should never be
+applied wholesale. The prompt, the output schema, the full 192 proposals with
+per-item confidence, and the record of what we applied and refused are all in
+the repository, so the pass can be repeated or contradicted.
+
 \subsection{What came out}
 Figure~\ref{fig:coverage} and Table~\ref{tab:coverage} have the results, and
 two patterns are worth staring at.
@@ -1161,28 +1234,18 @@ $\kappa$ reported~\cite{cohen1960}, at least one coder who did not write the
 requirements, and disagreements resolved by a third. That study is planned, and
 when it is done it replaces Table~\ref{tab:coverage}.
 
-In the meantime we ran an automated independent pass over all 1{,}000 coded
-rows, and it is worth reporting what came back because it was not flattering.
-It proposed 192 changes and found 96 citations that do not name a checkable
-clause. Three findings we verified ourselves. Most citations point at a chapter
-heading rather than a requirement---for two frameworks, essentially all of
-them---so a reader cannot look up what we claim. Six hundred and ninety-two of
-the thousand rows carry a rationale repeated word-for-word on four or more
-rows, which is the mechanical signature of coding by block rather than by
-requirement. And every one of the 61 Exact matches was challenged, which in
-hindsight we should have caught ourselves: if our thesis is that no existing
-framework requires operator-independent evidence, then a sheet claiming 61
-exact matches was arguing against this paper. We have removed the ones we could
-verify were wrong on their face---the C10 conformance-statement rows, which
-describe an artifact this standard defines and no other framework can therefore
-match exactly.
-
-We did \emph{not} apply the 91 proposed downgrades that turn on what a
-framework's clause actually says. Those move the coverage numbers, and they
-move them downward, which widens the gap this paper exists to describe. That is
-exactly the direction a motivated coder drifts, so they wait for a human with
-the source document open. The full review is published with the
-repository.
+The cross-model audit in \S\ref{sec:crossmodel} is what we did in the meantime,
+and it was not flattering. It proposed 192 changes and found 96 citations that
+do not name a checkable clause. Three of its findings we confirmed ourselves.
+Most of our citations point at a chapter heading rather than a requirement---for
+two frameworks, essentially all of them---so a reader cannot look up what we
+claim. Six hundred and ninety-two of the thousand rows carry a rationale
+repeated word-for-word on four or more rows, which is the mechanical signature
+of coding by block rather than by requirement. And every one of the 61 Exact
+matches was challenged, which in hindsight we should have caught ourselves: if
+our thesis is that no existing framework requires operator-independent
+evidence, then a sheet claiming 61 exact matches was arguing against this
+paper.
 
 \emph{The grain used to be too coarse, and fixing it exposed a reporting bug.}
 The original coding was per section, with the requirements inside inheriting
