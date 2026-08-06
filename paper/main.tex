@@ -1210,15 +1210,25 @@ Adding the link & \SI{0.67}{\micro\second} & \SI{0.79}{\micro\second} & \SI{3.38
 Section~\ref{sec:complexity} claimed the bounded summary makes the per-step
 cost independent of how long the agent has been going. That is the kind of
 claim that is easy to make and easy to be wrong about, so we measured it
-(Table~\ref{tab:scaling}). From 10 steps to 5{,}000---a factor of 500---the
-cost per step does not move: \SI{0.208}{\micro\second} to
-\SI{0.209}{\micro\second}. The naive version, which re-reads the whole history
+(Table~\ref{tab:scaling}). From 10 steps to 50{,}000---a factor of five thousand---the
+cost per step does not move: it sits at \SI{0.21}{\micro\second} throughout
+(Figure~\ref{fig:scaling}). The naive version, which re-reads the whole history
 every time, grows exactly as you would expect and would blow the entire
 \SI{15}{\milli\second} budget somewhere around 22{,}000 steps.
 
 So this is not bookkeeping. It is the difference between a monitor that
 survives a long-running agent and one that gets slower until somebody turns it
 off.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.88\linewidth]{figures/chart-scaling.pdf}
+\caption{Deciding one action, at depth, on log axes. The bounded summary is a
+flat line across four orders of magnitude; re-reading the whole path is a
+straight diagonal that crosses the \SI{15}{\milli\second} budget at roughly
+22{,}000 steps.}
+\label{fig:scaling}
+\end{figure}
 
 \begin{table}[ht]
 \centering\small
@@ -1230,6 +1240,7 @@ off.
 100 & \SI{0.208}{\micro\second} & \SI{64.92}{\micro\second} \\
 1{,}000 & \SI{0.208}{\micro\second} & \SI{663.88}{\micro\second} \\
 5{,}000 & \SI{0.209}{\micro\second} & \SI{3379.17}{\micro\second} \\
+50{,}000 & \SI{0.208}{\micro\second} & \SI{34368.50}{\micro\second} \\
 \bottomrule
 \end{tabular}
 \caption{Cost of deciding one action, at depth. Flat versus linear.}
@@ -1245,50 +1256,71 @@ nothing but published keys and reference values. The important word there is
 \label{sec:utility}
 
 Everything above says the machinery is cheap. This section says the policy is
-expensive, and in a way that no amount of faster code will fix.
+expensive, in a way no amount of faster code will fix.
 
 We ran 2{,}000 randomized workflows---70\% ordinary work, 30\% trying the
 read-then-send trick---past the path-aware monitor and counted how often it
-refused work it should have allowed.
+refused work it should have allowed. With no way to clear an accumulated
+label, it refused \textbf{42\%} of perfectly legitimate work. Not a bug: we
+told it ``don't send after reading something sensitive,'' and it enforced
+exactly that, forever, because nothing ever cleared the flag.
 
-\begin{table}[ht]
-\centering\small
-\begin{tabular}{@{}lrr@{}}
-\toprule
-\textbf{Setup} & \textbf{Legitimate work refused} & \textbf{Attacks blocked} \\
-\midrule
-No place to forget & 42.2\% & 74.6\% \\
-With an explicit declassification step & \textbf{0.0\%} & 71.8\% \\
-\bottomrule
-\end{tabular}
-\caption{What path-awareness costs, over 2{,}000 randomized workflows.}
-\label{tab:utility}
-\end{table}
+The standard remedy, from fifty years of information-flow
+work~\cite{sabelfeld2003}, is a \emph{declassification point}: a place where
+data is redacted and the accumulated label is reset. Adding one took the false
+rejections to zero.
 
-Forty-two percent. Nearly half of perfectly ordinary work, refused, by a
-monitor doing precisely what we told it to do. Not a bug---the rule was
-``don't send after reading something sensitive,'' and it enforced exactly
-that, forever, because nothing ever cleared the flag.
+\subsection{Where we fooled ourselves, and the fix}
+\label{sec:frontier}
 
-Add one thing---an explicit point where data is redacted and the accumulated
-label is reset---and the false rejections go to zero, at a cost of 2.8 points
-of detection.
+That result was too good, and it was too good because we cheated without
+noticing. In that first experiment only the \emph{benign} workflows were
+allowed to declassify. A real attacker would of course use any declassification
+point available to it---that is precisely what makes declassification hard, and
+we had quietly assumed the problem away.
 
-Now, we should be honest: the information-flow people have been telling
-everyone this since the 1970s. It is called label creep, and the standard
-answer is declassification~\cite{sabelfeld2003}. We cited that literature in
-Section~\ref{sec:ifc} and we still did not really believe it until the number
-came out of our own machine. That is the useful thing about building
-something.
+So we ran it again properly. This time a declassification point is available to
+whoever reaches it, and the monitor---which sees only that a redaction step
+occurred, and cannot tell a genuine redaction from a sham---treats it the same
+either way. We swept the \emph{coverage}: what fraction of workflows have a
+declassification point before egress. Figure~\ref{fig:frontier} has the result,
+and it is much less flattering.
 
-The consequence for anyone deploying this is not subtle: \textbf{if you
-require path-aware authorization without saying where declassification
-happens, you will refuse about half your legitimate work.} No implementation
-tuning fixes that, because it is not an implementation problem. It also
-settles the question of whether path-awareness is really just information flow
-with new words: it is close enough that it fails the same way, which is the
-best evidence that the old literature is the right place to look for the
-remedies.
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.88\linewidth]{figures/chart-frontier.pdf}
+\caption{The declassification frontier. Dashed: declassification the monitor
+cannot verify---every point of relief from false rejections costs about 1.6
+points of detection, and there is no knee to aim for. Solid: declassification
+the monitor can verify, where both quantities improve together.}
+\label{fig:frontier}
+\end{figure}
+
+The dashed line is a straight trade, not a bargain. Going from no
+declassification to full coverage takes false rejections from 44.8\% to zero
+and takes detection from 71.7\% to zero along with it---\textbf{1.6 points of
+detection lost for every point of relief}. There is no knee. There is no good
+place to sit. An unverified declassification point is not a solution to label
+creep; it is a dial between two different ways of failing.
+
+The fix is not to tune the dial. It is to make declassification something the
+monitor can check: only a trusted redaction tool clears the label, and it
+really removes the content, so an attacker routing through it gains nothing
+because the data it wanted is gone. That is the solid line, and it does what
+you want in both directions at once: at full coverage, false rejections reach
+zero \emph{and} detection reaches 100\%, because a redaction that genuinely
+redacts defeats the exfiltration it was supposed to launder.
+
+This changes a requirement, not a setting. \textbf{A deployment that mandates
+path-aware authorization must specify not only where declassification happens
+but how the monitor verifies it.} Declassification by annotation---a workflow
+asserting ``this is fine now''---measurably destroys the detection the whole
+mechanism exists to provide.
+
+We also checked whether the size of the bounded summary mattered, sweeping the
+label bound $B$ from 1 to 16. It made no difference at all on these workloads:
+the binding constraint is the declassification policy, not the size of the
+state we carry. That is a null result and we report it as one.
 
 \subsection{Reasons to doubt these numbers}
 The enclave is pretend, so a real deployment costs more than
@@ -1357,6 +1389,24 @@ Ed25519, and verification in particular is fast. Anyone who cites a timing
 comparison from this section is citing an artifact. The size numbers are the
 ones that transfer.
 
+Figure~\ref{fig:retention} puts that in units anyone can budget for. A fleet
+of a thousand agents taking a hundred actions each per day, kept for the seven
+years a regulator might ask about, comes to \SI{0.24}{\tera\byte} classically
+and \SI{2.65}{\tera\byte} post-quantum. The multiplier is 38 on the
+signature and about eleven on the whole record; the absolute number is a couple
+of terabytes, which is to say the frightening-sounding factor turns out to be a
+rounding error on a storage invoice. We would rather have measured that than
+argued about it.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.88\linewidth]{figures/chart-retention.pdf}
+\caption{What keeping the evidence costs, for a realistic fleet. Post-quantum
+signatures multiply the bill by about eleven; the bill is small enough that it
+does not matter.}
+\label{fig:retention}
+\end{figure}
+
 \paragraph{What we changed in the standard.} Two requirements. First, every
 record and capability must name the algorithm that signed it, and a claim must
 declare a migration path---so a verifier knows what to check and an operator
@@ -1368,44 +1418,80 @@ lapses. Hybrid is the sensible default during transition: you pay 2{,}484
 bytes instead of 2{,}420 and you are covered whichever way the next decade
 goes.
 
-\subsection{Two numbers we chose rather than measured}
-The \textbf{publishing interval $\Delta$} decides how much recent history an
-operator can hide (Section~\ref{sec:security}), so it should come from how
-much harm one window's worth of hidden actions could do.
-Table~\ref{tab:delta} is our working guidance. For the \textbf{privacy path},
-anyone using zero-knowledge evidence has to state the relation being proven,
-the setup assumption, and what the disclosed statement leaks. ``We use ZKPs''
-is not a claim anyone can check---and if the setup was run by one party, you
-have quietly reintroduced exactly the trusted party the whole scheme exists to
-remove.
+\subsection{Choosing the anchoring interval, by measurement}
+\label{sec:deltameasured}
 
-\begin{table}[ht]
-\centering\footnotesize
-\begin{tabular}{@{}p{3.3cm}p{2.3cm}p{2.0cm}p{6.3cm}@{}}
-\toprule
-\textbf{Kind of action} & \textbf{What one window risks} & \textbf{Suggested
-$\Delta$} & \textbf{Why} \\
-\midrule
-Irreversible (payment, trade, medication order) &
-Unbounded money or safety harm & $\le 1$\,s, or publish every action &
-You must not be able to hide a completed irreversible act; publishing per
-action shrinks the window to zero at the cost of a round trip. \\
-Reversible (ticket, message, provisioning) &
-Bounded, recoverable & $\le 1$\,min &
-You can undo it if you find out soon; publishing cost spreads over many
-actions. \\
-Reading regulated data & The disclosure already happened &
-$\le 5$\,min &
-Nothing to undo, but detection speed drives breach-notification clocks. \\
-Internal steps (planning, retrieval) &
-Little direct harm & $\le 1$\,h &
-Value is reconstructive; batching is fine. \\
-\bottomrule
-\end{tabular}
-\caption{Working guidance for $\Delta$, chosen from the harm one window can
-conceal. Proposals for the working group, not measurements.}
-\label{tab:delta}
-\end{table}
+Earlier we said the publishing interval $\Delta$ bounds how much recent history
+an operator can hide, and we offered a table of suggestions. Suggestions are
+unsatisfying in a paper that measures everything else, so we measured this too.
+
+Publishing one root costs \SI{85.8}{\micro\second}---one signature and an
+append. Our gateway sustains about 5{,}085 actions per second on one core.
+Those two numbers determine everything (Figure~\ref{fig:anchor}): the blind
+window is the action rate times $\Delta$, and the overhead is the publication
+cost divided by $\Delta$.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.88\linewidth]{figures/chart-anchor.pdf}
+\caption{The anchoring tradeoff, measured. Exposure and cost are exactly
+inverse, so the only question is which one you would rather spend.}
+\label{fig:anchor}
+\end{figure}
+
+The numbers are friendlier than we expected. Publishing every second leaves at
+most about 5{,}000 actions inside the blind window and costs
+$8.6 \times 10^{-5}$ of wall-clock time---under a hundredth of a percent.
+Publishing every millisecond shrinks the window to five actions and still costs
+under 9\% of one core. Publishing hourly is essentially free and leaves 18
+million actions hideable, which for anything irreversible is absurd.
+
+The guidance becomes arithmetic rather than taste: \emph{decide how many
+actions you could tolerate an adversary concealing, divide by your action rate,
+and that is your $\Delta$.} For irreversible actions the tolerable number is
+near zero, which is why we recommend publishing per action there and paying the
+round trip.
+
+\subsection{Getting rid of the signing cost}
+\label{sec:batch}
+
+Signing is 87\% of a step, which invites an obvious question: why sign every
+action instead of one root over a batch of them? We measured that too
+(Figure~\ref{fig:batch}).
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.88\linewidth]{figures/chart-batch.pdf}
+\caption{Batch signing. Throughput rises almost linearly with batch size while
+the window in which an action is not yet covered by a signature stays in the
+microseconds.}
+\label{fig:batch}
+\end{figure}
+
+Batching 128 actions under one signature makes each action \textbf{61 times
+cheaper}---from \SI{85.5}{\micro\second} to \SI{1.4}{\micro\second}, and from
+11{,}690 to 707{,}380 actions per second on one core. The price is that an
+action is not covered by a signature until its batch closes, which at that size
+is at most \SI{180}{\micro\second}.
+
+That is the same shape of tradeoff as $\Delta$, one level down: a small window
+in which the record exists but is not yet cryptographically fixed. If the
+machine dies inside that window those records are lost, and for evidence that
+is the same as their never having existed. So batch size is not a performance
+knob to be turned as far as it goes---it is a second exposure window, and it
+belongs next to $\Delta$ in the conformance claim. Small for irreversible
+actions, generous for internal steps, on exactly the same reasoning.
+
+The useful conclusion is that the dominant cost in our measurements is not
+inherent. Anyone who reads Table~\ref{tab:latency}, concludes ``signing is too
+expensive,'' and starts redesigning should read Figure~\ref{fig:batch} first.
+
+\subsection{Remaining parameters}
+For the \textbf{privacy path}, an implementation admitting zero-knowledge
+evidence must state the relation proven, the setup assumption, and what the
+disclosed statement leaks. ``We use ZKPs'' is not a claim anyone can check---%
+and if the setup was run by one party, you have quietly reintroduced exactly
+the trusted party the whole scheme exists to remove.
 
 \section{What We Still Don't Know}
 \label{sec:discussion}

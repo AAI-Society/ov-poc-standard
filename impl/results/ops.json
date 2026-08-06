@@ -1,0 +1,176 @@
+{
+  "e2_scaling_deep": [
+    {
+      "path_length": 10,
+      "bounded_us": 0.25,
+      "naive_us": 6.38
+    },
+    {
+      "path_length": 100,
+      "bounded_us": 0.208,
+      "naive_us": 65.21
+    },
+    {
+      "path_length": 1000,
+      "bounded_us": 0.25,
+      "naive_us": 701.1
+    },
+    {
+      "path_length": 5000,
+      "bounded_us": 0.25,
+      "naive_us": 3438.06
+    },
+    {
+      "path_length": 10000,
+      "bounded_us": 0.208,
+      "naive_us": 7010.96
+    },
+    {
+      "path_length": 50000,
+      "bounded_us": 0.208,
+      "naive_us": 34368.5
+    }
+  ],
+  "e3_anchoring": {
+    "publication_us": 85.83,
+    "action_rate_per_s": 5085,
+    "rows": [
+      {
+        "delta_s": 0.001,
+        "exposure_actions": 5,
+        "publish_overhead_fraction": 0.085834
+      },
+      {
+        "delta_s": 0.01,
+        "exposure_actions": 51,
+        "publish_overhead_fraction": 0.0085834
+      },
+      {
+        "delta_s": 0.1,
+        "exposure_actions": 509,
+        "publish_overhead_fraction": 0.00085834
+      },
+      {
+        "delta_s": 1.0,
+        "exposure_actions": 5085,
+        "publish_overhead_fraction": 8.5834e-05
+      },
+      {
+        "delta_s": 10.0,
+        "exposure_actions": 50851,
+        "publish_overhead_fraction": 8.583e-06
+      },
+      {
+        "delta_s": 60.0,
+        "exposure_actions": 305109,
+        "publish_overhead_fraction": 1.431e-06
+      },
+      {
+        "delta_s": 3600.0,
+        "exposure_actions": 18306529,
+        "publish_overhead_fraction": 2.4e-08
+      }
+    ]
+  },
+  "e4_batch_signing": {
+    "rows": [
+      {
+        "batch": 1,
+        "us_per_action": 85.54,
+        "steps_per_s": 11690,
+        "worst_case_unsigned_delay_us": 0.0
+      },
+      {
+        "batch": 2,
+        "us_per_action": 43.75,
+        "steps_per_s": 22858,
+        "worst_case_unsigned_delay_us": 43.7
+      },
+      {
+        "batch": 4,
+        "us_per_action": 22.21,
+        "steps_per_s": 45027,
+        "worst_case_unsigned_delay_us": 66.6
+      },
+      {
+        "batch": 8,
+        "us_per_action": 11.25,
+        "steps_per_s": 88866,
+        "worst_case_unsigned_delay_us": 78.8
+      },
+      {
+        "batch": 16,
+        "us_per_action": 6.02,
+        "steps_per_s": 166192,
+        "worst_case_unsigned_delay_us": 90.3
+      },
+      {
+        "batch": 32,
+        "us_per_action": 3.36,
+        "steps_per_s": 297846,
+        "worst_case_unsigned_delay_us": 104.1
+      },
+      {
+        "batch": 64,
+        "us_per_action": 2.15,
+        "steps_per_s": 465130,
+        "worst_case_unsigned_delay_us": 135.4
+      },
+      {
+        "batch": 128,
+        "us_per_action": 1.41,
+        "steps_per_s": 707380,
+        "worst_case_unsigned_delay_us": 179.5
+      }
+    ],
+    "speedup_128": 60.67
+  },
+  "e5_retention": {
+    "fleet": {
+      "agents": 1000,
+      "actions_per_agent_day": 100
+    },
+    "record_bytes": {
+      "Ed25519": 928,
+      "ML-DSA-44": 10352,
+      "Hybrid": 10608
+    },
+    "rows": [
+      {
+        "years": 1,
+        "actions": 36500000,
+        "Ed25519": 0.034,
+        "ML-DSA-44": 0.378,
+        "Hybrid": 0.387
+      },
+      {
+        "years": 3,
+        "actions": 109500000,
+        "Ed25519": 0.102,
+        "ML-DSA-44": 1.134,
+        "Hybrid": 1.162
+      },
+      {
+        "years": 5,
+        "actions": 182500000,
+        "Ed25519": 0.169,
+        "ML-DSA-44": 1.889,
+        "Hybrid": 1.936
+      },
+      {
+        "years": 7,
+        "actions": 255500000,
+        "Ed25519": 0.237,
+        "ML-DSA-44": 2.645,
+        "Hybrid": 2.71
+      },
+      {
+        "years": 10,
+        "actions": 365000000,
+        "Ed25519": 0.339,
+        "ML-DSA-44": 3.778,
+        "Hybrid": 3.872
+      }
+    ]
+  }
+}

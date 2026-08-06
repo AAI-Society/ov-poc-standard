@@ -93,6 +93,8 @@ python3 tests/test_core.py        # 14 correctness tests, mapped to requirement 
 python3 attacks/run_attacks.py    # 8 attacks, run with and without each requirement
 python3 bench/bench.py            # latency, scaling, verification, utility
 python3 bench/bench_pq.py         # post-quantum signature comparison
+python3 bench/bench_frontier.py   # the declassification frontier
+python3 bench/bench_ops.py        # scaling, anchoring interval, batching, retention
 ```
 
 Headline results (Apple M2 Max, single core; the TEE is modelled in-process, so enclave
@@ -100,8 +102,9 @@ transitions are excluded and latencies are a lower bound): **191 µs** per inter
 (p99 237 µs) — **1.3%** of the 15 ms design budget · path-aware evaluation **flat at 0.21 µs**
 from 10 to 5,000 steps, versus linear growth for naive re-evaluation · **8/8 attacks** succeed
 without the derived requirements and are refused or detected with them · path-aware
-authorization falsely rejects **42.2%** of benign workflows without a declassification point
-and **0%** with one.
+authorization falsely rejects **42%** of benign workflows without a declassification point —
+and the fix is not more coverage but *verifiable* declassification, which takes false rejections
+to 0% while raising detection to 100%.
 
 ### Running an audit
 

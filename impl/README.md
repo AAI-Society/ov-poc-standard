@@ -11,6 +11,8 @@ python3 tests/test_core.py        # 14 correctness tests
 python3 attacks/run_attacks.py    # 8 attack scenarios, with and without the requirement
 python3 bench/bench.py            # latency, scaling, verification, utility
 python3 bench/bench_pq.py         # post-quantum signature comparison
+python3 bench/bench_frontier.py   # the declassification frontier
+python3 bench/bench_ops.py        # deep scaling, anchoring interval, batching, retention
 ```
 
 Requires Python 3.11+ and `cryptography` (Ed25519). Results are written to
@@ -86,23 +88,61 @@ Verification is linear and dominated by Ed25519 verification. A verifier can
 check a 5,000-step agent history in under a second, using only published keys
 and reference values.
 
-### Utility cost of path-aware authorization
+### Utility cost of path-aware authorization — and where we fooled ourselves
 
-2,000 randomized workflows (70% benign, 30% attempting read-then-egress
-escalation):
+With no way to clear an accumulated label, the path-aware monitor refuses **42%** of perfectly
+legitimate work. That is label creep, exactly as the information-flow literature predicts.
 
-| Configuration | False-rejection rate (benign) | Malicious blocked |
+Our first version of this experiment then reported that adding a declassification point took
+false rejections to **0%** — but that result was flattering, because only *benign* workflows were
+allowed to declassify. A real attacker uses whatever declassification points exist.
+`bench_frontier.py` fixes that: declassification is available to whoever reaches it, and the
+monitor sees only that a redaction step occurred.
+
+| Declassification | False rejections | Attacks blocked |
 | --- | ---: | ---: |
-| No declassification point | **42.2%** | 74.6% |
-| With explicit declassification (redaction step) | **0.0%** | 71.8% |
+| None (coverage 0) | 44.8% | 71.7% |
+| Unverified, full coverage | 0.0% | **0.0%** |
+| Verified, full coverage | 0.0% | **100.0%** |
 
-This is the paper's most consequential measurement and it reproduces the
-classical information-flow result: a monitor that accumulates labels along a
-path suffers **label creep**, refusing nearly half of benign work. Adding an
-explicit declassification point — a redaction step that resets the accumulated
-label — eliminates the false rejections at a cost of 2.8 points of detection.
-Path-aware authorization is therefore *not* deployable without declassification
-design, which is a requirement-level finding, not a tuning detail.
+**Unverified declassification is a straight trade, not a fix**: 1.60 points of detection lost for
+every point of false-rejection relief, with no knee anywhere on the curve. **Verified**
+declassification — where only a trusted redaction tool clears the label, and it really removes
+the content — improves both quantities at once, because a genuine redaction defeats the
+exfiltration it was supposed to launder.
+
+The requirement-level conclusion: a deployment mandating path-aware authorization must specify
+not only *where* declassification happens but *how the monitor verifies it*. Declassification by
+annotation measurably destroys the detection the mechanism exists to provide.
+
+Sweeping the bounded-summary label bound B from 1 to 16 made no difference on these workloads —
+a null result, reported as one.
+
+### Operational parameters, measured
+
+**Deep scaling.** The bounded summary stays flat at 0.21 µs from 10 to 50,000 steps; naive
+re-evaluation reaches 34.4 ms at 50,000 and crosses the 15 ms budget near 22,000 steps.
+
+**Anchoring interval Δ.** One publication costs 85.8 µs; the gateway sustains ~5,085 actions/s.
+Exposure and overhead are exactly inverse:
+
+| Δ | Actions in the blind window | Publishing overhead |
+| --- | ---: | ---: |
+| 1 ms | 5 | 8.6% |
+| 1 s | 5,085 | 0.0086% |
+| 1 min | 305,109 | 0.00014% |
+| 1 h | 18,306,529 | 0.0000024% |
+
+So the choice is arithmetic: decide how many actions you could tolerate an adversary concealing,
+divide by your action rate.
+
+**Batch signing.** Signing one root per 128 actions is **61× cheaper per action** (85.5 µs →
+1.4 µs; 11,690 → 707,380 actions/s), leaving actions uncovered by a signature for at most 180 µs.
+That window is a second exposure parameter and belongs beside Δ in the conformance claim — not a
+knob to turn as far as it goes.
+
+**Retention.** A 1,000-agent fleet at 100 actions/agent/day, kept 7 years: 0.24 TB classically,
+2.65 TB post-quantum. The 38× signature multiplier is a rounding error on a storage invoice.
 
 ## Post-quantum signing
 
@@ -165,6 +205,8 @@ impl/
 ├── attacks/run_attacks.py 8 attack scenarios, with/without each requirement
 ├── bench/bench.py         B1 latency · B2 scaling · B3 verification · B4 utility
 ├── bench/bench_pq.py      post-quantum signature comparison (size and cost)
+├── bench/bench_frontier.py the declassification frontier (verified vs not)
+├── bench/bench_ops.py     deep scaling · anchoring Δ · batching · retention
 ├── tests/test_core.py     14 correctness tests mapped to requirement IDs
 └── results/               attacks.json, bench.json (regenerated by the scripts)
 ```
