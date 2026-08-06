@@ -141,7 +141,7 @@ def chart_scaling(data, t, v):
     p.line([(r["path_length"], r["bounded_us"]) for r in rows], lime(t, v))
     p.line([(r["path_length"], r["naive_us"]) for r in rows], red(t), dash=True)
     p.legend([(lime(t, v), "bounded summary", False),
-              (red(t), "re-read the whole path", True)], 170, 258)
+              (red(t), "re-read the whole path", True)], 430, 280)
     # budget line
     py = p._ty(15000)
     s.parts.append(
@@ -169,10 +169,13 @@ def chart_anchor(data, t, v):
     p.line([(r["delta_s"], max(r["exposure_actions"], 1)) for r in rows],
            lime(t, v))
     # overhead annotation
-    for r, lab in ((rows[0], "8.6% overhead"), (rows[3], "0.009%"),
-                   (rows[6], "0.0000024%")):
+    for r, lab, dx, dy, anc in ((rows[0], "8.6% overhead", 12, 20, "start"),
+                                (rows[3], "0.009%", 12, 20, "start"),
+                                (rows[6], "0.0000024%", -12, 22, "end")):
         px, py = p._tx(r["delta_s"]), p._ty(max(r["exposure_actions"], 1))
-        s.text(px, py - 14, lab, 10, t["muted"])
+        s.text(px + dx, py + dy, lab, 10, t["muted"], anchor=anc)
+    s.text(p.x0 + 8, p.y0 + 18, "publishing overhead shown at three points",
+           10, t["faint"], anchor="start")
     s.text(450, 408, "exposure and cost are exactly inverse: pick the window you "
            "can afford to lose", 12, t["muted"])
     s.save()
@@ -192,7 +195,7 @@ def chart_batch(data, t, v):
     p.line([(r["batch"], max(r["worst_case_unsigned_delay_us"], 1)) for r in rows],
            red(t), dash=True)
     p.legend([(lime(t, v), "throughput (actions/s)", False),
-              (red(t), "worst-case delay before signing (us)", True)], 150, 130)
+              (red(t), "worst-case delay before signing (us)", True)], 330, 306)
     s.text(450, 408, "batching 128 actions is 61x cheaper per action and leaves "
            "them unsigned for at most 180 microseconds", 12, t["muted"])
     s.save()

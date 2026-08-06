@@ -45,8 +45,9 @@
 <circle cx="500.5" cy="192.8" r="3.4" fill="#7a9900"/>
 <circle cx="576.4" cy="166.2" r="3.4" fill="#7a9900"/>
 <circle cx="750.0" cy="105.3" r="3.4" fill="#7a9900"/>
-<text x="110.0" y="316.06604805242785" font-size="10" fill="#6b665f" text-anchor="middle">8.6% overhead</text>
-<text x="402.84798859956527" y="213.09013387631958" font-size="10" fill="#6b665f" text-anchor="middle">0.009%</text>
-<text x="750.0" y="91.31570435134432" font-size="10" fill="#6b665f" text-anchor="middle">0.0000024%</text>
+<text x="122.0" y="350.06604805242785" font-size="10" fill="#6b665f" text-anchor="start">8.6% overhead</text>
+<text x="414.84798859956527" y="247.09013387631958" font-size="10" fill="#6b665f" text-anchor="start">0.009%</text>
+<text x="738.0" y="127.31570435134432" font-size="10" fill="#6b665f" text-anchor="end">0.0000024%</text>
+<text x="118" y="122" font-size="10" fill="#a09a91" text-anchor="start">publishing overhead shown at three points</text>
 <text x="450" y="408" font-size="12" fill="#6b665f" text-anchor="middle">exposure and cost are exactly inverse: pick the window you can afford to lose</text>
 </svg>
