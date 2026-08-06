@@ -8,8 +8,8 @@
     {
       "scheme": "Ed25519 (classical)",
       "impl": "C/Rust",
-      "sign_us": 80.9,
-      "verify_us": 176.0,
+      "sign_us": 84.0,
+      "verify_us": 182.6,
       "sig_bytes": 64,
       "pk_bytes": 32,
       "pq": false
@@ -17,8 +17,8 @@
     {
       "scheme": "ML-DSA-44 (FIPS 204)",
       "impl": "pure Python (reference)",
-      "sign_us": 17712.3,
-      "verify_us": 4217.3,
+      "sign_us": 18142.3,
+      "verify_us": 4201.8,
       "sig_bytes": 2420,
       "pk_bytes": 1312,
       "pq": true
@@ -26,8 +26,8 @@
     {
       "scheme": "ML-DSA-65 (FIPS 204)",
       "impl": "pure Python (reference)",
-      "sign_us": 26826.4,
-      "verify_us": 6626.5,
+      "sign_us": 26870.6,
+      "verify_us": 6517.6,
       "sig_bytes": 3309,
       "pk_bytes": 1952,
       "pq": true
@@ -35,8 +35,8 @@
     {
       "scheme": "Hybrid Ed25519 + ML-DSA-44",
       "impl": "mixed",
-      "sign_us": 16741.3,
-      "verify_us": 4490.5,
+      "sign_us": 18459.9,
+      "verify_us": 4493.4,
       "sig_bytes": 2484,
       "pk_bytes": 1344,
       "pq": true
@@ -45,23 +45,31 @@
   "storage": [
     {
       "scheme": "Ed25519 (classical)",
-      "record_bytes": 928,
-      "gb_per_million_actions": 0.928
+      "record_bytes": 1336,
+      "record_bytes_cbor": 664,
+      "gb_per_million_actions": 1.336,
+      "gb_per_million_actions_cbor": 0.664
     },
     {
       "scheme": "ML-DSA-44 (FIPS 204)",
-      "record_bytes": 10352,
-      "gb_per_million_actions": 10.352
+      "record_bytes": 10760,
+      "record_bytes_cbor": 5376,
+      "gb_per_million_actions": 10.76,
+      "gb_per_million_actions_cbor": 5.376
     },
     {
       "scheme": "ML-DSA-65 (FIPS 204)",
-      "record_bytes": 13908,
-      "gb_per_million_actions": 13.908
+      "record_bytes": 14316,
+      "record_bytes_cbor": 7154,
+      "gb_per_million_actions": 14.316,
+      "gb_per_million_actions_cbor": 7.154
     },
     {
       "scheme": "Hybrid Ed25519 + ML-DSA-44",
-      "record_bytes": 10608,
-      "gb_per_million_actions": 10.608
+      "record_bytes": 11016,
+      "record_bytes_cbor": 5504,
+      "gb_per_million_actions": 11.016,
+      "gb_per_million_actions_cbor": 5.504
     }
   ],
   "note_hash_chain": "The hash chain, sequence numbering, and Merkle anchoring are already post-quantum: Grover gives at best a square-root speedup, leaving SHA-256 at ~128-bit security. Only signatures migrate."

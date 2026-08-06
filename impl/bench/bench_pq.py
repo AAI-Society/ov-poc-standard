@@ -95,27 +95,44 @@ def main():
               f"{r['sig_bytes']:>9}{r['pk_bytes']:>9}")
 
     # ---- storage: what this costs an evidence chain
-    base = len(canonical({
-        "iat": 1773532800, "nonce": "0x8f93e2a110c49b",
-        "eat_profile": "https://standards.org/poc/v1",
-        "poc_claims": {"agent_id": "did:web:enterprise.com:agents:finance-04",
-                       "interception_point": "PRE_CALL_TOOL_INVOCATION",
-                       "step_index": 3, "merkle_root": "0x" + "a" * 64,
-                       "policy_bundle_hash": "sha256:" + "b" * 64,
-                       "target_resource": "api.bank.com/v1/payments",
-                       "canonical_snapshot_hash": "sha256:" + "c" * 64,
-                       "verdict": "ALLOW"},
-        "submods": {"attestation": {"measurement": "d" * 64}}}))
-    print(f"\nevidence record without signature: {base} bytes")
+    # The real thing, not a hand-written approximation: one token straight out
+    # of the reference pipeline, which the published schema validates.
+    from poc import EvidenceStore, Gateway, Grant, PolicyEngine, Action, AttestingEnvironment
+    _g = Grant("user:alice", frozenset({"db.read"}), frozenset({"customers"}),
+               max_spend=1e9, max_sensitivity_egress="restricted")
+    _ae = AttestingEnvironment(PolicyEngine(_g))
+    _store = EvidenceStore()
+    Gateway(_ae, _store).submit(Action("db.read", "customers", {"row": 42},
+                                       classification="confidential"))
+    _tok = {k: v for k, v in _store.records[0].items() if k != "signature"}
+    base = len(canonical(_tok))
+    # the same claim set in the CWT/CBOR rendering (schema/cbor_profile.py)
+    import sys as _sys
+    _sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "schema"))
+    try:
+        from cbor_profile import to_cbor
+        base_cbor = len(to_cbor(_tok))
+    except Exception:                                    # pragma: no cover
+        base_cbor = None
+
+    print(f"\nevidence record without signature: {base} bytes JSON"
+          + (f", {base_cbor} bytes CBOR" if base_cbor else ""))
     storage = []
     for r in rows:
-        # hex-encoded signature in the JSON token, plus capability signature
+        # JSON carries signatures as hex, so each costs twice its raw size;
+        # CBOR carries them as byte strings. Two signatures per step: the
+        # evidence token and the dispatch capability.
         rec = base + 2 * r["sig_bytes"] * 2
+        rec_cbor = (base_cbor + 2 * r["sig_bytes"]) if base_cbor else None
         per_million_gb = rec * 1_000_000 / 1e9
         storage.append({"scheme": r["scheme"], "record_bytes": rec,
-                        "gb_per_million_actions": round(per_million_gb, 3)})
-        print(f"  {r['scheme']:<30} record {rec:>7} B   "
-              f"{per_million_gb:>7.3f} GB / million actions")
+                        "record_bytes_cbor": rec_cbor,
+                        "gb_per_million_actions": round(per_million_gb, 3),
+                        "gb_per_million_actions_cbor":
+                            round(rec_cbor / 1000, 3) if rec_cbor else None})
+        print(f"  {r['scheme']:<30} record {rec:>7} B JSON"
+              + (f" / {rec_cbor:>7} B CBOR" if rec_cbor else "")
+              + f"   {per_million_gb:>7.3f} GB / million actions")
 
     out = {
         "environment": {"platform": platform.platform(),

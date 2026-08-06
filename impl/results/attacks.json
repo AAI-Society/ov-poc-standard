@@ -62,5 +62,13 @@
     "without_requirement": "attack SUCCEEDS: a system that logs best-effort keeps acting while its evidence pipeline is down (fail-open by omission)",
     "with_requirement": "refused: verdict=FAIL_CLOSED, executed=False, failure recorded=1",
     "note": ""
+  },
+  {
+    "id": "A9",
+    "attack": "Mid-history rewrite by a key-holding operator",
+    "requirement": "C7.3.5 anchored root compared, consistency proof required",
+    "without_requirement": "attack SUCCEEDS: replaying the rewritten history finds nothing wrong (verifier says: chain verified: 8 records) \u2014 every signature is valid and every link matches, because the operator recomputed them",
+    "with_requirement": "detected: history rewritten: the chain presented at step 8 has head 058366468ce1, but accf0a8d3043 was anchored",
+    "note": "found while building the Merkle experiment: the verifier compared the anchor's step count but never its root"
   }
 ]

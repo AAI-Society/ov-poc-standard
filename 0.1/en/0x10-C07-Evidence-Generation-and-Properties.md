@@ -55,8 +55,12 @@ The evidence is produced by the cryptographic mechanism, not by the system opera
 | **7.3.1** | **Verify that** evidence records are hash-chained or Merkle-anchored so that modifying, inserting, or reordering any record invalidates the chain, and that chain verification runs on a defined schedule with results recorded. | 2 |
 | **7.3.2** | **Verify that** evidence records are signed by keys held by the generating mechanism (gateway, enclave, or logging service) that operator and agent identities cannot access, per the key-custody configuration. | 3 |
 | **7.3.3** | **Verify that** the implementation resists equivocation (presenting divergent histories to different relying parties) by at least one of: cross-verifier consistency checking (gossip), a witness quorum co-signing chain roots, or anchoring to a ledger with single-history consensus — and that the mechanism is named in the claim. | 3 |
+| **7.3.4** | **Verify that** the evidence log is structured so a verifier can establish that a **single named record** is present in the log committed to by a published root, without retrieving the rest of the log — by an inclusion proof against an append-only Merkle tree ([RFC 6962](https://www.rfc-editor.org/rfc/rfc6962)) or equivalent — and that the proof, the tree size it is taken against, and the published root are all obtainable by the verifier. | 3 |
+| **7.3.5** | **Verify that** a published root is checked for **append-only consistency** against previously published roots, by a consistency proof or equivalent, and that the verification procedure compares the recomputed root against the anchored value rather than only against a step count or record count. | 3 |
 
-**Auditor evidence:** 7.3.1 — chain-verification job schedule and results; alter one record in a test copy and confirm detection. 7.3.2 — key-custody ACLs; confirm operator accounts hold no signing capability for evidence keys. 7.3.3 — the named mechanism and its participants; obtain the same chain root from two independent verifiers or witnesses and confirm they agree.
+**Auditor evidence:** 7.3.1 — chain-verification job schedule and results; alter one record in a test copy and confirm detection. 7.3.2 — key-custody ACLs; confirm operator accounts hold no signing capability for evidence keys. 7.3.3 — the named mechanism and its participants; obtain the same chain root from two independent verifiers or witnesses and confirm they agree. 7.3.4 — request an inclusion proof for one sampled record and verify it against the published root without being given the rest of the log; confirm the proof size grows logarithmically, not linearly, with log size. 7.3.5 — obtain two roots published at different times and verify a consistency proof between them; then rebuild a test log with one historical record altered and **re-signed**, and confirm the verifier rejects it.
+
+> **Why 7.3.5 says "rather than only against a step count."** A verifier that compares only the number of records against the anchored step count will accept a rewritten history: an operator holding the signing key can alter a past record, recompute every subsequent link, and re-sign the whole log. The result has the right length and replays perfectly, because nothing about it is internally inconsistent. The only thing that contradicts it is the root that was published *before* the rewrite — which is worthless unless the verifier actually compares it. This defect was present in this specification's own reference implementation and was found by building the inclusion-proof experiment; see attack A9 in [`impl/`](../../impl).
 
 ---
 
@@ -107,9 +111,29 @@ Tamper-evidence makes alteration detectable; it does not, by itself, make *omiss
 
 ---
 
+## C7.7 The Interoperable Property
+
+Evidence that only its producer can interpret is a log, not evidence. A second party has to be able to read it, recompute what it commits to, and arrive at the same bytes.
+
+| # | Description | Level |
+| :--------: | ------------------------------------------------------------------------------------------------------------------- | :---: |
+| **7.7.1** | **Verify that** the evidence claim set is defined by a **machine-readable schema** covering every field, published where a verifier can obtain it, and that the deployed implementation's own output validates against it. | 2 |
+| **7.7.2** | **Verify that** the schema declares a single **canonical serialization** — fixing key ordering, number formatting, string escaping, digest case, and the meaning of an absent field — and states exactly which bytes each digest and signature covers. | 2 |
+| **7.7.3** | **Verify that** every digest and signature carries an explicit **algorithm identifier**, and that a verifier presented with an unidentified digest rejects it rather than assuming an algorithm. | 2 |
+| **7.7.4** | **Verify that** conformance to the canonical form is demonstrated against **published test vectors including negative cases**, and that each negative vector is rejected for the reason it was written to test. | 3 |
+| **7.7.5** | **Verify that** a parser rejects duplicate object keys rather than resolving them last-wins, so that one evidence artifact cannot mean different things to different readers. | 2 |
+
+**Auditor evidence:** 7.7.1 — retrieve the schema; run a sample of production evidence through it. 7.7.2 — the canonicalization rules; hand the implementer a token in non-canonical form and confirm they canonicalize before verifying rather than hashing the bytes as received. 7.7.3 — present a digest with no algorithm tag and confirm rejection. 7.7.4 — run the vectors; a negative vector rejected for the *wrong* reason is not a pass, because it does not demonstrate the check exists. 7.7.5 — submit a token with a repeated key and confirm refusal.
+
+> **Why this is a security property and not a documentation one.** The binding between an evaluated action and an executed one ([C7.1.4](#c71-generation-at-the-action-boundary)) works by recomputing a digest and comparing it. Two implementations that serialize the same action differently produce different digests for identical actions. Every signature still verifies, so nothing looks broken — the comparison simply fails, and the natural next step is to relax the comparison until interoperation works. That relaxation silently removes the property the comparison existed to provide. A canonical form with published test vectors is what prevents it. See [`schema/canonicalization.md`](../../schema/canonicalization.md), [`schema/poc-evidence.cddl`](../../schema/poc-evidence.cddl), and [`schema/vectors/`](../../schema/vectors).
+
+---
+
 ## References
 
 * [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119) / [RFC 8174](https://www.rfc-editor.org/rfc/rfc8174) — requirements language · [RFC 3161](https://www.rfc-editor.org/rfc/rfc3161) — trusted timestamping
+* [RFC 6962](https://www.rfc-editor.org/rfc/rfc6962) — Certificate Transparency: the Merkle tree structure C7.3.4/C7.3.5 adopt · [RFC 8785](https://www.rfc-editor.org/rfc/rfc8785) — JSON Canonicalization Scheme · [RFC 8949 §4.2](https://www.rfc-editor.org/rfc/rfc8949#section-4.2) — deterministic CBOR
+* [RFC 9334](https://www.rfc-editor.org/rfc/rfc9334) — RATS architecture · [RFC 9711](https://www.rfc-editor.org/rfc/rfc9711) — Entity Attestation Token, which the claim set profiles
 * [Appendix A — Glossary](0x90-Appendix-A_Glossary.md): evidence property, execution record, determinism boundary
 * [Appendix C — Threat Model](0x92-Appendix-C_Threat-Model.md): what the evidence defends against, and the honest edge of the claim
 * Crosswalk: [CSA AARM](../../mappings/csa-aarm.md) — the enforcement half at the same action boundary

@@ -19,7 +19,7 @@ This is visible in the mapping below: the RMF has the **highest coverage of any 
 
 <!-- BEGIN GENERATED MAPPING (tools/generate_crosswalks.py) -->
 
-**Coverage: 62%** of the 118 Proof-of-Control requirements (0 exact matches, 73 partial matches, 45 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
+**Coverage: 60%** of the 125 Proof-of-Control requirements (0 exact matches, 75 partial matches, 50 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
 
 **How to read the Match column** ([full rubric](rubric.md)): **Exact** — the framework has a clause equivalent in scope and intent. **Partial** — the framework covers the topic, but not with PoC's operator-independent evidence (or not at the same depth). **None** — the framework has no analogous provision.
 
@@ -44,10 +44,11 @@ This is visible in the mapping below: the RMF has the **highest coverage of any 
 | [C6.3 Cryptographic Key Lifecycle](../0.1/en/0x10-C06-Security.md) | 5 | None | — | Key lifecycle not addressed (delegated to security control catalogs) |
 | [C7.1 Generation at the Action Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | None | — | No action-interception evidence concept |
 | [C7.2 The Contemporaneous Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | Partial | MEASURE 2.8; MANAGE 4.1 | MEASURE documentation and test records are contemporaneous practices; no mechanism-generated evidence |
-| [C7.3 The Tamper-Evident Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 3 | Partial | MEASURE 2.8 | Traceability and documentation expectations; records remain operator-produced |
+| [C7.3 The Tamper-Evident Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | None | — | No log-consistency requirement |
 | [C7.4 The Transparent Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 1 | Partial | GOVERN 4.2; MAP 4.1 | Transparency and documentation of limitations align with disclosure; no standardized trust-assumption format |
 | [C7.5 The Determinism Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | Partial | MEASURE 2.5 | RMF's validity/reliability framing distinguishes measured facts from aspirations; no claims-discipline requirement |
 | [C7.6 Evidence Custody and Resilience](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 6 | Partial | MANAGE 2.3; MANAGE 4.1 | MANAGE incident response and monitoring cover failure handling; fail-closed evidence gating not addressed |
+| [C7.7 The Interoperable Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | None | — | Parser behaviour unaddressed |
 | [C8.1 Tier Placement](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 8 | None | — | No evidence-verifiability grading |
 | [C8.2 Mechanism-to-Requirement Fit](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 2 | None | — | No mechanism-fit rule |
 | [C8.3 Chain Integrity and Self-Enforcement (Tier 4)](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 5 | None | — | No self-enforcing execution concept |
@@ -68,6 +69,8 @@ This is visible in the mapping below: the RMF has the **highest coverage of any 
 * **C5.2 Inter-Agent Identity** — Inter-agent identity not addressed
 * **C6.3 Cryptographic Key Lifecycle** — Key lifecycle not addressed (delegated to security control catalogs)
 * **C7.1 Generation at the Action Boundary** — No action-interception evidence concept
+* **C7.3 The Tamper-Evident Property** — No log-consistency requirement
+* **C7.7 The Interoperable Property** — Parser behaviour unaddressed
 * **C8.1 Tier Placement** — No evidence-verifiability grading
 * **C8.2 Mechanism-to-Requirement Fit** — No mechanism-fit rule
 * **C8.3 Chain Integrity and Self-Enforcement (Tier 4)** — No self-enforcing execution concept

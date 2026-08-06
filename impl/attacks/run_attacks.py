@@ -224,11 +224,57 @@ def a8_pipeline_failure():
            without, with_)
 
 
+# ---------------------------------------------------------------- A9
+def a9_history_rewrite():
+    """Rewrite a step in the middle of the log and re-sign everything after it.
+
+    This is the attack the other eight miss, and we found it by building the
+    Merkle experiment rather than by thinking harder. Every earlier defence
+    assumes the adversary cannot sign. But the operator running the enclave
+    CAN: that is what "operator-controlled infrastructure" means. Given the key,
+    the operator edits step 3, recomputes every subsequent chain link, and
+    re-signs the lot.
+
+    The result is a history of exactly the right length in which every
+    signature verifies and every link matches. Replaying it finds nothing,
+    because there is nothing internally wrong with it. Only the root that was
+    published BEFORE the rewrite is inconsistent with it -- and the verifier
+    has to actually compare that root to notice.
+    """
+    log = TransparencyLog()
+    grant, policy, ae, store, gw, _ = build(anchor=log)
+    for i in range(8):
+        gw.submit(Action("db.read", "customers", {"row": i}))
+    ae.force_anchor()
+    v = Verifier(ae.pk, ae.measurement)
+
+    # the operator rebuilds the history with step 3 altered, using the same key
+    ae2 = AttestingEnvironment(PolicyEngine(grant), signing_key=ae._sk)
+    store2 = EvidenceStore()
+    gw2 = Gateway(ae2, store2)
+    for i in range(8):
+        gw2.submit(Action("db.read", "customers",
+                          {"row": 999 if i == 3 else i}))
+
+    ok_replay, msg_replay = v.verify_chain(store2.records)      # no anchor
+    ok_anchor, msg_anchor = v.verify_chain(store2.records, anchor=log)
+
+    without = (f"attack SUCCEEDS: replaying the rewritten history finds nothing "
+               f"wrong (verifier says: {msg_replay}) — every signature is valid "
+               f"and every link matches, because the operator recomputed them")
+    with_ = f"detected: {msg_anchor}" if not ok_anchor else "MISSED"
+    record("A9", "Mid-history rewrite by a key-holding operator",
+           "C7.3.5 anchored root compared, consistency proof required",
+           without, with_,
+           note=("found while building the Merkle experiment: the verifier "
+                 "compared the anchor's step count but never its root"))
+
+
 def main():
     print("Proof-of-Control reference implementation — attack harness\n")
     for fn in (a1_snapshot_substitution, a2_log_alteration, a3_omission,
                a4_truncation, a5_split_view, a6_path_composition,
-               a7_capability_replay, a8_pipeline_failure):
+               a7_capability_replay, a8_pipeline_failure, a9_history_rewrite):
         fn()
     out = Path(__file__).resolve().parent.parent / "results" / "attacks.json"
     out.write_text(json.dumps(RESULTS, indent=2) + "\n")

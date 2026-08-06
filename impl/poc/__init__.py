@@ -3,9 +3,15 @@ from .core import (  # noqa: F401
     EvidenceStore, EvidenceStoreUnavailable, Gateway, RelyingParty,
     TransparencyLog, Verifier, gossip, canonical, sha256,
 )
+from .merkle import (  # noqa: F401
+    MerkleTree, leaf_hash, node_hash, reference_root,
+    verify_inclusion, verify_consistency,
+)
 
 __all__ = [
     "Action", "Grant", "PathSummary", "PolicyEngine", "AttestingEnvironment",
     "EvidenceStore", "EvidenceStoreUnavailable", "Gateway", "RelyingParty",
     "TransparencyLog", "Verifier", "gossip", "canonical", "sha256",
+    "MerkleTree", "leaf_hash", "node_hash", "reference_root",
+    "verify_inclusion", "verify_consistency",
 ]

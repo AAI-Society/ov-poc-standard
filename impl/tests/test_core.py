@@ -111,6 +111,78 @@ def main():
                              out["capability"])
     check(f"C8.1.7 measurement mismatch rejected ({why})", not ok)
 
+    # ---------------------------------------------------- Merkle proofs
+    from poc import (MerkleTree, leaf_hash, reference_root, verify_consistency,
+                     verify_inclusion)
+
+    recs = [f"r{i}".encode() for i in range(37)]     # deliberately not a power of 2
+    tree = MerkleTree()
+    for r in recs:
+        tree.append(r)
+
+    check("incremental root matches the RFC 6962 recursive definition",
+          all(tree.root_at(n) == reference_root([leaf_hash(r) for r in recs[:n]])
+              for n in range(1, len(recs) + 1)))
+
+    check("C7.3.4 every record has a valid inclusion proof",
+          all(verify_inclusion(i, len(recs), leaf_hash(recs[i]),
+                               tree.inclusion_proof(i), tree.root())
+              for i in range(len(recs))))
+
+    check("C7.3.4 inclusion proof rejects a substituted record",
+          not verify_inclusion(5, len(recs), leaf_hash(b"forged"),
+                               tree.inclusion_proof(5), tree.root()))
+
+    import math
+    check(f"C7.3.4 proof size is logarithmic "
+          f"({len(tree.inclusion_proof(5))} hashes for {len(recs)} records)",
+          len(tree.inclusion_proof(5)) <= math.ceil(math.log2(len(recs))) + 1)
+
+    check("C7.3.5 consistency proof holds for every published prefix",
+          all(verify_consistency(m, len(recs), tree.root_at(m), tree.root(),
+                                 tree.consistency_proof(m))
+              for m in range(1, len(recs) + 1)))
+
+    tampered = MerkleTree()
+    for i, r in enumerate(recs):
+        tampered.append(b"TAMPERED" if i == 10 else r)
+    check("C7.3.5 consistency proof refuses a rewritten prefix",
+          not verify_consistency(20, len(recs), tree.root_at(20),
+                                 tampered.root(), tampered.consistency_proof(20)))
+
+    # the A9 defect, as a regression test
+    log = TransparencyLog()
+    ae, store, gw = stack(anchor=log)
+    for i in range(6):
+        gw.submit(Action("db.read", "customers", {"row": i}))
+    ae.force_anchor()
+    ae2 = AttestingEnvironment(PolicyEngine(ae.policy.grant),
+                               signing_key=ae._sk)
+    store2 = EvidenceStore()
+    gw2 = Gateway(ae2, store2)
+    for i in range(6):
+        gw2.submit(Action("db.read", "customers", {"row": 99 if i == 2 else i}))
+    v = Verifier(ae.pk, ae.measurement)
+    check("C7.3.5 re-signed rewritten history rejected against the anchored root",
+          not v.verify_chain(store2.records, anchor=log)[0])
+
+    # ---------------------------------------------------- schema conformance
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "schema"))
+    try:
+        import validate as V
+        ae3, store3, gw3 = stack()
+        gw3.submit(Action("db.read", "customers", {"row": 1}))
+        tok = store3.records[0]
+        try:
+            V.validate(tok, ae3.pk.public_bytes_raw().hex())
+            ok, why = True, ""
+        except V.ValidationError as e:
+            ok, why = False, str(e)
+        check(f"emitted evidence validates against the published schema{why and ': ' + why}",
+              ok)
+    except ImportError:                                        # pragma: no cover
+        print("  skip  schema validator unavailable")
+
     print(f"\n{PASS} passed, {FAIL} failed")
     return 1 if FAIL else 0
 

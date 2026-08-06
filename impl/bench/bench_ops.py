@@ -151,7 +151,17 @@ def e4_batch_signing():
 def e5_retention():
     """What a fleet's evidence costs to keep, classical vs post-quantum."""
     print("\nE5  storage over a retention period")
-    RECORD = {"Ed25519": 928, "ML-DSA-44": 10_352, "Hybrid": 10_608}
+    # taken from bench_pq.json rather than restated, so the two experiments
+    # cannot drift apart
+    pq = json.loads((Path(__file__).resolve().parent.parent / "results" /
+                     "bench_pq.json").read_text())
+    by_scheme = {r["scheme"].split(" (")[0].replace("Hybrid Ed25519 + ML-DSA-44",
+                                                    "Hybrid"): r
+                 for r in pq["storage"]}
+    RECORD = {k: by_scheme[k]["record_bytes"] for k in
+              ("Ed25519", "ML-DSA-44", "Hybrid")}
+    RECORD_CBOR = {k: by_scheme[k]["record_bytes_cbor"] for k in
+                   ("Ed25519", "ML-DSA-44", "Hybrid")}
     agents, actions_per_agent_day = 1000, 100
     per_day = agents * actions_per_agent_day
     rows = []
@@ -163,11 +173,16 @@ def e5_retention():
         row = {"years": years, "actions": actions}
         for k, size in RECORD.items():
             row[k] = round(actions * size / 1e12, 3)     # TB
+            row[k + "_cbor"] = round(actions * RECORD_CBOR[k] / 1e12, 3)
         rows.append(row)
         print(f"    {years:>7}" + "".join(f"{row[k]:>12.2f} TB" for k in RECORD))
+    print(f"    same evidence in the CWT/CBOR rendering, 7 years: "
+          f"{rows[3]['ML-DSA-44_cbor']:.2f} TB post-quantum "
+          f"(vs {rows[3]['Ed25519']:.2f} TB for classical JSON)")
     return {"fleet": {"agents": agents,
                       "actions_per_agent_day": actions_per_agent_day},
-            "record_bytes": RECORD, "rows": rows}
+            "record_bytes": RECORD, "record_bytes_cbor": RECORD_CBOR,
+            "rows": rows}
 
 
 def main():

@@ -17,7 +17,7 @@ The coverage below is accordingly the lowest of any coded framework — and that
 
 <!-- BEGIN GENERATED MAPPING (tools/generate_crosswalks.py) -->
 
-**Coverage: 26%** of the 118 Proof-of-Control requirements (0 exact matches, 31 partial matches, 87 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
+**Coverage: 25%** of the 125 Proof-of-Control requirements (0 exact matches, 31 partial matches, 94 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
 
 **How to read the Match column** ([full rubric](rubric.md)): **Exact** — the framework has a clause equivalent in scope and intent. **Partial** — the framework covers the topic, but not with PoC's operator-independent evidence (or not at the same depth). **None** — the framework has no analogous provision.
 
@@ -42,10 +42,11 @@ The coverage below is accordingly the lowest of any coded framework — and that
 | [C6.3 Cryptographic Key Lifecycle](../0.1/en/0x10-C06-Security.md) | 5 | None | — | Key lifecycle not addressed |
 | [C7.1 Generation at the Action Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | None | — | No evidence-generation concept |
 | [C7.2 The Contemporaneous Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | None | — | Not addressed |
-| [C7.3 The Tamper-Evident Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 3 | Partial | ML event-logging mitigations | Logging-of-ML-events mitigation supports detection; integrity mechanisms unspecified |
+| [C7.3 The Tamper-Evident Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | None | — | Out of scope |
 | [C7.4 The Transparent Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 1 | None | — | Not addressed |
 | [C7.5 The Determinism Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | None | — | Not addressed |
 | [C7.6 Evidence Custody and Resilience](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 6 | None | — | Not addressed |
+| [C7.7 The Interoperable Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | None | — | Out of scope |
 | [C8.1 Tier Placement](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 8 | None | — | No verifiability grading |
 | [C8.2 Mechanism-to-Requirement Fit](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 2 | None | — | No mechanism-fit rule |
 | [C8.3 Chain Integrity and Self-Enforcement (Tier 4)](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 5 | None | — | No self-enforcement concept |
@@ -70,9 +71,11 @@ The coverage below is accordingly the lowest of any coded framework — and that
 * **C6.3 Cryptographic Key Lifecycle** — Key lifecycle not addressed
 * **C7.1 Generation at the Action Boundary** — No evidence-generation concept
 * **C7.2 The Contemporaneous Property** — Not addressed
+* **C7.3 The Tamper-Evident Property** — Out of scope
 * **C7.4 The Transparent Property** — Not addressed
 * **C7.5 The Determinism Boundary** — Not addressed
 * **C7.6 Evidence Custody and Resilience** — Not addressed
+* **C7.7 The Interoperable Property** — Out of scope
 * **C8.1 Tier Placement** — No verifiability grading
 * **C8.2 Mechanism-to-Requirement Fit** — No mechanism-fit rule
 * **C8.3 Chain Integrity and Self-Enforcement (Tier 4)** — No self-enforcement concept

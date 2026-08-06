@@ -221,9 +221,42 @@ def chart_retention(data, t, v):
     s.save()
 
 
+def chart_merkle(data, t, v):
+    s = SVG("chart-merkle", 900, 476, t, v,
+            eyebrow="CHECKING ONE RECORD",
+            title="What an auditor must download to verify a single action")
+    rows = data["m1_inclusion"]
+    p = Plot(s, 110, 104, 640, 258, (10, 100000), (100, 2e8),
+             xlog=True, ylog=True)
+    p.grid([10, 100, 1000, 10000, 100000],
+           [100, 10000, 1000000, 100000000],
+           xfmt=lambda x: f"{int(x):,}",
+           yfmt=lambda y: ("100 B" if y == 100 else "10 kB" if y == 1e4 else
+                           "1 MB" if y == 1e6 else "100 MB"),
+           xlabel="records in the log",
+           ylabel="bytes fetched to check one record")
+    p.line([(r["n"], r["bytes_fetched_chain"]) for r in rows], red(t), dash=True)
+    p.line([(r["n"], r["bytes_fetched_tree"]) for r in rows], lime(t, v))
+    p.legend([(lime(t, v), "inclusion proof (Merkle tree)", False),
+              (red(t), "replay the whole chain", True)], 150, 132)
+    last = rows[-1]
+    px, py = p._tx(last["n"]), p._ty(last["bytes_fetched_chain"])
+    s.text(px - 10, py - 10, f"{last['bytes_fetched_chain']/1e6:.0f} MB",
+           10.5, t["muted"], anchor="end")
+    px, py = p._tx(last["n"]), p._ty(last["bytes_fetched_tree"])
+    s.text(px - 10, py + 20, f"{last['bytes_fetched_tree']:,} B",
+           10.5, t["muted"], anchor="end")
+    s.text(450, 430, "at 100,000 records the chain costs 123 MB and the proof "
+           "costs 1.8 kB - a 69,000-fold difference", 12, t["muted"])
+    s.text(450, 450, "the gap widens with every record added, because one line "
+           "is linear and the other is logarithmic", 11, t["faint"])
+    s.save()
+
+
 def main():
     frontier = json.loads((RESULTS / "frontier.json").read_text())
     ops = json.loads((RESULTS / "ops.json").read_text())
+    merkle = json.loads((RESULTS / "merkle.json").read_text())
     n = 0
     for variant, theme in THEMES.items():
         chart_frontier(frontier, theme, variant)
@@ -231,7 +264,8 @@ def main():
         chart_anchor(ops, theme, variant)
         chart_batch(ops, theme, variant)
         chart_retention(ops, theme, variant)
-        n += 5
+        chart_merkle(merkle, theme, variant)
+        n += 6
     print(f"generated {n} chart files into {OUT}")
 
 

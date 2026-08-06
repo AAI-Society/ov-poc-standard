@@ -19,6 +19,8 @@ The measured results in Section 9 come from the reference implementation in
 ## Build
 
 ```bash
+./tools/build_paper_figures.sh      # from the repo root; requires rsvg-convert
+cd paper
 tectonic -Z shell-escape main.tex   # shell-escape needed for minted (pygments)
 ```
 
@@ -49,5 +51,5 @@ Output: `main.pdf` (a compiled copy is committed for convenience).
 | `main.tex` | The paper (compiles with tectonic, XeTeX engine) |
 | `references.bib` | Complete bibliography: RFCs, NIST/ISO/EU documents, frameworks, and the 2026 research corpus |
 | `figures/aai-logo.png` | Advanced AI Society logo asset (reference; the cover mark is drawn in TikZ) |
-| `figures/*.pdf` | Paper figures, converted from the repo's SVGs: `rsvg-convert -f pdf images/diagrams/<name>-light.svg -o paper/figures/<name>.pdf` |
+| `figures/*.pdf` | Paper figures, built from the repo's SVGs. They are gitignored build output — regenerate all of them with `./tools/build_paper_figures.sh` from the repository root, which also re-runs the diagram and chart generators so a stale figure cannot outlive a data change. |
 | `main.pdf` | Compiled output |

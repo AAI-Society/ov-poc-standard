@@ -36,10 +36,33 @@ from cryptography.hazmat.primitives.asymmetric.ed25519 import (
 )
 from cryptography.exceptions import InvalidSignature
 
+from .merkle import (MerkleTree, leaf_hash, verify_consistency,
+                     verify_inclusion)
+
 # ---------------------------------------------------------------- primitives
 
 def sha256(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
+
+
+HASH_TAG = "sha-256"
+
+
+def tag(hex_digest: str) -> str:
+    """Wire form of a digest: algorithm-tagged, so evidence written before a
+    hash migration is still interpretable after one (C6.3.4)."""
+    return f"{HASH_TAG}:{hex_digest}"
+
+
+def untag(digest: str) -> str:
+    """Inverse of `tag`. Rejects an untagged digest rather than guessing --
+    guessing the algorithm is how migrations go wrong."""
+    alg, _, value = digest.partition(":")
+    if not value:
+        raise ValueError(f"untagged digest {digest!r}: algorithm is mandatory")
+    if alg != HASH_TAG:
+        raise ValueError(f"unsupported digest algorithm {alg!r}")
+    return value
 
 
 def canonical(obj: Any) -> bytes:
@@ -174,15 +197,29 @@ class AttestingEnvironment:
     returned by any method (functional stand-in for hardware isolation)."""
 
     def __init__(self, policy: PolicyEngine, anchor=None,
-                 anchor_interval_s: float = 1.0):
-        self._sk = Ed25519PrivateKey.generate()
+                 anchor_interval_s: float = 1.0,
+                 agbom_digest: str | None = None,
+                 signing_key: Ed25519PrivateKey | None = None):
+        # a caller-supplied key makes evidence reproducible, which is what the
+        # published test vectors need; production deployments generate inside
+        # the enclave and never see it
+        self._sk = signing_key or Ed25519PrivateKey.generate()
         self.pk: Ed25519PublicKey = self._sk.public_key()
         self.policy = policy
         # "measurement": digest of the evaluated code identity + policy bundle
         self.measurement = sha256(canonical({
             "engine": "poc-ref-1", "bundle": policy.bundle_hash,
         }))
+        # digest of the agent bill of materials (C1.2) -- a fixed value here,
+        # since the reference agent's composition does not change at runtime
+        self.agbom_digest = agbom_digest or sha256(canonical({
+            "agbom": "poc-ref-agent", "version": "1.0",
+        }))
         self.chain_head = sha256(b"poc-genesis")
+        # Append-only Merkle tree over the same leaves as the chain. The chain
+        # is kept because it is what a Tier-2 bulk verifier replays; the tree is
+        # what lets an auditor check one record in O(log n) (C7.3.4).
+        self.tree = MerkleTree()
         self.step_index = 0
         self.phi = PathSummary()
         self.anchor = anchor
@@ -212,25 +249,37 @@ class AttestingEnvironment:
         # extend chain: L_t = H(L_{t-1} || H(snapshot) || verdict)
         leaf = sha256((self.chain_head + snap_digest + verdict).encode())
         self.chain_head = leaf
+        # extend the tree over the same committed material
+        self.tree.append(canonical({"snapshot": snap_digest, "verdict": verdict}))
         self.phi = self.phi.fold(action, verdict)
 
         token = {
-            "iat": time.time(),
+            "iss": "https://verifier.example/poc",
+            # integer seconds: the claim set carries no floating-point value, so
+            # canonicalization never depends on number formatting (see
+            # schema/canonicalization.md). Ordering comes from step_index.
+            "iat": int(time.time()),
             "nonce": nonce,
-            "eat_profile": "https://standards.org/poc/v1",
+            "eat_profile": "https://advancedaisociety.org/poc/v0.1",
             "poc_claims": {
                 "agent_id": agent_id,
+                "initiating_user": self.policy.grant.principal,
+                "agbom_digest": tag(self.agbom_digest),
                 "interception_point": "PRE_CALL_TOOL_INVOCATION",
                 "step_index": self.step_index,
-                "merkle_root": leaf,
-                "policy_bundle_hash": self.policy.bundle_hash,
+                "chain_head": tag(leaf),
+                "merkle_root": tag(self.tree.root().hex()),
+                "tree_size": self.tree.size,
+                "policy_bundle_hash": tag(self.policy.bundle_hash),
                 "target_resource": action.resource,
-                "canonical_snapshot_hash": snap_digest,
-                "path_summary_hash": snap["path_summary"],
+                "canonical_snapshot_hash": tag(snap_digest),
+                "path_summary_hash": tag(snap["path_summary"]),
                 "verdict": verdict,
                 "reason": reason,
+                "alg": "EdDSA",
             },
-            "submods": {"attestation": {"measurement": self.measurement}},
+            "submods": {"attestation": {"platform": "SOFTWARE",
+                                        "measurement": tag(self.measurement)}},
         }
         token_bytes = canonical(token)
         token["signature"] = self._sign(token_bytes).hex()
@@ -238,10 +287,11 @@ class AttestingEnvironment:
         capability = None
         if verdict == "ALLOW":
             cap_body = {
-                "snapshot_hash": snap_digest,
+                "snapshot_hash": tag(snap_digest),
                 "resource": action.resource,
                 "nonce": nonce,
-                "measurement": self.measurement,
+                "measurement": tag(self.measurement),
+                "alg": "EdDSA",
             }
             capability = dict(cap_body)
             capability["signature"] = self._sign(canonical(cap_body)).hex()
@@ -251,14 +301,16 @@ class AttestingEnvironment:
         if self.anchor is not None:
             now = time.time()
             if now - self._last_anchor >= self.anchor_interval_s:
-                self.anchor.publish(self.chain_head, self.step_index, self._sign)
+                self.anchor.publish(self.chain_head, self.step_index, self._sign,
+                                tree_root=self.tree.root().hex())
                 self._last_anchor = now
         return {"token": token, "capability": capability, "verdict": verdict,
                 "snapshot": snap}
 
     def force_anchor(self):
         if self.anchor is not None:
-            self.anchor.publish(self.chain_head, self.step_index, self._sign)
+            self.anchor.publish(self.chain_head, self.step_index, self._sign,
+                                tree_root=self.tree.root().hex())
             self._last_anchor = time.time()
 
 
@@ -318,8 +370,11 @@ class Gateway:
             return {"executed": False, "verdict": "FAIL_CLOSED", "reason": str(e)}
 
         if out["verdict"] != "ALLOW":
+            # a refusal is evidence too: the token is returned so the caller can
+            # hand it to a verifier, not only the allowed steps
             return {"executed": False, "verdict": out["verdict"],
-                    "reason": out["token"]["poc_claims"]["reason"]}
+                    "reason": out["token"]["poc_claims"]["reason"],
+                    "token": out["token"]}
 
         effect = dispatch_action or action
         if relying_party is not None:
@@ -356,13 +411,13 @@ class RelyingParty:
             self.refused.append((action, "no capability"))
             return False, "no capability"
         body = {k: capability[k] for k in
-                ("snapshot_hash", "resource", "nonce", "measurement")}
+                ("snapshot_hash", "resource", "nonce", "measurement", "alg")}
         try:
             self.pk.verify(bytes.fromhex(capability["signature"]), canonical(body))
         except InvalidSignature:
             self.refused.append((action, "bad signature"))
             return False, "bad signature"
-        if body["measurement"] != self.expected_measurement:
+        if untag(body["measurement"]) != self.expected_measurement:
             self.refused.append((action, "measurement mismatch"))
             return False, "measurement mismatch"
         if body["resource"] != self.resource:
@@ -372,7 +427,7 @@ class RelyingParty:
             self.refused.append((action, "nonce replay"))
             return False, "nonce replay"
         # (iv) the executed request must match the committed snapshot
-        expected = capability["snapshot_hash"]
+        expected = untag(capability["snapshot_hash"])
         # recompute the action's contribution to the snapshot digest
         if not _action_matches_snapshot(action, expected, self._snap_probe):
             self.refused.append((action, "action does not match evidenced snapshot"))
@@ -402,14 +457,24 @@ class TransparencyLog:
         self.name = name
         self.entries: list[dict] = []
 
-    def publish(self, root: str, index: int, sign: Callable[[bytes], bytes]):
+    def publish(self, root: str, index: int, sign: Callable[[bytes], bytes],
+                tree_root: str | None = None):
         body = {"root": root, "index": index, "t": time.time()}
+        if tree_root is not None:
+            body["tree_root"] = tree_root
         body["signature"] = sign(canonical(
             {"root": root, "index": index})).hex()
         self.entries.append(body)
 
     def latest(self) -> dict | None:
         return self.entries[-1] if self.entries else None
+
+    def entry_at(self, index: int) -> dict | None:
+        """The anchor published at a given step count, if there is one."""
+        for e in self.entries:
+            if e["index"] == index:
+                return e
+        return None
 
 
 def gossip(log_a: TransparencyLog, log_b: TransparencyLog) -> tuple[bool, str]:
@@ -447,13 +512,15 @@ class Verifier:
             except InvalidSignature:
                 return False, f"invalid signature at record {i}"
             c = tok["poc_claims"]
-            if tok["submods"]["attestation"]["measurement"] != self.expected_measurement:
+            if untag(tok["submods"]["attestation"]["measurement"]) != \
+                    self.expected_measurement:
                 return False, f"measurement mismatch at record {i}"
             if c["step_index"] != i:
                 return False, (f"sequence gap: expected step {i}, "
                                f"found {c['step_index']} (omission detected)")
-            leaf = sha256((head + c["canonical_snapshot_hash"] + c["verdict"]).encode())
-            if leaf != c["merkle_root"]:
+            leaf = sha256((head + untag(c["canonical_snapshot_hash"])
+                           + c["verdict"]).encode())
+            if leaf != untag(c["chain_head"]):
                 return False, f"chain break at record {i} (alteration detected)"
             head = leaf
         if anchor is not None:
@@ -463,4 +530,68 @@ class Verifier:
             if last["index"] > len(records):
                 return False, (f"truncation detected: anchor covers "
                                f"{last['index']} steps, only {len(records)} presented")
+            # Comparing only the index is not enough. An operator that holds
+            # the signing key can rewrite a step and re-sign every record
+            # after it: the result is a chain of exactly the right length that
+            # replays perfectly. The anchored ROOT is the only thing that was
+            # committed before the rewrite, so it has to be compared too.
+            # (Attack A9.)
+            anchored = anchor.entry_at(last["index"])
+            if anchored is not None and last["index"] <= len(records):
+                expected = untag(
+                    records[last["index"] - 1]["poc_claims"]["chain_head"])
+                if anchored["root"] != expected:
+                    return False, (
+                        f"history rewritten: the chain presented at step "
+                        f"{last['index']} has head {expected[:12]}, but "
+                        f"{anchored['root'][:12]} was anchored")
         return True, f"chain verified: {len(records)} records"
+
+    # ------------------------------------------------------- single record
+    #
+    # verify_chain above is the Tier-2 story: replay everything. An auditor who
+    # cares about one action out of a million should not have to. These two
+    # methods are the Tier-3 story, and their cost is logarithmic.
+
+    def verify_record(self, record: dict, proof: list[str], tree_size: int,
+                      published_root: str) -> tuple[bool, str]:
+        """Check ONE evidence record against a published tree root, using only
+        the record, an inclusion proof, and the root (C7.3.4).
+
+        Touches O(log n) hashes; never reads the rest of the log.
+        """
+        try:
+            self.pk.verify(bytes.fromhex(record["signature"]),
+                           canonical({k: v for k, v in record.items()
+                                      if k != "signature"}))
+        except InvalidSignature:
+            return False, "invalid signature on record"
+        c = record["poc_claims"]
+        if untag(record["submods"]["attestation"]["measurement"]) != \
+                self.expected_measurement:
+            return False, "measurement mismatch"
+        leaf = leaf_hash(canonical({"snapshot": untag(c["canonical_snapshot_hash"]),
+                                    "verdict": c["verdict"]}))
+        ok = verify_inclusion(c["step_index"], tree_size, leaf,
+                              [bytes.fromhex(p) for p in proof],
+                              bytes.fromhex(published_root))
+        if not ok:
+            return False, (f"record {c['step_index']} is not in the published "
+                           f"tree of size {tree_size}")
+        return True, (f"record {c['step_index']} proved present in a "
+                      f"{tree_size:,}-record log using {len(proof)} hashes")
+
+    def verify_append_only(self, old_size: int, old_root: str,
+                           new_size: int, new_root: str,
+                           proof: list[str]) -> tuple[bool, str]:
+        """Check that a newly published root extends one published earlier
+        (C7.3.3, C7.3.5): nothing was removed or rewritten in between."""
+        ok = verify_consistency(old_size, new_size,
+                                bytes.fromhex(old_root), bytes.fromhex(new_root),
+                                [bytes.fromhex(p) for p in proof])
+        if not ok:
+            return False, (f"the size-{new_size} log is NOT an extension of the "
+                           f"size-{old_size} log that was already published: "
+                           f"history was rewritten")
+        return True, (f"size-{old_size} -> size-{new_size} is append-only "
+                      f"({len(proof)} hashes)")

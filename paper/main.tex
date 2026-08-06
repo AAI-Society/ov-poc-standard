@@ -40,6 +40,7 @@
         framerule=0.3pt, xleftmargin=1em, columns=fullflexible}
 \captionsetup{font=small, labelfont=bf}
 
+\newcommand{\iat}{\texttt{iat}}
 \newcommand{\poc}{Proof-of-Control}
 
 % The Society's bracket mark, drawn natively (lime on the dark band)
@@ -119,7 +120,7 @@ check? Today, in nearly every deployment, you cannot. The only account of what
 happened is the system's own, and the party writing that account is the party
 you would be checking. We call this the \emph{Verifiability Gap}, and this
 paper is about closing it. We describe \poc{}, an open standard with six
-domains of verification covering 118 testable requirements; four tiers that
+domains of verification covering 125 testable requirements; four tiers that
 grade evidence by \emph{who you must trust to believe it}, with a hard line
 between the tiers where you still trust somebody and the tiers where you do
 not; and an architecture that intercepts every consequential action, decides
@@ -128,17 +129,24 @@ everything before it. We prove that this arrangement does \emph{not} do what
 you would assume it does---an attester that signs ``I evaluated this
 snapshot'' says nothing about what the machine actually went on to do---and we
 show what you have to add to fix it. Then we built the thing and measured it.
-The software costs \SI{191}{\micro\second} per action, about one percent of
+The software costs \SI{201}{\micro\second} per action, about one percent of
 our budget. Checking the path an agent took costs the same whether the path is
-ten steps or five thousand. Eight attacks work against the naive design and
-fail against ours. And the measurement we did not expect: a monitor that
-watches the whole path refuses 42\% of perfectly legitimate work unless you
-give it an explicit place to forget---which is exactly what people who study
-information flow have been saying for fifty years. Finally, because evidence
-has to be believable long after it is written, we measure what it costs to
-make it survive quantum computers: the hash chain already does, and swapping
-the signatures for FIPS~204 ML-DSA costs a factor of 38 in signature
-size---a storage bill, not a cryptography problem.}
+ten steps or five thousand. Nine attacks work against the naive design and fail
+against ours---and the ninth broke our own verifier, because we compared a
+published step count where we should have compared a published root. We also
+measure what we did not expect: a monitor that watches the whole path refuses
+42\% of perfectly legitimate work unless you give it an explicit place to
+forget, which is exactly what people who study information flow have been
+saying for fifty years. Because an auditor should be able to check one action
+without downloading a million, we adopt Certificate Transparency's tree and
+show it turns a \SI{123}{\mega\byte} download into a 544-byte proof. Because
+evidence has to be believable long after it is written, we measure surviving
+quantum computers: the hash chain already does, and FIPS~204 ML-DSA signatures
+cost a factor of 38 in size---a storage bill, not a cryptography problem, and
+one that halves again if you encode the evidence as CBOR instead of JSON. And
+because none of this is worth anything if two implementations disagree about
+which bytes they signed, we publish a machine-readable schema, a canonical
+form, and signed test vectors.}
 
 \clearpage
 
@@ -180,13 +188,13 @@ scarce thing. If you want to check machine work at machine scale, the checking
 has to be done by machines too, and the evidence has to be the kind a machine
 can check.
 
-\paragraph{What we did.} We wrote a standard, we analyzed it, we found two
-holes in our own design, we fixed them, and then we built it and measured it.
-Specifically:
+\paragraph{What we did.} We wrote a standard, we analyzed it, we found holes
+in our own design---two by proving theorems and a third by building the code---
+we fixed them, and then we measured what the whole thing costs. Specifically:
 
 \begin{enumerate}[itemsep=1pt,topsep=2pt]
 \item \textbf{The standard} (Section~\ref{sec:standard}): six domains of
-verification with 118 testable requirements, four evidence properties, four
+verification with 125 testable requirements, four evidence properties, four
 tiers that grade evidence by how much trust it demands, and three stages of
 how thoroughly a claim was checked.
 \item \textbf{The architecture} (Section~\ref{sec:arch}): interception of
@@ -201,11 +209,28 @@ exactly what has to be added.
 \item \textbf{The comparison} (Section~\ref{sec:gap}): how much of this eight
 existing frameworks already ask for, coded requirement by requirement, with an
 honest account of what that measurement can and cannot tell you.
+\item \textbf{The interoperable claim set} (Section~\ref{sec:interop}): a
+machine-readable schema in two renderings, a canonical serialization that fixes
+exactly which bytes a signature covers, and signed test vectors including ten
+negative cases. Without these, two conforming implementations produce different
+digests for the same action and the central binding property fails silently.
 \item \textbf{The implementation} (Section~\ref{sec:eval}): working code, an
-attack harness that runs eight attacks with and without each defense,
-measurements of what it all costs, and what it takes to make the evidence
-outlive the signature scheme that protects it.
+attack harness that runs nine attacks with and without each defense,
+measurements of what it all costs, what it takes to make the evidence outlive
+the signature scheme that protects it, and---in
+Section~\ref{sec:merkle}---logarithmic proofs that let an auditor check one
+action out of millions without downloading the rest.
 \end{enumerate}
+
+\paragraph{One finding we did not go looking for.} Building those proofs broke
+our own verifier. An operator holding the signing key can rewrite a record in
+the middle of the log, recompute every link after it, and re-sign the lot; the
+result replays perfectly, because nothing about it is internally inconsistent.
+Our verifier compared the published step \emph{count} and never the published
+\emph{root}, so it accepted the forgery. That is attack A9, and the fix is now
+requirement C7.3.5. It is worth noting how it was found: not by proving
+anything, but by implementing a performance optimization carefully enough to
+have to say what a published root was supposed to guarantee.
 
 \paragraph{One thing we could not do.} We did not have a machine with a real
 hardware enclave, so in our implementation the protected environment is a
@@ -364,7 +389,7 @@ when its evidence reaches the top two tiers~\cite{pocspec}. We use MUST and
 SHOULD in the RFC~2119 sense~\cite{rfc2119}.
 
 \subsection{The six things worth having evidence about}
-The requirements---118 of them, each phrased as something you can go and
+The requirements---125 of them, each phrased as something you can go and
 check---are grouped into six domains:
 
 \begin{enumerate}[itemsep=1pt,topsep=2pt]
@@ -624,8 +649,12 @@ build, tools, and model manifest the agent runs from (C1). \\
 token (one of the eight in \S\ref{sec:arch}). \\
 \texttt{step\_index} & PoC & Monotonic position in the execution path;
 gaps expose omitted steps. \\
-\texttt{merkle\_root} & PoC & Accumulated root of the signed execution
-chain up to and including this step. \\
+\texttt{chain\_head} & PoC & Running hash link over all steps so far;
+what a verifier replaying the whole history recomputes. \\
+\texttt{merkle\_root} & PoC & RFC 6962 tree head over the same leaves; what
+an \emph{inclusion proof} reconstructs (\S\ref{sec:merkle}). \\
+\texttt{tree\_size} & PoC & Number of leaves the root covers. An inclusion
+proof means nothing without it. \\
 \texttt{policy\_bundle\_hash} & PoC & Digest of the signed Rego bundle
 that was evaluated---pins the exact policy in force. \\
 \texttt{target\_resource} & PoC & The resource the proposed action
@@ -643,9 +672,68 @@ token by the enclave-bound key. \\
 \end{tabular}
 \captionof{table}{The Evidence claim set. ``EAT'' rows are standard Entity
 Attestation Token claims~\cite{rfc9711}; ``PoC'' rows are the \poc{}
-profile; ``HW'' rows form the hardware-attestation submodule.}
+profile; ``HW'' rows form the hardware-attestation submodule. Every field
+here has a machine-readable definition, a canonical serialization, and signed
+test vectors---see \S\ref{sec:interop}, because a table like this one is not
+enough to make two implementations agree.}
 \label{tab:claims}
 \end{listing}
+
+\subsection{Making two implementations agree}
+\label{sec:interop}
+
+Table~\ref{tab:claims} is prose in a grid. It is enough for a reader and not
+enough for an implementer, and the gap between those two is where a security
+property quietly dies.
+
+Here is how. Theorem~\ref{thm:fidelity} works because the relying party
+recomputes a digest over the request it has been asked to perform and compares
+it to the digest the enclave committed to. Now suppose your implementation
+serializes an action with the keys in the order they were inserted, and mine
+sorts them. Same action, different bytes, different digest. Every signature
+still verifies. Nothing throws an exception. The comparison just fails, for no
+reason anyone can see from the outside---and the natural thing for a tired
+engineer to do at that point is loosen the comparison until the two systems
+interoperate. Which removes the very thing the comparison was there for.
+
+So the claim set now comes with three artifacts rather than a table. There is a
+CDDL definition, which is the form an IETF attestation profile is actually
+written in, plus a JSON Schema for deployments that use JWTs. There is a
+document that fixes the canonical form: key ordering, string escaping, digest
+case, what ``absent'' means, and exactly which bytes a signature covers. And
+there are signed test vectors, which are the part that does the real work.
+
+We made two decisions worth repeating. Digests are algorithm-tagged---
+\texttt{sha-256:9f86d0}\ldots, never a bare hex string---and a verifier handed
+an untagged digest must refuse it rather than assume SHA-256. Assuming the
+algorithm is exactly how a hash migration goes wrong, and it goes wrong
+silently. And the claim set contains no floating-point numbers at all: \iat{}
+is integer seconds, ordering comes from the step index. Number formatting is
+the single hardest part of canonicalization, and the cheapest way to get it
+right is to not have any numbers that need formatting.
+
+Ten of the vectors are negative---each breaks exactly one rule, so that
+rejecting it demonstrates one specific check exists. A vector rejected for the
+\emph{wrong} reason is not a pass: a validator that chokes on the duplicate-key
+vector because it could not parse the file has not shown that it detects
+duplicate keys.
+
+That duplicate-key vector is the one we would point at if we could only point
+at one. It is a single file that a last-wins parser reads as \textsc{allow} and
+a first-wins parser reads as \textsc{deny}. If the relying party and the
+auditor make different choices there---and both choices are common, and neither
+is wrong in any documentation---an operator can show each of them the answer it
+wants and neither can tell. That is not a parsing preference. That is one
+artifact with two meanings, which is the whole ballgame.
+
+The reference implementation's own output is run through the validator in its
+test suite, so the schema and the code cannot drift apart without something
+going red. And because the CDDL is a real definition rather than an aspiration,
+we implemented the CBOR rendering too and round-tripped every vector through
+it. The two carry identical claim sets, and CBOR is \SI{48}{\percent} smaller,
+because digests and signatures travel as bytes instead of as hexadecimal text.
+That turns out to matter more than it sounds: as \S\ref{sec:pq} works out,
+switching encoding saves more storage than post-quantum signatures cost.
 
 \section{Writing It Down Precisely}
 \label{sec:formal}
@@ -993,7 +1081,7 @@ tell the difference.
 \label{sec:gap}
 
 Before claiming a gap exists, you should check whether somebody already filled
-it. So we took all 118 requirements and, one at a time, asked of eight
+it. So we took all 125 requirements and, one at a time, asked of eight
 existing frameworks: does this framework already require this?
 
 \subsection{How we did it}
@@ -1002,7 +1090,7 @@ agents~\cite{haarf2026}, each requirement gets one of three marks against each
 framework. \emph{Exact}: they ask for the same thing, at the same depth.
 \emph{Partial}: they ask about the same topic, but without demanding evidence
 somebody outside the company can check, or not in as much detail.
-\emph{None}: they do not address it. Coverage is (Exact + Partial) over 118.
+\emph{None}: they do not address it. Coverage is (Exact + Partial) over 125.
 The sheet, the rubric, and the script are public, so you can re-derive the
 numbers or re-code a framework you think we got wrong.
 
@@ -1141,10 +1229,12 @@ invented. Everything below: Apple M2 Max, Python 3.11, one core, 5{,}000
 iterations after 200 warm-ups.
 
 \subsection{The attacks}
-We wrote eight attacks and ran each one twice: once against a system missing
+We wrote nine attacks and ran each one twice: once against a system missing
 the relevant requirement, once against a system with it
-(Table~\ref{tab:attacks}). All eight work when the requirement is missing. All
-eight are refused or caught when it is there.
+(Table~\ref{tab:attacks}). All nine work when the requirement is missing. All
+nine are refused or caught when it is there. The ninth we did not think of; it
+fell out of building the Merkle experiment in \S\ref{sec:merkle}, and it broke
+our own verifier.
 
 \begin{table}[ht]
 \centering\footnotesize
@@ -1169,20 +1259,25 @@ A7 & Reusing a ticket & Works without single-use tickets &
 Refused: nonce already used \\
 A8 & Evidence pipeline down & Works: the system keeps acting while logging is
 broken & Refused: fails closed, failure recorded \\
+A9 & Rewriting history, by someone who holds the key & Works: the rewritten
+history replays perfectly---every signature valid, every link correct, because
+the operator recomputed them all & Caught: the head presented does not match the
+total published \emph{before} the rewrite \\
 \bottomrule
 \end{tabular}
 \caption{The attack harness. A1 is Proposition~\ref{prop:necessity} in the
-flesh: without the far-end check, the attacker wins on the first attempt.}
+flesh: without the far-end check, the attacker wins on the first attempt. A9 is
+the one that caught \emph{us}: see \S\ref{sec:merkle}.}
 \label{tab:attacks}
 \end{table}
 
 \subsection{What it costs}
 Table~\ref{tab:latency} breaks a single intercepted action into pieces. The
 signing is 87\% of it. The policy evaluation---the part everyone worries
-about---is \SI{0.35}{\micro\second}, which is nothing. The total,
-\SI{191}{\micro\second}, is 1.3\% of our \SI{15}{\milli\second} budget. Put
-the other way: there is 78 times more room than we are using, and that room is
-what a real enclave transition would eat into. One core does 5{,}233 actions a
+about---is \SI{0.37}{\micro\second}, which is nothing. The total,
+\SI{201}{\micro\second}, is 1.3\% of our \SI{15}{\milli\second} budget. Put
+the other way: there is 74 times more room than we are using, and that room is
+what a real enclave transition would eat into. One core does 4{,}963 actions a
 second.
 
 (The total is bigger than the sum of the parts because a full step signs twice
@@ -1194,12 +1289,12 @@ second.
 \toprule
 \textbf{Piece} & \textbf{Mean} & \textbf{p95} & \textbf{p99} \\
 \midrule
-Building and hashing the description & \SI{3.65}{\micro\second} & \SI{3.83}{\micro\second} & \SI{7.00}{\micro\second} \\
-Deciding (path-aware) & \SI{0.35}{\micro\second} & \SI{0.42}{\micro\second} & \SI{0.71}{\micro\second} \\
-Signing (Ed25519) & \SI{83.42}{\micro\second} & \SI{95.88}{\micro\second} & \SI{110.04}{\micro\second} \\
-Adding the link & \SI{0.67}{\micro\second} & \SI{0.79}{\micro\second} & \SI{3.38}{\micro\second} \\
+Building and hashing the description & \SI{3.72}{\micro\second} & \SI{4.21}{\micro\second} & \SI{8.00}{\micro\second} \\
+Deciding (path-aware) & \SI{0.37}{\micro\second} & \SI{0.46}{\micro\second} & \SI{1.12}{\micro\second} \\
+Signing (Ed25519) & \SI{84.25}{\micro\second} & \SI{97.96}{\micro\second} & \SI{110.12}{\micro\second} \\
+Adding the link, and the tree root & \SI{0.73}{\micro\second} & \SI{0.92}{\micro\second} & \SI{3.71}{\micro\second} \\
 \midrule
-\textbf{One whole action} & \textbf{\SI{191.08}{\micro\second}} & \textbf{\SI{215.96}{\micro\second}} & \textbf{\SI{237.00}{\micro\second}} \\
+\textbf{One whole action} & \textbf{\SI{201.47}{\micro\second}} & \textbf{\SI{230.58}{\micro\second}} & \textbf{\SI{254.75}{\micro\second}} \\
 \bottomrule
 \end{tabular}
 \caption{Cost of one intercepted action, not counting enclave transitions.}
@@ -1324,13 +1419,29 @@ state we carry. That is a null result and we report it as one.
 
 \subsection{Reasons to doubt these numbers}
 The enclave is pretend, so a real deployment costs more than
-\SI{191}{\micro\second}. Everything runs in one process, so no network or IPC
+\SI{201}{\micro\second}. Everything runs in one process, so no network or IPC
 costs are included. The workflows are synthetic: the shape of the utility
 result is solid---label creep is real and declassification fixes it---but
 42.2\% is a property of our workload model and yours will differ. It is
 Python, so the absolute numbers are conservative; the breakdown between
 components is the part that will hold up. And we did not implement the
 privacy-preserving evidence options at all.
+
+Four more, specific to the newer work. Everything is measured on \emph{one}
+core with \emph{one} log, and a hash chain is inherently serial---each link
+depends on the one before---so a single global log will cap throughput no
+matter how many cores you have. Per-agent logs parallelize but make cross-agent
+ordering, and therefore delegation, harder to reason about; the standard does
+not yet say which you must build, and it should. Our tree keeps every leaf in
+memory so it can generate proofs, which is fine for a log that stores the
+records anyway but is not a storage design. The CBOR claim keys are a
+provisional private-use allocation pending IANA registration, so the round-trip
+property is what we are asserting, not the integers. And our reference
+serializer is not quite RFC 8785: it orders keys by code point rather than by
+UTF-16 code unit, which is identical for the claim set, whose keys are all
+ASCII, and can differ for an application payload with a key outside the Basic
+Multilingual Plane. We publish a test vector that exhibits exactly that
+difference rather than describing it and hoping.
 
 \subsection{Signatures that have to outlive the attacker}
 \label{sec:pq}
@@ -1361,10 +1472,10 @@ We measured what that swap costs (Table~\ref{tab:pq}), using NIST's ML-DSA
 \textbf{Scheme} & \textbf{Signature} & \textbf{Public key} &
 \textbf{Record} & \textbf{Per million actions} \\
 \midrule
-Ed25519 (classical) & 64 B & 32 B & 928 B & \SI{0.93}{\giga\byte} \\
-ML-DSA-44 & 2{,}420 B & 1{,}312 B & 10{,}352 B & \SI{10.35}{\giga\byte} \\
-ML-DSA-65 & 3{,}309 B & 1{,}952 B & 13{,}908 B & \SI{13.91}{\giga\byte} \\
-Hybrid Ed25519 + ML-DSA-44 & 2{,}484 B & 1{,}344 B & 10{,}608 B & \SI{10.61}{\giga\byte} \\
+Ed25519 (classical) & 64 B & 32 B & 1{,}336 B & \SI{1.34}{\giga\byte} \\
+ML-DSA-44 & 2{,}420 B & 1{,}312 B & 10{,}760 B & \SI{10.76}{\giga\byte} \\
+ML-DSA-65 & 3{,}309 B & 1{,}952 B & 14{,}316 B & \SI{14.32}{\giga\byte} \\
+Hybrid Ed25519 + ML-DSA-44 & 2{,}484 B & 1{,}344 B & 11{,}016 B & \SI{11.02}{\giga\byte} \\
 \bottomrule
 \end{tabular}
 \caption{Cost of post-quantum evidence signatures. Records carry two
@@ -1375,8 +1486,12 @@ implementation-independent; see the caveat below about timing.}
 
 The headline is size, not speed. A signature goes from 64 bytes to 2{,}420---%
 a factor of 38---and because an evidence chain stores one per action, the
-whole record grows about eleven-fold, from roughly \SI{0.9}{\giga\byte} to
-\SI{10}{\giga\byte} per million actions. That is the real bill, and it is a
+whole record grows about eightfold, from roughly \SI{1.3}{\giga\byte} to
+\SI{10.8}{\giga\byte} per million actions. Before you accept that bill, note
+that switching from the JSON rendering to the CBOR one halves every figure in
+the table (\S\ref{sec:interop}), because a signature stored as hexadecimal
+text costs twice what the same signature costs as bytes. The encoding choice is
+worth more than the algorithm choice costs. That is the real bill, and it is a
 storage and bandwidth conversation, not a cryptography one.
 
 \paragraph{A caveat we want to be loud about.} Our Ed25519 is a C-backed
@@ -1425,8 +1540,8 @@ Earlier we said the publishing interval $\Delta$ bounds how much recent history
 an operator can hide, and we offered a table of suggestions. Suggestions are
 unsatisfying in a paper that measures everything else, so we measured this too.
 
-Publishing one root costs \SI{85.8}{\micro\second}---one signature and an
-append. Our gateway sustains about 5{,}085 actions per second on one core.
+Publishing one root costs \SI{85.7}{\micro\second}---one signature and an
+append. Our gateway sustains about 4{,}989 actions per second on one core.
 Those two numbers determine everything (Figure~\ref{fig:anchor}): the blind
 window is the action rate times $\Delta$, and the overhead is the publication
 cost divided by $\Delta$.
@@ -1468,11 +1583,11 @@ microseconds.}
 \label{fig:batch}
 \end{figure}
 
-Batching 128 actions under one signature makes each action \textbf{61 times
-cheaper}---from \SI{85.5}{\micro\second} to \SI{1.4}{\micro\second}, and from
-11{,}690 to 707{,}380 actions per second on one core. The price is that an
+Batching 128 actions under one signature makes each action \textbf{64 times
+cheaper}---from \SI{85.7}{\micro\second} to \SI{1.3}{\micro\second}, and from
+11{,}663 to 745{,}573 actions per second on one core. The price is that an
 action is not covered by a signature until its batch closes, which at that size
-is at most \SI{180}{\micro\second}.
+is at most \SI{170}{\micro\second}.
 
 That is the same shape of tradeoff as $\Delta$, one level down: a small window
 in which the record exists but is not yet cryptographically fixed. If the
@@ -1485,6 +1600,122 @@ actions, generous for internal steps, on exactly the same reasoning.
 The useful conclusion is that the dominant cost in our measurements is not
 inherent. Anyone who reads Table~\ref{tab:latency}, concludes ``signing is too
 expensive,'' and starts redesigning should read Figure~\ref{fig:batch} first.
+
+\subsection{The question a chain cannot answer}
+\label{sec:merkle}
+
+Everything so far treats verification as an all-or-nothing act: you take the
+history and you replay it. That is fine when the history is a few thousand
+records. It stops being fine the moment you ask the question a real auditor
+asks, which is not ``is the whole log intact?'' but ``was \emph{this} action in
+the log?''
+
+With a hash chain there is no way to answer the second question except by
+answering the first. Each link depends on the one before, so to convince
+yourself that record 500{,}000 is genuine you fetch all million records and
+rehash them. An auditor spot-checking one action has to download the entire
+log. That is not an inefficiency you optimize away later; it decides whether
+audit is something you do continuously or something you do once a year with a
+data-transfer budget and a sense of dread.
+
+The fix is not ours and it is not new. Certificate Transparency solved this in
+2013 with an append-only Merkle tree~\cite{rfc6962}, and we have been citing CT
+throughout this paper while quietly using a structure that gives up its main
+advantage. So we built the tree and measured what it buys.
+
+\paragraph{Checking one record.} Table~\ref{tab:merkle} is the whole argument.
+An inclusion proof at 100{,}000 records is 544 bytes and takes
+\SI{7}{\micro\second} to check. Replaying the chain to learn the same fact
+takes \SI{70}{\milli\second} and \SI{123}{\mega\byte} of transfer---about
+69{,}000 times more data (Figure~\ref{fig:merkle}). And the gap is not fixed:
+one curve is linear and the other is logarithmic, so every record you add makes
+the comparison worse.
+
+\begin{table}[ht]
+\centering\small
+\begin{tabular}{@{}rrrrrr@{}}
+\toprule
+\textbf{Records} & \textbf{Replay} & \textbf{Check a proof} &
+\textbf{Speedup} & \textbf{Proof} & \textbf{Fetched to replay} \\
+\midrule
+10 & \SI{8}{\micro\second} & \SI{1.87}{\micro\second} & 4$\times$ & 128 B & \SI{12}{\kilo\byte} \\
+1{,}000 & \SI{672}{\micro\second} & \SI{4.20}{\micro\second} & 160$\times$ & 320 B & \SI{1.2}{\mega\byte} \\
+10{,}000 & \SI{6.9}{\milli\second} & \SI{5.67}{\micro\second} & 1{,}217$\times$ & 448 B & \SI{12.3}{\mega\byte} \\
+100{,}000 & \SI{70}{\milli\second} & \SI{7.01}{\micro\second} & \textbf{9{,}972$\times$} & 544 B & \SI{122.7}{\mega\byte} \\
+\bottomrule
+\end{tabular}
+\caption{Establishing that one named record is in the log. The chain must be
+replayed from the beginning; the tree needs a proof of $\lceil \log_2 n \rceil$
+hashes.}
+\label{tab:merkle}
+\end{table}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.88\linewidth]{figures/chart-merkle.pdf}
+\caption{What an auditor must download to check a single action. One line is
+linear in log size and the other is logarithmic, which is why the gap widens
+with every record written.}
+\label{fig:merkle}
+\end{figure}
+
+Put it in operational terms. A thousand agents at a hundred actions a day
+produce 36.5 million records a year, a tree 26 levels deep. Checking one
+sampled action costs about 2 kilobytes. Replaying the chain costs
+\SI{44.8}{\giga\byte}---and costs the same whether you wanted to check one
+record or a million, because replay is all-or-nothing. Proofs cost what you
+actually asked for.
+
+\paragraph{What it costs the agent.} A structure that helps the auditor at the
+agent's expense would be a bad bargain, so this is the number that decides
+adoption. Maintaining the tree adds \SI{2.1}{\micro\second} per action at ten
+records and \SI{3.2}{\micro\second} at a hundred thousand---between 2.4\% and
+3.8\% of the \SI{85}{\micro\second} a signature already costs. It is close to
+free, and it stays close to free as the log grows, because appending touches
+$\log_2 n$ nodes rather than $n$.
+
+\paragraph{The part where it broke our own system.} We expected this experiment
+to produce a performance table. It produced attack A9 instead, and A9 is the
+most useful thing in this section.
+
+Every attack in Table~\ref{tab:attacks} except this one assumes the adversary
+cannot sign. But the operator running the enclave \emph{can}---that is what
+operator-controlled infrastructure means, and it is the threat model we claim
+to be working in. Give an operator the key and it can reach into the middle of
+the log, change a record, recompute every link after it, and re-sign the whole
+thing. What comes out has exactly the right length. Every signature verifies.
+Every link matches. Replaying it finds nothing wrong, because there \emph{is}
+nothing internally wrong with it: it is a perfectly consistent history of
+events that did not happen.
+
+The only thing in the world that contradicts it is a root published before the
+rewrite. Our verifier had one---and compared the published \emph{step count}
+while never comparing the published \emph{root}. So it accepted the forgery,
+cheerfully, and told us the chain verified.
+
+We had written the truncation check and stopped thinking. Truncation is the
+attack where the history is too short, so we checked the length, and checking
+the length felt like checking the anchor. It is not. Comparing roots catches
+the rewrite immediately, and a consistency proof does better still: it settles
+in $O(\log n)$ not merely \emph{that} two published roots disagree but that the
+newer history is not an extension of the older one---which is the precise
+statement that history was rewritten. Those proofs run 224 to 480 bytes and
+verify in under \SI{9}{\micro\second}, and in our harness they catch every
+rewrite we could construct.
+
+This is now requirement C7.3.5, and its wording---``compares the recomputed
+root against the anchored value rather than only against a step count''---is
+oddly specific for a standard because it is a description of our own mistake.
+We would rather the requirement be strange and correct than elegant and
+silent about the thing that actually goes wrong.
+
+There is a general lesson here that we did not expect to be writing down. Two
+earlier findings in this paper came from proving theorems; this one came from
+building a component we thought was an optimization. Implementing the fast path
+forced us to state precisely what a published root was supposed to guarantee,
+and stating it precisely was enough to notice that we were not checking it. The
+performance work found a security bug, which is not the direction that traffic
+usually runs.
 
 \subsection{Remaining parameters}
 For the \textbf{privacy path}, an implementation admitting zero-knowledge
@@ -1560,11 +1791,18 @@ less than it appears to, and a monitor that watches the path will refuse half
 your work unless you tell it where to forget.
 
 We also built it, which is how we learned that the cryptography costs
-\SI{191}{\micro\second} and is not the problem, that the policy design costs
+\SI{201}{\micro\second} and is not the problem, that the policy design costs
 42\% of your legitimate work and is, and that making the whole thing survive
-quantum computers is a storage bill rather than a redesign. The specification, the code, the
-attacks, and the numbers are all open. If any of it is wrong, it should be
-possible for you to find out---which, in the end, is the entire point.
+quantum computers is a storage bill rather than a redesign. Building it is also
+how we found the bug in our own verifier, which no amount of rereading the
+specification had turned up: we compared a published step count where we should
+have compared a published root, and a rewritten history sailed straight through.
+We would not have noticed it by thinking harder. We noticed it by writing the
+code that made us say precisely what a published root was for.
+
+The specification, the code, the attacks, the schema, the test vectors, and the
+numbers are all open. If any of it is wrong, it should be possible for you to
+find out---which, in the end, is the entire point.
 
 
 \section*{Acknowledgments}

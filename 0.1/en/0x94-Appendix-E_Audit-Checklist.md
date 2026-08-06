@@ -16,18 +16,18 @@ Tick items as you close them out; each chapter's *Auditor evidence* notes say wh
 | [C4 Authorization](0x10-C04-Authorization.md) | 2 | 7 | 3 | — | **12** |
 | [C5 Identity](0x10-C05-Identity.md) | 1 | 3 | 2 | — | **6** |
 | [C6 Security](0x10-C06-Security.md) | 2 | 6 | 3 | 1 | **12** |
-| [C7 Evidence Generation and Properties](0x10-C07-Evidence-Generation-and-Properties.md) | 6 | 4 | 8 | 1 | **19** |
+| [C7 Evidence Generation and Properties](0x10-C07-Evidence-Generation-and-Properties.md) | 6 | 8 | 11 | 1 | **26** |
 | [C8 Verifiability Tiers and the Binary Threshold](0x10-C08-Verifiability-Tiers.md) | 7 | — | 3 | 5 | **15** |
 | [C9 System Surface (MAESTRO)](0x10-C09-System-Surface-MAESTRO.md) | 3 | 2 | 1 | — | **6** |
 | [C10 Conformance and Trust-Assumption Disclosure](0x10-C10-Conformance-and-Disclosure.md) | 7 | 4 | 2 | 4 | **17** |
-| **All chapters** | **35** | **41** | **30** | **12** | **118** |
+| **All chapters** | **35** | **45** | **33** | **12** | **125** |
 
 ## Requirements by Level
 
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="../../images/diagrams/checklist-levels-dark.svg">
-    <img alt="118 requirements by level: 35 at Level 1 (Recorded),  41 at Level 2 (Attested),  30 at Level 3 (Independently Verifiable),  12 at Level 4 (Self-Enforcing / Continuous)" src="../../images/diagrams/checklist-levels-light.svg" width="620">
+    <img alt="125 requirements by level: 35 at Level 1 (Recorded),  45 at Level 2 (Attested),  33 at Level 3 (Independently Verifiable),  12 at Level 4 (Self-Enforcing / Continuous)" src="../../images/diagrams/checklist-levels-light.svg" width="620">
   </picture>
 </p>
 
@@ -174,6 +174,8 @@ Tick items as you close them out; each chapter's *Auditor evidence* notes say wh
 - [ ] **7.3.1** `L2` — **Verify that** evidence records are hash-chained or Merkle-anchored so that modifying, inserting, or reordering any record invalidates the chain, and that chain verification runs on a defined schedule with results recorded.
 - [ ] **7.3.2** `L3` — **Verify that** evidence records are signed by keys held by the generating mechanism (gateway, enclave, or logging service) that operator and agent identities cannot access, per the key-custody configuration.
 - [ ] **7.3.3** `L3` — **Verify that** the implementation resists equivocation (presenting divergent histories to different relying parties) by at least one of: cross-verifier consistency checking (gossip), a witness quorum co-signing chain roots, or anchoring to a ledger with single-history consensus — and that the mechanism is named in the claim.
+- [ ] **7.3.4** `L3` — **Verify that** the evidence log is structured so a verifier can establish that a **single named record** is present in the log committed to by a published root, without retrieving the rest of the log — by an inclusion proof against an append-only Merkle tree ([RFC 6962](https://www.rfc-editor.org/rfc/rfc6962)) or equivalent — and that the proof, the tree size it is taken against, and the published root are all obtainable by the verifier.
+- [ ] **7.3.5** `L3` — **Verify that** a published root is checked for **append-only consistency** against previously published roots, by a consistency proof or equivalent, and that the verification procedure compares the recomputed root against the anchored value rather than only against a step count or record count.
 ### C7.4 The Transparent Property
 
 - [ ] **7.4.1** `L1` — **Verify that** the published trust-assumption disclosure ([C10.2](0x10-C10-Conformance-and-Disclosure.md)) lists, for each evidence mechanism in use, every party, hardware element, and mathematical assumption that must hold for the evidence to be believed.
@@ -189,6 +191,13 @@ Tick items as you close them out; each chapter's *Auditor evidence* notes say wh
 - [ ] **7.6.4** `L2` — **Verify that** the evidence store enforces role-based access, and that every read of evidence writes its own access record (who, what, when).
 - [ ] **7.6.5** `L1` — **Verify that** the retention period for evidence is stated in the conformance claim, configured in the store's retention policy, and at least as long as the period the claim covers.
 - [ ] **7.6.6** `L3` — **Verify that** the chain root is anchored externally within a declared maximum interval, that the interval is stated in the claim (it bounds the window in which head truncation is undetectable), and that a missed anchoring deadline raises an alert.
+### C7.7 The Interoperable Property
+
+- [ ] **7.7.1** `L2` — **Verify that** the evidence claim set is defined by a **machine-readable schema** covering every field, published where a verifier can obtain it, and that the deployed implementation's own output validates against it.
+- [ ] **7.7.2** `L2` — **Verify that** the schema declares a single **canonical serialization** — fixing key ordering, number formatting, string escaping, digest case, and the meaning of an absent field — and states exactly which bytes each digest and signature covers.
+- [ ] **7.7.3** `L2` — **Verify that** every digest and signature carries an explicit **algorithm identifier**, and that a verifier presented with an unidentified digest rejects it rather than assuming an algorithm.
+- [ ] **7.7.4** `L3` — **Verify that** conformance to the canonical form is demonstrated against **published test vectors including negative cases**, and that each negative vector is rejected for the reason it was written to test.
+- [ ] **7.7.5** `L2` — **Verify that** a parser rejects duplicate object keys rather than resolving them last-wins, so that one evidence artifact cannot mean different things to different readers.
 
 *Auditor evidence for these items: see [C7](0x10-C07-Evidence-Generation-and-Properties.md).*
 
