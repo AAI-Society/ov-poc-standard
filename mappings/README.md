@@ -31,11 +31,10 @@ python3 tools/generate_crosswalks.py          # rebuild the per-framework crossw
 
 ## Auditing the coding with a different model
 
-The requirements and this coding sheet were produced by the same party, which is the weakest
-possible arrangement: whoever decides that a framework does not already cover a requirement is
-the person who wrote the requirement and has an interest in the answer. The
-[rubric](rubric.md) calls for two independent human coders with Cohen's kappa; that study has
-not been run.
+The requirements and this coding sheet were produced by the same party. That is a structural
+weakness in any coverage mapping: whoever decides that a framework does not already cover a
+requirement is the party that wrote the requirement. The [rubric](rubric.md) calls for two
+independent human coders with Cohen's kappa; that study has not been run.
 
 What can be run cheaply is a **cross-model audit** — ask a model from a different vendor to
 review every row, with no access to the original reasoning:
@@ -45,10 +44,10 @@ review every row, with no access to the original reasoning:
 python3 mappings/review/consolidate.py       # triage the results
 ```
 
-The output is a **triage list, not a patch.** The obvious failure mode is fabrication: a model
-asked for a clause citation will produce a plausible-looking one, and a fabricated citation is
-worse than none because it survives casual review. Three safeguards, and they are the whole
-value of the exercise:
+The output is a **triage list, not a patch.** The failure mode is fabrication: a model asked for
+a clause citation will produce a plausible-looking one, and a fabricated citation is worse than
+none because it survives casual review. Three controls address it, and they are where the value
+of the exercise lies:
 
 1. **An acceptance rule fixed in advance.** Apply a change only if it can be verified *without*
    trusting the reviewer about a framework's contents. In the 2026 pass this admitted 31 of 192
@@ -56,8 +55,9 @@ value of the exercise:
 2. **Check which way the errors point.** If every proposed correction happens to favour your
    standard, that is a finding about the audit, not about the sheet. The 2026 pass proposed 37
    changes that *raised* external coverage, which is why the rest were taken seriously.
-3. **Spot-check one factual claim against a published source.** The 2026 pass claimed the MITRE
-   ATLAS coding used a stale mitigation set; that was checkable, and it was correct.
+3. **Spot-check one factual claim against a published source.** The 2026 pass reported that the
+   MITRE ATLAS coding drew on a superseded mitigation set; that was checkable against published
+   ATLAS content, and it held.
 
 See [the 2026 review](../docs/reviews/mapping-review-2026-08.md) for what this found and what
 was deliberately left unapplied.
