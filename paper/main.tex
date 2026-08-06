@@ -19,6 +19,10 @@
 \usepackage{enumitem}
 \usepackage{microtype}
 \usepackage{caption}
+\usepackage{amsthm}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
 \usepackage[section]{placeins}
 
 % Advanced AI Society brand palette
@@ -163,7 +167,7 @@ effective operational control~\cite{catalini2026}. Existing governance
 implementations rely almost exclusively on operator self-attestation, static
 permissions, or unanchored application logs, none of which provide open,
 cryptographically verifiable proof of policy
-compliance~\cite{policiesonpaths2026}.
+compliance.
 
 \paragraph{Contributions and scope.} This paper contributes:
 (1)~the \poc{} standard---six domains of verification, four evidence
@@ -204,7 +208,7 @@ results would be unwarranted.
 \subsection{Path dependency and non-deterministic execution}
 Unlike legacy software executing deterministic decision trees, agents operate
 within LLM reasoning loops that yield non-deterministic, path-dependent
-trajectories~\cite{policiesonpaths2026}. Given a single objective, an agent
+trajectories. Given a single objective, an agent
 dynamically determines its intermediate steps, selects tools, interprets
 unstructured outputs, and modifies its path from real-time observations.
 Compliance therefore cannot be validated prior to deployment, and evaluating
@@ -214,15 +218,14 @@ request later creates a cumulative exfiltration risk that single-step
 inspection cannot detect. Empirical agent-security benchmarks establish both
 the attack surface and the weakness of per-call defenses: indirect prompt
 injection reliably hijacks tool-integrated agents through retrieved
-content~\cite{greshake2023,injecagent}, sandboxed emulation surfaces
-harmful trajectories that per-step review misses~\cite{toolemu}, and dynamic
-agent environments show that defenses effective on isolated prompts degrade
-over multi-step tool-calling
-sequences~\cite{agentdojo,agentharm}. Contributed industry research reports
-the same pattern for \emph{composed} skills---individually benign modules
-that become dangerous in sequence---though we treat those specific figures as
-unverified secondary sources pending confirmation against primary
-literature~\cite{xie2026scr}.
+content~\cite{greshake2023,injecagent}, sandboxed emulation surfaces harmful
+trajectories that per-step review misses~\cite{toolemu}, and dynamic agent
+environments show that defenses effective on isolated prompts degrade over
+multi-step tool-calling sequences~\cite{agentdojo,agentharm}. The underlying
+structure is not new: a sequence of individually permitted operations that
+together violate a policy is the classical information-flow
+problem~\cite{denning1976,goguen1982}, which we return to in
+Section~\ref{sec:ifc}.
 
 \subsection{Why legacy governance fails}
 Current AI risk management relies on three primary control mechanisms, none
@@ -233,7 +236,7 @@ stream as untrusted user inputs, retrieved documents, and tool outputs; this
 co-mingling renders them vulnerable to direct and indirect prompt injection.
 Prompting is a probabilistic steering mechanism, not a deterministic
 boundary: if a model deviates from its system prompt, no execution barrier
-prevents the action~\cite{policiesonpaths2026}.
+prevents the action.
 
 \emph{Role-based access control and static identity} restrict which
 endpoints an agent may call but operate without contextual awareness. An
@@ -265,9 +268,7 @@ trust~\cite{redhat2026,eqty2026}.
 
 \paragraph{Runtime governance for agents.} The Agent Control Specification
 defines portable interception middleware, policy manifests, and semantic
-conventions for agent runtimes~\cite{acs2026,acsms2026}; recent work frames
-runtime governance as policies over execution
-paths~\cite{policiesonpaths2026}, and CSA's AARM defines
+conventions for agent runtimes~\cite{acs2026,acsms2026}, and CSA's AARM defines
 approve/modify/defer/deny enforcement at the action
 boundary~\cite{csaaarm}. These supply the \emph{enforcement} half of agentic
 assurance; \poc{} supplies the complementary \emph{evidence} half---the
@@ -281,23 +282,20 @@ toolchains~\cite{redhat2026,eqty2026} provide the mechanism families \poc{}
 builds on. These prove properties of \emph{platforms and artifacts}; \poc{}
 extends them into a conformance regime for \emph{agent behavior}.
 
-\paragraph{Empirical agent-safety evaluation.} TraceSafe-Bench shows that
-guardrail efficacy on corrupted tool-calling trajectories correlates with
-structural trace parsing ($\rho = 0.79$ with JSON-validation competence) and
-near zero with natural-language safety benchmarks~\cite{chen2026tracesafe};
-SCR-Bench demonstrates that artifact-level skill vetting is structurally
-blind to composition risk~\cite{xie2026scr}. Both findings are absorbed as
-normative requirements in \poc{} (path-aware authorization; validator
-trace-parsing competence).
+\paragraph{Empirical agent-safety evaluation.} Benchmarks for
+tool-integrated agents---AgentDojo~\cite{agentdojo},
+InjecAgent~\cite{injecagent}, ToolEmu~\cite{toolemu}, and
+AgentHarm~\cite{agentharm}---establish that defenses evaluated on isolated
+prompts degrade over multi-step trajectories, and that harmful outcomes
+frequently arise from sequences of individually plausible tool calls. \poc{}
+absorbs this as a normative requirement (path-aware authorization) rather
+than as a detection heuristic.
 
-\paragraph{Telemetry-first compliance and identity.} AI Trust OS replaces
-questionnaire attestation with continuous, machine-collected control
-assertions and shadow-AI discovery from observability
-streams~\cite{bandara2026}; enterprise KRI taxonomies bridge frameworks to
-runtime signals~\cite{mindxo2026}. Decentralized identity work---W3C DIDs
-and Verifiable Credentials~\cite{w3cdid,w3cvc2}, $N$-party trust
-circles~\cite{web7vtc}, and supply-chain service
-passports~\cite{catenax2026}---provides the identity substrate for C1/C5.
+\paragraph{Identity substrate.} Decentralized identity work---W3C
+DIDs~\cite{w3cdid} and the Verifiable Credentials data
+model~\cite{w3cvc2}---together with supply-chain attestation
+formats~\cite{slsa,c2pa} provides the identity and provenance substrate the
+C1 and C5 domains build on.
 
 \paragraph{Tamper-evident logging and transparency.} The evidence chain is a
 direct descendant of Merkle authentication trees~\cite{merkle1987}, history
@@ -354,7 +352,7 @@ a testable \emph{verify-that} obligation with auditor evidence guidance:
 \begin{enumerate}[itemsep=1pt]
 \item \textbf{Provenance} (C1): which model ran; lineage, artifact, and
   supply-chain origin, bound by hash-linked custody chains and signed
-  manifests~\cite{slsa,c2pa,catenax2026}.
+  manifests~\cite{slsa,c2pa}.
 \item \textbf{Privacy} (C2): what data was read and written, evidenced
   without re-leaking the data being protected~\cite{euaiact}.
 \item \textbf{Portability} (C3): boundary crossings---organizational,
@@ -363,10 +361,10 @@ a testable \emph{verify-that} obligation with auditor evidence guidance:
 \item \textbf{Authorization} (C4): authority granted, decisions within or
   against it, delegation validity; \emph{path-aware} evaluation so a
   composed sequence of individually authorized calls cannot exceed the
-  authority of its steps~\cite{xie2026scr}.
+  authority of its steps (Section~\ref{sec:ifc}).
 \item \textbf{Identity} (C5): which agent and which principal ran, bound by
   short-lived delegation tokens, DIDs, and verifiable
-  credentials~\cite{w3cdid,w3cvc2,web7vtc}.
+  credentials~\cite{w3cdid,w3cvc2}.
 \item \textbf{Security} (C6): integrity of the execution environment,
   controls held, tools invoked, key lifecycle in hardware-backed custody.
 \end{enumerate}
@@ -407,7 +405,7 @@ a standardized conformance statement with declared system boundary, in-scope
 action classes, per-claim tiers, mechanisms, and trust-assumption
 disclosure. The declared inventory \textsc{must} be reconciled against
 automated discovery from observability streams so undeclared (``shadow'')
-agents surface as findings~\cite{bandara2026}.
+agents surface as findings.
 
 \section{Reference Architecture}
 \label{sec:arch}
@@ -683,12 +681,78 @@ with $k_{\mathrm{AE}}$ accessible exclusively to the Attesting Environment.
 The path argument makes the policy \emph{path-aware}: $\Pi$ evaluates the
 proposed action against context carried from upstream invocations, so
 composition attacks that are invisible to per-action evaluation are within
-the decision boundary~\cite{xie2026scr}. A deliberate \emph{determinism
+the decision boundary. A deliberate \emph{determinism
 boundary} limits claims: \poc{} verifies deterministic facts of execution
 (which model ran, on what input, under which authority, producing which
 effect); it does not represent output correctness, model reasoning,
 fairness, or future behavior as verified. Verification is performed, not
 validation~\cite{iso42001}.
+
+\subsection{Relation to information-flow control}
+\label{sec:ifc}
+
+Path-aware authorization is deliberately close to, and strictly weaker than,
+information-flow control (IFC). The motivating hazard---an agent reads
+sensitive data at step $i$ and emits at step $j$, with each step individually
+permitted---is the canonical IFC scenario, formalized as noninterference by
+Goguen and Meseguer~\cite{goguen1982} over Denning's lattice
+model~\cite{denning1976,denning1977} and realized in language- and
+OS-level systems~\cite{myers1997,myers1999,sabelfeld2003,histar,flume}. We
+inherit both the framing and the known difficulties, and we state the
+differences precisely rather than reinventing the field:
+
+\begin{itemize}[itemsep=2pt,topsep=2pt]
+\item \textbf{Granularity.} Classical IFC tracks labels at variable, object,
+  or process granularity inside a trusted runtime. \poc{} tracks at the
+  granularity of \emph{intercepted actions} at a boundary, because the agent
+  runtime (an LLM loop with opaque internal state) is precisely what we
+  decline to trust. We therefore obtain a coarser but externally checkable
+  approximation.
+\item \textbf{Objective.} IFC systems \emph{enforce} a flow property, often
+  with a soundness theorem relative to a semantics. \poc{} enforces a policy
+  \emph{and produces evidence} that the enforcement occurred, verifiable by a
+  third party who did not observe execution. Evidence, not enforcement, is
+  the contribution; the enforcement is an IFC-style monitor.
+\item \textbf{Guarantee.} We claim no noninterference result. An agent whose
+  permitted actions are themselves harmful, or which leaks through channels
+  outside the intercepted set (timing, content of permitted egress), is
+  outside the claim---consistent with the determinism boundary.
+\item \textbf{Inherited problems.} Label creep and the declassification
+  problem~\cite{sabelfeld2003} predict directly the utility cost we flag as
+  unmeasured (Section~\ref{sec:targets}): a monitor that accumulates
+  restrictions along a path will eventually refuse legitimate work, and the
+  practical question is where declassification points belong. IFC's history
+  suggests this, not cryptography, is the binding constraint on deployment.
+\end{itemize}
+
+\subsection{Path state and evaluation complexity}
+\label{sec:complexity}
+
+Evaluating $\Pi$ against the full path $p_t$ is not implementable as written:
+$|p_t|$ grows without bound, and a per-step cost linear in $t$ violates the
+latency target of Section~\ref{sec:targets}. \poc{} therefore requires
+policies to be expressible over a \emph{bounded path summary}: a state
+$\phi_t$ with $|\phi_t| \le B$ for a fixed $B$, updated by a fold
+\begin{equation}
+\phi_t = \mathsf{upd}(\phi_{t-1}, a_{t-1}, d_{t-1}), \qquad
+\phi_0 = \phi_{\mathrm{init}},
+\end{equation}
+so that $\Pi(a, \iota, s, p_t) = \tilde{\Pi}(a, \iota, s, \phi_t)$ for the
+implemented $\tilde{\Pi}$. The summary is the IFC analogue of a label: it
+carries the accumulated sensitivity, authority, and provenance facts the
+policy needs (for example, ``a record classified $c$ has been read'',
+``$n$ tool calls remain within budget''), and nothing else.
+
+Two consequences follow. \emph{(i)~Cost.} Per-step evaluation is
+$O(|\tilde{\Pi}| + B)$, independent of path length, and the snapshot
+committed in evidence includes $H(\phi_t)$ so a verifier can confirm the
+policy was evaluated against the correct accumulated state. \emph{(ii)~
+Expressiveness limit.} Policies requiring unbounded history---``never
+contact an endpoint not seen in the first $k$ steps'' for unbounded $k$, or
+exact multiset equality over arbitrary-length paths---are outside the
+implementable fragment and must be approximated. This is a real restriction,
+and it is the price of a fixed per-step budget; we state it rather than
+leaving path-awareness unbounded and unimplementable.
 
 \section{Adversary Model and Security Analysis}
 \label{sec:security}
@@ -751,6 +815,112 @@ the assumptions above.
   claims where multiple relying parties act on the same agent's evidence.
 \end{description}
 
+\subsection{Formal treatment of P2 and P4}
+\label{sec:proofs}
+
+P1 and P3 follow directly from standard signature and hash-chain arguments.
+P2 and P4 are the properties round-one analysis showed do \emph{not} follow
+from attestation and chaining alone, so we state them precisely.
+
+\begin{definition}[Evidenced execution]
+\label{def:evidenced}
+Fix an agent identity $\iota$ and a relying party $R$. An effect $e$ executed
+at $R$ is \emph{evidenced} if there exists a token $\tau$ accepted by a
+verifier such that $\tau$ commits to a snapshot digest
+$H(\sigma^{\mathrm{snap}})$, a target resource $r$, and verdict
+$d = \textsc{allow}$, where $\sigma^{\mathrm{snap}}$ describes exactly $e$ and
+$r$ is the endpoint at which $e$ occurred.
+\end{definition}
+
+\begin{definition}[Execution-fidelity experiment $\mathsf{Exp}^{\mathrm{fid}}$]
+$\mathcal{A}$ controls the host, network, and operator role as in
+Section~\ref{sec:security}. $\mathcal{A}$ interacts arbitrarily with the
+Attesting Environment $\mathcal{E}$, obtaining tokens and capabilities of its
+choice. $\mathcal{A}$ wins if a compliant relying party $R$ executes an
+effect $e$ that is \emph{not} evidenced per Definition~\ref{def:evidenced}.
+\end{definition}
+
+\begin{theorem}[Execution fidelity under capability-bound dispatch]
+\label{thm:fidelity}
+Let $\mathcal{E}$ release, for each \textsc{allow} verdict, a single-use
+capability $c = \mathrm{Sign}_{k_{\mathcal{E}}}(H(\sigma^{\mathrm{snap}})
+\,\|\, r \,\|\, \mathrm{nonce})$, and let compliant $R$ execute a request
+only if it presents a $c$ that (i)~verifies under an enclave key whose
+measurement matches a published reference value, (ii)~names $R$'s own
+resource $r$, (iii)~carries an unused nonce, and (iv)~matches the request's
+canonical form against $H(\sigma^{\mathrm{snap}})$. Then for any PPT
+$\mathcal{A}$,
+\[
+\Pr[\mathcal{A} \text{ wins } \mathsf{Exp}^{\mathrm{fid}}]
+\;\le\; \mathbf{Adv}^{\mathrm{EUF\text{-}CMA}}_{\mathrm{Sig}}(\mathcal{A})
+\;+\; \mathbf{Adv}^{\mathrm{coll}}_{H}(\mathcal{A}),
+\]
+under assumptions (A1), (B1), (C1).
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+Suppose $\mathcal{A}$ wins: $R$ executed $e$ with no token evidencing $e$ at
+$r$. By $R$'s check~(i), the presented $c$ verified under $k_{\mathcal{E}}$,
+which by (B1) never leaves $\mathcal{E}$ and by (C1) is bound to the attested
+measurement; so either $\mathcal{A}$ forged a signature---bounding this case
+by $\mathbf{Adv}^{\mathrm{EUF\text{-}CMA}}$---or $c$ was genuinely issued by
+$\mathcal{E}$. In the latter case, by check~(iv) the executed request's
+canonical form hashes to the $H(\sigma^{\mathrm{snap}})$ inside $c$. If
+$\sigma^{\mathrm{snap}}$ did not describe $e$, then two distinct canonical
+forms share a digest, bounding this case by
+$\mathbf{Adv}^{\mathrm{coll}}_{H}$. Otherwise $\sigma^{\mathrm{snap}}$
+describes $e$; by check~(ii) the resource matches, and $\mathcal{E}$ issues
+$c$ only on an \textsc{allow} verdict whose token it also emits---so $e$ is
+evidenced, contradicting the win condition. Check~(iii) prevents replay of a
+capability against a second effect. \end{proof}
+
+\begin{proposition}[Necessity of mediation]
+\label{prop:necessity}
+Without a check binding the executed request to $H(\sigma^{\mathrm{snap}})$
+at the point of effect, $\Pr[\mathcal{A} \text{ wins }
+\mathsf{Exp}^{\mathrm{fid}}] = 1$ for an adversary controlling the host.
+\end{proposition}
+\begin{proof}
+$\mathcal{A}$ submits $\sigma$ describing benign $e'$, obtains an
+\textsc{allow} token, and dispatches $e \ne e'$ using host-held credentials.
+No verifier check is violated: the token is genuine and $\mathcal{E}$'s
+statement (``policy allows $e'$'') is true. $e$ is unevidenced, so
+$\mathcal{A}$ wins with certainty. \end{proof}
+
+Proposition~\ref{prop:necessity} is why C7.1.4 is a requirement rather than a
+recommendation: an evidence architecture without effect mediation admits a
+total break of P2 while every signature verifies.
+
+\begin{definition}[Equivocation]
+$\mathcal{A}$ equivocates if two verifiers $V_1, V_2$ accept chains
+$\Lambda_1, \Lambda_2$ for the same $\iota$ such that neither is a prefix of
+the other.
+\end{definition}
+
+\begin{theorem}[Equivocation is detectable and attributable]
+\label{thm:equiv}
+Let each chain root at index $i$ be signed by $\mathcal{E}$, and let $V_1$
+and $V_2$ exchange (root, index) pairs---by direct gossip, via a witness
+quorum of which at least one member is honest, or through a
+single-history ledger. If $\mathcal{A}$ equivocates, then under (A1) and
+(D1) the honest parties jointly hold two validly signed roots at a common
+index with distinct values, which constitutes a non-repudiable proof of
+equivocation attributable to $k_{\mathcal{E}}$; detection probability is $1$.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+Non-prefix chains differ at some least index $i$. Both $V_1$ and $V_2$ hold
+signed roots at $i$; exchanging them under (D1) reveals distinct values.
+Forging either root reduces to signature forgery, excluded by (A1). The pair
+is self-contained evidence, so detection does not depend on trusting either
+verifier's account. \end{proof}
+
+Theorem~\ref{thm:equiv} clarifies the requirement's shape: gossip does not
+\emph{prevent} equivocation, it makes it detectable and attributable---the
+same guarantee Certificate Transparency provides~\cite{rfc6962,chase2016},
+and the reason C7.3.3 accepts any of three mechanisms that establish a shared
+view. Without such a mechanism, the split-view attack succeeds silently.
+
 Table~\ref{tab:threats} maps representative threats to the property they
 attack and the requirement that addresses them.
 
@@ -782,7 +952,7 @@ Skill-composition attacks & P1 &
 Path-aware evaluation: $\Pi$ takes the partial path as an argument
 (Section~\ref{sec:formal}), so composed escalation is inside the decision
 boundary. Residual: utility cost, unquantified
-(Section~\ref{sec:targets}). \\
+(Sections~\ref{sec:ifc},~\ref{sec:targets}). \\
 Cascading sub-agent exploitation & P1--P4 &
 Delegation hooks enforce constraint inheritance; sub-agent evidence verified
 via multi-verifier topologies~\cite{multiverifier}. \\
@@ -828,6 +998,41 @@ need not rely solely on the vendor's word about which code ran, and Tier~4 by
 additionally making valid evidence a precondition of execution. The tiers
 therefore grade \emph{trust structure}, not mechanism labels---consistent
 with the standard's own rule that cryptography is a mechanism, not a tier.
+
+\subsection{Deployability of capability-bound dispatch}
+\label{sec:deploy}
+
+Theorem~\ref{thm:fidelity} places a real burden on the ecosystem: relying
+parties must verify capabilities. This is the strongest objection to the
+architecture, and plausibly why it does not already exist. Three observations
+bound the difficulty.
+
+\emph{The mechanism is not new.} Action-bound capabilities are the classical
+capability model~\cite{dennis1966,levy1984} in modern dress, and macaroons
+already provide exactly the needed shape---bearer tokens with cryptographic
+caveats, verifiable by the target service without contacting the
+issuer~\cite{macaroons}, deployed over ordinary HTTP headers. A relying-party
+check is a signature verification plus a caveat comparison, not new
+infrastructure.
+
+\emph{Adoption is incremental, and the first steps need no third party.}
+Mediation options 1 and 3 (Section~\ref{sec:mediation}) are unilateral: an
+operator can terminate egress inside the enclave, or route it through an
+attested proxy, with no cooperation from anyone. Within an organization, the
+API gateway is already a relying party under the same administrative control,
+so capability checking can be enabled there first. Cross-organizational
+enforcement follows contractually (as SOC~2 evidence requirements already
+propagate through vendor agreements), and only then by standardization---%
+which is the purpose of the EAT profile work in Appendix~\ref{sec:sdo}.
+
+\emph{The residual gap is honest.} Endpoints that will never verify
+capabilities---arbitrary third-party SaaS, legacy systems---can be covered
+only by options 1 or 3, whose guarantee is weaker: they shrink the trusted
+computing base rather than removing host involvement, and a deployment must
+disclose which option covers which action class. We do not claim a universal
+solution; we claim a specified property, three implementations of it with
+different residual trust, and a disclosure requirement that makes the
+difference legible to a relying party.
 
 \section{Gap Analysis: What Existing Frameworks Already Require}
 \label{sec:gap}
@@ -967,9 +1172,45 @@ progress.
   and canonicalization are the terms we expect to dominate.
 \item \textbf{Anchoring interval $\Delta$:} the undetectable truncation
   window (Section~\ref{sec:security}) is bounded by $\Delta$, so $\Delta$
-  trades verifiability against anchoring cost. The standard requires
-  $\Delta$ be declared; what value is defensible for a given risk class is
-  an open question for the working group.
+  trades verifiability against anchoring cost. The standard requires $\Delta$
+  be declared; Table~\ref{tab:delta} gives working guidance derived from the
+  quantity actually at risk---the volume of in-scope action that can be
+  suppressed within one window---rather than from convention.
+\end{itemize}
+
+\begin{table}[ht]
+\centering\footnotesize
+\begin{tabular}{@{}p{3.3cm}p{2.3cm}p{2.0cm}p{6.3cm}@{}}
+\toprule
+\textbf{Action class} & \textbf{Exposure per window} & \textbf{Suggested
+$\Delta$} & \textbf{Rationale} \\
+\midrule
+Irreversible external effect (payment, trade, medication order) &
+Unbounded financial or safety harm & $\le 1$\,s, or per-action anchoring &
+Truncation must not be able to hide a completed irreversible act; per-action
+anchoring collapses the window to zero at the cost of one round trip. \\
+Reversible external effect (ticket, message, provisioning) &
+Bounded, recoverable & $\le 1$\,min &
+Recovery is possible if detection is prompt; anchoring cost amortizes over
+many actions. \\
+Read-only access to regulated data & Disclosure already occurred &
+$\le 5$\,min &
+The act cannot be undone, but detection latency drives breach-notification
+timelines rather than loss magnitude. \\
+Internal, non-effecting steps (planning, retrieval) &
+Low direct harm; evidential value & $\le 1$\,h &
+Value is reconstructive; batching is appropriate. \\
+\bottomrule
+\end{tabular}
+\caption{Working guidance for the anchoring interval $\Delta$. $\Delta$
+bounds the window in which head truncation is undetectable
+(Section~\ref{sec:security}), so it should be chosen from the harm that one
+window's worth of suppressed actions can cause. These are proposals for
+working-group ratification, not measured results.}
+\label{tab:delta}
+\end{table}
+
+\begin{itemize}[itemsep=2pt]
 \item \textbf{Path-aware authorization utility cost:} evaluating against
   carried context can reject workflows that per-action evaluation would
   admit. The false-rejection rate on realistic benign workloads is
@@ -998,54 +1239,10 @@ and mechanical.
 \section{Discussion}
 \label{sec:discussion}
 
-\subsection{Standards integration}
-\emph{ISO/IEC JTC 1/SC 42:} \poc{} provides a technical realization for
-active SC~42 workstreams~\cite{jtc1sc42,nemko2025,lexai2025}---a technical
-annex for auditable runtime controls under ISO/IEC~42001 Clauses~8--9
-(supplying cryptographically verifiable compliance evidence during
-certification audits)~\cite{iso42001}, operationalization of ISO/IEC~23894
-risk treatment as executable, hardware-verified policy
-bundles~\cite{iso23894}, and an SC~42/SC~27 bridge coupling AI oversight
-with confidential-computing standards~\cite{iec2025}.
-\emph{IETF RATS:} an Internet-Draft establishing an AI-agent EAT
-profile~\cite{rfc9711,tcg2024}---standardizing claims for lifecycle hook
-types, policy-bundle hashes, Agent Bill of Materials (AgBOM) digests, and
-step indices---and an extension of multi-verifier attestation to sub-agent
-delegation chains~\cite{multiverifier}.
-\emph{ACS:} \poc{} supplies the missing cryptographic layer for
-ACS~\cite{acs2026,acsms2026}, anchoring its decision engine in TEEs and
-signing decision tokens.
-\emph{NIST AI 600-1:} \poc{} provides concrete implementations for the
-generative-AI profile's measurement
-controls~\cite{nist6001,ciphernorth2026,modulos2026}---enforcing that
-deployment configurations cannot bypass security controls and satisfying
-continuous security verification with attestation tokens for every tool
-call and state transition.
-
-\subsection{Implementation roadmap}
-Figure~\ref{fig:roadmap} summarizes the path to ratification and adoption.
-\textbf{Phase 1 (months 1--6): open specification and reference core}---core
-schema extensions on the ACS repository, open-source Rust reference enclave
-policy engines, and the IETF Internet-Draft for the AI-agent EAT profile.
-\textbf{Phase 2 (months 7--12): multi-vendor interoperability and SDO
-balloting}---SC~42 working groups, conformance testing across Python,
-Node.js, and Rust agent frameworks, and telemetry integration with
-OpenTelemetry and OCSF. \textbf{Phase 3 (months 13--24): ratification and
-deployment}---normative annexes in ISO/IEC~42001 and 23894, RFC publication,
-and deployments across financial, healthcare, and public-sector workloads.
-On the adopter side, the same three phases carry an organization from
-foundational key, signing, and logging infrastructure through expanded
-proof coverage to continuously monitored operation---each phase reaching
-readiness for one conformance stage.
-
-\begin{figure}[t]
-\centering
-\includegraphics[width=0.98\linewidth]{figures/roadmap.pdf}
-\caption{Implementation roadmap. Each phase brings an adopting organization
-to readiness for one conformance stage; on the standards track, Version 1.0
-targets February 1, 2027.}
-\label{fig:roadmap}
-\end{figure}
+Standards-integration targets (ISO/IEC JTC~1/SC~42, IETF RATS, ACS, NIST
+AI~600-1) and the phased implementation roadmap are given in
+Appendices~\ref{sec:sdo} and~\ref{sec:roadmapapp}; this section states what
+the work does not yet establish.
 
 \subsection{Limitations and status}
 Six limitations are stated deliberately.
@@ -1110,6 +1307,60 @@ Patel, David Thomson, Drummond Reed, and Hart Montgomery (Linux Foundation
 Decentralized Trust), and the Cloud Security Alliance MAESTRO and AARM
 communities. The \poc{} Lab is being established as a community lab at
 Linux Foundation Decentralized Trust.
+
+\appendix
+
+\section{Standards Integration}
+\label{sec:sdo}
+\emph{ISO/IEC JTC 1/SC 42:} \poc{} provides a technical realization for
+active SC~42 workstreams~\cite{jtc1sc42,nemko2025,lexai2025}---a technical
+annex for auditable runtime controls under ISO/IEC~42001 Clauses~8--9
+(supplying cryptographically verifiable compliance evidence during
+certification audits)~\cite{iso42001}, operationalization of ISO/IEC~23894
+risk treatment as executable, hardware-verified policy
+bundles~\cite{iso23894}, and an SC~42/SC~27 bridge coupling AI oversight
+with confidential-computing standards~\cite{iec2025}.
+\emph{IETF RATS:} an Internet-Draft establishing an AI-agent EAT
+profile~\cite{rfc9711,tcg2024}---standardizing claims for lifecycle hook
+types, policy-bundle hashes, Agent Bill of Materials (AgBOM) digests, and
+step indices---and an extension of multi-verifier attestation to sub-agent
+delegation chains~\cite{multiverifier}.
+\emph{ACS:} \poc{} supplies the missing cryptographic layer for
+ACS~\cite{acs2026,acsms2026}, anchoring its decision engine in TEEs and
+signing decision tokens.
+\emph{NIST AI 600-1:} \poc{} provides concrete implementations for the
+generative-AI profile's measurement
+controls~\cite{nist6001,ciphernorth2026,modulos2026}---enforcing that
+deployment configurations cannot bypass security controls and satisfying
+continuous security verification with attestation tokens for every tool
+call and state transition.
+
+\section{Implementation Roadmap}
+\label{sec:roadmapapp}
+Figure~\ref{fig:roadmap} summarizes the path to ratification and adoption.
+\textbf{Phase 1 (months 1--6): open specification and reference core}---core
+schema extensions on the ACS repository, open-source Rust reference enclave
+policy engines, and the IETF Internet-Draft for the AI-agent EAT profile.
+\textbf{Phase 2 (months 7--12): multi-vendor interoperability and SDO
+balloting}---SC~42 working groups, conformance testing across Python,
+Node.js, and Rust agent frameworks, and telemetry integration with
+OpenTelemetry and OCSF. \textbf{Phase 3 (months 13--24): ratification and
+deployment}---normative annexes in ISO/IEC~42001 and 23894, RFC publication,
+and deployments across financial, healthcare, and public-sector workloads.
+On the adopter side, the same three phases carry an organization from
+foundational key, signing, and logging infrastructure through expanded
+proof coverage to continuously monitored operation---each phase reaching
+readiness for one conformance stage.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.98\linewidth]{figures/roadmap.pdf}
+\caption{Implementation roadmap. Each phase brings an adopting organization
+to readiness for one conformance stage; on the standards track, Version 1.0
+targets February 1, 2027.}
+\label{fig:roadmap}
+\end{figure}
+
 
 \bibliographystyle{unsrt}
 \bibliography{references}

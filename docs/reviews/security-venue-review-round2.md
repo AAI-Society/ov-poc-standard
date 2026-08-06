@@ -5,6 +5,19 @@ revised [`paper/main.tex`](../../paper/main.tex) (22 pp., 116 requirements) afte
 [round-1 findings](security-venue-review-paper-v0.1.md) were addressed. Not an actual venue
 review.*
 
+> **Disposition: all findings addressed.** R1 — Definitions 1–2, Theorem 1 (execution fidelity,
+> reduced to EUF-CMA + collision resistance), Proposition 1 (necessity of mediation), and
+> Theorem 2 (equivocation detectable and attributable) added with proof sketches. R2 — new
+> "Relation to information-flow control" section citing Denning, Goguen & Meseguer, Myers &
+> Liskov, JFlow, Sabelfeld & Myers, HiStar, and Flume, stating four precise differences and
+> inheriting the label-creep prediction. R3 — new deployability section grounding
+> capability-bound dispatch in the capability literature and macaroons, with an incremental
+> adoption path and an honest residual gap. R4 — new path-state and complexity section: bounded
+> path summary as a fold, O(|Π| + B) per step, with the expressiveness limit stated. R5 — Δ
+> guidance table by action class. R6 — all seven provenance-weak citations removed from the
+> paper; claims re-grounded in verifiable literature. R7 — standards integration and roadmap
+> moved to appendices.
+
 **Overall merit: 3/5 (borderline — accept at a workshop or systematization track; still
 below the bar for a main-track systems-security paper)**
 **Novelty 3/5 · Technical depth 3/5 (was 2) · Presentation 5/5 · Confidence 4/5**

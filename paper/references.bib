@@ -1,6 +1,7 @@
 % Proof-of-Control preprint bibliography.
-% NOTE: entries marked [verify] carry metadata reported in secondary sources;
-% confirm against primary literature before submission.
+% All entries are published, citable sources. Contributed industry research that
+% could not be verified against primary literature was removed from the paper;
+% the specification repository tracks it separately with working-group caveats.
 
 @misc{pocspec,
   author       = {{Advanced AI Society}},
@@ -31,13 +32,6 @@
   howpublished = {\url{https://www.businesswire.com/news/home/20260527326259/en/Agent-Control-Standard-Launches-Open-Framework-for-Runtime-Governance-of-AI-Agents}}
 }
 
-@article{policiesonpaths2026,
-  author  = {{Runtime Governance Working Group}},
-  title   = {Runtime Governance for {AI} Agents: Policies on Paths},
-  journal = {arXiv preprint arXiv:2603.16586},
-  year    = {2026},
-  note    = {\url{https://arxiv.org/html/2603.16586v1} [verify author list]}
-}
 
 @misc{acsms2026,
   author       = {{Microsoft Command Line}},
@@ -289,48 +283,11 @@
   note    = {\url{https://arxiv.org/abs/2602.20946}}
 }
 
-@misc{bandara2026,
-  author = {Bandara, et al.},
-  title  = {{AI} Trust {OS}: Telemetry-First Compliance for Enterprise {AI} Governance},
-  year   = {2026},
-  note   = {[verify: full author list, venue, and identifier pending confirmation against the primary source]}
-}
 
-@misc{chen2026tracesafe,
-  author = {Chen, et al.},
-  title  = {{TraceSafe-Bench}: Evaluating Guardrail Efficacy on Corrupted Multi-Step Tool-Calling Trajectories},
-  year   = {2026},
-  note   = {[verify: full author list, venue, and identifier pending confirmation against the primary source]}
-}
 
-@misc{xie2026scr,
-  author = {Xie, et al.},
-  title  = {{SCR-Bench}: Measuring Skill Composition Risk in Sandboxed Agent Execution},
-  year   = {2026},
-  note   = {[verify: full author list, venue, and identifier pending confirmation against the primary source]}
-}
 
-@misc{web7vtc,
-  author       = {{Web 7.0 Foundation}},
-  title        = {Verifiable Trust Circles: {N}-Party Trust Constructs over {W3C} Verifiable Credentials Data Model 2.0},
-  year         = {2026},
-  note         = {[verify: specification identifier pending confirmation]}
-}
 
-@misc{catenax2026,
-  author       = {{Catena-X Automotive Network}},
-  title        = {{AI} Service {KIT}: Identity-Anchored Provenance for Cross-Organizational {ML} Pipelines},
-  year         = {2026},
-  howpublished = {\url{https://catena-x.net/}},
-  note         = {[verify: KIT release identifier]}
-}
 
-@misc{mindxo2026,
-  author = {{MindXO}},
-  title  = {Enterprise {AI} Key Risk Indicator ({KRI}) Taxonomy},
-  year   = {2026},
-  note   = {[verify: publication identifier pending confirmation]}
-}
 
 @misc{haarf2026,
   author       = {{Task Force for AI Agents in Healthcare}},
@@ -502,4 +459,85 @@
   number  = {1},
   pages   = {37--46},
   year    = {1960}
+}
+
+@article{denning1976,
+  author  = {Denning, Dorothy E.},
+  title   = {A Lattice Model of Secure Information Flow},
+  journal = {Communications of the ACM},
+  volume  = {19}, number = {5}, pages = {236--243}, year = {1976}
+}
+
+@article{denning1977,
+  author  = {Denning, Dorothy E. and Denning, Peter J.},
+  title   = {Certification of Programs for Secure Information Flow},
+  journal = {Communications of the ACM},
+  volume  = {20}, number = {7}, pages = {504--513}, year = {1977}
+}
+
+@inproceedings{goguen1982,
+  author    = {Goguen, Joseph A. and Meseguer, Jos{\'e}},
+  title     = {Security Policies and Security Models},
+  booktitle = {IEEE Symposium on Security and Privacy},
+  year      = {1982}
+}
+
+@inproceedings{myers1997,
+  author    = {Myers, Andrew C. and Liskov, Barbara},
+  title     = {A Decentralized Model for Information Flow Control},
+  booktitle = {16th ACM Symposium on Operating Systems Principles (SOSP)},
+  year      = {1997}
+}
+
+@inproceedings{myers1999,
+  author    = {Myers, Andrew C.},
+  title     = {{JFlow}: Practical Mostly-Static Information Flow Control},
+  booktitle = {26th ACM Symposium on Principles of Programming Languages (POPL)},
+  year      = {1999}
+}
+
+@article{sabelfeld2003,
+  author  = {Sabelfeld, Andrei and Myers, Andrew C.},
+  title   = {Language-Based Information-Flow Security},
+  journal = {IEEE Journal on Selected Areas in Communications},
+  volume  = {21}, number = {1}, pages = {5--19}, year = {2003}
+}
+
+@inproceedings{histar,
+  author    = {Zeldovich, Nickolai and Boyd-Wickizer, Silas and Kohler, Eddie
+               and Mazi{\`e}res, David},
+  title     = {Making Information Flow Explicit in {HiStar}},
+  booktitle = {7th USENIX Symposium on Operating Systems Design and Implementation (OSDI)},
+  year      = {2006}
+}
+
+@inproceedings{flume,
+  author    = {Krohn, Maxwell and Yip, Alexander and Brodsky, Micah and Cliffer, Natan
+               and Kaashoek, M. Frans and Kohler, Eddie and Morris, Robert},
+  title     = {Information Flow Control for Standard {OS} Abstractions},
+  booktitle = {21st ACM Symposium on Operating Systems Principles (SOSP)},
+  year      = {2007}
+}
+
+@article{dennis1966,
+  author  = {Dennis, Jack B. and Van Horn, Earl C.},
+  title   = {Programming Semantics for Multiprogrammed Computations},
+  journal = {Communications of the ACM},
+  volume  = {9}, number = {3}, pages = {143--155}, year = {1966}
+}
+
+@inproceedings{macaroons,
+  author    = {Birgisson, Arnar and Politz, Joe Gibbs and Erlingsson, {\'U}lfar
+               and Taly, Ankur and Vrable, Michael and Lentczner, Mark},
+  title     = {Macaroons: Cookies with Contextual Caveats for Decentralized
+               Authorization in the Cloud},
+  booktitle = {Network and Distributed System Security Symposium (NDSS)},
+  year      = {2014}
+}
+
+@book{levy1984,
+  author    = {Levy, Henry M.},
+  title     = {Capability-Based Computer Systems},
+  publisher = {Digital Press},
+  year      = {1984}
 }
