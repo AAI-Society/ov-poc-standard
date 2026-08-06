@@ -8,7 +8,7 @@ independent verification — with an attack harness and benchmarks.
 ```bash
 cd impl
 python3 tests/test_core.py        # 22 correctness tests
-python3 attacks/run_attacks.py    # 9 attack scenarios, with and without the requirement
+python3 attacks/run_attacks.py    # 11 attack scenarios, with and without the requirement
 python3 bench/bench.py            # latency, scaling, verification, utility
 python3 bench/bench_pq.py         # post-quantum signature comparison
 python3 bench/bench_frontier.py   # the declassification frontier
@@ -253,6 +253,30 @@ This became requirement **C7.3.5**, whose wording — "compares the recomputed
 root against the anchored value rather than only against a step count" — exists
 because we made exactly that mistake.
 
+## Two defects this round's review found
+
+Both were live in the implementation, both are fixed, and both are now regression-tested.
+
+**A10: the binding check failed open.** `RelyingParty` performed check (iv) of Theorem 1 by
+calling a *snapshot probe* — a callback that recomputes the digest of the full evaluated
+snapshot — and returned "match" when no probe was configured. But the snapshot commits to the
+path summary and step index, which are enclave state no independent endpoint can see, so a probe
+requires a callback into the enclave and essentially nobody could supply one. The result: an
+endpoint with `enforce=True` that checked signature, measurement, resource and nonce would still
+execute a substituted action, and report success.
+
+A security check whose default is *accept when unconfigured* is worse than no check, because it
+reports that it worked. The fix gives the relying party something it can recompute unaided — the
+capability now carries `action_digest`, a digest of the action alone — and refuses outright when
+it has neither that nor a probe.
+
+**A11: the capability and the evidence record were not cross-bound.** They were two
+independently signed objects that happened to agree on a snapshot digest. Nothing tied one ticket
+to one record, so an auditor reconciling executed actions against evidence could be shown a valid
+ticket beside a record it was never issued with, and the arithmetic would balance. The capability
+now commits to `step_index` and `evidence_digest`, and `Verifier.verify_capability_binding()`
+checks the pair.
+
 ## Schema conformance
 
 The claim set now has a machine-readable definition, a canonical form, and
@@ -283,6 +307,8 @@ Each scenario runs with and without the relevant requirement.
 | A7 | Capability replay | Succeeds without single-use semantics | Refused: nonce replay |
 | A8 | Evidence-pipeline failure | Succeeds: system keeps acting while logging is down | Refused: FAIL_CLOSED, failure recorded |
 | A9 | Mid-history rewrite by a key-holding operator | Succeeds: the rewritten history replays perfectly, because the operator recomputed every link | Detected: presented head does not match the anchored root |
+| A10 | Substitution past an unconfigured mediation check | Succeeds: endpoint verifies signature, measurement, resource and nonce, then executes a different request | Refused: capability carries an action digest the endpoint recomputes unaided; refuses when it cannot |
+| A11 | Capability paired with the wrong evidence record | Succeeds: both objects verify independently, so reconciliation balances | Detected: capability commits to its record's step index and digest |
 
 A1 is the empirical form of Proposition 1 in the paper: without a check binding
 the executed request to the evidenced snapshot, the adversary wins with

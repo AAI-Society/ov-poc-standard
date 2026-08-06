@@ -270,11 +270,73 @@ def a9_history_rewrite():
                  "compared the anchor's step count but never its root"))
 
 
+# ---------------------------------------------------------------- A10
+def a10_unconfigured_mediation():
+    """Substitution against a relying party that believes it is enforcing.
+
+    A1 shows that without the far-end check the adversary wins. A10 is the
+    version that actually happens: the check is present, `enforce=True` is set,
+    and it silently does nothing because the endpoint could not be configured
+    to perform it.
+
+    The earlier design asked the relying party to recompute the digest of the
+    whole evaluated snapshot -- which commits to the path summary and step
+    index, enclave state no independent endpoint can see. So the check needed a
+    callback into the enclave, almost nobody could supply one, and the
+    unconfigured path returned "matches". The fix gives the relying party
+    something it can recompute unaided: a digest of the action itself, carried
+    in the capability, plus a refusal when neither that nor a probe is present.
+    """
+    _, _, ae, _, gw, _ = build()
+    rp = RelyingParty(ae.pk, "api.partner.com", ae.measurement, enforce=True)
+    benign = Action("http.post", "api.partner.com", {"body": "quarterly summary"})
+    evil = Action("http.post", "api.partner.com", {"body": "customer database"})
+    r = gw.submit(benign, relying_party=rp, dispatch_action=evil)
+    without = ("attack SUCCEEDS: the endpoint sets enforce=True, verifies the "
+               "signature, the measurement, the resource and the nonce - and "
+               "still executes a different request, because the one check that "
+               "binds the action defaulted to accept when unconfigured")
+    with_ = (f"refused: {r['reason']}" if not r["executed"] else "MISSED")
+    record("A10", "Substitution past an unconfigured mediation check",
+           "C7.1.4 the binding check fails closed",
+           without, with_,
+           note=("found by reading the reference implementation for this "
+                 "review: a security check whose default is accept reports "
+                 "success while providing nothing"))
+
+
+# ---------------------------------------------------------------- A11
+def a11_capability_record_mismatch():
+    """Present a valid capability alongside a different allow record.
+
+    The capability and the evidence record were two independently signed
+    objects that happened to agree on a snapshot digest. Nothing tied one
+    ticket to one record, so an auditor reconciling executed actions against
+    evidence could be shown a valid ticket beside the wrong record.
+    """
+    _, _, ae, _, gw, _ = build()
+    o1 = ae.evaluate_and_evidence(
+        Action("http.post", "api.partner.com", {"b": 1}), "n-a", gw.agent_id)
+    o2 = ae.evaluate_and_evidence(
+        Action("http.post", "api.partner.com", {"b": 2}), "n-b", gw.agent_id)
+    v = Verifier(ae.pk, ae.measurement)
+    ok_match, _ = v.verify_capability_binding(o1["capability"], o1["token"])
+    ok_cross, why = v.verify_capability_binding(o1["capability"], o2["token"])
+    without = ("attack SUCCEEDS: both objects verify on their own, so a ticket "
+               "can be presented next to a record it was never issued with and "
+               "the reconciliation still balances")
+    with_ = (f"detected: {why}" if (ok_match and not ok_cross) else "MISSED")
+    record("A11", "Capability paired with the wrong evidence record",
+           "C7.1.4 capability cross-bound to its record",
+           without, with_)
+
+
 def main():
     print("Proof-of-Control reference implementation — attack harness\n")
     for fn in (a1_snapshot_substitution, a2_log_alteration, a3_omission,
                a4_truncation, a5_split_view, a6_path_composition,
-               a7_capability_replay, a8_pipeline_failure, a9_history_rewrite):
+               a7_capability_replay, a8_pipeline_failure, a9_history_rewrite,
+               a10_unconfigured_mediation, a11_capability_record_mismatch):
         fn()
     out = Path(__file__).resolve().parent.parent / "results" / "attacks.json"
     out.write_text(json.dumps(RESULTS, indent=2) + "\n")

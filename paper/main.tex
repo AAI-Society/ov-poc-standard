@@ -132,8 +132,8 @@ show what you have to add to fix it. Then we built the thing and measured it.
 The software costs \SI{201}{\micro\second} per action, about one percent of
 our budget. Checking the path an agent took costs the same whether the path is
 ten steps or five thousand. Nine attacks work against the naive design and fail
-against ours---and the ninth broke our own verifier, because we compared a
-published step count where we should have compared a published root. We also
+against ours---and three of them were defects in our own implementation,
+found by review rather than by design. We also
 measure what we did not expect: a monitor that watches the whole path refuses
 42\% of perfectly legitimate work unless you give it an explicit place to
 forget, which is exactly what people who study information flow have been
@@ -220,7 +220,7 @@ exactly which bytes a signature covers, and signed test vectors including ten
 negative cases. Without these, two conforming implementations produce different
 digests for the same action and the central binding property fails silently.
 \item \textbf{The implementation} (Section~\ref{sec:eval}): working code, an
-attack harness that runs nine attacks with and without each defense,
+attack harness that runs eleven attacks with and without each defense,
 measurements of what it all costs, what it takes to make the evidence outlive
 the signature scheme that protects it, and---in
 Section~\ref{sec:merkle}---logarithmic proofs that let an auditor check one
@@ -1306,12 +1306,13 @@ invented. Everything below: Apple M2 Max, Python 3.11, one core, 5{,}000
 iterations after 200 warm-ups.
 
 \subsection{The attacks}
-We wrote nine attacks and ran each one twice: once against a system missing
+We wrote eleven attacks and ran each one twice: once against a system missing
 the relevant requirement, once against a system with it
-(Table~\ref{tab:attacks}). All nine work when the requirement is missing. All
-nine are refused or caught when it is there. The ninth we did not think of; it
-fell out of building the Merkle experiment in \S\ref{sec:merkle}, and it broke
-our own verifier.
+(Table~\ref{tab:attacks}). All eleven work when the requirement is missing and
+all eleven are refused or caught when it is there. The last three were not
+planned. A9 fell out of building the Merkle experiment in \S\ref{sec:merkle};
+A10 and A11 came from an independent review of the implementation, and both
+were live defects in it.
 
 \begin{table}[ht]
 \centering\footnotesize
@@ -1340,11 +1341,19 @@ A9 & Rewriting history, by someone who holds the key & Works: the rewritten
 history replays perfectly---every signature valid, every link correct, because
 the operator recomputed them all & Caught: the head presented does not match the
 total published \emph{before} the rewrite \\
+A10 & Substitution past a check that is switched on but unconfigured & Works:
+the endpoint verifies signature, measurement, resource and nonce, and still runs
+a different request & Refused: the ticket carries a digest of the action the
+endpoint can recompute alone, and the check refuses when it cannot \\
+A11 & A valid ticket shown beside the wrong record & Works: both objects verify
+on their own, so the reconciliation balances & Caught: the ticket names the step
+and record it was issued with \\
 \bottomrule
 \end{tabular}
 \caption{The attack harness. A1 is Proposition~\ref{prop:necessity} in the
-flesh: without the far-end check, the attacker wins on the first attempt. A9 is
-the one that caught \emph{us}: see \S\ref{sec:merkle}.}
+flesh: without the far-end check, the attacker wins on the first attempt. A10 is
+the same proposition in the form it takes in practice---the check present,
+enabled, and doing nothing.}
 \label{tab:attacks}
 \end{table}
 

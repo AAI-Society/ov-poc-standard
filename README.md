@@ -90,7 +90,7 @@ attack harness and benchmarks: [`impl/`](impl/README.md).
 ```bash
 cd impl
 python3 tests/test_core.py        # 22 correctness tests, mapped to requirement IDs
-python3 attacks/run_attacks.py    # 9 attacks, run with and without each requirement
+python3 attacks/run_attacks.py    # 11 attacks, run with and without each requirement
 python3 bench/bench.py            # latency, scaling, verification, utility
 python3 bench/bench_pq.py         # post-quantum signature comparison
 python3 bench/bench_frontier.py   # the declassification frontier
@@ -105,17 +105,19 @@ python3 schema/cbor_profile.py         # JSON <-> CBOR rendering equivalence
 Headline results (Apple M2 Max, single core; the TEE is modelled in-process, so enclave
 transitions are excluded and latencies are a lower bound): **201 µs** per intercepted step
 (p99 255 µs) — **1.3%** of the 15 ms design budget · path-aware evaluation **flat at 0.21 µs**
-from 10 to 50,000 steps, versus linear growth for naive re-evaluation · **9/9 attacks** succeed
+from 10 to 50,000 steps, versus linear growth for naive re-evaluation · **11/11 attacks** succeed
 without the derived requirements and are refused or detected with them · a Merkle inclusion
 proof checks one record in a 100,000-record log with **544 bytes** instead of replaying
 **123 MB** · path-aware authorization falsely rejects **42%** of benign workflows without a
 declassification point — and the fix is not more coverage but *verifiable* declassification,
 which takes false rejections to 0% while raising detection to 100%.
 
-Three requirements in this standard exist because the implementation found defects the prose
-missed. The most recent is **C7.3.5**: our own verifier compared an anchor's step *count* and
-never its *root*, so it accepted a history an operator had rewritten and re-signed. See
-[attack A9](impl/README.md#the-defect-this-experiment-found).
+Several requirements in this standard exist because building or reviewing the implementation
+found defects the prose missed — **C7.3.5** (an anchor's *root* must be compared, not only its
+step count) and the two found by the [round-3 cross-model
+review](docs/reviews/paper-review-round3-crossmodel.md): a binding check that failed open when
+unconfigured, and a capability that was never cross-bound to its evidence record. See attacks
+A9–A11.
 
 ### The evidence claim set, in machine-readable form
 
@@ -254,7 +256,7 @@ PoC uses `v<MAJOR>.<MINOR>` versioning; released folders are locked, mirroring [
 
 The case for the standard — informative, no requirements:
 
-[Introduction & design principles](docs/introduction.md) · [Why verification matters](docs/why-verification-matters.md) · [Standards landscape](docs/standards-landscape.md) · [Use cases](docs/use-cases.md) · [The Smart Leash one-pager](docs/one-pager.md) · [arXiv preprint draft](paper/README.md) · [Roadmap](docs/roadmap.md) · [Governance](docs/governance.md) · [Research basis](docs/research-basis.md) · [CISO review](docs/reviews/ciso-review-v0.1.4.md) · [Security peer review](docs/reviews/security-venue-review-paper-v0.1.md) · [Round 2](docs/reviews/security-venue-review-round2.md) · [Mapping review](docs/reviews/mapping-review-2026-08.md)
+[Introduction & design principles](docs/introduction.md) · [Why verification matters](docs/why-verification-matters.md) · [Standards landscape](docs/standards-landscape.md) · [Use cases](docs/use-cases.md) · [The Smart Leash one-pager](docs/one-pager.md) · [arXiv preprint draft](paper/README.md) · [Roadmap](docs/roadmap.md) · [Governance](docs/governance.md) · [Research basis](docs/research-basis.md) · [CISO review](docs/reviews/ciso-review-v0.1.4.md) · [Security peer review](docs/reviews/security-venue-review-paper-v0.1.md) · [Round 2](docs/reviews/security-venue-review-round2.md) · [Round 3 (cross-model)](docs/reviews/paper-review-round3-crossmodel.md) · [Mapping review](docs/reviews/mapping-review-2026-08.md)
 
 ## Contributing
 

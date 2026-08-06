@@ -283,11 +283,30 @@ class AttestingEnvironment:
         }
         token_bytes = canonical(token)
         token["signature"] = self._sign(token_bytes).hex()
+        token_bytes_signed = canonical(token)
 
         capability = None
         if verdict == "ALLOW":
             cap_body = {
+                # Cross-bind the capability to the evidence record it was
+                # issued with. Without this the two are separate signed objects
+                # that merely happen to agree on a snapshot digest, and nothing
+                # stops a valid capability being presented alongside a
+                # different allow record. Binding the step index and the digest
+                # of the signed token makes the pair non-substitutable and lets
+                # an auditor check that every executed action has exactly one
+                # corresponding record.
+                "evidence_digest": tag(sha256(token_bytes_signed)),
+                "step_index": self.step_index,
                 "snapshot_hash": tag(snap_digest),
+                # The relying party cannot recompute the snapshot digest: that
+                # commits to the path summary and step index, which are enclave
+                # state it never sees. So the capability also carries a digest
+                # of the ACTION alone, which the relying party can recompute
+                # from the request in its hands with no side channel. This is
+                # what makes check (iv) performable by an independent endpoint
+                # rather than only by one holding a callback into the enclave.
+                "action_digest": tag(sha256(action.canonical_form())),
                 "resource": action.resource,
                 "nonce": nonce,
                 "measurement": tag(self.measurement),
@@ -411,7 +430,8 @@ class RelyingParty:
             self.refused.append((action, "no capability"))
             return False, "no capability"
         body = {k: capability[k] for k in
-                ("snapshot_hash", "resource", "nonce", "measurement", "alg")}
+                ("evidence_digest", "step_index", "snapshot_hash",
+                 "action_digest", "resource", "nonce", "measurement", "alg")}
         try:
             self.pk.verify(bytes.fromhex(capability["signature"]), canonical(body))
         except InvalidSignature:
@@ -426,26 +446,52 @@ class RelyingParty:
         if body["nonce"] in self._used_nonces:
             self.refused.append((action, "nonce replay"))
             return False, "nonce replay"
-        # (iv) the executed request must match the committed snapshot
-        expected = untag(capability["snapshot_hash"])
-        # recompute the action's contribution to the snapshot digest
-        if not _action_matches_snapshot(action, expected, self._snap_probe):
-            self.refused.append((action, "action does not match evidenced snapshot"))
-            return False, "action does not match evidenced snapshot"
+        # (iv) the executed request must be the evidenced one. This is the
+        # check Theorem 1 rests on, so it fails CLOSED: an endpoint that cannot
+        # perform it refuses rather than proceeding.
+        ok, why = _executed_action_is_evidenced(
+            action, capability, self._snap_probe)
+        if not ok:
+            self.refused.append((action, why))
+            return False, why
         self._used_nonces.add(body["nonce"])
         self.executed.append(action)
         return True, "executed"
 
-    # the relying party is given the snapshot template so it can recompute the
-    # digest for the request it is actually being asked to perform
+    # Optional: a callback that recomputes the full snapshot digest. Only a
+    # relying party co-located with the enclave can have one. It is a
+    # strengthening, never a prerequisite -- see below.
     _snap_probe: Callable | None = None
 
 
-def _action_matches_snapshot(action: Action, snapshot_hash: str,
-                             probe: Callable | None) -> bool:
-    if probe is None:
-        return True          # configured without a probe: structural check only
-    return probe(action) == snapshot_hash
+def _executed_action_is_evidenced(action: Action, capability: dict,
+                                  probe: Callable | None) -> tuple[bool, str]:
+    """Does the request we are being asked to perform match the one the
+    enclave evaluated?
+
+    This must fail closed. An earlier version returned True when no snapshot
+    probe was configured, which silently disabled the check for every relying
+    party that did not wire one up -- and a probe requires a callback into the
+    enclave, so almost none could. Attack A1 then succeeded against an endpoint
+    that believed it was enforcing. A security check whose default is "accept
+    when unconfigured" is worse than no check, because it reports success.
+    """
+    if probe is not None:
+        # strongest form: recompute the whole evaluated snapshot
+        if probe(action) != untag(capability["snapshot_hash"]):
+            return False, "action does not match evidenced snapshot"
+        return True, "matches evidenced snapshot"
+
+    # Independent form: recompute the action digest, which needs nothing but
+    # the request itself and the canonicalization rules.
+    committed = capability.get("action_digest")
+    if committed is None:
+        return False, ("capability carries no action digest and no snapshot "
+                       "probe is configured: the executed action cannot be "
+                       "bound to the evidenced one (refusing, per C7.1.4)")
+    if untag(committed) != sha256(action.canonical_form()):
+        return False, "action does not match evidenced snapshot"
+    return True, "matches evidenced action digest"
 
 
 # ---------------------------------------------------------------- anchoring
@@ -580,6 +626,29 @@ class Verifier:
                            f"tree of size {tree_size}")
         return True, (f"record {c['step_index']} proved present in a "
                       f"{tree_size:,}-record log using {len(proof)} hashes")
+
+    def verify_capability_binding(self, capability: dict,
+                                  record: dict) -> tuple[bool, str]:
+        """Check that a capability was issued with THIS evidence record
+        (C7.1.4). A capability and an allow record that merely agree on a
+        snapshot digest are two independent signed objects; this establishes
+        they are the same event."""
+        try:
+            body = {k: capability[k] for k in
+                    ("evidence_digest", "step_index", "snapshot_hash",
+                     "action_digest", "resource", "nonce", "measurement", "alg")}
+            self.pk.verify(bytes.fromhex(capability["signature"]),
+                           canonical(body))
+        except (InvalidSignature, KeyError) as e:
+            return False, f"capability does not verify: {e}"
+        if capability["step_index"] != record["poc_claims"]["step_index"]:
+            return False, (f"capability names step {capability['step_index']}, "
+                           f"record is step {record['poc_claims']['step_index']}")
+        if untag(capability["evidence_digest"]) != sha256(canonical(record)):
+            return False, ("capability was not issued with this record: "
+                           "evidence digest does not match")
+        return True, (f"capability and record are the same event "
+                      f"(step {capability['step_index']})")
 
     def verify_append_only(self, old_size: int, old_root: str,
                            new_size: int, new_root: str,

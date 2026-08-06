@@ -70,5 +70,21 @@
     "without_requirement": "attack SUCCEEDS: replaying the rewritten history finds nothing wrong (verifier says: chain verified: 8 records) \u2014 every signature is valid and every link matches, because the operator recomputed them",
     "with_requirement": "detected: history rewritten: the chain presented at step 8 has head 058366468ce1, but accf0a8d3043 was anchored",
     "note": "found while building the Merkle experiment: the verifier compared the anchor's step count but never its root"
+  },
+  {
+    "id": "A10",
+    "attack": "Substitution past an unconfigured mediation check",
+    "requirement": "C7.1.4 the binding check fails closed",
+    "without_requirement": "attack SUCCEEDS: the endpoint sets enforce=True, verifies the signature, the measurement, the resource and the nonce - and still executes a different request, because the one check that binds the action defaulted to accept when unconfigured",
+    "with_requirement": "refused: action does not match evidenced snapshot",
+    "note": "found by reading the reference implementation for this review: a security check whose default is accept reports success while providing nothing"
+  },
+  {
+    "id": "A11",
+    "attack": "Capability paired with the wrong evidence record",
+    "requirement": "C7.1.4 capability cross-bound to its record",
+    "without_requirement": "attack SUCCEEDS: both objects verify on their own, so a ticket can be presented next to a record it was never issued with and the reconciliation still balances",
+    "with_requirement": "detected: capability names step 0, record is step 1",
+    "note": ""
   }
 ]
