@@ -40,6 +40,10 @@ not imply organizational endorsement.
 
 ## Status, and Where This Standard Lives
 
+**The repository:** [github.com/AAI-Society/ov-poc-standard](https://github.com/AAI-Society/ov-poc-standard)
+— the specification, the schema and test vectors, the audit checklist, the framework mappings, the
+reference implementation, and the preprint all live there.
+
 **The timeline, and when the standard moves:**
 
 * **Until October 30, 2026: public comment.** The document is open for comment. The working
