@@ -1793,8 +1793,10 @@ belongs to the code one believes it does.
 Anchoring the evidence log removes \emph{none} of these. It makes the
 \emph{history} publicly auditable, which is a real and separate property. The
 \emph{measurement} is still established by that chain of parties. Our tier
-definitions say that at Tier 3 there is nobody left to trust, and this list is
-the plain refutation of that sentence---which we take up in
+definitions said that at Tier 3 there is nobody left to trust, and this list is
+the plain refutation of that sentence. The standard has since been corrected
+against it---the Tier~3 column no longer claims the trusted party is removed---%
+and we take up what that changes, and what it does not, in
 \S\ref{sec:discussion}.
 
 \subsection{The question a chain cannot answer}
@@ -1933,18 +1935,31 @@ the hardware is not there. Enclave transition cost is unmeasured, and a real
 deployment will be slower than what we report. Running this on TDX or SEV-SNP
 and measuring again is the obvious next job.
 
-\paragraph{Our tier definitions overclaim, and we now have the receipts.} The
-standard says that at Tier 3 there is nobody left to trust. \S\ref{sec:tdx}
+\paragraph{Our tier definitions overclaimed, and we now have the receipts.} The
+standard said that at Tier 3 there is nobody left to trust. \S\ref{sec:tdx}
 lists five parties a verifier must still accept to believe a measurement from
 our own TDX deployment, and anchoring removes none of them. The sentence
 conflates two properties that a careful reader will separate for us: evidence
 can be \emph{publicly verifiable}---anyone may check it with published
 tools---without being \emph{trust-independent}, and hardware attestation buys
-the first while leaving a vendor chain intact underneath the second. The tiers
-should be defined by which assumptions remain at each level and stated
-explicitly in every conformance claim, and until they are, a Tier 3 claim says
-less than its own definition promises. We would rather print that here than let
-it be discovered.
+the first while leaving a vendor chain intact underneath the second.
+
+That sentence is now gone. The Tier~3 column says the evidence is produced by
+the mechanism and checkable by anyone with published tools, and that the parties
+which remain load-bearing are disclosed rather than removed; the word
+``trustless'' has been struck from the normative text, where it occurred once.
+What has \emph{not} been settled is the framing that replaces it---whether the
+Tier is demoted from the primary claim to a coarse summary, with what must be
+trusted carried by the trust-assumption disclosure instead, and whether the
+Tier-2/Tier-3 test is restated as who selects the trusted party and whether
+their dishonesty is publicly detectable. Those are working-group decisions and
+are marked as such.
+
+We note what the correction rests on, because it bounds it: five self-authored
+deployment descriptions and no real-world system. That is enough to refute a
+universal claim---one counterexample does it, and there are two disjoint
+ones---and it is not enough to install a new ordering or a new taxonomy in its
+place. We would rather print that here than let it be discovered.
 
 \textbf{(2)~We verify what happened, not whether it was wise.} No claim about
 correctness, fairness, or intent. An agent that does something harmful

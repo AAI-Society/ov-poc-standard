@@ -85,7 +85,7 @@
     "section_title": "Input and Data Lineage",
     "level": 2,
     "level_name": "Attested",
-    "requirement": "Verify that input records are hash-linked to the execution records of the actions they influenced, forming a custody chain a reviewer can walk from origin to action.",
+    "requirement": "Verify that input records are hash-linked to the execution records of the actions whose context they were present in at evaluation time, forming a custody chain a reviewer can walk from origin to action.",
     "source_file": "0.1/en/0x10-C01-Provenance.md",
     "status": "",
     "auditor_notes": ""
