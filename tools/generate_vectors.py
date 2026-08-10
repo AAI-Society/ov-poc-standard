@@ -31,6 +31,14 @@ from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from poc import Action, AttestingEnvironment, EvidenceStore, Gateway, Grant, PolicyEngine  # noqa: E402
 from validate import jcs, python_canonical, signing_input  # noqa: E402
 
+# Measured, not invented: MRTD of a GCP C3 Confidential VM, read out of
+# tests/fixtures/gcp-c3-tdx/quote.bin in the parallax repository at offset
+# 48 + 136 (quote header + TD report body offset), length 48.
+MRTD_GCP_C3 = (
+    "sha-384:c1ee9c16e3afc506cfe042c5b846a368528f3b37618eafb27469bc114cf914e9"
+    "222c91618470e7f2b28ac360968270a5"
+)
+
 OUT = ROOT / "schema" / "vectors"
 
 # A published test key. It signs nothing but test vectors; the whole point is
@@ -88,7 +96,18 @@ def main() -> int:
     hw = json.loads(json.dumps(allow))
     hw["submods"]["attestation"] = {
         "platform": "INTEL_TDX",
-        "measurement": allow["submods"]["attestation"]["measurement"],
+        # A real MRTD, captured from a GCP C3 Confidential VM (TDX) and
+        # extracted from the quote at the v4 TD-report offset. It is 48 bytes,
+        # because an MRTD is SHA-384.
+        #
+        # This line previously read
+        #     allow["submods"]["attestation"]["measurement"]
+        # which copied the SOFTWARE stand-in's SHA-256 digest into a vector
+        # labelled INTEL_TDX. The result was 32 bytes -- a value that cannot be
+        # an MRTD -- and it validated, because the schema's digest pattern did
+        # not tie the algorithm tag to the width. Both are fixed together;
+        # neither fix alone would have caught the other.
+        "measurement": MRTD_GCP_C3,
         "reference_values_uri": "https://advancedaisociety.org/poc/refvalues/ref-1",
     }
     hw = resign(hw, sk)
@@ -120,6 +139,15 @@ def main() -> int:
         t["poc_claims"]["chain_head"] = \
             t["poc_claims"]["chain_head"].split(":", 1)[1]
     broken(untag, "untagged-digest.json")
+
+    def alg_width_mismatch(t):
+        # The shape of the defect that put a 32-byte SOFTWARE digest into a
+        # vector labelled INTEL_TDX: a digest whose declared algorithm does not
+        # match its width. The earlier pattern accepted any tag with any length
+        # in 64-128 hex, so this validated. Nothing else in the suite covers it.
+        head = t["poc_claims"]["chain_head"].split(":", 1)[1]
+        t["poc_claims"]["chain_head"] = "sha-384:" + head   # 48-byte tag, 32-byte value
+    broken(alg_width_mismatch, "digest-alg-width-mismatch.json")
 
     def wrong_profile(t):
         t["eat_profile"] = "https://example.com/some-other-profile/v3"
@@ -226,6 +254,9 @@ def main() -> int:
              "why": "a verdict that cannot be re-derived is not evidence"},
             {"file": "negative/untagged-digest.json", "expect_code": "schema",
              "why": "the hash algorithm must never be guessed"},
+            {"file": "negative/digest-alg-width-mismatch.json",
+             "expect_code": "schema",
+             "why": "a digest cannot be what its tag says at that width"},
             {"file": "negative/wrong-profile.json", "expect_code": "schema",
              "why": "claims must not be interpreted under an unknown profile"},
             {"file": "negative/bad-interception-point.json",
