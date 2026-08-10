@@ -2,9 +2,28 @@
 
 ## Control Objective
 
-Grade every piece of evidence by how independently it can be verified — that is, how much you must trust to believe it — and draw the yes-or-no line that makes the category procurable. Verifiability is a four-tier scale, not a spectrum and not a maturity model. A system has Proof-of-Control when, and only when, its evidence reaches Tier 3 or Tier 4.
+Grade every piece of evidence by how independently it can be verified — that is, by who must be trusted to believe it and whether their dishonesty would ever become publicly visible — and draw the yes-or-no line that makes the category procurable. Verifiability is a four-tier scale, not a spectrum and not a maturity model. A system has Proof-of-Control when, and only when, its evidence reaches Tier 3 or Tier 4.
 
 > **[DRAFT] — actively in progress.** This chapter is being worked on with the working group.
+
+> **[WG-INPUT NEEDED] — the Tier is a summary, not a measure of remaining trust.**
+> P01's trust calculus establishes that **every mechanism this standard admits leaves a
+> residual trust set, at every Tier**, and that two deployments in different mechanism
+> families may have residual trust sets that cannot be ranked against each other at all.
+> The cells asserting that Tier 3 removes the trusted party have been corrected below,
+> because a universal claim with counterexamples is simply false. What has **not** been
+> decided is the framing that replaces it: whether the Tier is demoted from the primary
+> claim to a coarse summary, with what must be trusted carried by the trust-assumption
+> disclosure ([C10.2](0x10-C10-Conformance-and-Disclosure.md)) instead; and whether the
+> Tier-2/Tier-3 test is restated as **who selects the trusted party** and **whether their
+> dishonesty is publicly detectable**. Both belong with
+> [Appendix D](0x93-Appendix-D_Open-Issues.md) issue 6, question 1, and should be ratified
+> alongside the cryptography review rather than taken as an editorial fix.
+>
+> The evidence base is five self-authored deployment descriptions and no real-world
+> system. That is enough to refute a universal claim — one counterexample does it, and
+> there are two disjoint ones — and it is not enough to install a new ordering or a new
+> taxonomy.
 
 <p align="center">
   <picture>
@@ -15,19 +34,19 @@ Grade every piece of evidence by how independently it can be verified — that i
 
 ## The Four Tiers
 
-| **Assertion — Tier 1** | **Attestation — Tier 2** | **Independently verifiable — Tier 3** | **Self-enforcing — Tier 4** |
+| | **Assertion — Tier 1** | **Attestation — Tier 2** | **Independently verifiable — Tier 3** | **Self-enforcing — Tier 4** |
 | --- | --- | --- | --- | --- |
 | **Proof-of-Control?** | No | No | **Yes** | **Yes** |
-| **Who you must trust** | The operator | A third party, or the root-keeper | The cryptographic mechanism (mathematical or distributed assumptions) | The network protocol or continuous mathematical constraints |
+| **Who you must trust** | The operator | A third party, or the root-keeper | The mechanism's soundness, and the parties its soundness depends on — silicon vendor, provisioning and collateral service, reference-value publisher, setup ceremony, circuit or firmware toolchain, log operator, settlement layer — as enumerated in the disclosure | The network protocol or continuous mathematical constraints |
 | **How it is verified** | Not verified; asserted | An auditor checks, with privileged access | Anyone can verify, no privileged access | Execution is mechanically gated by cryptographic proofs; verification is continuous and automated |
-| **What makes it this tier** | Their word | A third party vouches | The trusted party is removed | Enforcement is built in; it cannot run if integrity breaks |
+| **What makes it this tier** | Their word | A third party vouches | The evidence is produced by the mechanism and checkable by anyone with published tools; the parties that remain load-bearing are disclosed, not removed | Enforcement is built in; it cannot run if integrity breaks |
 | **Cryptography** | None | Can be cryptographic but centralized | Requires decentralized or trust-minimized cryptographic architectures | Execution layer is bound by the cryptographic proof (e.g., verifiable computation) |
 
 The binary threshold falls between Tier 2 and Tier 3: below it, authenticated documentation (you still trust a party); above it, evidence produced by the mechanism itself. Below the line sit compliance frameworks, audit processes, contractual assurances, traditional security controls, and any cryptographic record whose integrity still depends on trusting a party — all valuable, none of them Proof-of-Control.
 
 | Authenticated documentation (Tiers 1–2, not Proof-of-Control) | Cryptographic evidence (Tiers 3–4, Proof-of-Control) |
 | --- | --- |
-| The system operator produces logs or records, then signs them. The signature proves the log hasn't been altered after creation; it does not prove the log accurately reflects what happened. Trust required: the operator produced the log honestly. | The cryptographic mechanism generates evidence as a byproduct of execution itself — a ZK proof, a TEE attestation report, a consensus timestamp, a verifiable computation proof. Trust required: the cryptographic mechanism is sound. |
+| The system operator produces logs or records, then signs them. The signature proves the log hasn't been altered after creation; it does not prove the log accurately reflects what happened. Trust required: the operator produced the log honestly. | The cryptographic mechanism generates evidence as a byproduct of execution itself — a ZK proof, a TEE attestation report, a consensus timestamp, a verifiable computation proof. Trust required: the mechanism is sound **and** the parties its soundness rests on behave as assumed — for a TEE report, the silicon vendor, its provisioning service, the quoting enclave, the host that measures firmware, and whoever publishes the reference values; for a ZK proof, the setup ceremony, the circuit compiler, whoever established that the constraints are complete, and the settlement layer the proof is checked on. These are enumerated per claim in the trust-assumption disclosure ([C10.2](0x10-C10-Conformance-and-Disclosure.md)). |
 
 ---
 
@@ -65,7 +84,7 @@ The rule that prevents conformance gaming: conformance judges mechanism-to-requi
 
 ## C8.3 Chain Integrity and Self-Enforcement (Tier 4)
 
-Tier 4 is where verification is continuous and built into operation: the system produces trustless evidence as it runs and cannot operate unless its integrity holds. A component may operate at a lower tier internally — a proprietary model or a piece of silicon can sit at Tier 1 or 2 on its own — as long as its *interactions* with other systems meet Proof-of-Control.
+Tier 4 is where verification is continuous and built into operation: the system produces evidence as it runs, checkable without privileged access and cannot operate unless its integrity holds. A component may operate at a lower tier internally — a proprietary model or a piece of silicon can sit at Tier 1 or 2 on its own — as long as its *interactions* with other systems meet Proof-of-Control.
 
 | # | Description | Level |
 | :--------: | ------------------------------------------------------------------------------------------------------------------- | :---: |

@@ -40,11 +40,11 @@ Where inputs came from, and the custody chain that links origin to the action re
 | # | Description | Level |
 | :--------: | ------------------------------------------------------------------------------------------------------------------- | :---: |
 | **1.2.1** | **Verify that** each input that steers agent behavior (prompts, retrieved documents, memory reads, tool outputs) is recorded at ingestion with a source identifier and timestamp. | 1 |
-| **1.2.2** | **Verify that** input records are hash-linked to the execution records of the actions they influenced, forming a custody chain a reviewer can walk from origin to action. | 2 |
+| **1.2.2** | **Verify that** input records are hash-linked to the execution records of the actions whose context they were present in at evaluation time, forming a custody chain a reviewer can walk from origin to action. | 2 |
 | **1.2.3** | **Verify that** each transformation applied to data feeding the agent (chunking, embedding, redaction, enrichment) appends an entry to a hash-linked, append-only log naming the process, its version, and digests of input and output. | 2 |
 | **1.2.4** | **Verify that** training-data lineage and licensing attestations for the model in use are obtainable by an external verifier, and that the conformance claim links to them. | 3 |
 
-**Auditor evidence:** 1.2.1 — ingestion log schema and samples. 1.2.2 — walk one custody chain end-to-end from a sampled action back to its inputs. 1.2.3 — pipeline log entries; recompute one input/output digest pair. 1.2.4 — follow the claim's lineage link as an outsider.
+**Auditor evidence:** 1.2.1 — ingestion log schema and samples. 1.2.2 — walk one custody chain end-to-end from a sampled action back to its inputs. **Presence, not influence:** a reviewer walking the chain establishes that an input was in the context, not that it steered the decision. 1.2.3 — pipeline log entries; recompute one input/output digest pair. 1.2.4 — follow the claim's lineage link as an outsider.
 
 ---
 
@@ -81,3 +81,13 @@ Where [Privacy](0x10-C02-Privacy.md) requires minimization, conformant provenanc
 * Catena-X AI Service KIT — AI Service Passports and identity-anchored cross-organizational model provenance, a live deployment pattern for this chapter ([research basis](../../docs/research-basis.md))
 * [MITRE ATLAS](https://atlas.mitre.org/) — training-time poisoning and supply-chain threats
 * Crosswalks: [MAESTRO L1/L2 controls](0x91-Appendix-B_Proof-Mechanism-Inventory.md), [OWASP](../../mappings/owasp.md), [MITRE ATLAS](../../mappings/mitre-atlas.md)
+
+> **Why 1.2.2 says "present in at evaluation time" rather than "influenced".** An
+> earlier draft required input records to be linked to the actions *they influenced*.
+> Influence is why-provenance: determining which retrieved chunk steered a decision is
+> an open research problem, and no production system computes it. The closest tractable
+> relation is *was present in the context*, an over-approximation that includes every
+> document the model ignored. Every implementer meeting the earlier wording was in fact
+> meeting this one and calling it the stronger name. A requirement at Level 2 — expected
+> of ordinary conformance — must be one an implementer can actually satisfy and an
+> auditor can actually check.

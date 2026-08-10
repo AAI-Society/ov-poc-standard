@@ -47,8 +47,8 @@
     },
     "digest": {
       "type": "string",
-      "pattern": "^(sha-256|sha-384|sha-512|sha3-256):[0-9a-f]{64,128}$",
-      "description": "Algorithm-tagged digest, e.g. 'sha-256:9f86d0...'. The tag is mandatory so that evidence produced before a hash migration remains interpretable after it (C6.3.4)."
+      "pattern": "^(sha-256:[0-9a-f]{64}|sha-384:[0-9a-f]{96}|sha-512:[0-9a-f]{128}|sha3-256:[0-9a-f]{64})$",
+      "description": "Algorithm-tagged digest, e.g. 'sha-256:9f86d0...'. The tag is mandatory so that evidence produced before a hash migration remains interpretable after it (C6.3.4). Each algorithm carries its own length: an earlier pattern accepted any tag with any length in 64-128 hex, so 'sha-384:' followed by a 32-byte digest validated. A digest whose declared algorithm does not match its width is not a stylistic error -- it is a value that cannot be what it says it is."
     },
 
     "pocClaims": {

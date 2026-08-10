@@ -25,6 +25,11 @@
     },
     {
       "expect_code": "schema",
+      "file": "negative/digest-alg-width-mismatch.json",
+      "why": "a digest cannot be what its tag says at that width"
+    },
+    {
+      "expect_code": "schema",
       "file": "negative/wrong-profile.json",
       "why": "claims must not be interpreted under an unknown profile"
     },
