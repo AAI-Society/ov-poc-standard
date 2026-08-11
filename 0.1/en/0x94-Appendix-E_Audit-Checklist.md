@@ -43,7 +43,7 @@ Tick items as you close them out; each chapter's *Auditor evidence* notes say wh
 ### C1.2 Input and Data Lineage
 
 - [ ] **1.2.1** `L1` — **Verify that** each input that steers agent behavior (prompts, retrieved documents, memory reads, tool outputs) is recorded at ingestion with a source identifier and timestamp.
-- [ ] **1.2.2** `L2` — **Verify that** input records are hash-linked to the execution records of the actions they influenced, forming a custody chain a reviewer can walk from origin to action.
+- [ ] **1.2.2** `L2` — **Verify that** input records are hash-linked to the execution records of the actions whose context they were present in at evaluation time, forming a custody chain a reviewer can walk from origin to action.
 - [ ] **1.2.3** `L2` — **Verify that** each transformation applied to data feeding the agent (chunking, embedding, redaction, enrichment) appends an entry to a hash-linked, append-only log naming the process, its version, and digests of input and output.
 - [ ] **1.2.4** `L3` — **Verify that** training-data lineage and licensing attestations for the model in use are obtainable by an external verifier, and that the conformance claim links to them.
 ### C1.3 Compute Substrate Provenance

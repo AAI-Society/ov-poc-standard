@@ -1301,13 +1301,16 @@ repository~\cite{pocspec}, at \url{https://github.com/AAI-Society/ov-poc-standar
 verification, the hashing and chaining, the canonical descriptions, the
 path-aware policy over a bounded summary, the tickets and the far-end checks,
 the anchoring, the gossip, and the fail-closed behavior when the evidence
-store goes away. Pretend: the hardware. We had no TDX or SEV-SNP machine, so
-the enclave is an in-process object whose key is never handed out and whose
-``measurement'' is a digest of the policy code. That reproduces the structure
-the theorems are about, but not hardware isolation. \textbf{So our timings
-leave out the cost of crossing into a real enclave, and the real number will
-be bigger.} We would rather report a lower bound we measured than a total we
-invented. Everything below: Apple M2 Max, Python 3.11, one core, 5{,}000
+store goes away. Pretend, \emph{in this section}: the hardware. The
+measurements below use an enclave that is an in-process object whose key is
+never handed out and whose ``measurement'' is a digest of the policy code. That
+reproduces the structure the theorems are about, but not hardware isolation.
+\textbf{So the timings below leave out the cost of crossing into a real
+enclave, and the real number is bigger.} We would rather report a lower bound we
+measured than a total we invented---and we have since measured the difference
+rather than leaving it as a caveat: \S\ref{sec:tdx} runs the same pipeline
+inside a real Intel TDX trust domain and puts the trust-domain overhead at
+6.2\%. Everything below: Apple M2 Max, Python 3.11, one core, 5{,}000
 iterations after 200 warm-ups.
 
 \subsection{The attacks}
@@ -1509,8 +1512,11 @@ the binding constraint is the declassification policy, not the size of the
 state we carry. That is a null result and we report it as one.
 
 \subsection{Reasons to doubt these numbers}
-The enclave is pretend, so a real deployment costs more than
-\SI{201}{\micro\second}. Everything runs in one process, so no network or IPC
+The enclave is pretend here, so a real deployment costs more than
+\SI{201}{\micro\second}---by 6.2\% for the trust domain itself, which
+\S\ref{sec:tdx} measures on real Intel TDX, plus \SI{39.5}{\milli\second}
+for each hardware quote, which is the cost that actually matters and is not in
+any number in this section. Everything runs in one process, so no network or IPC
 costs are included. The workflows are synthetic: the shape of the utility
 result is solid---label creep is real and declassification fixes it---but
 42.2\% is a property of our workload model and yours will differ. It is
@@ -1793,8 +1799,10 @@ belongs to the code one believes it does.
 Anchoring the evidence log removes \emph{none} of these. It makes the
 \emph{history} publicly auditable, which is a real and separate property. The
 \emph{measurement} is still established by that chain of parties. Our tier
-definitions say that at Tier 3 there is nobody left to trust, and this list is
-the plain refutation of that sentence---which we take up in
+definitions said that at Tier 3 there is nobody left to trust, and this list is
+the plain refutation of that sentence. The standard has since been corrected
+against it---the Tier~3 column no longer claims the trusted party is removed---%
+and we take up what that changes, and what it does not, in
 \S\ref{sec:discussion}.
 
 \subsection{The question a chain cannot answer}
@@ -1928,23 +1936,52 @@ Appendices~\ref{sec:sdo} and~\ref{sec:roadmapapp}. This section is for the
 things we have not settled.
 
 \subsection{The honest list}
-\textbf{(1)~The enclave is pretend.} The protocol is exercised for real, but
-the hardware is not there. Enclave transition cost is unmeasured, and a real
-deployment will be slower than what we report. Running this on TDX or SEV-SNP
-and measuring again is the obvious next job.
+\textbf{(1)~The enclave is no longer pretend, and the honest limit has moved.}
+An earlier draft of this list said the hardware was not there and that
+measuring on TDX or SEV-SNP was the obvious next job. It has since been done:
+\S\ref{sec:tdx} reports the pipeline running inside a real Intel TDX trust
+domain on Google Cloud, against an identical non-confidential instance as a
+control. Running inside the trust domain costs \SI{9.45}{\micro\second} a
+step, 6.2\%---the number we had refused to guess at, and small enough to be
+uninteresting. Producing a quote costs \SI{39.5}{\milli\second}, which is 2.6
+times the entire per-action budget and made per-action attestation not
+expensive but impossible; that is where requirement C7.2.3 came from, and we
+would not have thought to write it from the software model, where a measurement
+is free and staleness never arises.
 
-\paragraph{Our tier definitions overclaim, and we now have the receipts.} The
-standard says that at Tier 3 there is nobody left to trust. \S\ref{sec:tdx}
+What remains unmeasured is narrower and should not be read as settled. We did
+not compromise a hypervisor, and Google operates the one underneath this
+deployment, so what we show is that the construction works on hardware that
+claims to resist a hostile host---not that the resistance holds. The adversary
+of \S\ref{sec:security} owns the OS, and that adversary has not been run
+against this. SEV-SNP and ARM CCA are unmeasured entirely, and a second
+platform is the obvious next job now.
+
+\paragraph{Our tier definitions overclaimed, and we now have the receipts.} The
+standard said that at Tier 3 there is nobody left to trust. \S\ref{sec:tdx}
 lists five parties a verifier must still accept to believe a measurement from
 our own TDX deployment, and anchoring removes none of them. The sentence
 conflates two properties that a careful reader will separate for us: evidence
 can be \emph{publicly verifiable}---anyone may check it with published
 tools---without being \emph{trust-independent}, and hardware attestation buys
-the first while leaving a vendor chain intact underneath the second. The tiers
-should be defined by which assumptions remain at each level and stated
-explicitly in every conformance claim, and until they are, a Tier 3 claim says
-less than its own definition promises. We would rather print that here than let
-it be discovered.
+the first while leaving a vendor chain intact underneath the second.
+
+That sentence is now gone. The Tier~3 column says the evidence is produced by
+the mechanism and checkable by anyone with published tools, and that the parties
+which remain load-bearing are disclosed rather than removed; the word
+``trustless'' has been struck from the normative text, where it occurred once.
+What has \emph{not} been settled is the framing that replaces it---whether the
+Tier is demoted from the primary claim to a coarse summary, with what must be
+trusted carried by the trust-assumption disclosure instead, and whether the
+Tier-2/Tier-3 test is restated as who selects the trusted party and whether
+their dishonesty is publicly detectable. Those are working-group decisions and
+are marked as such.
+
+We note what the correction rests on, because it bounds it: five self-authored
+deployment descriptions and no real-world system. That is enough to refute a
+universal claim---one counterexample does it, and there are two disjoint
+ones---and it is not enough to install a new ordering or a new taxonomy in its
+place. We would rather print that here than let it be discovered.
 
 \textbf{(2)~We verify what happened, not whether it was wise.} No claim about
 correctness, fairness, or intent. An agent that does something harmful
@@ -2003,7 +2040,15 @@ your work unless you tell it where to forget.
 We also built it, which is how we learned that the cryptography costs
 \SI{201}{\micro\second} and is not the problem, that the policy design costs
 42\% of your legitimate work and is, and that making the whole thing survive
-quantum computers is a storage bill rather than a redesign. Building it is also
+quantum computers is a storage bill rather than a redesign. Then we ran it on
+real Intel TDX hardware, which settled the question the software model could
+not: running inside a trust domain costs 6.2\%, about ten microseconds a step,
+and is not where the expense lives. Producing one hardware quote costs
+\SI{39.5}{\milli\second}---2.6 times the entire budget for a single
+action---so attesting per action is not expensive but impossible, and every
+deployment will amortize one quote across many. That is an exposure window
+rather than an optimization, and naming it became a requirement we had no
+reason to write while the enclave was a stand-in. Building it is also
 how we found the bug in our own verifier, which no amount of rereading the
 specification had turned up: we compared a published step count where we should
 have compared a published root, and a rewritten history sailed straight through.
