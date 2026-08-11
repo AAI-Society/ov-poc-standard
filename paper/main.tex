@@ -91,15 +91,13 @@
 % Compact author block
 {\small\noindent
 \textbf{Jim Schwoebel}\textsuperscript{1,2} \quad
-\textbf{Ken Huang}\textsuperscript{2,3} \quad
-\textbf{Tricia Wang}\textsuperscript{2} \quad
-\textbf{Michael Casey}\textsuperscript{2}
+\textbf{Tricia Wang}\textsuperscript{2}
 
 \smallskip\noindent
 {\footnotesize
 \textsuperscript{1}\,Quome \quad
-\textsuperscript{2}\,Advanced AI Society, \url{https://advancedaisociety.org} \quad
-\textsuperscript{3}\,Cloud Security Alliance\footnote{Prepared within the
+\textsuperscript{2}\,Advanced AI Society,
+\url{https://advancedaisociety.org}\footnote{Prepared within the
 Proof-of-Control Initiative of the Advanced AI Society. Authorship is limited to
 contributors to this manuscript; the Initiative's working groups, board, and
 advisory board are credited in the Acknowledgments. Additional co-authors will be
@@ -1305,12 +1303,21 @@ store goes away. Pretend, \emph{in this section}: the hardware. The
 measurements below use an enclave that is an in-process object whose key is
 never handed out and whose ``measurement'' is a digest of the policy code. That
 reproduces the structure the theorems are about, but not hardware isolation.
-\textbf{So the timings below leave out the cost of crossing into a real
-enclave, and the real number is bigger.} We would rather report a lower bound we
-measured than a total we invented---and we have since measured the difference
-rather than leaving it as a caveat: \S\ref{sec:tdx} runs the same pipeline
-inside a real Intel TDX trust domain and puts the trust-domain overhead at
-6.2\%. Everything below: Apple M2 Max, Python 3.11, one core, 5{,}000
+
+We have since run this entire suite inside a real Intel TDX trust domain and on
+an identical non-confidential instance as a control, and the result corrects the
+caveat we used to attach here. We said the omitted enclave cost meant the real
+number would be \emph{bigger}. End to end it is \emph{smaller}:
+\SI{160.05}{\micro\second} on the trust domain against
+\SI{201.47}{\micro\second} below, because a Xeon Platinum 8481C signs Ed25519
+in \SI{36}{\micro\second} where the M2~Max takes \SI{84}{\micro\second}.
+The trust domain does cost extra---\textbf{5.1\%} against the control---but it
+is swamped by the platform difference, and the honest summary is that these
+numbers were conservative rather than optimistic. Every result below that is
+\emph{not} a timing---the false-rejection rate, the detection rates, the
+frontier and the Merkle figures---is bit-identical across laptop, control and
+trust domain, which establishes as measured something this section previously
+had to assume. Everything below: Apple M2 Max, Python 3.11, one core, 5{,}000
 iterations after 200 warm-ups.
 
 \subsection{The attacks}
@@ -1512,11 +1519,11 @@ the binding constraint is the declassification policy, not the size of the
 state we carry. That is a null result and we report it as one.
 
 \subsection{Reasons to doubt these numbers}
-The enclave is pretend here, so a real deployment costs more than
-\SI{201}{\micro\second}---by 6.2\% for the trust domain itself, which
-\S\ref{sec:tdx} measures on real Intel TDX, plus \SI{39.5}{\milli\second}
-for each hardware quote, which is the cost that actually matters and is not in
-any number in this section. Everything runs in one process, so no network or IPC
+The enclave is pretend here. A real deployment pays 5.1\% for the trust domain,
+measured, and \SI{39.5}{\milli\second} for each hardware quote, which is the
+cost that actually matters and is in no number in this section. It does
+\emph{not} pay more end to end: on server hardware the same pipeline runs at
+\SI{160}{\micro\second}. Everything runs in one process, so no network or IPC
 costs are included. The workflows are synthetic: the shape of the utility
 result is solid---label creep is real and declassification fixes it---but
 42.2\% is a property of our workload model and yours will differ. It is
@@ -1775,6 +1782,18 @@ becomes a requirement in the same form. C7.2.3 obliges a conformance claim to
 declare a maximum attestation refresh interval and to refresh within it or stop.
 We would not have thought to write that requirement from the software model,
 because in the software model a measurement is free and staleness never arises.
+
+\paragraph{Measured twice, by different means.} The figure above is the
+trust-domain overhead on one pipeline step. We have separately run the whole
+benchmark suite of \S\ref{sec:eval} on a second pair of instances, TDX on
+against TDX off, and it puts the end-to-end penalty at \textbf{5.1\%} where
+this experiment puts it at 6.2\%. Two measurements of different quantities, by
+different methods, on different machines, agreeing to about a percentage point.
+That is the strongest evidence we have for the claim the design leans on
+hardest---that running inside a trust domain is nearly free---and it is worth
+more than either number alone. The same run also establishes that every result
+in \S\ref{sec:eval} which is not a timing is bit-identical inside and outside
+the trust domain.
 
 \paragraph{What this still does not establish.} The reviewers of this paper
 asked for a real TEE, and this is one, but it answers a narrower question than
