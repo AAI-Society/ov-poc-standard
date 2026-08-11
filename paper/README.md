@@ -28,10 +28,11 @@ Output: `main.pdf` (a compiled copy is committed for convenience).
 
 ## Before Submission — Required Steps
 
-1. **Co-author consent.** The author list mirrors the Advanced AI Society leadership, board,
-   and advisory board as published at [advancedaisociety.org/about](https://advancedaisociety.org/about),
-   with Jim Schwoebel as first author. Every listed individual must review the draft and
-   consent to authorship; remove anyone who does not. The title-page footnote states this.
+1. **Co-author consent.** The author list is limited to those who have reviewed the manuscript
+   and consented to authorship: currently Jim Schwoebel (first author) and Tricia Wang. Others
+   from the Advanced AI Society leadership, board, and advisory board
+   ([advancedaisociety.org/about](https://advancedaisociety.org/about)) are added only after
+   they review the draft and consent. The title-page footnote states this.
 2. **Citation verification.** Entries in `references.bib` marked `[verify]` (Bandara et al.
    AI Trust OS, Chen et al. TraceSafe-Bench, Xie et al. SCR-Bench, Web 7.0 Verifiable Trust
    Circles, Catena-X AI Service KIT, MindXO KRI, and the arXiv:2603.16586 author list) carry
