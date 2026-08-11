@@ -266,7 +266,86 @@ The case for the standard — informative, no requirements:
 
 ## Contributing
 
-We welcome contributions — see [CONTRIBUTING.md](CONTRIBUTING.md). The open decisions that most need input are collected in [Appendix D](0.1/en/0x93-Appendix-D_Open-Issues.md); security concerns follow the [Security Policy](SECURITY.md).
+The repository is public and anyone may propose a change — you do not need to be a member or a
+working-group participant to open a pull request. What contribution looks like, and the change
+process behind it, is in [CONTRIBUTING.md](CONTRIBUTING.md). The open decisions that most need
+input are collected in [Appendix D](0.1/en/0x93-Appendix-D_Open-Issues.md). Weaknesses in the
+standard itself belong in a public issue — adversarial review of the binary threshold is
+explicitly welcome — but a finding whose disclosure would itself create risk goes privately to
+the working group instead ([Security Policy](SECURITY.md)).
+
+**Open an issue before a large pull request.** The standard moves by working-group consensus, so
+a substantive change — a new requirement, a retired one, a changed level or tier — is best
+started as an issue where it can be discussed before anyone writes it. Typos, broken links,
+clarified wording, and crosswalk rows can go straight to a pull request.
+
+### Propose a change with a fork and a pull request
+
+1. **Fork** this repository on GitHub, then clone your fork and add this repository as
+   `upstream` so you can keep it current:
+
+   ```bash
+   git clone https://github.com/<your-username>/ov-poc-standard.git
+   cd ov-poc-standard
+   git remote add upstream https://github.com/AAI-Society/ov-poc-standard.git
+   ```
+
+2. **Branch** off an up-to-date `master`. Name the branch for the change, not for yourself:
+
+   ```bash
+   git fetch upstream
+   git checkout -b c4-delegation-depth upstream/master
+   ```
+
+3. **Make the change.** Requirements language follows RFC 2119/8174, and the naming discipline
+   (Tier / Level / Stage / Layer / Phase) is normative — both are in
+   [CONTRIBUTING.md](CONTRIBUTING.md#editorial-conventions). Every requirement must name a
+   checkable artifact or testable behavior, and its section's *Auditor evidence* note must say
+   what to collect and what to test.
+
+4. **Regenerate what is generated.** The checklist, crosswalks, and diagrams are built from the
+   chapters so they cannot drift from the normative text. If you touched a requirement table or
+   a diagram, regenerate and commit the output alongside your change:
+
+   ```bash
+   python3 tools/generate_checklist.py     # Appendix E + checklist/ exports
+   python3 tools/generate_crosswalks.py    # mappings/ crosswalk tables
+   python3 tools/generate_diagrams.py      # images/diagrams/ SVGs
+   ```
+
+5. **Run the checks that cover what you touched.** There is no CI on pull requests yet, so run
+   them locally and say in the PR what you ran. Both need Python 3.11+ and their dependencies —
+   install those first, or `validate.py` will report every negative vector as failing for the
+   wrong reason rather than telling you a module is missing:
+
+   ```bash
+   pip install cryptography jsonschema
+   python3 schema/validate.py --vectors    # if you changed schema/ or the claim set
+   cd impl && python3 tests/test_core.py   # if you changed the reference implementation
+   ```
+
+   Expect `17 passed, 0 failed` and `22 passed, 0 failed`.
+
+6. **Commit and push to your fork**, then open a pull request against `master`:
+
+   ```bash
+   git commit -am "Bound delegation depth in C4.3"
+   git push -u origin c4-delegation-depth
+   ```
+
+   Explain in the description *what changes and why it is checkable* — for a normative change,
+   which requirement, which level, and what an auditor would collect. Link the issue if there is
+   one.
+
+7. **Review.** A maintainer responds on the pull request. Normative changes go to the relevant
+   domain working group for consensus and to the Distinguished Review Board for final sign-off
+   ([Governance](docs/governance.md)), so a specification change can sit longer than an
+   editorial one. Comments filed during the public-comment period (open until October 30, 2026)
+   get a published disposition: accepted, rejected with rationale, or deferred.
+
+By opening a pull request you agree your contribution is licensed under
+[CC BY 4.0](LICENSE.md), matching the specification. Contributors are credited, with their
+consent, in the [Acknowledgments](0.1/en/0x01-Frontispiece.md).
 
 **Membership is open to any organization — [sign up at advancedaisociety.org](https://advancedaisociety.org/).**
 

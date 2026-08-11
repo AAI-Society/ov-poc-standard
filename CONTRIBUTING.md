@@ -27,6 +27,9 @@ working-group consensus, and stewarded by the
 
 ## Change Process
 
+* The mechanics — fork, branch, regenerate, test, open the pull request — are stepped out in the
+  [README](README.md#propose-a-change-with-a-fork-and-a-pull-request). Anyone may open one; no
+  membership required.
 * The **normative core** (the requirement chapters C1–C10 in [`0.1/en/`](0.1/en/)) is the versioned specification
   under change control. Formal change proposals (issues and pull requests) are made against it.
 * **Informative material** (the companion documents in [`docs/`](docs/)) rides alongside as
