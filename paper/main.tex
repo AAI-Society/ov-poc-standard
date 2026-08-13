@@ -733,6 +733,21 @@ is wrong in any documentation---an operator can show each of them the answer it
 wants and neither can tell. That is not a parsing preference. That is one
 artifact with two meanings, which is the whole ballgame.
 
+While this section was in draft, the experiment it argues for was run by a
+stranger. An independent engineer implemented a verifier for the KYA-OS
+delegation credential from the specification text alone, with no shared code
+and no say by the specification's authors in who the implementer would be,
+and checked it against credentials issued by the reference implementation:
+valid credentials verify, tampered ones fail, and the JCS (RFC 8785)
+canonicalization and Ed25519 signature handling agree byte-for-byte across
+the two implementations~\cite{izurutoys2026}. The same exercise surfaced
+conformance gaps in the reference implementation, two of which were fixed and
+shipped within days; that is the review loop working, not the absence of
+defects. It is one implementation and one credential format, a data point
+rather than a study; we record it because independent reconstruction from a
+specification is the strongest test a canonical form gets, and it is the only
+instance of its kind we have. Our own vectors have not yet had it.
+
 The reference implementation's own output is run through the validator in its
 test suite, so the schema and the code cannot drift apart without something
 going red. And because the CDDL is a real definition rather than an aspiration,
