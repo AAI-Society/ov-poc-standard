@@ -1229,7 +1229,7 @@
     "section_title": "Tier Placement",
     "level": 1,
     "level_name": "Recorded",
-    "requirement": "Verify that claims whose evidence is checkable only after the fact \u2014 transparency logs with independent monitors, on-demand proofs the system can run without producing \u2014 are registered at Tier 3, and Tier 4 is registered only where verification gates operation.",
+    "requirement": "Verify that claims whose evidence is verifiable only after the fact \u2014 transparency logs with independent monitors, on-demand proofs the system can run without producing \u2014 are registered at Tier 3, and Tier 4 is registered only where verification gates operation.",
     "source_file": "0.1/en/0x10-C08-Verifiability-Tiers.md",
     "status": "",
     "auditor_notes": ""
