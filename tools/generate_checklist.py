@@ -23,7 +23,7 @@ OUT_DIR = ROOT / "checklist"
 LEVEL_META = {
     "1": ("", "Recorded"),
     "2": ("", "Attested"),
-    "3": ("", "Independently Verifiable"),
+    "3": ("", "Trust-minimized"),
     "4": ("", "Self-Enforcing / Continuous"),
 }
 

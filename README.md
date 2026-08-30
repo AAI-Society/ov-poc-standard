@@ -50,7 +50,7 @@ Evidence is graded by **who you must trust to believe it**. Cryptography alone d
 | Tier | Name | Who you must trust | Proof-of-Control? |
 | :---: | --- | --- | :---: |
 | 4 | Self-Enforcing | The protocol / continuous mathematical constraints | **Yes** |
-| 3 | Independently Verifiable | The cryptographic mechanism | **Yes** |
+| 3 | Trust-minimized | The cryptographic mechanism | **Yes** |
 | 2 | Attestation | A third party, or the root-keeper | No |
 | 1 | Assertion | The operator | No |
 
@@ -158,7 +158,7 @@ Each requirement carries a level (1–4), **aligned one-to-one with the Verifiab
 | :---: | --- | :---: | --- |
 | **1** | Recorded | Tier 1 | The control operates and its evidence is captured in queryable records — the on-ramp |
 | **2** | Attested | Tier 2 | Evidence is signed, hash-chained, or attested; an assessor can confirm it unaltered |
-| **3** | Independently Verifiable | Tier 3 | Mechanism-generated evidence, checkable by outsiders with published tooling — **the binary threshold; minimum for a Proof-of-Control claim** |
+| **3** | Trust-minimized | Tier 3 | Mechanism-generated evidence, verifiable by outsiders with published tooling — **the binary threshold; minimum for a Proof-of-Control claim** |
 | **4** | Self-Enforcing / Continuous | Tier 4 | Verification gates operation: full coverage, fail-closed, Continuously Monitored |
 
 ## How a Claim Gets Checked

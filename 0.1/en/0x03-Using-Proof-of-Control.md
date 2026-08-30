@@ -15,7 +15,7 @@ Each requirement in chapters C1–C10 is assigned a level from 1 to 4, **aligned
 | :---: | --- | --- | --- |
 | **1** | Recorded | Tier 1 · Assertion | The control operates and its evidence is captured contemporaneously in queryable records. The on-ramp: internal assurance only. |
 | **2** | Attested | Tier 2 · Attestation | Evidence is cryptographically signed, hash-chained, or attested, so an assessor with access can confirm it has not been altered. |
-| **3** | Independently Verifiable | Tier 3 · **the binary threshold** | Evidence is mechanism-generated and checkable by any external party with published tooling and no privileged access. **Meeting all Level 1–3 requirements in the claimed domains is the minimum for a Proof-of-Control claim.** |
+| **3** | Trust-minimized | Tier 3 · **the binary threshold** | Evidence is mechanism-generated and verifiable by any external party with published tooling and no privileged access. **Meeting all Level 1–3 requirements in the claimed domains is the minimum for a Proof-of-Control claim.** |
 | **4** | Self-Enforcing / Continuous | Tier 4 · Self-Enforcing | Verification gates operation: every in-scope action is validated as it occurs, and the system fails closed when evidence cannot be produced. Corresponds to Continuously Monitored operation. |
 
 Organizations should select a target level based on the risk profile of the agent system. Levels 1–2 are a deliberate maturity on-ramp — valuable internal assurance, but **not yet Proof-of-Control**. The strongest verification is usually the most expensive; the graded path exists so adopters climb deliberately rather than having one level prescribed for everyone.

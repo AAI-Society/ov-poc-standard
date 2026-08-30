@@ -9,7 +9,7 @@
 
 ## The Relationship
 
-SOC 2 attests that an organization's controls exist and were tested by an auditor; it is institutional assurance about the organization. Proof-of-Control is independently verifiable evidence of what the *system* actually did.
+SOC 2 attests that an organization's controls exist and were tested by an auditor; it is institutional assurance about the organization. Proof-of-Control is openly verifiable evidence of what the *system* actually did.
 
 | | SOC 2 | Proof-of-Control |
 | --- | --- | --- |
