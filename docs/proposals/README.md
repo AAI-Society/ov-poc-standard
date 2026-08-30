@@ -4,7 +4,10 @@ The [research roadmap](https://github.com/AAI-Society/poc-research-roadmap) exis
 answer questions this standard currently settles by assertion, by convention, or not at
 all. Three of its papers are done — P01 trust calculus, P02 effect binding, P05
 unlinkable identity — each with a shipped tool, and a fourth stream of findings came out
-of building compliance tooling against the standard itself.
+of building compliance tooling against the standard itself. A fifth entry,
+[`determinism-boundary.md`](determinism-boundary.md), comes from migrating the working
+paper into the repository rather than from the research programme, which is why it
+carries no P-number: the P-series stays reserved for the roadmap's papers.
 
 This directory holds what that work says the standard should change. It is **proposals**,
 not adopted text.
@@ -15,6 +18,7 @@ not adopted text.
 | [`P02-effect-binding.md`](P02-effect-binding.md) | P02 · `transit` | 10 | 11 |
 | [`P05-unlinkable-identity.md`](P05-unlinkable-identity.md) | P05 · `occultation` | 13 | 20 |
 | [`tooling-findings.md`](tooling-findings.md) | building `poc-audit`, `ephemeris`, `spectrum` | 8 defects | — |
+| [`determinism-boundary.md`](determinism-boundary.md) | Working Draft v0.1.4, Section 4 | 3 | 3 |
 
 ## What has already been applied, and what has not
 
