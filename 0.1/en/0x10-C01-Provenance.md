@@ -6,7 +6,7 @@ Produce verifiable evidence of origin and lineage: where inputs came from, which
 
 *Verifiable facts: which model ran, and its lineage, artifact and supply-chain origin.*
 
-Provenance is distinct from the other five domains: [Identity](0x10-C05-Identity.md) covers who the actor was, and [Authorization](0x10-C04-Authorization.md) covers whether the system acted within the permissions it was granted; no single domain answers "who did what, provably" on its own.
+Provenance is the domain the others rest on: what came in determines what any later verification is worth. It is distinct from the other five: [Identity](0x10-C05-Identity.md) covers who the actor was, and [Authorization](0x10-C04-Authorization.md) covers whether the system acted within the permissions it was granted; no single domain answers who did what on its own. Identity, Authorization and Provenance together are what make an action attributable.
 
 <p align="center">
   <picture>

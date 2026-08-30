@@ -45,7 +45,7 @@ All data pipelines that shape Agentic AI behavior: ingestion, preprocessing, emb
 
 ## Layer 3 — Agent Framework Security
 
-The agent loop and orchestration logic: planning, tool selection, multi-step workflows, memory management, and multi-agent coordination. The primary risks are goal subversion and unsafe action sequences reached through individually permitted steps.
+The agent loop and orchestration logic: planning, tool selection, multi-step workflows, memory management, and multi-agent coordination. This is where agentic AI translates capability into action. The primary risks are goal subversion, where the agent is manipulated into pursuing unintended objectives, and unsafe action sequences, where the agent reaches a harmful state through individually permitted steps.
 
 | Control | Proof mechanism(s) | Feasibility | Verification requirement |
 | --- | --- | --- | --- |
@@ -56,7 +56,7 @@ The agent loop and orchestration logic: planning, tool selection, multi-step wor
 
 ## Layer 4 — Deployment and Infrastructure Security
 
-The runtime stack where Agentic AI systems execute: APIs, containers, orchestration platforms, networks, secrets management, and hardware including GPUs, CPUs, and TEEs. Infrastructure integrity is the prerequisite for all higher-layer controls.
+The runtime stack where Agentic AI systems execute: APIs, containers, orchestration platforms, networks, secrets management, and hardware including GPUs, CPUs, and TEEs. Infrastructure integrity is the prerequisite for every higher-layer control: any control that depends on software behaving correctly can be undermined if the infrastructure itself is compromised.
 
 | Control | Proof mechanism(s) | Feasibility | Verification requirement |
 | --- | --- | --- | --- |
@@ -68,7 +68,7 @@ The runtime stack where Agentic AI systems execute: APIs, containers, orchestrat
 
 ## Layer 5 — Evaluation and Observability
 
-Monitoring, logging, evaluation, and forensics. These controls are foundational to every other layer: without tamper-evident records of system behavior, no post-hoc proof is possible. The primary risk is log manipulation.
+Monitoring, logging, evaluation, and forensics. This layer's controls are foundational to every other layer, because without tamper-evident records of system behavior no after-the-fact verification is possible. The primary risk is log manipulation: an attacker who can modify logs can erase the evidence of any other control failure.
 
 | Control | Proof mechanism(s) | Feasibility | Verification requirement |
 | --- | --- | --- | --- |
@@ -79,7 +79,7 @@ Monitoring, logging, evaluation, and forensics. These controls are foundational 
 
 ## Layer 6 — Security, Governance, and Compliance
 
-The cross-cutting policies, access-control models, change-management processes, and regulatory-compliance mechanisms that govern how Agentic AI systems are authorized, modified, and audited. A governance policy that cannot be cryptographically traced to its enforcement points provides only documentary assurance.
+The cross-cutting policies, access-control models, change-management processes, and regulatory-compliance mechanisms that govern how Agentic AI systems are authorized, modified, and audited. Controls here must be demonstrably enforced at every lower layer. A governance policy that cannot be cryptographically traced to its enforcement points provides only documentary assurance.
 
 | Control | Proof mechanism(s) | Feasibility | Verification requirement |
 | --- | --- | --- | --- |

@@ -17,6 +17,12 @@ things. This is the whole vocabulary:
 | **Phase** | The rollout: how an organization deploys the infrastructure over time (1 to 3) | This section, Part B |
 | **Layer** | The surface: where in the agent stack a control sits (1 to 7) | System surface, [Section 5](../0.1/en/0x10-C09-System-Surface-MAESTRO.md) (MAESTRO) |
 
+## The End State
+
+The goal is adoption as an international standard through ISO, most likely ISO/IEC JTC 1/SC 42, so that Proof-of-Control becomes the globally recognized basis for verifiable agent control.
+
+That is a multi-year path and it is the destination the working-group process is built for. This standard is developed the way ISO, NIST, IETF and W3C develop standards because that is the route to it.
+
 ## Part A — For Anyone Tracking the Standard
 
 This standard is developed the way ISO, NIST, IETF, and W3C develop standards: an open working
