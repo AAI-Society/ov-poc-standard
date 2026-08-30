@@ -386,7 +386,7 @@ Normative chapters C1 to C10 are under version control in the repository. Open w
 
 * **Open licence (CC BY 4.0).** The specification, schemas, and reference code are public goods. Anyone can implement, translate, or build commercial products on Proof-of-Control without paying tolls or royalties.
 * **Protected mark.** The Proof-of-Control certification mark is a protected trademark, so that only assessed systems can claim conformance and vendors cannot self-certify.
-* **Governance.** Convened by the Advanced AI Society, a 501(c)(6), and co-chaired by Ken Huang and Tricia Wang. On completion, ownership of the standard and the mark transfers to the Verifiable AI Foundation, a 501(c)(3), to be held as an uncaptured public good.
+* **Governance.** Convened by the Advanced AI Society and co-chaired by Ken Huang and Tricia Wang. On completion, ownership of the standard and the mark transfers to the Verifiable AI Foundation, to be held as an uncaptured public good.
 
 **More:** [Governance](governance.md) · [Contributing](../CONTRIBUTING.md) · [License](../LICENSE.md)
 

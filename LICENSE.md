@@ -32,6 +32,6 @@ specification; it does not grant rights to the certification mark.
 ## Stewardship
 
 The specification is stewarded by the [Advanced AI Society](https://advancedaisociety.org/)
-during development. On completion, ownership transfers to the Verifiable AI Foundation, the
-Society's affiliated 501(c)(3), where it is held as a public good: neutral, freely available,
+during development. On completion, ownership transfers to the Verifiable AI Foundation,
+where it is held as a public good: neutral, freely available,
 and protected from commercial capture.
