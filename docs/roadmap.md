@@ -27,7 +27,7 @@ opens.
 | Milestone | Target |
 | --- | --- |
 | Working Draft 1.0 opens for public comment | August 1, 2026 |
-| Public comment window (60 days) | August 1 – September 30, 2026 |
+| Public comment window | August 1 – October 30, 2026 |
 | Revised draft, all public comment and [WG-INPUT NEEDED] items resolved | November 15, 2026 |
 | Working-group ratification and final review | December 2026 – January 2027 |
 | **Stable Version 1.0 published** | **February 1, 2027** |
