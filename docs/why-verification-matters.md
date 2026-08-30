@@ -33,6 +33,30 @@ was no transparency that it stayed within its controls and no clarity about how 
 were set in the first place. Verifying the outcome is not the same as verifying the actions. We
 need to verify the steps an agent took, not just the result it reached.
 
+## Offense Has Already Won the Verification Race
+
+This is not a distant risk. On the attack side it has already happened. AI systems now find vulnerabilities, write exploits, and launch attacks faster than any human defender can respond. Time from a flaw's disclosure to its exploitation has collapsed from about two months in 2018 to negative today, exploited before it is even disclosed, and nearly one in three exploited vulnerabilities are weaponized within a day.
+
+Three of the most respected voices in security, Bruce Schneier, Google's Heather Adkins, and Gadi Evron, independently warned that attackers have entered their AI singularity while the defenders' has not begun.
+
+### The Verifier's Law
+
+The reason is an asymmetry of verification, what Sergej Epp calls the Verifier's Law. AI improves fastest where verifying an answer is cheap, and offense has the cheapest verifier in security: a binary, instant signal of whether an exploit worked. Defense runs on slow, ambiguous, human judgment, so as long as verification stays human, defense cannot keep pace.
+
+Closing that gap means making defensive verification mechanical: cheap, binary, and verifiable without trusting anyone. For autonomous agents, that is what Proof-of-Control provides, at the Tiers where a machine rather than a person does the verifying.
+
+### Open Beats Independent
+
+Three forces make retrospective, human-in-the-loop assurance untenable for agents operating at machine speed.
+
+| Force | The problem | What it demands |
+| --- | --- | --- |
+| **Velocity** | Mean time to exploit has fallen to negative values, because automated tools weaponize zero-days before public disclosure | Verification inline, at machine speed. A retrospective Tier 2 audit is too slow |
+| **The Verifier's Law** | Executing actions is cheap; auditing non-deterministic AI trajectories is expensive | Verification that is cheap, binary and mechanical |
+| **Open against independent** | *Independent* still means trusting a third-party auditor, which is Tier 2 | *Open*: no party to trust. Anyone verifies the evidence directly, without access to raw enterprise data |
+
+The third of these is the distinction the whole standard rests on, and it is the one most often collapsed. An independent auditor is a party. Open verification has none.
+
 ## The Verifiability Gap
 
 AI is moving from systems that answer to agents that increasingly act with intent on our behalf,
@@ -97,6 +121,16 @@ This is why the answer cannot be more human review. Evidence that is independent
 machine-checkable, produced by the system as it runs, is the only way to verify at the scale and
 speed agents operate. That is what Proof-of-Control produces, and it is why the problem this
 standard addresses gets larger, not smaller, over time.
+
+## What a Machine-to-Machine World Needs
+
+The rules we built for the earlier world assumed a person was always in the interaction. An audit like SOC 2 attests that an organization, run by people, did what it said. It is a yearly attestation about a past window: you earn it, it stands for about a year, and you renew it, performed by people, about an organization.
+
+That is enough when a human is in the loop and change is slow. It is not enough for an autonomous agent whose actions are decided in the moment and differ from one run to the next, because a once-a-year look back cannot see what an agent did a thousand times last week.
+
+A machine-to-machine world needs verification that does not depend on trusting anyone: the ability to confirm, and to show anyone, that an agent stayed inside the rules it was given, without having to take the operator's word, the vendor's word, or any single auditor's word for it.
+
+That is why the verification has to be open. In a world of machines verifying machines, trust that rests on any one party does not hold.
 
 ## The Verifiability Gap Is a Business and Society-Wide Problem to Solve
 
