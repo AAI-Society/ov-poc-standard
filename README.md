@@ -179,8 +179,8 @@ The standard is led by co-chairs **Ken Huang** and **Tricia Wang**, produced by 
 ### What Proof-of-Control is NOT
 
 * **Not validation.** PoC shows an agent stayed inside the control boundaries that were set; whether those boundaries — or the outputs — were *right* stays a human judgment ([C7.5](0.1/en/0x10-C07-Evidence-Generation-and-Properties.md)).
-* **Not a governance or risk framework.** [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework), [ISO/IEC 42001](https://www.iso.org/standard/42001), and the EU AI Act govern; PoC produces the evidence that makes their requirements checkable.
-* **Not a runtime enforcement layer.** Enforcement (what an agent *may* do) is CSA AARM's half; PoC is the evidence half (what it *did*, checkable by others).
+* **Not a governance or risk framework.** [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework), [ISO/IEC 42001](https://www.iso.org/standard/42001), and the EU AI Act govern; PoC produces the evidence that makes their requirements verifiable.
+* **Not a runtime enforcement layer.** Enforcement (what an agent *may* do) is CSA AARM's half; PoC is the evidence half (what it *did*, verifiable by others).
 * **Not tied to any technology or vendor.** The standard defines what the evidence must be, not which mechanism produces it.
 
 ## Regulatory Coverage
@@ -300,7 +300,7 @@ clarified wording, and crosswalk rows can go straight to a pull request.
 3. **Make the change.** Requirements language follows RFC 2119/8174, and the naming discipline
    (Tier / Level / Stage / Layer / Phase) is normative — both are in
    [CONTRIBUTING.md](CONTRIBUTING.md#editorial-conventions). Every requirement must name a
-   checkable artifact or testable behavior, and its section's *Auditor evidence* note must say
+   verifiable artifact or testable behavior, and its section's *Auditor evidence* note must say
    what to collect and what to test.
 
 4. **Regenerate what is generated.** The checklist, crosswalks, and diagrams are built from the
@@ -333,7 +333,7 @@ clarified wording, and crosswalk rows can go straight to a pull request.
    git push -u origin c4-delegation-depth
    ```
 
-   Explain in the description *what changes and why it is checkable* — for a normative change,
+   Explain in the description *what changes and why it is verifiable* — for a normative change,
    which requirement, which level, and what an auditor would collect. Link the issue if there is
    one.
 

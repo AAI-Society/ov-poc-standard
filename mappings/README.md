@@ -131,7 +131,7 @@ already addresses — not the reverse, and not framework quality. Two patterns m
 | CSA AI Controls Matrix (AICM) | Control catalog | Crosswalk maintained separately by WG decision | [csa-aicm.md](csa-aicm.md) |
 | OWASP (Agentic Top 10, LLM Top 10, AIVSS, AISVS) | Threat catalogs & verification standard | Threat source for the PoC threat model; Security-domain alignment target | [owasp.md](owasp.md) |
 | MITRE ATLAS | Adversarial threat catalog | Threat source for the PoC threat model | [mitre-atlas.md](mitre-atlas.md) |
-| NIST AI RMF (& AI 100-2) | Risk-governance framework | PoC produces the evidence that makes its requirements checkable | [nist-ai-rmf.md](nist-ai-rmf.md) |
+| NIST AI RMF (& AI 100-2) | Risk-governance framework | PoC produces the evidence that makes its requirements verifiable | [nist-ai-rmf.md](nist-ai-rmf.md) |
 | ISO/IEC 42001 | AI management system standard | Complementary; supplies the V&V vocabulary PoC uses | [iso-iec-42001.md](iso-iec-42001.md) |
 | SOC 2 | Organizational attestation | PoC is SOC-2-grade in role, with a cryptographic stage SOC 2 never had | [soc-2.md](soc-2.md) |
 | EU AI Act | Regulation | PoC evidence lets the Act be enforced against evidence, not filings | [eu-ai-act.md](eu-ai-act.md) |

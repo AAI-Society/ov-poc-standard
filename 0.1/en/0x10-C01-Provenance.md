@@ -27,7 +27,7 @@ Each action must bind to a specific model state rather than a product label alon
 | **1.1.2** | **Verify that** at model load time the digest of the deployed weights is compared against a signed model manifest, and that each comparison result (pass or fail) is written to the execution record. | 2 |
 | **1.1.3** | **Verify that** the signature chain over model artifacts — base weights, fine-tuning steps, serving config — validates end-to-end using signing keys enrolled in a maintained list of authorized providers, and that chain-validation failures block deployment. | 2 |
 | **1.1.4** | **Verify that** the artifact-admission control rejects models, tools, and plugins that lack a valid attestation, and that each rejection event is recorded with the artifact identifier and reason. | 2 |
-| **1.1.5** | **Verify that** model supply-chain provenance is published in a standard, externally checkable attestation format (e.g., SLSA provenance / in-toto), so a party outside the organization can validate the build chain without operator assistance. | 3 |
+| **1.1.5** | **Verify that** model supply-chain provenance is published in a standard, externally verifiable attestation format (e.g., SLSA provenance / in-toto), so a party outside the organization can validate the build chain without operator assistance. | 3 |
 
 **Auditor evidence:** 1.1.1 — sample execution records; confirm digest field present and resolvable to a manifest. 1.1.2 — load-time verification logs, including at least one recorded failure path (test it). 1.1.3 — signing-key inventory, chain-validation CI output, a blocked-deployment record. 1.1.4 — admission-control config plus rejection log entries. 1.1.5 — retrieve and independently validate one published provenance attestation.
 

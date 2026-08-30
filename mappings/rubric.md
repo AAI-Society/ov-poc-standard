@@ -40,7 +40,7 @@ granularity, or its evidence remains operator-produced (Tier 1–2 in PoC terms)
 
 **Example 1:** PoC C7.2.1 (evidence written within the executing transaction) → EU AI Act
 Article 12 (automatic recording of events). The Act requires contemporaneous logging; it does
-not require the record to be mechanism-generated or checkable without trusting the operator.
+not require the record to be mechanism-generated or verifiable without trusting the operator.
 
 **Example 2:** PoC C4.1.2 (every action evaluated against granted permissions, decision
 evidenced) → NIST SP 800-207 per-request access evaluation. Zero Trust requires the evaluation;

@@ -118,7 +118,7 @@ independent way to see, and the security function, the people who can establish 
 happened, moves from a supporting role to the center of how the firm is run.
 
 This is why the answer cannot be more human review. Evidence that is independent and
-machine-checkable, produced by the system as it runs, is the only way to verify at the scale and
+machine-verifiable, produced by the system as it runs, is the only way to verify at the scale and
 speed agents operate. That is what Proof-of-Control produces, and it is why the problem this
 standard addresses gets larger, not smaller, over time.
 
@@ -189,7 +189,7 @@ influenced. The gap this leaves is not a policy gap; it is evidentiary: there is
 way to confirm that the controls held during execution. That is why boards, regulators, and
 insurers increasingly treat it as a material governance risk. The shift Proof-of-Control makes is
 from rights that require a breach to become actionable, to evidence that exists whether or not a
-dispute ever arises, checkable by a party that need not trust the operator, only the mathematics.
+dispute ever arises, verifiable by a party that need not trust the operator, only the mathematics.
 
 ## The Agent Risk-to-Value Bind
 
@@ -275,7 +275,7 @@ The field has started to see this. Runtime security for agents is now its own ca
 Vanta), Microsoft's agent governance work, and others gate what an agent is allowed to do at the
 action boundary. That is the enforcement half, and it is necessary. But enforcement still leaves
 an audit trail the operator runs, which is the operator's word again. The other half is evidence:
-independent of the operator, tamper-evident, and checkable by anyone who has to rely on it.
+independent of the operator, tamper-evident, and verifiable by anyone who has to rely on it.
 Enforcement decides what an agent may do; verification shows what it actually did. Prevention can
 fail silently; detection cannot. That second half is what adoption has outrun.
 
@@ -368,7 +368,7 @@ agent did, and that is the piece no one has standardized.
 One further approach is easy to confuse with verification: mechanistic interpretability, which
 decodes what happens inside a model to explain why it produced an output. It is valuable for
 safety and alignment, but it is model-internal and researcher-driven, and it does not produce
-tamper-evident evidence, checkable by an outside party, of what the system did in a specific
+tamper-evident evidence, verifiable by an outside party, of what the system did in a specific
 deployment. Like formal verification, it sits outside what this standard verifies.
 
 ## The Technology Exists; the Market Does Not

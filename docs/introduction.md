@@ -28,7 +28,7 @@ inspect, use, modify, and share the software, with no license fee and no vendor 
 Open verification carries the same open-source principles into a new layer: the verification of
 what AI and other autonomous systems actually did. The standard and the method of verification
 are openly published, so anyone can read and implement them instead of depending on a proprietary
-black box. And the evidence is independently checkable: any party who needs to verify what a
+black box. And the evidence is openly verifiable: any party who needs to verify what a
 system did can do so with the public method, without privileged access and without trusting the
 operator. What open verification removes is the need to trust a single gatekeeper.
 
@@ -53,7 +53,7 @@ is interoperable with existing infrastructure: these methods are built to layer 
 closed and centralized systems already in place, so open verification is added to what an
 organization runs, not swapped in for it. And it is also interoperable with existing standards:
 the field is crowded with AI frameworks and standards, and open verification is designed to
-produce the evidence that makes their requirements checkable, rather than to compete with or
+produce the evidence that makes their requirements verifiable, rather than to compete with or
 replace them. Doing this work in an interoperable way, at both the infrastructure level and the
 standards level, is what lets it be adopted at all, which is why the standards work around it
 matters as much as the technology.
@@ -239,7 +239,7 @@ conflict, we ask which one better serves the principles here. They are not stack
   in the open, because the risk here is arriving late, not arriving imperfect.
 * **Interoperable:** it points to and complements existing specs and standards (MAESTRO, OWASP,
   NIST AI RMF, ISO/IEC 42001) rather than duplicating them. No repeat work; it produces the
-  evidence that makes their requirements checkable.
+  evidence that makes their requirements verifiable.
 * **Technology-neutral:** defines what the evidence must be, not which mechanism produces it. The
   standard never mandates a specific technology, so a new approach can meet it and none is locked
   in.

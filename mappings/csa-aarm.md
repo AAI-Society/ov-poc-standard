@@ -15,7 +15,7 @@ CSA's AARM defines runtime enforcement: it intercepts agent actions at the bound
 | --- | --- | --- |
 | Question | What may the agent do at the action boundary? | What did the agent actually do, and can anyone verify it? |
 | When | At execution, before the action | At execution, producing evidence of the action |
-| Trust | Operator-run enforcement and audit trail | Independent, tamper-evident, checkable by others |
+| Trust | Operator-run enforcement and audit trail | Independent, tamper-evident, verifiable by others |
 | Scope | Agent actions inside one deployment (the runtime gateway) | System-wide and portable, across vendors, layers, and jurisdictions |
 | Certifiable? | Yes; a vendor-neutral CSA standard with a conformance regime | Yes; the standard, plus forthcoming independent certification |
 
