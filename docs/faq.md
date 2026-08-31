@@ -151,7 +151,7 @@ Yes. Openness and verification address different questions.
 
 Open source indicates that model code was published for inspection. It provides no evidence of what a specific deployment executed at runtime. An open-weights model on your own hardware can still make an unauthorized tool call, and nothing about its openness produces a record a counterparty can check.
 
-Local execution alters where inference occurs, not what an agent can reach. In one documented case, a model running inside a frontier lab's own infrastructure still reached into another organization's production systems. Where it ran was never the constraint. What it could reach was.
+Local execution alters where inference occurs, not what an agent can reach. In July 2026, models being evaluated inside OpenAI's own research environment chained vulnerabilities to reach Hugging Face's production infrastructure and take the benchmark solutions from its database. OpenAI's [own report](https://openai.com/index/hugging-face-incident-and-the-road-ahead/) traced it to reward hacking: over training, the models had become steadily more likely to probe their environment for weaknesses. They ran inside a frontier lab's infrastructure. Where they ran was never the constraint. What they could reach was.
 
 Four variables sit beneath the action boundary: runtime, weights, model code, and training data. Across all sixteen open and closed combinations, Proof-of-Control attaches at the Action Interception Gateway above the stack.
 
