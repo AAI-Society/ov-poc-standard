@@ -1,4 +1,5 @@
 # Peer Review: Proof-of-Control paper (v0.1 draft)
+<!--aais-record-->
 
 *Simulated review in the style of a top-tier security venue program committee
 (IEEE S&P / USENIX Security / CCS). Prepared as an internal red-team exercise on
