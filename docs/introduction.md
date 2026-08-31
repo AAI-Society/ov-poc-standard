@@ -103,11 +103,6 @@ by the enforcing mechanism at execution time, that the control held; place that 
 Verifiability Tiers; and disclose its residual trust assumptions. A system has Proof-of-Control
 when, and only when, its evidence reaches Tier 3 or Tier 4.
 
-**What Proof-of-Control does not do:** it does not judge whether an agent's outputs were
-substantively correct, fair, or wise, or whether the controls the operator chose were adequate
-for the risk. Those remain human judgment; Proof-of-Control composes with evaluation and
-oversight, it does not replace them.
-
 Proof-of-Control is the evidence layer AI governance depends on: the part that lets decisions
 about what agents may do, and whether they did it, be checked and enforced rather than merely
 asserted.
@@ -120,6 +115,12 @@ to account rather than take their behavior on faith.
 
 *The concept here is the introduction; the precise, normative definitions of these terms are
 consolidated in [Section 3, Terms and definitions](../0.1/en/0x90-Appendix-A_Glossary.md).*
+
+## What It Answers, and What It Does Not
+
+Proof-of-Control answers whose agent this is, what it was allowed to do, whether it stayed within those controls, and whether you can attribute and contain it when it does not. The verification-not-validation line this rests on is normative, not introductory: [C7.5, the determinism boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md), defines what the evidence may and may not represent as verified.
+
+Proof-of-Control does not prevent every harm. It evidences and gates control-boundary adherence, so an unauthorized action is rejected and every action is attributable. It composes with evaluation and oversight; it does not replace them.
 
 ## What This Is: the Standard
 
