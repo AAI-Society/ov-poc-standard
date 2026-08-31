@@ -25,7 +25,7 @@ Openness began in software as open source and extended into open hardware, open 
 standards. Open source opened the code: it published the source and gave everyone the right to
 inspect, use, modify, and share the software, with no license fee and no vendor lock.
 
-Open verification carries the same open-source principles into a new domain: the verification of
+Open verification carries the same open-source principles into new territory: the verification of
 what AI and other autonomous systems actually did. The standard and the method of verification
 are openly published, so anyone can read and implement them instead of depending on a proprietary
 black box. And the evidence is openly verifiable: any party who needs to verify what a
