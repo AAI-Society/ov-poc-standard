@@ -11,7 +11,7 @@ RMF, ISO/IEC 42001, SOC 2, OWASP, the EU AI Act, and others, cross-referenced, n
 
 Proof-of-Control cross-references existing efforts rather than replacing them. The field is full
 of valuable work, governance frameworks, control catalogs, attestation regimes, and vendor
-toolkits, and almost none of it produces independent evidence of what an agent did that holds
+toolkits, and almost none of it produces open evidence of what an agent did that holds
 when the operator is the threat. Proof-of-Control is what produces the evidence, alongside these
 efforts and feeds them.
 
@@ -105,12 +105,12 @@ a gap SOC 2 was not designed to address for AI agents. See the
 
 CSA's AARM (Autonomous Action Runtime Management, contributed by Vanta) defines runtime
 enforcement: it intercepts agent actions at the boundary and approves, modifies, defers, or
-denies them. Proof-of-Control defines the independent, tamper-evident evidence of what the agent
+denies them. Proof-of-Control defines the open, tamper-evident evidence of what the agent
 did. Enforcement and evidence are complementary halves of agentic assurance, designed to compose,
 and Proof-of-Control is not a competing runtime control. See the
 [AARM crosswalk](../mappings/csa-aarm.md).
 
-| AARM (runtime enforcement) | Proof-of-Control (independent evidence) |
+| AARM (runtime enforcement) | Proof-of-Control (open evidence) |
 | --- | --- | --- |
 | Question | What may the agent do at the action boundary? | What did the agent actually do, and can anyone verify it? |
 | When | At execution, before the action | At execution, producing evidence of the action |
@@ -120,27 +120,27 @@ and Proof-of-Control is not a competing runtime control. See the
 | Certifiable? | Yes; a vendor-neutral CSA standard with a conformance regime and independent review | Yes; the standard, plus forthcoming independent certification |
 
 Where they meet: AARM mints the tamper-evident receipt at the runtime gateway inside one
-deployment; Proof-of-Control carries that evidence outward and makes it independently verifiable
+deployment; Proof-of-Control carries that evidence outward and makes it openly verifiable
 across organizations, for an auditor, insurer, or regulator. AARM enforces and records;
-Proof-of-Control shows, independently, what the system did.
+Proof-of-Control shows, openly, what the system did.
 
 ## Zero Trust for AI Agents
 
 Zero Trust tells you how to set the controls on an AI agent correctly so a breach is contained.
 Proof-of-Control gives an outside party evidence that those controls were honored. Zero Trust
-enforces control at runtime; Proof-of-Control shows, independently, that control held afterward.
+enforces control at runtime; Proof-of-Control shows, openly, that control held afterward.
 Complementary, not competing. See the [Zero Trust crosswalk](../mappings/zero-trust.md).
 
 Adopting Zero Trust does not give you Proof-of-Control. Anthropic's Zero Trust for AI Agents
 tells you how to set the controls on an agent so a breach is contained; it does not produce
-independent, portable evidence that those controls were honored. Anthropic's own incident
+open, portable evidence that those controls were honored. Anthropic's own incident
 write-ups describe data leaving through a permitted path, where the preventive controls had
-nothing anomalous to catch. Enforcing control at runtime and showing, independently, that control
+nothing anomalous to catch. Enforcing control at runtime and showing, openly, that control
 held afterward are different jobs, and the second is the gap this standard closes.
 
 | Anthropic Zero Trust for AI Agents | Proof-of-Control |
 | --- | --- | --- |
-| What is it? | A vendor-published security framework for deploying agents (May 2026) | A standard and technical foundation for independently verifiable evidence of what AI systems did |
+| What is it? | A vendor-published security framework for deploying agents (May 2026) | A standard and technical foundation for openly verifiable evidence of what AI systems did |
 | What it answers | "Did we set the controls correctly?" | "Can an outside party verify the controls were honored?" |
 | When it acts | Mostly at provisioning and identity time; preventive. Its top tier adds continuous authorization | At and after execution; evidentiary. The evidence outlives the event |
 | Scope | Agent deployments | System-wide, not model-only |
@@ -166,7 +166,7 @@ competitive; the Confidential Computing Consortium is a natural partner. See the
 MAESTRO (CSA) is adopted as the System surface in [Section 5](../0.1/en/0x10-C09-System-Surface-MAESTRO.md). In
 the mapping it is both the framework we build on for locating evidence in the stack and part of
 CSA's broader agentic-security work, alongside the AI Controls Matrix and AARM, to which
-Proof-of-Control is complementary: control objectives and enforcement on one side, independent
+Proof-of-Control is complementary: control objectives and enforcement on one side, open
 evidence on the other. See the [MAESTRO crosswalk](../mappings/maestro.md). **[INSERT]**
 
 ## The Efforts Being Mapped

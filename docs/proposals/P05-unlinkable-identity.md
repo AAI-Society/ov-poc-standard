@@ -743,7 +743,7 @@ its conclusion asserts the whole architecture is "computationally viable".
   that measures linkability "verifies quotes, not credentials, and no BBS+ code runs in its request
   path". C5.1.3 under the Unlinkable profile currently has no reference verifier.
 
-**Deployable today, and independent of all of the above:**
+**Deployable today, and independent of all of the above:** <!--aais-allow-->
 
 - **Changes 1, 2 (Level 1–2), 3, 6, 7, 8, 12, 13.** The profile mechanism, the schema discriminator, the
   anonymity-set measurement, the composed-path budget, the non-reuse and exhaustion requirements, the

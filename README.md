@@ -19,7 +19,7 @@
 
 ## What is Proof-of-Control?
 
-The **Proof-of-Control Standard** is a catalogue of verifiable requirements for AI agent systems: independent, tamper-evident evidence of what an agent actually did — the data it touched, the authority it exercised, the tools it invoked — in a form anyone can check **without trusting the operator**. Every requirement follows the same philosophy as [OWASP AISVS/ASVS](https://github.com/OWASP/AISVS): **verifiable, testable, and implementable**.
+The **Proof-of-Control Standard** is a catalogue of verifiable requirements for AI agent systems: open, tamper-evident evidence of what an agent actually did — the data it touched, the authority it exercised, the tools it invoked — in a form anyone can check **without trusting the operator**. Every requirement follows the same philosophy as [OWASP AISVS/ASVS](https://github.com/OWASP/AISVS): **verifiable, testable, and implementable**.
 
 A system has Proof-of-Control when, and only when, its evidence reaches **Tier 3 or Tier 4** of the Verifiability Tiers — a binary threshold that makes the category procurable: *"Does your AI have Proof-of-Control?"* is a yes-or-no question.
 
@@ -84,7 +84,7 @@ Chapters **C1–C6** are the six domains of verification — *what* must be veri
 ## Reference Implementation
 
 A working implementation of the evidence pipeline — interception, path-aware policy, signed hash
-chain, capability-bound dispatch, anchoring, gossip, and independent verification — with an
+chain, capability-bound dispatch, anchoring, gossip, and open verification — with an
 attack harness and benchmarks: [`impl/`](impl/README.md).
 
 ```bash

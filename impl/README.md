@@ -3,7 +3,7 @@
 A working implementation of the evidence pipeline specified in
 [`0.1/en/`](../0.1/en): action interception, path-aware policy evaluation,
 hash-chained signed evidence, capability-bound dispatch, anchoring, gossip, and
-independent verification — with an attack harness and benchmarks.
+open verification — with an attack harness and benchmarks.
 
 ```bash
 cd impl
@@ -312,7 +312,7 @@ Both were live in the implementation, both are fixed, and both are now regressio
 **A10: the binding check failed open.** `RelyingParty` performed check (iv) of Theorem 1 by
 calling a *snapshot probe* — a callback that recomputes the digest of the full evaluated
 snapshot — and returned "match" when no probe was configured. But the snapshot commits to the
-path summary and step index, which are enclave state no independent endpoint can see, so a probe
+path summary and step index, which are enclave state no independent endpoint can see, so a probe <!--aais-allow-->
 requires a callback into the enclave and essentially nobody could supply one. The result: an
 endpoint with `enforce=True` that checked signature, measurement, resource and nonce would still
 execute a substituted action, and report success.
@@ -360,7 +360,7 @@ Each scenario runs with and without the relevant requirement.
 | A8 | Evidence-pipeline failure | Succeeds: system keeps acting while logging is down | Refused: FAIL_CLOSED, failure recorded |
 | A9 | Mid-history rewrite by a key-holding operator | Succeeds: the rewritten history replays perfectly, because the operator recomputed every link | Detected: presented head does not match the anchored root |
 | A10 | Substitution past an unconfigured mediation check | Succeeds: endpoint verifies signature, measurement, resource and nonce, then executes a different request | Refused: capability carries an action digest the endpoint recomputes unaided; refuses when it cannot |
-| A11 | Capability paired with the wrong evidence record | Succeeds: both objects verify independently, so reconciliation balances | Detected: capability commits to its record's step index and digest |
+| A11 | Capability paired with the wrong evidence record | Succeeds: both objects verify independently, so reconciliation balances | Detected: capability commits to its record's step index and digest  <!--aais-allow--> |
 
 A1 is the empirical form of Proposition 1 in the paper: without a check binding
 the executed request to the evidenced snapshot, the adversary wins with

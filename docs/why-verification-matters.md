@@ -1,7 +1,7 @@
 # Section 2 — Why Verification Matters (informative)
 
 ***This section answers:*** *Why does verification matter? — The Verifiability Gap, the threat
-landscape, and the stakes for society: the risks agents create, and why independent verification
+landscape, and the stakes for society: the risks agents create, and why open verification
 is a check on concentrated power.*
 
 ## We Are Handing Decisions to Machines
@@ -53,7 +53,7 @@ Three forces make retrospective, human-in-the-loop assurance untenable for agent
 | --- | --- | --- |
 | **Velocity** | Mean time to exploit has fallen to negative values, because automated tools weaponize zero-days before public disclosure | Verification inline, at machine speed. A retrospective Tier 2 audit is too slow |
 | **The Verifier's Law** | Executing actions is cheap; auditing non-deterministic AI trajectories is expensive | Verification that is cheap, binary and mechanical |
-| **Open against independent** | *Independent* still means trusting a third-party auditor, which is Tier 2 | *Open*: no party to trust. Anyone verifies the evidence directly, without access to raw enterprise data |
+| **Open against independent** | *Independent* still means trusting a third-party auditor, which is Tier 2 | *Open*: no party to trust. Anyone verifies the evidence directly, without access to raw enterprise data  <!--aais-allow--> |
 
 The third of these is the distinction the whole standard rests on, and it is the one most often collapsed. An independent auditor is a party. Open verification has none.
 
@@ -113,11 +113,11 @@ new theory of the firm, in which a company's core asset is no longer only its pe
 capital but the intelligence it has built into its systems, its
 [intelligence capital](https://intelligencegenerators.com/), and the executive's job is
 increasingly to govern that intelligence. But you cannot govern what you cannot verify. As a firm
-hands more of its work to agents, its leaders become accountable for conduct they have no
-independent way to see, and the security function, the people who can establish what actually
+hands more of its work to agents, its leaders become accountable for conduct they can see
+only through the system's own account, and the security function, the people who can establish what actually
 happened, moves from a supporting role to the center of how the firm is run.
 
-This is why the answer cannot be more human review. Evidence that is independent and
+This is why the answer cannot be more human review. Evidence that is open and
 machine-verifiable, produced by the system as it runs, is what makes verification possible at the scale and
 speed agents operate. That is what Proof-of-Control produces, and it is why the problem this
 standard addresses gets larger, not smaller, over time.
@@ -162,7 +162,7 @@ as the curve steepens, the difference between harm that can be traced and answer
 that cannot.
 
 This is, first, a matter of accountability. When an agent causes real harm, someone has to answer
-for it, and that is impossible without independent evidence of what it did. Most of what exists
+for it, and that is impossible without open evidence of what it did. Most of what exists
 today is the operator's own account, the trust-based tiers of the scale, which cannot settle what
 happened when it is contested. As agents cause consequential harm, liability moves to those who
 build and deploy them, and Proof-of-Control, evidence at Tiers 3 and 4 that does not rest on the
@@ -185,8 +185,8 @@ automated action is limited, auditable, and reversible. Agentic AI breaks all th
 does not prevent a data-handling violation; it creates a consequence for one. It is reactive by
 design, a legal right with no independent means to exercise it, and by the time a compliance
 audit runs, the only record of what the system did may be logs the same system could have
-influenced. The gap this leaves is not a policy gap; it is evidentiary: there is no independent
-way to confirm that the controls held during execution. That is why boards, regulators, and
+influenced. The gap this leaves is not a policy gap; it is evidentiary: there is no way to
+confirm, without trusting the operator, that the controls held during execution. That is why boards, regulators, and
 insurers increasingly treat it as a material governance risk. The shift Proof-of-Control makes is
 from rights that require a breach to become actionable, to evidence that exists whether or not a
 dispute ever arises, verifiable by a party that need not trust the operator, only the mathematics.
@@ -214,10 +214,10 @@ ahead.
 | **Risk high** | Failed deployment | Unleash: value, but unquantifiable risk |
 | **Risk low** | Constrain: safe, but cannot do the job | Proof-of-Control: value up, risk down |
 
-Without independent evidence, more value always means more risk; the two rise together, and 79%
+Without open evidence, more value always means more risk; the two rise together, and 79%
 of organizations deploying agentic AI cannot observe what their systems actually did.
 Proof-of-Control breaks the bind: agents cross boundaries freely, and every action produces
-independent, tamper-evident evidence of what happened. Value goes up and risk comes down at once,
+open, tamper-evident evidence of what happened. Value goes up and risk comes down at once,
 the one combination the bind otherwise rules out.
 
 ## The Threat Landscape
@@ -295,7 +295,7 @@ assurances.
 ## Why This Matters for Policy
 
 Rules for AI agents are only as strong as what they can verify. A regulation that asks an
-operator to attest that its agent behaved rests on assertion; one that can require independently
+operator to attest that its agent behaved rests on assertion; one that can require openly
 verifiable evidence of what the agent did rests on proof. Verification is what lets a framework
 like the [EU AI Act](../mappings/eu-ai-act.md), or a state law or agency rule, be enforced
 against evidence rather than trusted on a filing, which is why the people shaping those rules
@@ -362,7 +362,7 @@ checked on the Verifiability Tiers ([Section 6](../0.1/en/0x10-C08-Verifiability
 claim the first: it shows what a system *did*, not what it *can* do. Keeping that "did, not can"
 line sharp is what keeps the standard honest. The useful test for any product's claim is to ask
 which of the three questions it actually answers, because products commonly answer one and market
-as if they answered all three. None of the three, on its own, is independent evidence of what an
+as if they answered all three. None of the three, on its own, is open evidence of what an
 agent did, and that is the piece no one has standardized.
 
 One further approach is easy to confuse with verification: mechanistic interpretability, which
@@ -388,7 +388,7 @@ tens of billions of dollars formed on top of it. What is missing for verificatio
 cryptography, it is the collaboration and interoperability around it: the shared standard that
 makes scattered capability legible, comparable, and buyable.
 
-No one has built that standard yet. No multi-stakeholder industry standard for independent,
+No one has built that standard yet. No multi-stakeholder industry standard for open,
 self-enforcing verification of what an AI agent did exists today. Individual toolkits and
 protocols do exist, and this standard maps to them
 ([Section 8](standards-landscape.md)) rather than competing with them, but

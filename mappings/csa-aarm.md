@@ -9,9 +9,9 @@
 
 ## The Relationship
 
-CSA's AARM defines runtime enforcement: it intercepts agent actions at the boundary and approves, modifies, defers, or denies them. Proof-of-Control defines the independent, tamper-evident evidence of what the agent did. The two share the same architectural spot — the action boundary — which is why the mapping below contains exact matches precisely there (action interception, the runtime gateway) and no-matches everywhere evidence-independence begins.
+CSA's AARM defines runtime enforcement: it intercepts agent actions at the boundary and approves, modifies, defers, or denies them. Proof-of-Control defines the open, tamper-evident evidence of what the agent did. The two share the same architectural spot — the action boundary — which is why the mapping below contains exact matches precisely there (action interception, the runtime gateway) and no-matches everywhere evidence-independence begins.
 
-| AARM (runtime enforcement) | Proof-of-Control (independent evidence) |
+| AARM (runtime enforcement) | Proof-of-Control (open evidence) |
 | --- | --- | --- |
 | Question | What may the agent do at the action boundary? | What did the agent actually do, and can anyone verify it? |
 | When | At execution, before the action | At execution, producing evidence of the action |
@@ -19,7 +19,7 @@ CSA's AARM defines runtime enforcement: it intercepts agent actions at the bound
 | Scope | Agent actions inside one deployment (the runtime gateway) | System-wide and portable, across vendors, systems, and jurisdictions |
 | Certifiable? | Yes; a vendor-neutral CSA standard with a conformance regime | Yes; the standard, plus forthcoming independent certification |
 
-Where they meet: AARM mints the tamper-evident receipt at the runtime gateway inside one deployment; Proof-of-Control carries that evidence outward and makes it independently verifiable across organizations. Enforcement decides what an agent may do; verification shows what it actually did. Prevention can fail silently; detection cannot.
+Where they meet: AARM mints the tamper-evident receipt at the runtime gateway inside one deployment; Proof-of-Control carries that evidence outward and makes it openly verifiable across organizations. Enforcement decides what an agent may do; verification shows what it actually did. Prevention can fail silently; detection cannot.
 
 ## Requirement-Level Mapping
 

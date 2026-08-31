@@ -119,7 +119,7 @@ the choice exists.
 ## 5. `interception_point` has no value for C7.1.2's "during"
 
 **What it says.** C7.1.2 requires evidence at three points — *"request received
-(before), effect performed (during), and result returned (after)"* — each independently
+(before), effect performed (during), and result returned (after)"* — each independently <!--aais-allow-->
 signed and linkable to the same action ID. The `interception_point` enum offers eight
 values:
 
