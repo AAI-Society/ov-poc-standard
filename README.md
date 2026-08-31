@@ -49,9 +49,9 @@ Evidence is graded by **who you must trust to believe it**. Cryptography alone d
 
 | Tier | Name | Who you must trust | Proof-of-Control? |
 | :---: | --- | --- | :---: |
-| 4 | Self-Enforcing | The protocol / continuous mathematical constraints | **Yes** |
-| 3 | Trust-minimized | The cryptographic mechanism | **Yes** |
-| 2 | Attestation | A third party, or the root-keeper | No |
+| 4 | Self-Enforcing | The protocol itself: continuous constraints, anchored in external hardware roots of trust | **Yes** |
+| 3 | Trust-minimized | The mechanism's soundness, and the parties it depends on, as disclosed | **Yes** |
+| 2 | Attestation | A third party or qualified auditor | No |
 | 1 | Assertion | The operator | No |
 
 ## Requirement Chapters

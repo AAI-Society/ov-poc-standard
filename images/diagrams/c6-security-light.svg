@@ -20,7 +20,7 @@
 <g transform="translate(54,114) scale(0.7)" fill="none" stroke="#7a9900" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 L20 6 V12 C20 17 16.5 20 12 21.5 C7.5 20 4 17 4 12 V6 Z"/><path d="M9 12 L11.4 14.4 L15.6 9.6"/></g>
 <text x="82" y="131" font-size="11" fill="#6b665f" text-anchor="start" font-weight="700" letter-spacing="1.5">EXECUTION ENVIRONMENT</text>
 <rect x="60" y="152" width="268" height="52" rx="10" fill="url(#gInk)" stroke="#0a0a0a" stroke-width="1.5"/>
-<text x="80" y="184" font-size="12.5" fill="#cfff04" text-anchor="start" font-weight="700" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace">measurement 9e11…4b</text>
+<text x="80" y="184" font-size="12.5" fill="#f0edea" text-anchor="start" font-weight="700" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace">measurement 9e11…4b</text>
 <rect x="60" y="222" width="330" height="52" rx="14" fill="url(#gWarm)" stroke="#c6bfb4" stroke-width="1.5"/>
 <text x="80" y="254" font-size="12.5" fill="#4a463f" text-anchor="start">generated code runs in a sandbox</text>
 <line x1="490" y1="158" x2="586" y2="158" stroke="#8a857c" stroke-width="2" stroke-linecap="round"/>
