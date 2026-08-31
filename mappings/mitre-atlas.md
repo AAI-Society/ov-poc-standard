@@ -4,14 +4,14 @@
 | --- | --- |
 | **Framework type** | Adversarial threat catalog for AI systems (techniques and mitigations) |
 | **Corpus version** | Living catalog, as accessed August 2026 — [access](https://atlas.mitre.org/) · [corpus provenance](corpus/README.md) |
-| **Relationship** | Threat source — one of the three catalogs the PoC threat model draws from |
+| **Relationship** | Threat source — one of the three catalogs the Proof-of-Control threat model draws from |
 | **Coding status** | Draft seed coding, single coder — [rubric](rubric.md) |
 
 ## The Relationship
 
-ATLAS catalogs how AI systems are attacked and which mitigations counter each technique. Its primary role for Proof-of-Control is as a **threat source**: the 27 catalogued threats in the PoC threat landscape are drawn from MITRE ATLAS, NIST AI 100-2, and the [OWASP Top 10s](owasp.md), which converge on the same core classes. [Appendix C](../0.1/en/0x92-Appendix-C_Threat-Model.md) states, for each threat, what PoC defends against and what is explicitly out of scope.
+ATLAS catalogs how AI systems are attacked and which mitigations counter each technique. Its primary role for Proof-of-Control is as a **threat source**: the 27 catalogued threats in the Proof-of-Control threat landscape are drawn from MITRE ATLAS, NIST AI 100-2, and the [OWASP Top 10s](owasp.md), which converge on the same core classes. [Appendix C](../0.1/en/0x92-Appendix-C_Threat-Model.md) states, for each threat, what Proof-of-Control defends against and what is explicitly out of scope.
 
-The coverage below is accordingly the lowest of any coded framework — and that is the expected result, not a deficiency: ATLAS answers "how are AI systems attacked and mitigated?", while PoC answers "can anyone verify what the system did?". Where they touch (supply-chain verification, access control, sandboxing, event logging), ATLAS mitigations are *controls* whose operation PoC turns into independently verifiable *evidence*.
+The coverage below is accordingly the lowest of any coded framework — and that is the expected result, not a deficiency: ATLAS answers "how are AI systems attacked and mitigated?", while Proof-of-Control answers "can anyone verify what the system did?". Where they touch (supply-chain verification, access control, sandboxing, event logging), ATLAS mitigations are *controls* whose operation Proof-of-Control turns into independently verifiable *evidence*.
 
 ## Requirement-Level Mapping
 
@@ -19,16 +19,16 @@ The coverage below is accordingly the lowest of any coded framework — and that
 
 **Coverage: 30%** of the 127 Proof-of-Control requirements (0 exact matches, 38 partial matches, 89 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
 
-**How to read the Match column** ([full rubric](rubric.md)): **Exact** — the framework has a clause equivalent in scope and intent. **Partial** — the framework covers the topic, but not with PoC's operator-independent evidence (or not at the same depth). **None** — the framework has no analogous provision. Where a section holds a mix, the badge shows the strongest match present and the **Covered** column shows how many of its requirements are matched at all — so a section reading *Partial 3/5* has two requirements this framework does not reach.
+**How to read the Match column** ([full rubric](rubric.md)): **Exact** — the framework has a clause equivalent in scope and intent. **Partial** — the framework covers the topic, but not with Proof-of-Control's operator-independent evidence (or not at the same depth). **None** — the framework has no analogous provision. Where a section holds a mix, the badge shows the strongest match present and the **Covered** column shows how many of its requirements are matched at all — so a section reading *Partial 3/5* has two requirements this framework does not reach.
 
-| PoC section | Reqs | Covered | Match | Closest framework clause(s) | Rationale |
+| Section | Reqs | Covered | Match | Closest framework clause(s) | Rationale |
 | --- | :---: | :---: | :---: | --- | --- |
 | [C1.1 Model and Artifact Provenance](../0.1/en/0x10-C01-Provenance.md) | 5 | 5/5 | Partial | Verify ML Artifacts (AML.M0014); code-signing mitigations | Mitigations for ML supply chain compromise (verify ML artifacts) cover provenance checking; no signed-manifest requirement |
 | [C1.2 Input and Data Lineage](../0.1/en/0x10-C01-Provenance.md) | 4 | 4/4 | Partial | Sanitize Training Data (AML.M0007) | Data-provenance mitigations against poisoning; no custody chain to actions |
 | [C1.3 Compute Substrate Provenance](../0.1/en/0x10-C01-Provenance.md) | 2 | 0/2 | None | — | Substrate attestation not addressed |
 | [C1.4 Privacy-Preserving Provenance](../0.1/en/0x10-C01-Provenance.md) | 2 | 0/2 | None | — | Privacy-preserving provenance not addressed |
-| [C2.1 Data-Access Evidence](../0.1/en/0x10-C02-Privacy.md) | 3 | 2/3 | Partial | AML.M0024 — AI Telemetry Logging | ATLAS directs deployed AI systems to log data access, agentic intermediate actions and decisions, and tool use. It does not prescribe the PoC field set, cryptographic evidence, or independent verification. Not reached: 2.1.2. |
-| [C2.2 Policy and Consent Enforcement](../0.1/en/0x10-C02-Privacy.md) | 5 | 1/5 | Partial | AML.M0026 — Privileged AI Agent Permissions Configuration; AML.M0028 — AI Agent Tools Permissions Configuration | These mitigations require least-privilege controls on an agent and on its tool access. They do not require query rewriting/field allow-lists, enforcement-event records, or PoC-grade evidence. Not reached: 2.2.1, 2.2.2, 2.2.4, 2.2.5. |
+| [C2.1 Data-Access Evidence](../0.1/en/0x10-C02-Privacy.md) | 3 | 2/3 | Partial | AML.M0024 — AI Telemetry Logging | ATLAS directs deployed AI systems to log data access, agentic intermediate actions and decisions, and tool use. It does not prescribe the Proof-of-Control field set, cryptographic evidence, or independent verification. Not reached: 2.1.2. |
+| [C2.2 Policy and Consent Enforcement](../0.1/en/0x10-C02-Privacy.md) | 5 | 1/5 | Partial | AML.M0026 — Privileged AI Agent Permissions Configuration; AML.M0028 — AI Agent Tools Permissions Configuration | These mitigations require least-privilege controls on an agent and on its tool access. They do not require query rewriting/field allow-lists, enforcement-event records, or the grade of evidence Proof-of-Control requires. Not reached: 2.2.1, 2.2.2, 2.2.4, 2.2.5. |
 | [C2.3 Privacy-Preserving Verification Mechanisms](../0.1/en/0x10-C02-Privacy.md) | 3 | 0/3 | None | — | Outside scope |
 | [C2.4 Evidence Handling for Protected Data](../0.1/en/0x10-C02-Privacy.md) | 2 | 0/2 | None | — | Outside scope |
 | [C3.1 Boundary-Crossing Evidence](../0.1/en/0x10-C03-Portability.md) | 2 | 0/2 | None | — | Outside scope |
@@ -91,7 +91,7 @@ The coverage below is accordingly the lowest of any coded framework — and that
 
 ## Threat-Model Role (the primary crosswalk)
 
-For the threat-by-threat view of what PoC evidence reaches — Full · Strong · Partial ·
+For the threat-by-threat view of what Proof-of-Control evidence reaches — Full · Strong · Partial ·
 Not addressed across all 29 threats — see [Appendix C: Threat Model](../0.1/en/0x92-Appendix-C_Threat-Model.md).
 
 ---

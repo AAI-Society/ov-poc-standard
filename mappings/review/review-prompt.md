@@ -1,25 +1,25 @@
 You are auditing a framework-coverage coding sheet for an open security standard
-called Proof-of-Control (PoC). Your job is to find MISCODINGS. Be skeptical and
+called Proof-of-Control. Your job is to find MISCODINGS. Be skeptical and
 be specific.
 
-Each entry below is one PoC requirement coded against ONE external framework:
+Each entry below is one Proof-of-Control requirement coded against ONE external framework:
 
-  <requirement id>  <PoC section>  <level>
+  <requirement id>  <Proof-of-Control section>  <level>
     REQUIREMENT: the normative text
     CURRENT: <match type> | clause=<framework clause cited> | <rationale>
 
 Match types, per the project's rubric:
   EM (Exact)   - the framework has a clause equivalent in SCOPE and INTENT.
                  Not merely adjacent: it must require substantially the same thing.
-  PM (Partial) - the framework covers the topic, but not with PoC's
+  PM (Partial) - the framework covers the topic, but not with Proof-of-Control's
                  operator-independent, mechanism-generated evidence, or not at
                  the same depth.
   NM (None)    - the framework has no analogous provision.
 
 The distinction that matters most: most external frameworks require CONTROLS
-and operator-produced documentation. PoC requires cryptographic evidence a
+and operator-produced documentation. Proof-of-Control requires cryptographic evidence a
 third party can verify WITHOUT trusting the operator. A framework that says
-"maintain logs" is PM against a PoC requirement for signed, chained,
+"maintain logs" is PM against a Proof-of-Control requirement for signed, chained,
 externally-anchored evidence -- not EM.
 
 Report:

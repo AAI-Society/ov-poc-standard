@@ -4,12 +4,12 @@
 | --- | --- |
 | **Framework type** | Security architecture (NIST SP 800-207); vendor deployment framework (Anthropic, May 2026) |
 | **Corpus version** | NIST SP 800-207, August 2020 (the coded document) — [access](https://csrc.nist.gov/pubs/sp/800/207/final) · [corpus provenance](corpus/README.md) |
-| **Relationship** | Complementary — Zero Trust enforces control at runtime; PoC shows independently that control held |
+| **Relationship** | Complementary — Zero Trust enforces control at runtime; Proof-of-Control shows independently that control held |
 | **Coding status** | Draft seed coding, single coder; Anthropic framework not yet coded — [rubric](rubric.md) |
 
 ## The Relationship
 
-Zero Trust tells you how to set the controls on an AI agent correctly so a breach is contained; Proof-of-Control gives an outside party evidence that those controls were honored. The architecture's Policy Enforcement Point mediates every access the way PoC's Action Interception Gateway does — the exact match in the mapping below — but 800-207 never requires the enforcement to leave operator-independent evidence, which is where every partial match ends.
+Zero Trust tells you how to set the controls on an AI agent correctly so a breach is contained; Proof-of-Control gives an outside party evidence that those controls were honored. The architecture's Policy Enforcement Point mediates every access the way Proof-of-Control's Action Interception Gateway does — the exact match in the mapping below — but 800-207 never requires the enforcement to leave operator-independent evidence, which is where every partial match ends.
 
 Adopting Zero Trust does not give you Proof-of-Control. Anthropic's Zero Trust for AI Agents tells you how to set controls so a breach is contained; its own incident write-ups describe data leaving through a *permitted* path, where preventive controls had nothing anomalous to catch. Enforcing control at runtime and showing, independently, that control held afterward are different jobs.
 
@@ -25,9 +25,9 @@ Adopting Zero Trust does not give you Proof-of-Control. Anthropic's Zero Trust f
 
 **Coverage: 43%** of the 127 Proof-of-Control requirements (8 exact matches, 46 partial matches, 73 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
 
-**How to read the Match column** ([full rubric](rubric.md)): **Exact** — the framework has a clause equivalent in scope and intent. **Partial** — the framework covers the topic, but not with PoC's operator-independent evidence (or not at the same depth). **None** — the framework has no analogous provision. Where a section holds a mix, the badge shows the strongest match present and the **Covered** column shows how many of its requirements are matched at all — so a section reading *Partial 3/5* has two requirements this framework does not reach.
+**How to read the Match column** ([full rubric](rubric.md)): **Exact** — the framework has a clause equivalent in scope and intent. **Partial** — the framework covers the topic, but not with Proof-of-Control's operator-independent evidence (or not at the same depth). **None** — the framework has no analogous provision. Where a section holds a mix, the badge shows the strongest match present and the **Covered** column shows how many of its requirements are matched at all — so a section reading *Partial 3/5* has two requirements this framework does not reach.
 
-| PoC section | Reqs | Covered | Match | Closest framework clause(s) | Rationale |
+| Section | Reqs | Covered | Match | Closest framework clause(s) | Rationale |
 | --- | :---: | :---: | :---: | --- | --- |
 | [C1.1 Model and Artifact Provenance](../0.1/en/0x10-C01-Provenance.md) | 5 | 0/5 | None | — | Artifact provenance outside ZTA scope |
 | [C1.2 Input and Data Lineage](../0.1/en/0x10-C01-Provenance.md) | 4 | 0/4 | None | — | Outside scope |

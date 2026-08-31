@@ -4,7 +4,7 @@
 | --- | --- |
 | **Framework type** | Organizational controls attestation (AICPA Trust Services Criteria) |
 | **Corpus version** | 2017 TSC with 2022 revised points of focus — [access](https://www.aicpa-cima.com/resources/download/trust-services-criteria) · [corpus provenance](corpus/README.md) |
-| **Relationship** | Complementary — PoC is SOC-2-grade in role, with a cryptographic stage SOC 2 never had |
+| **Relationship** | Complementary — Proof-of-Control is SOC-2-grade in role, with a cryptographic stage SOC 2 never had |
 | **Coding status** | Draft seed coding, single coder — [rubric](rubric.md) |
 
 ## The Relationship
@@ -18,7 +18,7 @@ SOC 2 attests that an organization's controls exist and were tested by an audito
 | Evidence | Auditor-tested controls, point-in-time or over a period | Mechanism-generated, tamper-evident, contemporaneous execution evidence |
 | Trust required | The auditor and the operator's records | The cryptographic mechanism (Tiers 3–4) |
 
-An insurer or buyer can require Proof-of-Control the way they already require SOC 2 or ISO 27001 — SOC 2 became effectively mandatory through the insurance and procurement chain, the dynamic PoC is built to activate for agents ([Insurance is the forcing function](../docs/why-verification-matters.md)). The strongest structural parallel is the claim artifact itself: the SOC 2 system description and management assertion are the direct ancestor of the PoC conformance statement (an exact match in the mapping below).
+An insurer or buyer can require Proof-of-Control the way they already require SOC 2 or ISO 27001 — SOC 2 became effectively mandatory through the insurance and procurement chain, the dynamic Proof-of-Control is built to activate for agents ([Insurance is the forcing function](../docs/why-verification-matters.md)). The strongest structural parallel is the claim artifact itself: the SOC 2 system description and management assertion are the direct ancestor of the Proof-of-Control conformance statement (an exact match in the mapping below).
 
 ## Requirement-Level Mapping
 
@@ -26,9 +26,9 @@ An insurer or buyer can require Proof-of-Control the way they already require SO
 
 **Coverage: 54%** of the 127 Proof-of-Control requirements (0 exact matches, 68 partial matches, 59 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
 
-**How to read the Match column** ([full rubric](rubric.md)): **Exact** — the framework has a clause equivalent in scope and intent. **Partial** — the framework covers the topic, but not with PoC's operator-independent evidence (or not at the same depth). **None** — the framework has no analogous provision. Where a section holds a mix, the badge shows the strongest match present and the **Covered** column shows how many of its requirements are matched at all — so a section reading *Partial 3/5* has two requirements this framework does not reach.
+**How to read the Match column** ([full rubric](rubric.md)): **Exact** — the framework has a clause equivalent in scope and intent. **Partial** — the framework covers the topic, but not with Proof-of-Control's operator-independent evidence (or not at the same depth). **None** — the framework has no analogous provision. Where a section holds a mix, the badge shows the strongest match present and the **Covered** column shows how many of its requirements are matched at all — so a section reading *Partial 3/5* has two requirements this framework does not reach.
 
-| PoC section | Reqs | Covered | Match | Closest framework clause(s) | Rationale |
+| Section | Reqs | Covered | Match | Closest framework clause(s) | Rationale |
 | --- | :---: | :---: | :---: | --- | --- |
 | [C1.1 Model and Artifact Provenance](../0.1/en/0x10-C01-Provenance.md) | 5 | 5/5 | Partial | CC8.1 | CC8 change management and system-component inventory identify what runs; no model digests or signed manifests |
 | [C1.2 Input and Data Lineage](../0.1/en/0x10-C01-Provenance.md) | 4 | 0/4 | None | — | Data lineage/custody chains not addressed |
@@ -59,7 +59,7 @@ An insurer or buyer can require Proof-of-Control the way they already require SO
 | [C8.3 Chain Integrity and Self-Enforcement (Tier 4)](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 5 | 0/5 | None | — | No self-enforcement concept |
 | [C9.1 Locating Evidence on the System Surface](../0.1/en/0x10-C09-System-Surface-MAESTRO.md) | 3 | 0/3 | None | — | No stack-location requirement |
 | [C9.2 Layer Coverage](../0.1/en/0x10-C09-System-Surface-MAESTRO.md) | 3 | 3/3 | Partial | CC7.2 | CC7 expects logging coverage of in-scope systems; not layer-matched evidence |
-| [C10.1 Conformance Claims](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 8 | 7/8 | Partial | Management assertion; SOC 2 system description; SOC 2 system description; Management assertion; SOC 2 examination evidence; Management assertion; SOC 2 report period/date; CC7.2; CC8.1 | A SOC 2 engagement includes management's assertion and a scoped system description, but does not require the claim to declare one of PoC's stages or name a continuous-monitoring regime. Not reached: 10.1.7. |
+| [C10.1 Conformance Claims](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 8 | 7/8 | Partial | Management assertion; SOC 2 system description; SOC 2 system description; Management assertion; SOC 2 examination evidence; Management assertion; SOC 2 report period/date; CC7.2; CC8.1 | A SOC 2 engagement includes management's assertion and a scoped system description, but does not require the claim to declare one of Proof-of-Control's stages or name a continuous-monitoring regime. Not reached: 10.1.7. |
 | [C10.2 Trust-Assumption Disclosure](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 2 | 2/2 | Partial | Subservice organizations & CUECs | Subservice-organization and complementary-control disclosures are a partial analog to trust-assumption disclosure |
 | [C10.3 Continuously Monitored Operation](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 7 | 7/7 | Partial | Type II operating-effectiveness period | Type II covers a period with operating effectiveness; not per-action near-real-time validation |
 

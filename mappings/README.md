@@ -5,7 +5,7 @@ it is the evidence layer that sits alongside them. This directory holds the mapp
 complementary forms, following the reproducible coverage methodology established by
 [HAARF](https://github.com/Task-force-for-AI-agents-in-Healthcare/haarf):
 
-1. **Quantitative coverage mapping** — every one of the 127 PoC requirements coded against each
+1. **Quantitative coverage mapping** — every one of the 127 Proof-of-Control requirements coded against each
    external framework as Exact Match / Partial Match / No Match, with reproducible coverage
    percentages.
 2. **Qualitative crosswalks** — one narrative document per framework explaining the
@@ -112,7 +112,7 @@ Each of the 127 requirements is coded against each framework with one of three *
 already addresses — not the reverse, and not framework quality. Two patterns matter:
 
 * **The PM band is wide and the EM band is nearly empty.** Existing frameworks require most of
-  the *controls* PoC verifies, but almost never require *operator-independent,
+  the *controls* Proof-of-Control verifies, but almost never require *operator-independent,
   mechanism-generated evidence* that the controls held. That is the exact gap between Tier 2 and
   Tier 3 — the binary threshold. Five of the eight frameworks now have **zero** exact matches,
   and the [2026 review](../docs/reviews/mapping-review-2026-08.md) challenged every one of the
@@ -127,16 +127,16 @@ already addresses — not the reverse, and not framework quality. Two patterns m
 | Framework | Type | Relationship to Proof-of-Control | Crosswalk |
 | --- | --- | --- | --- |
 | MAESTRO (CSA) | Agent threat-modeling framework | Adopted as the System surface (Axis 2) — an axis of the standard, not a coverage target | [maestro.md](maestro.md) |
-| CSA AARM | Runtime enforcement standard | Complementary half: AARM enforces, PoC evidences | [csa-aarm.md](csa-aarm.md) |
+| CSA AARM | Runtime enforcement standard | Complementary half: AARM enforces, Proof-of-Control evidences | [csa-aarm.md](csa-aarm.md) |
 | CSA AI Controls Matrix (AICM) | Control catalog | Crosswalk maintained separately by WG decision | [csa-aicm.md](csa-aicm.md) |
-| OWASP (Agentic Top 10, LLM Top 10, AIVSS, AISVS) | Threat catalogs & verification standard | Threat source for the PoC threat model; Security-domain alignment target | [owasp.md](owasp.md) |
-| MITRE ATLAS | Adversarial threat catalog | Threat source for the PoC threat model | [mitre-atlas.md](mitre-atlas.md) |
-| NIST AI RMF (& AI 100-2) | Risk-governance framework | PoC produces the evidence that makes its requirements verifiable | [nist-ai-rmf.md](nist-ai-rmf.md) |
-| ISO/IEC 42001 | AI management system standard | Complementary; supplies the V&V vocabulary PoC uses | [iso-iec-42001.md](iso-iec-42001.md) |
-| SOC 2 | Organizational attestation | PoC is SOC-2-grade in role, with a cryptographic stage SOC 2 never had | [soc-2.md](soc-2.md) |
-| EU AI Act | Regulation | PoC evidence lets the Act be enforced against evidence, not filings | [eu-ai-act.md](eu-ai-act.md) |
-| Zero Trust (NIST SP 800-207; Anthropic Zero Trust for AI Agents) | Security architecture / vendor framework | Zero Trust enforces at runtime; PoC shows independently that control held | [zero-trust.md](zero-trust.md) |
-| Confidential Computing (TEEs) | Mechanism | One valid mechanism for delivering PoC, not the property itself | [confidential-computing.md](confidential-computing.md) |
+| OWASP (Agentic Top 10, LLM Top 10, AIVSS, AISVS) | Threat catalogs & verification standard | Threat source for the Proof-of-Control threat model; Security-domain alignment target | [owasp.md](owasp.md) |
+| MITRE ATLAS | Adversarial threat catalog | Threat source for the Proof-of-Control threat model | [mitre-atlas.md](mitre-atlas.md) |
+| NIST AI RMF (& AI 100-2) | Risk-governance framework | Proof-of-Control produces the evidence that makes its requirements verifiable | [nist-ai-rmf.md](nist-ai-rmf.md) |
+| ISO/IEC 42001 | AI management system standard | Complementary; supplies the V&V vocabulary Proof-of-Control uses | [iso-iec-42001.md](iso-iec-42001.md) |
+| SOC 2 | Organizational attestation | Proof-of-Control is SOC-2-grade in role, with a cryptographic stage SOC 2 never had | [soc-2.md](soc-2.md) |
+| EU AI Act | Regulation | Proof-of-Control evidence lets the Act be enforced against evidence, not filings | [eu-ai-act.md](eu-ai-act.md) |
+| Zero Trust (NIST SP 800-207; Anthropic Zero Trust for AI Agents) | Security architecture / vendor framework | Zero Trust enforces at runtime; Proof-of-Control shows independently that control held | [zero-trust.md](zero-trust.md) |
+| Confidential Computing (TEEs) | Mechanism | One valid mechanism for delivering Proof-of-Control, not the property itself | [confidential-computing.md](confidential-computing.md) |
 | AIUC-1 | AI audit / certification framework | Portability-domain alignment target (cross-platform auditing) | [aiuc-1.md](aiuc-1.md) |
 
 ## The By-Domain Mapping (working view)

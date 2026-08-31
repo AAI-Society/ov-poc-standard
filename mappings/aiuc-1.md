@@ -9,7 +9,7 @@
 In the by-domain mapping, AIUC-1 is the external alignment target for the **Portability**
 domain:
 
-| PoC domain | Source architectural mechanism | AIUC-1 alignment |
+| Domain | Source architectural mechanism | AIUC-1 alignment |
 | --- | --- | --- |
 | Portability | Agent Resource Discovery Spec, Open Handshakes | AIUC-1 cross-platform auditing |
 
