@@ -27,6 +27,22 @@ AI is moving from systems that answer to agents that act with intent on our beha
 
 **The case for the standard is in the companion documents** ([`docs/`](../../docs)): the [introduction and design principles](../../docs/introduction.md), [why verification matters](../../docs/why-verification-matters.md), the [standards landscape](../../docs/standards-landscape.md), [use cases](../../docs/use-cases.md), the [adoption roadmap](../../docs/roadmap.md), and [governance](../../docs/governance.md). They explain and motivate the standard; they add no requirements. Per-framework crosswalks live in [`mappings/`](../../mappings/README.md).
 
+### What Is Part of the Standard
+
+| Question | Where | Part of the standard? |
+| --- | --- | --- |
+| Who is this for, and how do they use it? | [Introduction](../../docs/introduction.md) | No, context |
+| What is this a standard for? | [Introduction](../../docs/introduction.md) | No. Precise terms are in [Appendix A](0x90-Appendix-A_Glossary.md) |
+| How is it designed? | [Introduction](../../docs/introduction.md) | No, context |
+| Why does verification matter? | [Why verification matters](../../docs/why-verification-matters.md) | No, context |
+| What do the key terms mean? | [Appendix A](0x90-Appendix-A_Glossary.md) | **Yes** |
+| What must be verified? | [C1](0x10-C01-Provenance.md) to [C6](0x10-C06-Security.md) | **Yes** |
+| Where in the system? | [C9](0x10-C09-System-Surface-MAESTRO.md) | **Yes** |
+| How strong is the evidence? | [C7](0x10-C07-Evidence-Generation-and-Properties.md), [C8](0x10-C08-Verifiability-Tiers.md) | **Yes** |
+| How thoroughly was it assessed? | [C10](0x10-C10-Conformance-and-Disclosure.md) | **Yes** |
+| How does it map to what I already run? | [Standards landscape](../../docs/standards-landscape.md), [mappings](../../mappings/README.md) | No, informative |
+| What is still open? | [Appendix D](0x93-Appendix-D_Open-Issues.md) | No, working-group items |
+
 ## Three Graded Axes
 
 The standard grades three different things, and each has its own word — an unqualified number always means a Tier:
