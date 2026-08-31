@@ -77,7 +77,7 @@ Left unverified, agent behavior can go wrong in a wide range of known ways, grou
 | Misinformation / hallucination | Not addressed | Nothing; correctness is out of scope | Whether the output is correct; correctness is a range, not a point |
 | Hidden bias | Not addressed | Can preserve a tamper-evident record of verdicts for a separate review | Assessing or correcting fairness, which is validation |
 | Unbounded consumption / DoS | Partial | Evidences consumption and calls; a budget or rate cap set as a boundary can gate | Availability defense, which is mostly infrastructure |
-| Evidence repudiation | Full | Cryptographic evidence is independently verifiable and non-repudiable; the operator cannot deny an action occurred | Disputes about the meaning or significance of an action, only whether it occurred |
+| Evidence repudiation | Full | Cryptographic evidence is openly verifiable and non-repudiable; the operator cannot deny an action occurred | Disputes about the meaning or significance of an action, only whether it occurred |
 | Trust opacity | Strong | Trust-assumption disclosure makes residual trust visible and comparable | Eliminating all trust assumptions; the standard requires disclosure, not elimination |
 
 Four rows read "not addressed" or record-only — system-prompt leakage, misinformation, hidden bias, and the semantic half of several others. Naming them is what keeps the standard credible: Proof-of-Control shows what happened, not whether it was right.
