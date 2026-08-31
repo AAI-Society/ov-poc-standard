@@ -7,6 +7,22 @@ The first adopters are security practitioners and leaders — the CISOs, securit
 * **For a CISO:** Proof-of-Control is the evidence substrate that lets you show an auditor, insurer, or regulator that your agents did only what they were authorized to do.
 * **For an insurer or regulator:** setting the controls is not the same as verifying they held. Proof-of-Control is the evidence you can price and adjudicate against.
 
+## Where Proof-of-Control Attaches
+
+A reader with a system already running asks first where this standard touches it. It attaches at the point where a control is evaluated and an action is taken. In this standard that point has a name and a requirement: the **Action Interception Gateway** ([C7.1](0x10-C07-Evidence-Generation-and-Properties.md)), an out-of-band process or service that every agent tool and effect invocation is routed through, with no path around it.
+
+Three bands, and only the middle one is in scope:
+
+| Band | What sits there | In scope? |
+| --- | --- | --- |
+| **Intent** | Mandates, policies, contracts, and the translation between them | **No.** How a broad mandate became a specific policy is the operator's work, and this standard never judges whether the control chosen was adequate ([C8](0x10-C08-Verifiability-Tiers.md)). |
+| **The action boundary** | Where a control is evaluated and an action is taken | **Yes.** Every control-governed action either stayed inside its control or did not, and that binary fact is what the standard requires evidence of ([C7](0x10-C07-Evidence-Generation-and-Properties.md)), located on the System surface ([C9](0x10-C09-System-Surface-MAESTRO.md)). |
+| **The stack** | Runtime, weights, model code, training data | **No, deliberately.** The requirements apply the same way to a proprietary model reached through an API and to a published model running on the operator's own hardware, and ask the same evidence of both. |
+
+Nothing above the boundary is in scope. Nothing below it has to be open. The boundary is where the evidence is made.
+
+**Where to start.** An operator does not instrument everything at once. Start where you already make claims: every control asserted to a counterparty — in a contract, a policy, or a compliance packet — is a control already committed to. Those are the first entries in the claim register, evidenced one at a time, in the order the operator's own risk dictates ([C10](0x10-C10-Conformance-and-Disclosure.md)).
+
 ## Requirement Levels
 
 Each requirement in chapters C1–C10 is assigned a level from 1 to 4, **aligned one-to-one with the Verifiability Tiers** ([C8](0x10-C08-Verifiability-Tiers.md)): meeting the Level-N requirements is what makes evidence gradable at Tier N. Levels are cumulative — a claim at Tier N must satisfy every requirement at Level N and below.
