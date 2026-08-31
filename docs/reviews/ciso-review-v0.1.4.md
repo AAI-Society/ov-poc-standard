@@ -1,4 +1,5 @@
 # CISO Review — Working Draft v0.1.4
+<!--aais-record-->
 
 *An operator-perspective security review of the Proof-of-Control requirement chapters,
 conducted as if preparing to (a) implement the standard in a regulated enterprise and (b) rely

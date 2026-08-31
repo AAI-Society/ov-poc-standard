@@ -1,4 +1,5 @@
 # Independent Review of the Coverage Coding Sheet
+<!--aais-record-->
 
 **Date:** August 2026 · **Reviewer:** automated (OpenAI Codex, `gpt-5.1-codex`), one independent pass per framework · **Subject:** [`mappings/coding_sheet.csv`](../../mappings/coding_sheet.csv) at 125 requirements x 8 frameworks = 1,000 coded rows
 

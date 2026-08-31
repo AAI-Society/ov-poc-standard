@@ -1,4 +1,5 @@
 # Independent Paper Review — Round 3 (Cross-Model, Three Lenses)
+<!--aais-record-->
 
 **Date:** August 2026 · **Method:** three independent passes by a different vendor's model (OpenAI Codex), each given a distinct reviewer lens and the full paper text, instructed to review to the standard of IEEE S&P / USENIX Security / CCS.
 

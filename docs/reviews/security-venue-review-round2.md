@@ -1,4 +1,5 @@
 # Peer Review, Round 2: Proof-of-Control paper (post-revision)
+<!--aais-record-->
 
 *Second-round simulated review in the style of a top-tier security venue, conducted on the
 revised [`paper/main.tex`](../../paper/main.tex) (22 pp., 116 requirements) after the
