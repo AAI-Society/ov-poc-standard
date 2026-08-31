@@ -40,7 +40,7 @@ The proposal therefore has three jobs:
 
 1. **Stop the overclaim.** Requirements that assert executed-effect evidence where only
    message-level evidence exists must be narrowed or bounded (§1, §2 below).
-2. **Restate the theorem honestly.** A weaker, true theorem with its hypotheses named (§6).
+2. **Restate the theorem accurately.** A weaker, true theorem with its hypotheses named (§6).
 3. **Say what an implementer does about it.** The four conditions are properties of the *endpoint*,
    not of the agent system. A requirement written against them is unimplementable unless it also
    specifies the remediation path for the 83.3% of endpoints that do not qualify (§3, C4.3).
@@ -189,7 +189,7 @@ None. This is new material.
 
 - **4.3.1 / 4.3.2** — §Empirical Survey establishes the taxonomy (Qualified / Conditional /
   Non-Qualifying) and the distribution across 24 production endpoints. The evidence-grade
-  distinction in 4.3.2 is not the paper's; it comes from the implementation, and is the sharpest
+  distinction in 4.3.2 is not the paper's; it comes from the implementation, and is the tightest
   practical limit on the whole scheme: `classify.rs`'s `judge_c4` returns `Unknown` rather than
   `Failed` when no precondition mechanism is described, with the comment *"a specification cannot
   say whether the effect depends on server state. Only a probe can, which is the methodological
@@ -335,7 +335,7 @@ The current 7.1.5 draws the cap at *mediation*, which is necessary but not suffi
 mediate its effect channel perfectly and still call `POST /gmail/v1/users/me/messages/send`, which
 the survey classifies Non-Qualifying on both alias resolution and idempotency. Its evidence
 truthfully describes a request that was emitted; it does not describe an effect. The word "endpoint"
-in 7.1.6 is load-bearing because a real deployment calls many, and the survey's distribution makes a
+in 7.1.6 is essential because a real deployment calls many, and the survey's distribution makes a
 mixed estate the normal case, not the exception.
 
 ### Confidence
@@ -490,7 +490,7 @@ somewhere, and 7.7.5 is where a reader will look for it.
 
 **Settled by measurement.** Implemented: `transit` ships a strict decoder (`src/json.rs`
 `parse_strict`) and a differential harness (`src/differential.rs`, `src/decoder.rs`) built for
-precisely this comparison.
+this comparison exactly.
 
 ---
 

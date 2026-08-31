@@ -29,7 +29,7 @@ Report:
      the coder missed. These are the most valuable findings.
    - PM/EM that should be NM or downgraded because the cited clause does not
      actually reach the requirement, or the rationale is a stretch.
-   Give the specific clause you would cite. Set confidence honestly:
+   Give the specific clause you would cite. Set confidence accurately:
    "high" only if you are certain the clause exists and says what you claim.
 
 2. clause_citation_errors - citations that are wrong, non-existent, misnumbered,

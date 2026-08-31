@@ -5,12 +5,12 @@ Cryptographic Oversight in Autonomous AI Execution*.
 
 **Status: working draft for co-author review — not yet submitted.**
 
-**Prose style.** The paper is written in the plain, concrete, direct register associated with
+**Prose style.** The paper is written in the plain, concrete, direct manner associated with
 Richard Feynman's expository writing: examples before abstractions, ordinary words for technical
 things, and explicit statements of what is *not* known or claimed. All technical content —
-theorems, proofs, tables, measurements, citations — is unchanged; only the prose register
+theorems, proofs, tables, measurements, citations — is unchanged; only the prose style
 differs. Section titles are plain declaratives ("The Problem", "Does It Actually Work?",
-"What We Still Don't Know").
+"What We Still Don't Know"). <!--aais-allow-->
 
 The measured results in Section 9 come from the reference implementation in
 [`../impl/`](../impl/README.md); regenerate them with `python3 bench/bench.py` and

@@ -231,7 +231,7 @@ It implements action interception, path-aware policy evaluation, hash-chained si
 
 **2 · Machine-readable claim set (`schema/`).** The normative claim set in CDDL and JSON Schema, with canonical byte definitions, a CWT/CBOR profile, and signed test vectors. The reference implementation validates its own output against this schema in its test suite, so the two cannot drift apart without a test failing.
 
-**3 · The paper (`paper/`).** *Proof-of-Control: An Open Standard for Runtime Verifiability and Cryptographic Oversight in Autonomous AI Execution*, carrying the theorems, the threat model, the measured results, and a section titled "What We Still Don't Know." A working draft under co-author review, not yet submitted.
+**3 · The paper (`paper/`).** *Proof-of-Control: An Open Standard for Runtime Verifiability and Cryptographic Oversight in Autonomous AI Execution*, carrying the theorems, the threat model, the measured results, and a section titled "What We Still Don't Know." A working draft under co-author review, not yet submitted. <!--aais-allow-->
 
 The pipeline has been exercised in software and inside a real Intel TDX trust domain on GCP, with a matched non-confidential control, so the protocol has run on hardware rather than only being modelled.
 

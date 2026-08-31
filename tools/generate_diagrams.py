@@ -579,7 +579,7 @@ def smart_leash(t, v):
          ["A yearly paper stamp. It can't stop", "the dog jumping the fence today."],
          ["eye_outer", "eye_pupil"]),
         (898, "lime", "✓", "TIER 3–4 · PROOF-OF-CONTROL",
-         "The smart, tamper-proof leash",
+         "The smart, tamper-evident leash",
          ["Anyone can check the proof — and the", "leash locks before the boundary is crossed."],
          ["shield", "shieldcheck"]),
     ]

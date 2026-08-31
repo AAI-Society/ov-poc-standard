@@ -38,7 +38,7 @@ A system has Proof-of-Control when, and only when, its evidence reaches **Tier 3
 
 ## The Binary Threshold
 
-Evidence is graded by **who you must trust to believe it**. Cryptography alone doesn't raise the tier — removing the trusted party does.
+Evidence is graded by **who you must trust to believe it**. Cryptography alone does not raise the tier — removing the trusted party does.
 
 <p align="center">
   <picture>
@@ -170,7 +170,7 @@ Each requirement carries a level (1–4), **aligned one-to-one with the Verifiab
   </picture>
 </p>
 
-Four things tell an assessor, buyer, or insurer what a claim is worth: the **domains** claimed (C1–C6), the **Tier** of each claim (C8), the **conformance stage** (C10), and the **trust-assumption disclosure** — the part that lets two conformant systems be priced differently.
+What a claim is worth comes from the **domains** claimed (C1–C6), the **Tier** of each claim (C8), the **conformance stage** (C10), and the **trust-assumption disclosure** — the part that lets two conformant systems be priced differently.
 
 ## Project Leadership
 

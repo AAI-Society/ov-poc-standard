@@ -144,7 +144,7 @@ proxy.
 
 **What should change.** Either add an enum value meaning *dispatched* — not *performed* —
 or amend C7.1.2 so the middle record's meaning matches what an interception point can
-honestly observe. The programme's tools emit a `record_phase` and an explicit
+accurately observe. The programme's tools emit a `record_phase` and an explicit
 `observed = "request_dispatched"` under `additionalProperties`, which works and should
 not have to be an extension.
 
@@ -231,7 +231,7 @@ reaches the attester. The programme's answer is an **epoch** published by the re
 party and folded into `report_data[32..64]`, which costs one quote per refresh interval
 rather than one per connection, and which makes C7.2.3's declared interval and the
 enforced interval the same number. Whatever the answer, a required field that nothing
-can supply honestly is worse than an optional one.
+can supply accurately is worse than an optional one.
 
 ---
 

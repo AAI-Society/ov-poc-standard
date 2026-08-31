@@ -393,7 +393,7 @@ impl/
    (label creep, fixed by declassification) is robust, the specific 42.2% is
    workload-dependent.
 4. **Python**, so absolute latencies are conservative; a Rust/WASM policy engine
-   would be faster, and the relative component breakdown is the durable result.
+   would be faster, and the relative component breakdown is the result that holds.
 5. **Pure-Python ML-DSA**, so post-quantum *timings* are unrepresentative; the size results are not affected.
 6. **No ZK path.** The privacy-preserving evidence options of C2.3 are specified
    but not implemented here.
