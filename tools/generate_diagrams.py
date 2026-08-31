@@ -301,8 +301,8 @@ def tier_ladder(t, v):
     rungs = [
         ("lime", 104, "TIER 4", "Self-Enforcing",
          "trust: no one — cannot run if integrity breaks", "PROOF-OF-CONTROL", True),
-        ("tint", 206, "TIER 3", "Independently Verifiable",
-         "trust: the mathematics — anyone can check", "PROOF-OF-CONTROL", True),
+        ("tint", 206, "TIER 3", "Trust-minimized",
+         "trust: the mathematics — anyone can verify", "PROOF-OF-CONTROL", True),
         ("warm", 366, "TIER 2", "Attestation",
          "trust: a third party or root-keeper", "NOT PROOF-OF-CONTROL", False),
         ("red", 468, "TIER 1", "Assertion",

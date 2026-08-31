@@ -4,7 +4,7 @@
 
 Tick items as you close them out; each chapter's *Auditor evidence* notes say what to collect and what to test per requirement. Levels are cumulative and align 1:1 with the Verifiability Tiers — clearing every Level 1–3 item in the claimed domains is the minimum for a Proof-of-Control claim ([Using Proof-of-Control](0x03-Using-Proof-of-Control.md)).
 
-**Level key:** L1 Recorded · L2 Attested · L3 Independently Verifiable · L4 Self-Enforcing / Continuous
+**Level key:** L1 Recorded · L2 Attested · L3 Trust-minimized · L4 Self-Enforcing / Continuous
 
 ## Coverage Matrix
 
@@ -27,7 +27,7 @@ Tick items as you close them out; each chapter's *Auditor evidence* notes say wh
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="../../images/diagrams/checklist-levels-dark.svg">
-    <img alt="127 requirements by level: 35 at Level 1 (Recorded),  45 at Level 2 (Attested),  35 at Level 3 (Independently Verifiable),  12 at Level 4 (Self-Enforcing / Continuous)" src="../../images/diagrams/checklist-levels-light.svg" width="620">
+    <img alt="127 requirements by level: 35 at Level 1 (Recorded),  45 at Level 2 (Attested),  35 at Level 3 (Trust-minimized),  12 at Level 4 (Self-Enforcing / Continuous)" src="../../images/diagrams/checklist-levels-light.svg" width="620">
   </picture>
 </p>
 

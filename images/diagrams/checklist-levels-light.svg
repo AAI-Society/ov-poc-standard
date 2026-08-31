@@ -22,7 +22,7 @@
 <text x="284" y="189.5" font-size="12.5" fill="#141414" text-anchor="end" font-weight="700">L2 · Attested</text>
 <rect x="300" y="164" width="430" height="42" rx="9" fill="url(#gWarm)" stroke="#c6bfb4" stroke-width="1.5"/>
 <text x="746" y="190.0" font-size="14" fill="#141414" text-anchor="start" font-weight="700">45</text>
-<text x="284" y="249.5" font-size="12.5" fill="#141414" text-anchor="end" font-weight="700">L3 · Independently Verifiable</text>
+<text x="284" y="249.5" font-size="12.5" fill="#141414" text-anchor="end" font-weight="700">L3 · Trust-minimized</text>
 <rect x="300" y="224" width="334" height="42" rx="9" fill="url(#gTint)" stroke="#a9c920" stroke-width="1.5"/>
 <text x="650" y="250.0" font-size="14" fill="#141414" text-anchor="start" font-weight="700">35</text>
 <text x="284" y="309.5" font-size="12.5" fill="#141414" text-anchor="end" font-weight="700">L4 · Self-Enforcing / Continuous</text>

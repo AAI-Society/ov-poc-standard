@@ -91,7 +91,7 @@ design.
 ## How This Differs from SOC 2
 
 SOC 2 attests that an organization's controls exist and were tested by an auditor; it is
-institutional assurance about the organization. Proof-of-Control is independently verifiable
+institutional assurance about the organization. Proof-of-Control is openly verifiable
 evidence of what the system actually did. SOC 2 answers "did the organization implement the
 controls it said it would?"; Proof-of-Control answers "did the AI system operate within its
 defined control boundaries, and can anyone verify?" The two are complementary: Proof-of-Control
