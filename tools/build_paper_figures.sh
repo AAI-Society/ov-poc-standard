@@ -25,6 +25,15 @@ FIGURES=(
 )
 
 mkdir -p paper/figures
+
+# The Society lockup comes from the brand kit and must never be redrawn.
+# A copy, not a symlink; refreshed from the kit when the kit is present,
+# with the committed paper/figures/aais-lockup.png standing otherwise.
+BRAND_KIT_LOCKUP="../../comms/brand-kit/png/advanced-ai-society-logo-offwhite-large-2386px.png"
+if [[ -f "$BRAND_KIT_LOCKUP" ]]; then
+  cp "$BRAND_KIT_LOCKUP" paper/figures/aais-lockup.png
+fi
+
 for f in "${FIGURES[@]}"; do
   src="images/diagrams/${f}-light.svg"
   [[ -f "$src" ]] || { echo "missing $src" >&2; exit 1; }

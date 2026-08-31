@@ -43,16 +43,9 @@
 \newcommand{\iat}{\texttt{iat}}
 \newcommand{\poc}{Proof-of-Control}
 
-% The Society's bracket mark, drawn natively (lime on the dark band)
-\newcommand{\aaimark}[1]{%
-\begin{tikzpicture}[x=#1, y=#1, line cap=butt]
-  \fill[aailime] (0,0) rectangle (0.16,1);
-  \fill[aailime] (0.16,0) rectangle (0.42,0.24);
-  \fill[aailime] (0.16,0.76) rectangle (0.42,1);
-  \fill[aailime] (1.04,0) rectangle (1.20,1);
-  \fill[aailime] (0.78,0) rectangle (1.04,0.24);
-  \fill[aailime] (0.78,0.76) rectangle (1.04,1);
-\end{tikzpicture}}
+% The Society's mark is NOT drawn here. The cover uses the official brand-kit
+% lockup, figures/aais-lockup.png. Brand kit: nothing may be redrawn by hand.
+
 
 \begin{document}
 
@@ -62,53 +55,52 @@
 \begin{tikzpicture}[remember picture, overlay]
   \fill[aaiink] (current page.north west) rectangle
     ([yshift=-6.35cm]current page.north east);
-  \fill[aailime] ([yshift=-6.35cm]current page.north west) rectangle
-    ([yshift=-6.53cm]current page.north east);
+  %% neon band removed: canon rations neon to the mark and the highlight
   \node[anchor=north west, inner sep=0pt]
-    at ([xshift=1in, yshift=-0.95cm]current page.north west) {\aaimark{0.62cm}};
-  \node[anchor=north west, inner sep=0pt, text width=14.2cm]
-    at ([xshift=1in+1.15cm, yshift=-0.98cm]current page.north west)
-    {\sffamily\bfseries\footnotesize\color{aailime}%
-     ADVANCED AI SOCIETY\; \textcolor{aaimuted}{$\cdot$}\; PROOF-OF-CONTROL
-     INITIATIVE\\[3pt]
-     {\normalfont\sffamily\footnotesize\color{aaimuted}
-      Working draft v0.1 $\cdot$ August 2026 $\cdot$ for co-author review
-      prior to submission}};
+    at ([xshift=1in, yshift=-1.05cm]current page.north west)
+    {\includegraphics[width=8.4cm]{figures/aais-lockup.png}};
+  \node[anchor=north west, inner sep=0pt, text width=16.5cm]
+    at ([xshift=1in, yshift=-2.30cm]current page.north west)
+    {\normalfont\sffamily\footnotesize\color{aaimuted}
+     Proof-of-Control Initiative $\cdot$ Working draft v0.1 $\cdot$ August 2026
+     $\cdot$ for co-author review};
   \node[anchor=north west, inner sep=0pt, text width=\textwidth]
-    at ([xshift=1in, yshift=-2.55cm]current page.north west)
+    at ([xshift=1in, yshift=-3.05cm]current page.north west)
     {\sffamily\bfseries\fontsize{21.5}{26}\selectfont\color{aaipaper}%
      Proof-of-Control: An Open Standard for Runtime Verifiability and
      Cryptographic Oversight in Autonomous AI Execution};
   \node[anchor=north west, inner sep=0pt, text width=\textwidth]
     at ([xshift=1in, yshift=-5.55cm]current page.north west)
     {\sffamily\small\color{aaipaper}%
-     \textcolor{aailime}{\rule[0.5ex]{1.6em}{2pt}}\hspace{0.6em}%
-     Prove, rather than promise, what your agents did.};
+
+     Verify, rather than promise, that your agents have the right controls in place.};
 \end{tikzpicture}
 
 \vspace*{5.9cm}
 
 % Compact author block
 {\small\noindent
-\textbf{Jim Schwoebel}\textsuperscript{1,2} \quad
-\textbf{Tricia Wang}\textsuperscript{2}
+\textbf{Tricia Wang}\textsuperscript{1} \quad
+\textbf{Ken Huang}\textsuperscript{1,2} \quad
+\textbf{Jim Schwoebel}\textsuperscript{1,3}
 
 \smallskip\noindent
 {\footnotesize
-\textsuperscript{1}\,Quome \quad
-\textsuperscript{2}\,Advanced AI Society,
+\textsuperscript{1}\,Advanced AI Society,
 \url{https://advancedaisociety.org}\footnote{Prepared within the
 Proof-of-Control Initiative of the Advanced AI Society. Authorship is limited to
 contributors to this manuscript; the Initiative's working groups, board, and
 advisory board are credited in the Acknowledgments. Additional co-authors will be
-added only upon explicit consent and substantive contribution.}}}
+added only upon explicit consent and substantive contribution.} \quad
+\textsuperscript{2}\,Cloud Security Alliance \quad
+\textsuperscript{3}\,Quome}}
 
 \smallskip\noindent
 {\footnotesize Specification, reference implementation, and all artifacts:
 \url{https://github.com/AAI-Society/ov-poc-standard}}
 
 \vspace{0.9em}
-\noindent\textcolor{aailime}{\rule{\textwidth}{1.6pt}}
+\noindent\textcolor{aaineutral}{\rule{\textwidth}{0.8pt}}
 \vspace{0.2em}
 
 \begin{center}
