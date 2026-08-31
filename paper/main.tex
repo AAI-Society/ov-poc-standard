@@ -131,7 +131,7 @@ found by review rather than by design. We also
 measure what we did not expect: a monitor that watches the whole path refuses
 42\% of perfectly legitimate work unless you give it an explicit place to
 forget, which is exactly what people who study information flow have been
-saying for fifty years. Because an auditor should be able to check one action
+saying for fifty years. Because an auditor should be able to verify one action
 without downloading a million, we adopt Certificate Transparency's tree and
 show it turns a \SI{123}{\mega\byte} download into a 544-byte proof. Because
 evidence has to be believable long after it is written, we measure surviving
@@ -167,7 +167,7 @@ is compromised---or if the company running it would simply rather you did not
 know---the log says whatever they want it to say. An agent reporting that it
 behaved is not evidence that it behaved.
 
-We call this the \emph{Verifiability Gap}: the absence of independent evidence
+We call this the \emph{Verifiability Gap}: the absence of open evidence
 of what an AI system did~\cite{pocspec}. It is not a policy gap. Nobody is
 confused about what the agent \emph{should} do. It is an evidence gap---and
 those are different problems with different fixes.
@@ -190,7 +190,7 @@ we fixed them, and then we measured what the whole thing costs. Specifically:
 \item \textbf{The standard} (Section~\ref{sec:standard}): six domains of
 verification with 127 testable requirements, four evidence properties, four
 tiers that grade evidence by how much trust it demands, and three stages of
-how thoroughly a claim was checked.
+how thoroughly a claim was verified.
 \item \textbf{The architecture} (Section~\ref{sec:arch}): interception of
 every consequential action, decided inside a hardware-protected environment,
 under the IETF attestation architecture~\cite{rfc9334}, emitting signed
@@ -217,7 +217,7 @@ digests for the same action and the central binding property fails silently.
 attack harness that runs eleven attacks with and without each defense,
 measurements of what it all costs, what it takes to make the evidence outlive
 the signature scheme that protects it, and---in
-Section~\ref{sec:merkle}---logarithmic proofs that let an auditor check one
+Section~\ref{sec:merkle}---logarithmic proofs that let an auditor verify one
 action out of millions without downloading the rest.
 \end{enumerate}
 
@@ -227,8 +227,8 @@ the middle of the log, recompute every link after it, and re-sign the lot; the
 result replays perfectly, because nothing about it is internally inconsistent.
 Our verifier compared the published step \emph{count} and never the published
 \emph{root}, so it accepted the forgery. That is attack A9, and the fix is now
-requirement C7.3.5. It is worth noting how it was found: not by proving
-anything, but by implementing a performance optimization carefully enough to
+requirement C7.3.5. It is worth noting how it was found: not by analysis,
+but by implementing a performance optimization carefully enough to
 have to say what a published root was supposed to guarantee.
 
 \paragraph{One thing we could not do.} We did not have a machine with a real
@@ -251,10 +251,10 @@ useful---but because each one answers a different question.
 
 Old software followed a decision tree you could read in advance. An agent does
 not. Given one objective it invents its own sequence of steps, reads whatever
-comes back, and changes its mind. So you cannot check compliance before it
-runs; there is nothing fixed to check.
+comes back, and changes its mind. So you cannot verify compliance before it
+runs; there is nothing fixed to verify.
 
-Worse, you cannot check it one step at a time either, and this is the part
+Worse, you cannot verify it one step at a time either, and this is the part
 people miss. Consider two actions. First, the agent reads a confidential
 customer record---which it is allowed to do; that is its job. Second, it makes
 an outbound network call---which it is also allowed to do; it has to talk to
@@ -295,7 +295,7 @@ own code. Now ask: what happens when the agent is running generated code, or
 has a shell tool? The checks are running with the same authority as the thing
 they are checking. A process can skip its own checks. And the log it writes is
 its own log~\cite{netbankaudit2026}. This is the deep problem with all three:
-\emph{the thing being checked is doing the checking}.
+\emph{the thing being verified is doing the verifying}.
 
 \subsection{Why looking afterward is too late}
 
@@ -382,14 +382,14 @@ whose behalf, and where the model came from.
 
 Here is the whole idea in one sentence: \emph{for every control you claim, the
 mechanism that enforces it must produce evidence, while it runs, that it held;
-you must say how independently that evidence can be checked; and you must say
+you must say how independently that evidence can be verified; and you must say
 what you are still asking people to take on faith.} A system has \poc{} only
 when its evidence reaches the top two tiers~\cite{pocspec}. We use MUST and
 SHOULD in the RFC~2119 sense~\cite{rfc2119}.
 
 \subsection{The six things worth having evidence about}
 The requirements---127 of them, each phrased as something you can go and
-check---are grouped into six domains:
+verify---are grouped into six domains:
 
 \begin{enumerate}[itemsep=1pt,topsep=2pt]
 \item \textbf{Provenance}: which model actually ran, and where it and its
@@ -410,7 +410,7 @@ controls held, which tools were called, and who holds the keys.
 Four more chapters cut across all six: how evidence is generated and what
 properties it must have, how it is graded, where in the stack it applies
 (we use the seven MAESTRO layers~\cite{csamaestro}), and how a claim is
-checked and what residual trust must be disclosed.
+verified and what residual trust must be disclosed.
 
 \subsection{Four tiers, and the line that matters}
 \label{sec:tiers}
@@ -441,14 +441,14 @@ not, PCI compliant or not.
 \includegraphics[width=0.86\linewidth]{figures/tier-ladder.pdf}
 \caption{The four tiers, graded by who you must trust. The hard line sits
 between Tier~2 and Tier~3: below it, authenticated paperwork; above it,
-evidence a stranger can check. Requirement levels 1--4 line up one-for-one
+evidence a stranger can verify. Requirement levels 1--4 line up one-for-one
 with the tiers.}
 \label{fig:ladder}
 \end{figure}
 
 Separately from the evidence, we grade how carefully the \emph{claim} was
-checked: the operator says so (Self-Declared), an accredited assessor checked
-(Third-Party Assessed), or it is checked continuously as the system runs
+verified: the operator says so (Self-Declared), an accredited assessor verified
+(Third-Party Assessed), or it is verified continuously as the system runs
 (Continuously Monitored). And because you cannot govern what you have not
 found, the declared inventory of agents must be reconciled against what
 automatic discovery actually finds.
@@ -495,7 +495,7 @@ without a record, including the things that were refused.}
 
 \subsection{The roles, in the standard vocabulary}
 Mapping onto the attestation architecture~\cite{rfc9334}: the machine running
-the agent and the hooks is the \emph{Attester}; the layer holding the runtime,
+the agent and the hooks is the \emph{Attester}; the component holding the runtime,
 the model context, and the proposed action is the \emph{Target Environment};
 the enclave that measures the policy code, checks the bundle signature,
 evaluates, and signs is the \emph{Attesting Environment}; the signed token is
@@ -581,10 +581,10 @@ store never becomes a second copy of your customer database. Second,
 record to every record before it, so quietly dropping an inconvenient step
 breaks arithmetic rather than merely being impolite. Third, \emph{the rules are
 pinned}: the bundle hash names the exact policy that produced this answer, so
-``which rules were in force?'' is something you check, not something you
+``which rules were in force?'' is something you verify, not something you
 reconstruct from a change log and hope.
 
-\paragraph{How you check one.} It is mechanical, and worth walking through
+\paragraph{How you verify one.} It is mechanical, and worth walking through
 because there is nothing clever in it. (1)~Check the signature against the
 platform's attestation roots. (2)~Compare the enclave measurement to the
 published golden value---this is what tells you the code that decided was the
@@ -730,7 +730,7 @@ While this section was in draft, the experiment it argues for was run by a
 stranger. An independent engineer implemented a verifier for the KYA-OS
 delegation credential from the specification text alone, with no shared code
 and no say by the specification's authors in who the implementer would be,
-and checked it against credentials issued by the reference implementation:
+and verified it against credentials issued by the reference implementation:
 valid credentials verify, tampered ones fail, and the JCS (RFC 8785)
 canonicalization and Ed25519 signature handling agree byte-for-byte across
 the two implementations~\cite{izurutoys2026}. The same exercise surfaced
@@ -786,7 +786,7 @@ execution: which model ran, on what input, under whose authority, producing
 what effect. We do not verify that the output was correct, or fair, or wise,
 or that the boundaries somebody chose were the right boundaries. Those are
 human judgments and they stay human judgments~\cite{iso42001}. It is easy to
-let a system like this drift into implying more than it proves, and we would
+let a system like this drift into implying more than it shows, and we would
 rather draw the line ourselves than have someone else draw it for us later.
 
 \subsection{This is information flow, and we should say so}
@@ -810,7 +810,7 @@ decline to trust. Ours is coarser. It is also checkable from outside, which
 theirs is not.
 \item \textbf{What we are after.} Those systems \emph{enforce} a flow
 property. We enforce a policy \emph{and hand you evidence} that we did, which
-you can check without having watched. The evidence is the contribution; the
+you can verify without having watched. The evidence is the contribution; the
 enforcement is an old idea done at a new place.
 \item \textbf{What we promise.} No noninterference theorem. An agent whose
 permitted actions are themselves harmful, or which leaks through a channel we
@@ -928,7 +928,7 @@ Stringing permitted actions together & P1 &
 The policy sees the path (Section~\ref{sec:formal}). Left over: the cost in
 refused legitimate work, measured in Section~\ref{sec:utility}. \\
 Sub-agents used as cutouts & P1--P4 &
-Constraints are inherited; sub-agent evidence checked by several
+Constraints are inherited; sub-agent evidence verified by several
 verifiers~\cite{multiverifier}. \\
 Breaking the enclave & P1--P4 &
 Out of scope by (B1)---disclosed, not solved, and bounded by re-attestation
@@ -1104,7 +1104,7 @@ Using the coding method HAARF worked out for healthcare
 agents~\cite{haarf2026}, each requirement gets one of three marks against each
 framework. \emph{Exact}: they ask for the same thing, at the same depth.
 \emph{Partial}: they ask about the same topic, but without demanding evidence
-somebody outside the company can check, or not in as much detail.
+somebody outside the company can verify, or not in as much detail.
 \emph{None}: they do not address it. Coverage is (Exact + Partial) over 127.
 The sheet, the rubric, and the script are public, so you can re-derive the
 numbers or re-code a framework you think we got wrong.
@@ -1188,7 +1188,7 @@ actually held, checkable by someone who does not trust you.
 
 The second is where the None column bunches up: in the chapters about evidence
 properties, grading, and disclosure. No framework we coded grades evidence by
-how independently it can be checked, or requires you to write down what you
+how independently it can be verified, or requires you to write down what you
 are still asking people to take on faith.
 
 \begin{figure}[t]
@@ -1281,7 +1281,7 @@ Every action goes through it & No & At the API layer & Yes & N/A & Yes \\
 Decisions consider the path & No & No & Partly & N/A & Yes \\
 Record integrity & None & Operator's logs & Operator's receipts &
 Chained, gossiped & Chained + anchored \\
-A stranger can check it & No & No & With operator access & Yes &
+A stranger can verify it & No & No & With operator access & Yes &
 Yes (Tier 3+) \\
 Everyone sees one history & No & No & Unspecified & Yes (with gossip) &
 Required at Tier 3+ \\
@@ -1508,7 +1508,7 @@ place to sit. An unverified declassification point is not a solution to label
 creep; it is a dial between two different ways of failing.
 
 The fix is not to tune the dial. It is to make declassification something the
-monitor can check: only a trusted redaction tool clears the label, and it
+monitor can verify: only a trusted redaction tool clears the label, and it
 really removes the content, so an attacker routing through it gains nothing
 because the data it wanted is gone. That is the solid line, and it does what
 you want in both directions at once: at full coverage, false rejections reach
@@ -1636,7 +1636,7 @@ does not matter.}
 
 \paragraph{What we changed in the standard.} Two requirements. First, every
 record and capability must name the algorithm that signed it, and a claim must
-declare a migration path---so a verifier knows what to check and an operator
+declare a migration path---so a verifier knows what to verify and an operator
 can change schemes without orphaning evidence already published. Second, if
 the declared retention period runs past the period the signature scheme is
 expected to survive, then the implementation either signs post-quantum or
@@ -1856,7 +1856,7 @@ advantage. So we built the tree and measured what it buys.
 
 \paragraph{Checking one record.} Table~\ref{tab:merkle} is the whole argument.
 An inclusion proof at 100{,}000 records is 544 bytes and takes
-\SI{7}{\micro\second} to check. Replaying the chain to learn the same fact
+\SI{7}{\micro\second} to verify. Replaying the chain to learn the same fact
 takes \SI{70}{\milli\second} and \SI{123}{\mega\byte} of transfer---about
 69{,}000 times more data (Figure~\ref{fig:merkle}). And the gap is not fixed:
 one curve is linear and the other is logarithmic, so every record you add makes
@@ -1884,7 +1884,7 @@ hashes.}
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.88\linewidth]{figures/chart-merkle.pdf}
-\caption{What an auditor must download to check a single action. One line is
+\caption{What an auditor must download to verify a single action. One line is
 linear in log size and the other is logarithmic, which is why the gap widens
 with every record written.}
 \label{fig:merkle}
@@ -1893,7 +1893,7 @@ with every record written.}
 Put it in operational terms. A thousand agents at a hundred actions a day
 produce 36.5 million records a year, a tree 26 levels deep. Checking one
 sampled action costs about 2 kilobytes. Replaying the chain costs
-\SI{44.8}{\giga\byte}---and costs the same whether you wanted to check one
+\SI{44.8}{\giga\byte}---and costs the same whether you wanted to verify one
 record or a million, because replay is all-or-nothing. Proofs cost what you
 actually asked for.
 
@@ -1951,7 +1951,7 @@ usually runs.
 \subsection{Remaining parameters}
 For the \textbf{privacy path}, an implementation admitting zero-knowledge
 evidence must state the relation proven, the setup assumption, and what the
-disclosed statement leaks. ``We use ZKPs'' is not a claim anyone can check---%
+disclosed statement leaks. ``We use ZKPs'' is not a claim anyone can verify---%
 and if the setup was run by one party, you have quietly reintroduced exactly
 the trusted party the whole scheme exists to remove.
 
@@ -1989,7 +1989,7 @@ standard said that at Tier 3 there is nobody left to trust. \S\ref{sec:tdx}
 lists five parties a verifier must still accept to believe a measurement from
 our own TDX deployment, and anchoring removes none of them. The sentence
 conflates two properties that a careful reader will separate for us: evidence
-can be \emph{publicly verifiable}---anyone may check it with published
+can be \emph{publicly verifiable}---anyone may verify it with published
 tools---without being \emph{trust-independent}, and hardware attestation buys
 the first while leaving a vendor chain intact underneath the second.
 
@@ -2054,7 +2054,7 @@ The way we have always known what software did is that we asked it and it told
 us. That worked when software followed instructions, and it does not work now
 that software makes decisions, at machine speed, in situations nobody
 enumerated in advance. Asking an agent what it did is not a check on the
-agent; it is a conversation with the party you would be checking.
+agent; it is a conversation with the party you would be verifying.
 
 What we have described is the alternative: evidence made by the mechanism
 while it acts, chained so gaps show, published so nobody can keep two sets of
@@ -2113,7 +2113,7 @@ profile~\cite{rfc9711,tcg2024}---standardizing claims for lifecycle hook
 types, policy-bundle hashes, Agent Bill of Materials (AgBOM) digests, and
 step indices---and an extension of multi-verifier attestation to sub-agent
 delegation chains~\cite{multiverifier}.
-\emph{ACS:} \poc{} supplies the missing cryptographic layer for
+\emph{ACS:} \poc{} supplies the missing cryptographic evidence for
 ACS~\cite{acs2026,acsms2026}, anchoring its decision engine in TEEs and
 signing decision tokens.
 \emph{NIST AI 600-1:} \poc{} provides concrete implementations for the
