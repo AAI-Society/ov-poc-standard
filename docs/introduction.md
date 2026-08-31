@@ -25,7 +25,7 @@ Openness began in software as open source and extended into open hardware, open 
 standards. Open source opened the code: it published the source and gave everyone the right to
 inspect, use, modify, and share the software, with no license fee and no vendor lock.
 
-Open verification carries the same open-source principles into a new layer: the verification of
+Open verification carries the same open-source principles into new territory: the verification of
 what AI and other autonomous systems actually did. The standard and the method of verification
 are openly published, so anyone can read and implement them instead of depending on a proprietary
 black box. And the evidence is openly verifiable: any party who needs to verify what a
@@ -49,7 +49,7 @@ because zero-knowledge techniques can confirm a fact without revealing the infor
 openness of the verification and privacy of what is verified are no longer opposed.
 
 Open verification is interoperable on two levels, existing infrastructure and standards/specs. It
-is interoperable with existing infrastructure: these methods are built to layer on top of the
+is interoperable with existing infrastructure: these methods are built to sit on top of the
 closed and centralized systems already in place, so open verification is added to what an
 organization runs, not swapped in for it. And it is also interoperable with existing standards:
 the field is crowded with AI frameworks and standards, and open verification is designed to
@@ -65,7 +65,7 @@ independently checked, without requiring that the whole system be open to the wo
 proprietary system can still produce openly verifiable evidence of the one thing that matters in
 a given interaction and reveal nothing else.
 
-Open verification is one layer of a larger movement to make AI accountable: the field of AI
+Open verification is one part of a larger movement to make AI accountable: the field of AI
 assurance. Fathom is advancing that field through independent verification and the Independent
 Verification Organization (IVO) model, and through PACT AI, the first industry association for AI
 assurance, which convenes the ecosystem across deployers, assurance providers, and insurers.
@@ -103,7 +103,7 @@ by the enforcing mechanism at execution time, that the control held; place that 
 Verifiability Tiers; and disclose its residual trust assumptions. A system has Proof-of-Control
 when, and only when, its evidence reaches Tier 3 or Tier 4.
 
-Proof-of-Control is the evidence layer AI governance depends on: the part that lets decisions
+Proof-of-Control is the evidence layer AI governance depends on: the part that lets decisions <!--aais-allow-->
 about what agents may do, and whether they did it, be checked and enforced rather than merely
 asserted.
 
@@ -129,7 +129,7 @@ of an agent's behavior must be, under the umbrella of Open Verification. After t
 defined, then come the operational frameworks, the implementation guides, the training, and the
 certifications that turn the standard into everyday practice. FinOps is a useful example: its
 framework gave engineering, finance, and business one shared language for cloud value. The
-standard comes first because everything else rests on it. This document is that first layer.
+standard comes first because everything else rests on it. This document is that first piece.
 
 ## Who It's For
 

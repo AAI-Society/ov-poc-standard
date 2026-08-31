@@ -68,7 +68,7 @@ The runtime stack where Agentic AI systems execute: APIs, containers, orchestrat
 
 ## Layer 5 — Evaluation and Observability
 
-Monitoring, logging, evaluation, and forensics. This layer's controls are foundational to every other layer, because without tamper-evident records of system behavior no after-the-fact verification is possible. The primary risk is log manipulation: an attacker who can modify logs can erase the evidence of any other control failure.
+Monitoring, logging, evaluation, and forensics. Layer 5's controls are foundational to every other layer, because without tamper-evident records of system behavior no after-the-fact verification is possible. The primary risk is log manipulation: an attacker who can modify logs can erase the evidence of any other control failure.
 
 | Control | Proof mechanism(s) | Feasibility | Verification requirement |
 | --- | --- | --- | --- |
@@ -79,7 +79,7 @@ Monitoring, logging, evaluation, and forensics. This layer's controls are founda
 
 ## Layer 6 — Security, Governance, and Compliance
 
-The cross-cutting policies, access-control models, change-management processes, and regulatory-compliance mechanisms that govern how Agentic AI systems are authorized, modified, and audited. Controls here must be demonstrably enforced at every lower layer. A governance policy that cannot be cryptographically traced to its enforcement points provides only documentary assurance.
+The cross-cutting policies, access-control models, change-management processes, and regulatory-compliance mechanisms that govern how Agentic AI systems are authorized, modified, and audited. Controls here must be demonstrably enforced at every lower MAESTRO layer. A governance policy that cannot be cryptographically traced to its enforcement points provides only documentary assurance.
 
 | Control | Proof mechanism(s) | Feasibility | Verification requirement |
 | --- | --- | --- | --- |

@@ -1,7 +1,7 @@
 # Framework Mappings
 
 Proof-of-Control cross-references existing standards and frameworks rather than replacing them:
-it is the evidence layer that sits alongside them. This directory holds the mapping in two
+it is what produces the evidence, alongside them. This directory holds the mapping in two
 complementary forms, following the reproducible coverage methodology established by
 [HAARF](https://github.com/Task-force-for-AI-agents-in-Healthcare/haarf):
 

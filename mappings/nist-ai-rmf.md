@@ -9,7 +9,7 @@
 
 ## The Relationship
 
-NIST AI RMF governs how organizations identify, measure, and manage AI risk through its four functions (GOVERN, MAP, MEASURE, MANAGE). Governance frameworks tell an organization *what to manage*; they do not, by themselves, produce independent evidence of what an agent did that holds when the operator is the threat. Proof-of-Control is the evidence layer that sits alongside the RMF and feeds it: the independently verifiable, tamper-evident record that lets an RMF-aligned control be *verified* by a party that need not trust the operator.
+NIST AI RMF governs how organizations identify, measure, and manage AI risk through its four functions (GOVERN, MAP, MEASURE, MANAGE). Governance frameworks tell an organization *what to manage*; they do not, by themselves, produce independent evidence of what an agent did that holds when the operator is the threat. Proof-of-Control produces the evidence the RMF consumes: the independently verifiable, tamper-evident record that lets an RMF-aligned control be *verified* by a party that need not trust the operator.
 
 This is visible in the mapping below: the RMF has the **highest coverage of any coded framework, yet zero exact matches** — it asks for nearly every control Proof-of-Control verifies, and never for operator-independent evidence of them. That pattern is the binary threshold, seen from the outside.
 
