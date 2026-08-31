@@ -163,15 +163,15 @@ This standard is developed in the open with its working groups, advisors, and me
 organizations, who are named in the [Acknowledgments](../0.1/en/0x01-Frontispiece.md).
 
 **[Advanced AI Society](https://advancedaisociety.org/) convenes the field and stewards the
-Proof-of-Control standard as a public good.** It is a 501(c)(6) industry association: it brings
+Proof-of-Control standard as a public good.** It brings
 together the founding members and working groups that draft the standard, and it administers the
-standards process. Co-chairs Ken Huang and Tricia Wang lead the effort with AAI Society's members
+standards process. Co-chairs Ken Huang and Tricia Wang lead the effort with the Society's members
 and the industry founding contributors. To become a member,
 **[sign up at advancedaisociety.org](https://advancedaisociety.org/)**.
 
 The standard is built to be independent of any single company, including Advanced AI Society.
 During development it is incubated within the Society. On completion, ownership transfers to the
-Verifiable AI Foundation, the Society's affiliated 501(c)(3), where it is held as a public good:
+Verifiable AI Foundation, where it is held as a public good:
 neutral, freely available, and protected from commercial capture. The specification is freely
 available under a CC BY 4.0 license, so anyone can use, implement, translate, and build on it;
 the certification mark ("Proof-of-Control Certified") is protected as a trademark so that only
