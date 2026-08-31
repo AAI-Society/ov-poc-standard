@@ -48,10 +48,10 @@ Above the working-group process sits the Distinguished Review Board
 ([Section 1](introduction.md)). It is composed of senior technical and governance
 experts, drawn from the Society's advisors and from the wider community and seated by nomination.
 The working groups produce each version of the standard by consensus; the Board provides
-independent technical and governance review and holds final sign-off before a version is
-published. A published version therefore carries both working-group agreement and independent
+independent technical and governance review and holds final sign-off before a version is <!--aais-allow-->
+published. A published version therefore carries both working-group agreement and independent <!--aais-allow-->
 expert endorsement, which is what lets it hold up with cryptographers and standards bodies. The
-Board's charge is to keep the standard true to its purpose and free from capture, independent of
+Board's charge is to keep the standard true to its purpose and free from capture, independent of <!--aais-allow-->
 the leadership team, the co-chairs, and any single member.
 
 The Board is distinct from the Society's membership: members build and use the standard; the
@@ -89,7 +89,7 @@ competitors adopt the same standard ([Section 1](introduction.md), Vendor-neutra
 ## Intellectual Property and Licensing
 
 Open verification is a founding principle: the standard, and the tools that verify what a system
-did, are open, independent, and inspectable. The specification is published under a CC BY 4.0
+did, are open and inspectable. The specification is published under a CC BY 4.0
 license, free to read, implement, translate, and build on
 ([Section 1](introduction.md)). A standard that is not free to implement does not become
 the default: Apple's per-port royalty on FireWire is much of why the market chose royalty-free

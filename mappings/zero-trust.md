@@ -4,14 +4,14 @@
 | --- | --- |
 | **Framework type** | Security architecture (NIST SP 800-207); vendor deployment framework (Anthropic, May 2026) |
 | **Corpus version** | NIST SP 800-207, August 2020 (the coded document) — [access](https://csrc.nist.gov/pubs/sp/800/207/final) · [corpus provenance](corpus/README.md) |
-| **Relationship** | Complementary — Zero Trust enforces control at runtime; Proof-of-Control shows independently that control held |
+| **Relationship** | Complementary — Zero Trust enforces control at runtime; Proof-of-Control shows openly that control held |
 | **Coding status** | Draft seed coding, single coder; Anthropic framework not yet coded — [rubric](rubric.md) |
 
 ## The Relationship
 
 Zero Trust tells you how to set the controls on an AI agent correctly so a breach is contained; Proof-of-Control gives an outside party evidence that those controls were honored. The architecture's Policy Enforcement Point mediates every access the way Proof-of-Control's Action Interception Gateway does — the exact match in the mapping below — but 800-207 never requires the enforcement to leave operator-independent evidence, which is where every partial match ends.
 
-Adopting Zero Trust does not give you Proof-of-Control. Anthropic's Zero Trust for AI Agents tells you how to set controls so a breach is contained; its own incident write-ups describe data leaving through a *permitted* path, where preventive controls had nothing anomalous to catch. Enforcing control at runtime and showing, independently, that control held afterward are different jobs.
+Adopting Zero Trust does not give you Proof-of-Control. Anthropic's Zero Trust for AI Agents tells you how to set controls so a breach is contained; its own incident write-ups describe data leaving through a *permitted* path, where preventive controls had nothing anomalous to catch. Enforcing control at runtime and showing, openly, that control held afterward are different jobs.
 
 | Anthropic Zero Trust for AI Agents | Proof-of-Control |
 | --- | --- | --- |
@@ -43,7 +43,7 @@ Adopting Zero Trust does not give you Proof-of-Control. Anthropic's Zero Trust f
 | [C4.2 Delegation](../0.1/en/0x10-C04-Authorization.md) | 4 | 4/4 | Partial | Tenet 4 | Dynamic authorization covers authority scoping; delegation chains not addressed |
 | [C5.1 Agent and Principal Binding](../0.1/en/0x10-C05-Identity.md) | 4 | 4/4 | Partial | Tenet 6 | Strong authentication of all subjects and devices; principal-to-agent intent binding not addressed |
 | [C5.2 Inter-Agent Identity](../0.1/en/0x10-C05-Identity.md) | 2 | 2/2 | Partial | Tenet 2 | Mutual authentication between services covers inter-agent message authenticity |
-| [C6.1 Execution Environment Integrity](../0.1/en/0x10-C06-Security.md) | 4 | 4/4 | Partial | Tenet 5 | Device posture and integrity monitoring inform access decisions; not independently verifiable |
+| [C6.1 Execution Environment Integrity](../0.1/en/0x10-C06-Security.md) | 4 | 4/4 | Partial | Tenet 5 | Device posture and integrity monitoring inform access decisions; not openly verifiable |
 | [C6.2 Isolation and Confidential Execution](../0.1/en/0x10-C06-Security.md) | 3 | 0/3 | None | — | Isolation proof not addressed |
 | [C6.3 Cryptographic Key Lifecycle](../0.1/en/0x10-C06-Security.md) | 5 | 0/5 | None | — | Key lifecycle not addressed at this level |
 | [C7.1 Generation at the Action Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | 5/5 | Partial | PEP (§3) | The PEP mediates all access like the interception gateway; evidence emission is not required |

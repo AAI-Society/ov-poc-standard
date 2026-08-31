@@ -4,12 +4,11 @@
 And how is it designed? — Proof-of-Control is written for security practitioners and auditors
 first, then business and governance owners, in any organization. It is the standard for Open
 Verification, achieved through Proof-of-Control, built on seven design principles: industry-led,
-insurance-ready, speed, interoperable, technology-neutral, vendor-neutral, and open and
-independent.*
+insurance-ready, speed, interoperable, technology-neutral, vendor-neutral, and open.*
 
 ## The Concept
 
-**Open Verification** is open, independent, graded verification that a system's controls are
+**Open Verification** is open, graded verification that a system's controls are
 implemented and held, method and evidence both open to inspection, graded by how much you must
 trust to believe it. Verification is open when what you must trust is a mechanism anyone can
 verify rather than a party. It applies to any system, not only AI.
@@ -61,16 +60,16 @@ matters as much as the technology.
 This is also why open verification is not an ideological position, and not all-or-nothing. It
 does not ask an entire system to be open, and it can be built on top of a closed one. It makes a
 narrow claim about a specific interaction at a specific moment, that this action can be
-independently checked, without requiring that the whole system be open to the world. A closed,
+openly verified, without requiring that the whole system be open to the world. A closed,
 proprietary system can still produce openly verifiable evidence of the one thing that matters in
 a given interaction and reveal nothing else.
 
 Open verification is one part of a larger movement to make AI accountable: the field of AI
-assurance. Fathom is advancing that field through independent verification and the Independent
+assurance. Fathom is advancing that field through independent verification and the Independent <!--aais-allow-->
 Verification Organization (IVO) model, and through PACT AI, the first industry association for AI
 assurance, which convenes the ecosystem across deployers, assurance providers, and insurers.
 Together they are building the institutions and the market that assurance depends on. Open
-verification's job is to give those institutions something they can check: independently
+verification's job is to give those institutions something they can verify: openly
 verifiable, tamper-evident evidence of what a system did, so an assurance provider or an IVO can
 verify rather than take a claim on trust.
 
@@ -78,7 +77,7 @@ Proof-of-Control is one way to reach open verification.
 
 It is the approach this standard defines, for AI agents, and it is a demonstration of open
 verification rather than the whole of it. Proof-of-Control qualifies because it meets the
-defining condition: its evidence is independently verifiable, with the root of trust moved off
+defining condition: its evidence is openly verifiable, with the root of trust moved off
 the operator and any single party, so what an agent did can be checked without trusting the
 operator's word. Other approaches can reach open verification for other subjects, the way the DEV
 Standard does for environmental claims; each counts as open verification if, and only if, it
@@ -247,7 +246,7 @@ conflict, we ask which one better serves the principles here. They are not stack
   governance gives no vendor an edge. For a member-based body this is also member-neutrality, no
   favorites among the companies at the table, which is what lets competitors adopt the same
   standard and buyers trust it.
-* **Open and independent:** the standard and the process that assesses conformance are open and
+* **Open:** the standard and the process that assesses conformance are open and
   inspectable, and verification does not belong to the verified. A closed standard, or a vendor
   certifying itself, would return us to claims-based assurance even while using the word
   "verified."

@@ -40,7 +40,7 @@ model — evidence repudiation and trust opacity — come from the MAESTRO threa
 In the standards mapping, MAESTRO is both the framework Proof-of-Control builds on for locating
 evidence in the stack, and part of CSA's broader agentic-security work — alongside the
 [AI Controls Matrix](csa-aicm.md) and [AARM](csa-aarm.md) — to which Proof-of-Control is
-complementary: control objectives and enforcement on one side, independent evidence on the other.
+complementary: control objectives and enforcement on one side, open evidence on the other.
 
 ---
 

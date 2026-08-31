@@ -38,7 +38,7 @@ So "settled by measurement" below always means *settled by the tool, on self-aut
 >
 > **Why the naming conclusion does not carry, even though the finding does.** A tier name in a
 > published standard is a procurement term as well as a description. "Independently verifiable" is
-> claimable by an independent verification organisation, and any Tier 2 operator can truthfully say
+> claimable by an independent verification organisation, and any Tier 2 operator can truthfully say <!--aais-allow-->
 > they have an independent auditor. A name that a Tier 2 system can claim cannot mark the binary
 > threshold. That is a different test from the one this proposal applies, and it is the one that
 > governs the published name.
@@ -68,7 +68,7 @@ So "settled by measurement" below always means *settled by the tool, on self-aut
 
 **What replaces it:** a residual trust *disclosure* obligation. Tiers survive as a coarse summary of *how* evidence is produced and checked, not as a claim about how much trust remains and not as a comparison between two deployments in different families. On this reading the tier name should describe public verifiability rather than trust removal. *(Superseded 2026-08-30 as to the name itself: see the Owner note above. The point about what the name should describe stands.)* It is the rationale cells and the threshold prose that assert trust removal, and those are what this proposal changes.
 
-This is not a novel objection to the standard. The cross-model paper review already recorded it independently — `docs/reviews/paper-review-round3-crossmodel.md`, findings B1, B5, and consolidated finding 1: *"Tiers should be defined by which trust assumptions remain, distinguishing public verifiability from trust independence. This is a normative change to the standard, not a wording fix."* P01 supplies the mechanism and the measurement that review lacked.
+This is not a novel objection to the standard. The cross-model paper review already recorded it independently — `docs/reviews/paper-review-round3-crossmodel.md`, findings B1, B5, and consolidated finding 1: *"Tiers should be defined by which trust assumptions remain, distinguishing public verifiability from trust independence. This is a normative change to the standard, not a wording fix."* P01 supplies the mechanism and the measurement that review lacked. <!--aais-allow-->
 
 ## Summary of proposed changes
 
@@ -231,11 +231,11 @@ This is not a novel objection to the standard. The cross-model paper review alre
 
 **Also amend — auditor evidence.** Current text, verbatim:
 
-> **Auditor evidence:** 8.1.1–8.1.3 — the claim register; recompute the tier for three sampled claims from their trust analyses. 8.1.4 — claims-review sign-off vs. current public claim text. 8.1.5 — the recorded independent verification run; repeat it yourself. 8.1.6 — register entries for after-the-fact mechanisms. 8.1.7 — anchoring configuration and a validated anchor proof. 8.1.8 — locate, install, and run the published verifier as an outsider.
+> **Auditor evidence:** 8.1.1–8.1.3 — the claim register; recompute the tier for three sampled claims from their trust analyses. 8.1.4 — claims-review sign-off vs. current public claim text. 8.1.5 — the recorded independent verification run; repeat it yourself. 8.1.6 — register entries for after-the-fact mechanisms. 8.1.7 — anchoring configuration and a validated anchor proof. 8.1.8 — locate, install, and run the published verifier as an outsider. <!--aais-allow-->
 
 Proposed replacement:
 
-> **Auditor evidence:** 8.1.1–8.1.3 — the claim register; recompute the tier for three sampled claims from their trust analyses. 8.1.4 — claims-review sign-off vs. current public claim text. 8.1.5 — the recorded independent verification run; repeat it yourself. 8.1.6 — register entries for after-the-fact mechanisms. 8.1.7 — anchoring configuration and a validated anchor proof; confirm the log-operator and settlement-layer assumptions appear on the disclosure. 8.1.8 — locate, install, and run the published verifier as an outsider. 8.1.9 — search the register, the statement and the public claim text for "trustless", "no trusted party", "zero trust assumptions" and equivalents; any hit against a Tier 3+ claim is a finding. Follow one Tier 3+ entry to its disclosure lines and confirm they exist.
+> **Auditor evidence:** 8.1.1–8.1.3 — the claim register; recompute the tier for three sampled claims from their trust analyses. 8.1.4 — claims-review sign-off vs. current public claim text. 8.1.5 — the recorded independent verification run; repeat it yourself. 8.1.6 — register entries for after-the-fact mechanisms. 8.1.7 — anchoring configuration and a validated anchor proof; confirm the log-operator and settlement-layer assumptions appear on the disclosure. 8.1.8 — locate, install, and run the published verifier as an outsider. 8.1.9 — search the register, the statement and the public claim text for "trustless", "no trusted party", "zero trust assumptions" and equivalents; any hit against a Tier 3+ claim is a finding. Follow one Tier 3+ entry to its disclosure lines and confirm they exist. <!--aais-allow-->
 
 **Why:** P2–P5 remove the trust-elimination claim from the standard's own prose. 8.1.9 stops implementers from re-introducing it in theirs, which is the failure mode with commercial consequences — research §1 identifies "trustless" marketing as the field-wide problem, and P01 notes the same conflation runs through confidential-computing and ZK product claims generally. It is modelled directly on **8.1.4**, which already polices the phrase "Proof-of-Control" at Level 1 by the same method, so it adds a check to an existing review rather than a new process.
 
@@ -295,7 +295,7 @@ Proposed replacement:
 
 **Proposed text** (new row; 10.2.1 unchanged)
 
-> `| **10.2.4** | **Verify that** where a claim rests on two or more mechanisms, any party or component both depend on is disclosed once and marked as shared, naming the mechanisms it is shared by — so that a layered design is not presented as independent layers when one party's failure defeats all of them. | 2 |`
+> `| **10.2.4** | **Verify that** where a claim rests on two or more mechanisms, any party or component both depend on is disclosed once and marked as shared, naming the mechanisms it is shared by — so that a layered design is not presented as independent layers when one party's failure defeats all of them. | 2 |` <!--aais-allow-->
 
 **Also amend — auditor evidence.** Append to the line as amended by P10:
 

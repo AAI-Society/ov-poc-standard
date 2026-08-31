@@ -34,7 +34,7 @@ python3 tools/generate_crosswalks.py          # rebuild the per-framework crossw
 The requirements and this coding sheet were produced by the same party. That is a structural
 weakness in any coverage mapping: whoever decides that a framework does not already cover a
 requirement is the party that wrote the requirement. The [rubric](rubric.md) calls for two
-independent human coders with Cohen's kappa; that study has not been run.
+independent human coders with Cohen's kappa; that study has not been run. <!--aais-allow-->
 
 What can be run cheaply is a **cross-model audit** — ask a model from a different vendor to
 review every row, with no access to the original reasoning:
@@ -118,7 +118,7 @@ already addresses — not the reverse, and not framework quality. Two patterns m
   and the [2026 review](../docs/reviews/mapping-review-2026-08.md) challenged every one of the
   remaining 37 — so treat any EM here as unconfirmed.
 * **The NM gap concentrates in C7/C8/C10.** No coded framework grades evidence by how
-  independently it can be verified (C8), requires trust-assumption disclosure (C7.4/C10.2), or
+  independently it can be verified (C8), requires trust-assumption disclosure (C7.4/C10.2), or <!--aais-allow-->
   reaches self-enforcing execution (C8.3). The NM gap is, by design, the standard's reason to
   exist.
 
@@ -135,7 +135,7 @@ already addresses — not the reverse, and not framework quality. Two patterns m
 | ISO/IEC 42001 | AI management system standard | Complementary; supplies the V&V vocabulary Proof-of-Control uses | [iso-iec-42001.md](iso-iec-42001.md) |
 | SOC 2 | Organizational attestation | Proof-of-Control is SOC-2-grade in role, with a cryptographic stage SOC 2 never had | [soc-2.md](soc-2.md) |
 | EU AI Act | Regulation | Proof-of-Control evidence lets the Act be enforced against evidence, not filings | [eu-ai-act.md](eu-ai-act.md) |
-| Zero Trust (NIST SP 800-207; Anthropic Zero Trust for AI Agents) | Security architecture / vendor framework | Zero Trust enforces at runtime; Proof-of-Control shows independently that control held | [zero-trust.md](zero-trust.md) |
+| Zero Trust (NIST SP 800-207; Anthropic Zero Trust for AI Agents) | Security architecture / vendor framework | Zero Trust enforces at runtime; Proof-of-Control shows openly that control held | [zero-trust.md](zero-trust.md) |
 | Confidential Computing (TEEs) | Mechanism | One valid mechanism for delivering Proof-of-Control, not the property itself | [confidential-computing.md](confidential-computing.md) |
 | AIUC-1 | AI audit / certification framework | Portability-domain alignment target (cross-platform auditing) | [aiuc-1.md](aiuc-1.md) |
 

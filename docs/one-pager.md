@@ -78,7 +78,7 @@ system has Proof-of-Control here, and only here.**
 * **Checking must be cheap and binary.** Executing actions costs almost nothing; auditing
   non-deterministic trajectories by hand is the bottleneck. Proof-of-Control makes the check
   mechanical: *"Does your AI have Proof-of-Control?"* is a yes-or-no question.
-* **Open beats independent.** "Independent" still means trusting an auditor (Tier 2). "Open"
+* **Open beats independent.** "Independent" still means trusting an auditor (Tier 2). "Open" <!--aais-allow-->
   means **no one has to be trusted** (Tiers 3–4): anyone can check the proof directly, without
   access to your data.
 

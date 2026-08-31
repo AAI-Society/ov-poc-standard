@@ -35,7 +35,7 @@ granularity, or its evidence remains operator-produced (Tier 1–2 in Proof-of-C
 **Criteria:**
 
 * Overlapping subject matter with differences in scope or depth
-* The framework requires the *control*, but not independently verifiable *evidence* of it
+* The framework requires the *control*, but not openly verifiable *evidence* of it
 * A general principle maps to a specific Proof-of-Control implementation, or vice versa
 
 **Example 1:** Proof-of-Control C7.2.1 (evidence written within the executing transaction) → EU AI Act
@@ -44,7 +44,7 @@ not require the record to be mechanism-generated or verifiable without trusting 
 
 **Example 2:** Proof-of-Control C4.1.2 (every action evaluated against granted permissions, decision
 evidenced) → NIST SP 800-207 per-request access evaluation. Zero Trust requires the evaluation;
-Proof-of-Control additionally requires the evaluation to leave tamper-evident, independently verifiable
+Proof-of-Control additionally requires the evaluation to leave tamper-evident, openly verifiable
 evidence.
 
 ### NM — No Match
@@ -90,7 +90,7 @@ python3 mappings/compute_coverage.py
 **Reading the numbers:** coverage here measures how much of *Proof-of-Control* an external
 framework already addresses — not the reverse. A low percentage is not a criticism of the
 framework; it usually means the framework governs a different object (organizations, models,
-risk processes) than Proof-of-Control's object (independently verifiable evidence of agent execution). The
+risk processes) than Proof-of-Control's object (openly verifiable evidence of agent execution). The
 NM gap is, by design, the standard's reason to exist.
 
 ## Coding Protocol (required for published coverage figures)

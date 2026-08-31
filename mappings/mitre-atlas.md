@@ -11,7 +11,7 @@
 
 ATLAS catalogs how AI systems are attacked and which mitigations counter each technique. Its primary role for Proof-of-Control is as a **threat source**: the 27 catalogued threats in the Proof-of-Control threat landscape are drawn from MITRE ATLAS, NIST AI 100-2, and the [OWASP Top 10s](owasp.md), which converge on the same core classes. [Appendix C](../0.1/en/0x92-Appendix-C_Threat-Model.md) states, for each threat, what Proof-of-Control defends against and what is explicitly out of scope.
 
-The coverage below is accordingly the lowest of any coded framework — and that is the expected result, not a deficiency: ATLAS answers "how are AI systems attacked and mitigated?", while Proof-of-Control answers "can anyone verify what the system did?". Where they touch (supply-chain verification, access control, sandboxing, event logging), ATLAS mitigations are *controls* whose operation Proof-of-Control turns into independently verifiable *evidence*.
+The coverage below is accordingly the lowest of any coded framework — and that is the expected result, not a deficiency: ATLAS answers "how are AI systems attacked and mitigated?", while Proof-of-Control answers "can anyone verify what the system did?". Where they touch (supply-chain verification, access control, sandboxing, event logging), ATLAS mitigations are *controls* whose operation Proof-of-Control turns into openly verifiable *evidence*.
 
 ## Requirement-Level Mapping
 
@@ -27,7 +27,7 @@ The coverage below is accordingly the lowest of any coded framework — and that
 | [C1.2 Input and Data Lineage](../0.1/en/0x10-C01-Provenance.md) | 4 | 4/4 | Partial | Sanitize Training Data (AML.M0007) | Data-provenance mitigations against poisoning; no custody chain to actions |
 | [C1.3 Compute Substrate Provenance](../0.1/en/0x10-C01-Provenance.md) | 2 | 0/2 | None | — | Substrate attestation not addressed |
 | [C1.4 Privacy-Preserving Provenance](../0.1/en/0x10-C01-Provenance.md) | 2 | 0/2 | None | — | Privacy-preserving provenance not addressed |
-| [C2.1 Data-Access Evidence](../0.1/en/0x10-C02-Privacy.md) | 3 | 2/3 | Partial | AML.M0024 — AI Telemetry Logging | ATLAS directs deployed AI systems to log data access, agentic intermediate actions and decisions, and tool use. It does not prescribe the Proof-of-Control field set, cryptographic evidence, or independent verification. Not reached: 2.1.2. |
+| [C2.1 Data-Access Evidence](../0.1/en/0x10-C02-Privacy.md) | 3 | 2/3 | Partial | AML.M0024 — AI Telemetry Logging | ATLAS directs deployed AI systems to log data access, agentic intermediate actions and decisions, and tool use. It does not prescribe the Proof-of-Control field set, cryptographic evidence, or open verification. Not reached: 2.1.2. |
 | [C2.2 Policy and Consent Enforcement](../0.1/en/0x10-C02-Privacy.md) | 5 | 1/5 | Partial | AML.M0026 — Privileged AI Agent Permissions Configuration; AML.M0028 — AI Agent Tools Permissions Configuration | These mitigations require least-privilege controls on an agent and on its tool access. They do not require query rewriting/field allow-lists, enforcement-event records, or the grade of evidence Proof-of-Control requires. Not reached: 2.2.1, 2.2.2, 2.2.4, 2.2.5. |
 | [C2.3 Privacy-Preserving Verification Mechanisms](../0.1/en/0x10-C02-Privacy.md) | 3 | 0/3 | None | — | Outside scope |
 | [C2.4 Evidence Handling for Protected Data](../0.1/en/0x10-C02-Privacy.md) | 2 | 0/2 | None | — | Outside scope |

@@ -40,7 +40,7 @@ Proof of process isolation is required whenever agents execute generated code or
 | **6.2.2** | **Verify that** workloads classified as sensitive run in confidential-compute environments whose attestation an external party can validate against published reference values. | 3 |
 | **6.2.3** | **Verify that** where on-chip compliance enforcement is claimed, the hardware mechanism gates execution (not merely reports), and its attestation is continuously validated during operation. | 4 |
 
-**Auditor evidence:** 6.2.1 — sandbox configuration per sampled execution; a recorded escape-attempt event from testing. 6.2.2 — validate one confidential-compute attestation independently. 6.2.3 — demonstrate in test that execution halts when the on-chip check fails.
+**Auditor evidence:** 6.2.1 — sandbox configuration per sampled execution; a recorded escape-attempt event from testing. 6.2.2 — validate one confidential-compute attestation independently. 6.2.3 — demonstrate in test that execution halts when the on-chip check fails. <!--aais-allow-->
 
 ---
 

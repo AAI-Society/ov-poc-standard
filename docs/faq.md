@@ -162,7 +162,7 @@ Four variables sit beneath the action boundary: runtime, weights, model code, an
 
 Open verification is a property of the evidence, not a demand on your architecture. A closed proprietary model behind an API can produce openly verifiable evidence. A fully open model can ship with none at all.
 
-<!-- TODO diagram: the open-or-closed stack matrix. Four rows beneath the action boundary (runtime, weights, model code, training data), each independently open or closed, with a single band across the top showing that open verification applies to all sixteen combinations. Same picture as website module M15. Add in a follow-up PR once generate_diagrams.py produces stack-matrix-light.svg and stack-matrix-dark.svg. -->
+<!-- TODO diagram: the open-or-closed stack matrix. Four rows beneath the action boundary (runtime, weights, model code, training data), each independently open or closed, with a single band across the top showing that open verification applies to all sixteen combinations. Same picture as website module M15. Add in a follow-up PR once generate_diagrams.py produces stack-matrix-light.svg and stack-matrix-dark.svg. --> <!--aais-allow-->
 
 **More:** [Introduction](introduction.md) on open verification as a property of the evidence
 
@@ -227,7 +227,7 @@ cd impl && python3 tests/test_core.py    # correctness tests
 python3 attacks/run_attacks.py           # attack scenarios, with and without the requirement
 ```
 
-It implements action interception, path-aware policy evaluation, hash-chained signed evidence, capability-bound dispatch, anchoring, gossip-based equivocation detection, and independent verification.
+It implements action interception, path-aware policy evaluation, hash-chained signed evidence, capability-bound dispatch, anchoring, gossip-based equivocation detection, and open verification.
 
 **2 · Machine-readable claim set (`schema/`).** The normative claim set in CDDL and JSON Schema, with canonical byte definitions, a CWT/CBOR profile, and signed test vectors. The reference implementation validates its own output against this schema in its test suite, so the two cannot drift apart without a test failing.
 

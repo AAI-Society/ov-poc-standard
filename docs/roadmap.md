@@ -46,7 +46,7 @@ file to a public repository over the course of the process.
 
 The Certification and its accredited-assessor body ([Section 7](../0.1/en/0x10-C10-Conformance-and-Disclosure.md)) are a
 separate, later track. Standing up an accreditation body runs past the six-month window for the
-standard itself, so its dates are set independently and are not part of the Version 1.0 target
+standard itself, so its dates are set independently and are not part of the Version 1.0 target <!--aais-allow-->
 above.
 
 > **[WG-INPUT NEEDED]** — the schedule above is the working target, ratified by the working
