@@ -1,6 +1,6 @@
 # Proposal: normative changes to C8, C10.2 and C7.4 from P01 (Trust Calculus)
 
-**Date:** 2026-08-10 · **Status:** proposal only — no file under `ov-poc-standard/` has been edited.
+**Date:** 2026-08-10 · **Status:** proposal only, with one conclusion superseded on 2026-08-30 (see the Owner note below). No file under `ov-poc-standard/` has been edited by this proposal.
 
 **Source of the findings**
 
@@ -27,11 +27,46 @@ What the tool did **not** establish, and what the research doc overstates:
 
 So "settled by measurement" below always means *settled by the tool, on self-authored inputs*. It is enough to refute a universal claim the standard currently makes — one counterexample does that — and it is **not** enough to install a new ordering, a new tier taxonomy, or a machine-readable schema as normative. The proposal is shaped accordingly: it **deletes false claims and adds disclosure**, and marks everything structural `[WG-INPUT NEEDED]`.
 
+---
+
+> **Owner note, 2026-08-30 — Tier 3 is named Trust-minimized, and P01's naming conclusion is superseded.**
+>
+> **Superseded:** the two places where this proposal concludes that "Independently verifiable" is
+> already the correct name for Tier 3 (the *What replaces it* paragraph below, and item 3 under the
+> alternative names considered). The name is **Trust-minimized**, by Owner decision 2026-08-28,
+> ratified with the working group.
+>
+> **Why the naming conclusion does not carry, even though the finding does.** A tier name in a
+> published standard is a procurement term as well as a description. "Independently verifiable" is
+> claimable by an independent verification organisation, and any Tier 2 operator can truthfully say
+> they have an independent auditor. A name that a Tier 2 system can claim cannot mark the binary
+> threshold. That is a different test from the one this proposal applies, and it is the one that
+> governs the published name.
+>
+> **What is not superseded, and is adopted.** The central finding stands and is now reflected in the
+> chapter: every mechanism this standard admits leaves a non-empty residual trust set; two
+> deployments in different mechanism families can be incomparable; and no ranking metric survives.
+> C8's Tier 3 cell now enumerates the parties a Tier 3 claim still depends on rather than asserting
+> that the trusted party is removed, and the chapter's open-items box carries the finding. P2, P3 and
+> P4 are the substance of that change. The disclosure obligation is the part of this proposal that
+> should land as normative text.
+>
+> **The tension this leaves, stated rather than hidden.** "Trust-minimized" is a name, not a claim
+> that trust is rankable or removed, and read as a claim it would assert the thing this research
+> refutes. C8 therefore states the residual trust set in the same table cell as the name, so the two
+> are read together. Anyone proposing to lean on the name as an argument should read this proposal
+> first.
+>
+> Ratifying the disclosure requirement, including the proposed 8.1.9, remains open working-group
+> business. Nothing in this note closes it.
+
+---
+
 ## The central finding
 
 **Tier 3 does not eliminate trust.** Every mechanism the standard admits leaves a non-empty residual trust set; the sets of two deployments in different mechanism families can be incomparable under set inclusion; and no candidate ranking metric survives (cardinality equates one opaque silicon vendor with ten transparent witnesses; collusion cost is adversary-relative; set inclusion does not hold) — research §6.1. The ladder conflates two properties that come apart: **public verifiability** (anyone may check, with published tools) and **trust independence** (no party's honesty is load-bearing) — research §1, P01 "Why it matters". Hardware attestation and ZK proofs buy the first and leave the second largely intact.
 
-**What replaces it:** a residual trust *disclosure* obligation. Tiers survive as a coarse summary of *how* evidence is produced and checked, not as a claim about how much trust remains and not as a comparison between two deployments in different families. The tier names in the standard are, notably, already correct on this reading: "Independently verifiable" **is** public verifiability. It is the rationale cells and the threshold prose that assert trust removal, and those are what this proposal changes.
+**What replaces it:** a residual trust *disclosure* obligation. Tiers survive as a coarse summary of *how* evidence is produced and checked, not as a claim about how much trust remains and not as a comparison between two deployments in different families. On this reading the tier name should describe public verifiability rather than trust removal. *(Superseded 2026-08-30 as to the name itself: see the Owner note above. The point about what the name should describe stands.)* It is the rationale cells and the threshold prose that assert trust removal, and those are what this proposal changes.
 
 This is not a novel objection to the standard. The cross-model paper review already recorded it independently — `docs/reviews/paper-review-round3-crossmodel.md`, findings B1, B5, and consolidated finding 1: *"Tiers should be defined by which trust assumptions remain, distinguishing public verifiability from trust independence. This is a normative change to the standard, not a wording fix."* P01 supplies the mechanism and the measurement that review lacked.
 
@@ -305,7 +340,7 @@ Being explicit about this matters more than the changes above, because the resea
 **4. C8.3.1–8.3.5 are untouched.** The research says nothing about interaction inventories, proof-gated halts, availability analysis, or far-end enforcement. Only the word "trustless" in the section's prose is in scope (P9).
 
 **5. I reject the research's proposed tier renames.** Research §7.1 and P01's "Consequence for the standard" propose renaming Tiers 1–2 to *Unmonitored / Unbounded-Latency Attestation*, Tier 3 to *Publicly Verifiable / Hardware-Anchored Attestation*, and Tier 4 to *Multi-Domain Bounded-Detection Attestation*. Three objections, and the third is fatal:
-   * "Hardware-Anchored" over-fits to the TDX example. Σ₄, a ZK rollup, is a Tier 3 mechanism with no hardware anchor at all. The standard's existing name, **"Independently verifiable," is already the correct name** for what the research says Tier 3 actually is.
+   * "Hardware-Anchored" over-fits to the TDX example. Σ₄, a ZK rollup, is a Tier 3 mechanism with no hardware anchor at all. The name should describe what the research says Tier 3 actually is. *(Superseded 2026-08-30: the name is Trust-minimized. See the Owner note near the top.)*
    * Merging Tiers 1 and 2 into one latency-defined rung discards the operator's-word / third-party-vouches distinction, which is information a relying party uses and which the research nowhere criticizes.
    * **The research's own data refutes its latency-based ordering.** Every one of Σ₁–Σ₄ contains at least one assumption with unbounded detection latency (research §5.1: Σ₁ all ∞; Σ₂ four ∞; Σ₃ non-collusion ∞; Σ₄ three ∞). Order the four by worst-case Δ and they tie at ∞. A latency-ordered ladder collapses on the very examples offered to justify it. Detection latency is worth **disclosing per assumption** (P10); it is not a ranking metric, and P01's suggestion that "tiers become ordered by detection latency and domain diversity" should be dropped from the paper as well as from the standard.
 
