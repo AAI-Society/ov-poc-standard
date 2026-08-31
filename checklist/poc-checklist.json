@@ -59,7 +59,7 @@
     "section_title": "Model and Artifact Provenance",
     "level": 3,
     "level_name": "Trust-minimized",
-    "requirement": "Verify that model supply-chain provenance is published in a standard, externally checkable attestation format (e.g., SLSA provenance / in-toto), so a party outside the organization can validate the build chain without operator assistance.",
+    "requirement": "Verify that model supply-chain provenance is published in a standard, externally verifiable attestation format (e.g., SLSA provenance / in-toto), so a party outside the organization can validate the build chain without operator assistance.",
     "source_file": "0.1/en/0x10-C01-Provenance.md",
     "status": "",
     "auditor_notes": ""

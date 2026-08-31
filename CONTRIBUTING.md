@@ -47,7 +47,7 @@ working-group consensus, and stewarded by the
   (1–4, aligned to the Tiers); *Stage* grades the audit of the claim (named, never numbered);
   *Layer* locates the evidence in the stack (MAESTRO 1–7); *Phase* tracks an adopter's rollout
   (1–3). An unqualified number always means a Tier.
-* **Auditability rule:** every requirement must name a checkable artifact or testable behavior,
+* **Auditability rule:** every requirement must name a verifiable artifact or testable behavior,
   and each section's *Auditor evidence* note must tell an assessor what to collect and what to
   test. A requirement an auditor cannot close out against an artifact is not ready to merge.
 * **Regenerate the checklist and diagrams:** after changing any requirement table, run

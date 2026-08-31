@@ -63,7 +63,7 @@ guardrails. Each is real, each is valuable, each answers a different question.
 
 The standard does not try to standardize all of these. It addresses the one question no other
 standard currently answers: can you produce verifiable evidence of what your AI system did at
-runtime, generated at the moment of execution and checkable by any third party?
+runtime, generated at the moment of execution and verifiable by any third party?
 
 Two boundaries matter. Formal verification establishes what a system *can* do and
 interpretability reveals *how it works*; Proof-of-Control shows what it *did* do. A system can be
@@ -114,7 +114,7 @@ and Proof-of-Control is not a competing runtime layer. See the
 | --- | --- | --- |
 | Question | What may the agent do at the action boundary? | What did the agent actually do, and can anyone verify it? |
 | When | At execution, before the action | At execution, producing evidence of the action |
-| Trust | Operator-run enforcement and audit trail | Independent, tamper-evident, checkable by others |
+| Trust | Operator-run enforcement and audit trail | Independent, tamper-evident, verifiable by others |
 | Role | The enforcement half | The evidence half |
 | Scope | Agent actions inside one deployment (the runtime gateway) | System-wide and portable, across vendors, layers, and jurisdictions |
 | Certifiable? | Yes; a vendor-neutral CSA standard with a conformance regime and independent review | Yes; the standard, plus forthcoming independent certification |

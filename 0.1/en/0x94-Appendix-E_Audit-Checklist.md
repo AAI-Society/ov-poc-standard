@@ -39,7 +39,7 @@ Tick items as you close them out; each chapter's *Auditor evidence* notes say wh
 - [ ] **1.1.2** `L2` — **Verify that** at model load time the digest of the deployed weights is compared against a signed model manifest, and that each comparison result (pass or fail) is written to the execution record.
 - [ ] **1.1.3** `L2` — **Verify that** the signature chain over model artifacts — base weights, fine-tuning steps, serving config — validates end-to-end using signing keys enrolled in a maintained list of authorized providers, and that chain-validation failures block deployment.
 - [ ] **1.1.4** `L2` — **Verify that** the artifact-admission control rejects models, tools, and plugins that lack a valid attestation, and that each rejection event is recorded with the artifact identifier and reason.
-- [ ] **1.1.5** `L3` — **Verify that** model supply-chain provenance is published in a standard, externally checkable attestation format (e.g., SLSA provenance / in-toto), so a party outside the organization can validate the build chain without operator assistance.
+- [ ] **1.1.5** `L3` — **Verify that** model supply-chain provenance is published in a standard, externally verifiable attestation format (e.g., SLSA provenance / in-toto), so a party outside the organization can validate the build chain without operator assistance.
 ### C1.2 Input and Data Lineage
 
 - [ ] **1.2.1** `L1` — **Verify that** each input that steers agent behavior (prompts, retrieved documents, memory reads, tool outputs) is recorded at ingestion with a source identifier and timestamp.
