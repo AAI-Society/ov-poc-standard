@@ -22,6 +22,8 @@ and Tricia Wang lead the effort. The standard is produced by the Proof-of-Contro
 which sits inside the Proof-of-Control Lab; the Initiative runs the working groups that draft the
 standard, the Verifiability Tiers, and the Certification.
 
+The standard is built to be independent of any single company, including the Advanced AI Society, which incubates it during development. On completion, ownership transfers to the Verifiable AI Foundation, where it is held as a public good: neutral, freely available, and protected from commercial capture. The same commitment appears in [the licence](../LICENSE.md) and [the introduction](introduction.md).
+
 ## Institutional Home: a Linux Foundation Community Lab
 
 The Proof-of-Control Lab is being established as a community lab at Linux Foundation
