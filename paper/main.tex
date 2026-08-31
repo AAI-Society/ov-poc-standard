@@ -239,7 +239,7 @@ hardware isolation is not there. That means our timings leave out the cost of
 crossing into a real enclave, and the true number will be larger. We say so
 rather than guessing at a number we did not measure.
 
-\section{Why the Obvious Answers Don't Work}
+\section{Why the Obvious Answers Do Not Work}
 \label{sec:background}
 
 Before describing what we did, it is worth being clear about why the things
@@ -290,7 +290,7 @@ everything it needs to exfiltrate the customer database by email, and every
 individual call is authorized. That is the path problem again, and a
 permission system cannot see it because it looks at one call at a time.
 
-\paragraph{Guardrails inside the application.} Put the checks in the agent's
+\paragraph{Guardrails inside the application.} Put the checks in the agent's % <!--aais-allow-->
 own code. Now ask: what happens when the agent is running generated code, or
 has a shell tool? The checks are running with the same authority as the thing
 they are checking. A process can skip its own checks. And the log it writes is
@@ -299,8 +299,8 @@ its own log~\cite{netbankaudit2026}. This is the deep problem with all three:
 
 \subsection{Why looking afterward is too late}
 
-The usual backstop is the audit: collect the logs, look later. Two things have
-gone wrong with that.
+The usual backstop is the audit: collect the logs, look later. That has gone
+wrong in two ways.
 
 First, the time available has collapsed. An instruction hidden in a web page
 can redirect an agent instantly, and the money moves before anyone reads
@@ -350,7 +350,7 @@ Section~\ref{sec:security}; as far as we can tell, nobody has applied them to
 agent evidence.
 
 \paragraph{Reference monitors.} The idea that every security-relevant
-operation must go through a mechanism that is tamper-proof, always invoked,
+operation must go through a mechanism that is ``tamper-proof'', always invoked, % <!--aais-allow-->
 and small enough to verify is Anderson's~\cite{anderson1972}, and
 ``always invoked'' is Saltzer and Schroeder's complete
 mediation~\cite{saltzer1975}. Section~\ref{sec:mediation} is really just this
@@ -423,8 +423,9 @@ At Tier~1 you trust the operator: they say so. At Tier~2 you trust somebody
 else---an auditor, a certificate authority, a chip vendor. Note that a signed
 log is Tier~2: the signature proves the log was not edited after it was
 written, and proves exactly nothing about whether it was true when it was
-written. At Tier~3, there is nobody left to trust; anyone can check the
-evidence with published tools. At Tier~4, checking is not optional---the
+written. At Tier~3 the evidence is produced by the mechanism itself and
+anyone can verify it with published tools; the parties you still depend on are
+disclosed rather than removed. At Tier~4, checking is not optional---the
 system cannot act unless the evidence exists.
 
 The line falls between Tier~2 and Tier~3. Below it you have authenticated
@@ -576,7 +577,7 @@ Three choices in there are worth pointing out. First, \emph{the data never
 leaves}: the token carries a hash of the description, not the description, so
 anyone can later confirm what was evaluated by hashing it, and the evidence
 store never becomes a second copy of your customer database. Second,
-\emph{history is load-bearing}: the step number and the running total tie this
+\emph{history binds}: the step number and the running total tie this
 record to every record before it, so quietly dropping an inconvenient step
 breaks arithmetic rather than merely being impolite. Third, \emph{the rules are
 pinned}: the bundle hash names the exact policy that produced this answer, so
@@ -670,7 +671,7 @@ token by the enclave-bound key. \\
 \bottomrule
 \end{tabular}
 \captionof{table}{The Evidence claim set. ``EAT'' rows are standard Entity
-Attestation Token claims~\cite{rfc9711}; ``PoC'' rows are the \poc{}
+Attestation Token claims~\cite{rfc9711}; ``PoC'' rows are the \poc{} % <!--aais-allow-->
 profile; ``HW'' rows form the hardware-attestation submodule. Every field
 here has a machine-readable definition, a canonical serialization, and signed
 test vectors---see \S\ref{sec:interop}, because a table like this one is not
@@ -841,7 +842,7 @@ carries the few facts the rules need---the highest classification read so far,
 how much budget is left, whether anything has been declassified---and forgets
 the rest.
 
-Two things follow. The cost per step is $O(|\tilde{\Pi}| + B)$, flat no matter
+The cost per step is $O(|\tilde{\Pi}| + B)$, flat no matter
 how long the agent runs, and we commit $H(\phi_t)$ in the evidence so a
 verifier can confirm the policy was evaluated against the right accumulated
 state. But we also give something up: rules that need unbounded history
@@ -1068,7 +1069,7 @@ tiers grade the shape of the trust, not the brand of the cryptography.
 \label{sec:deploy}
 
 Theorem~\ref{thm:fidelity} asks the far end to check tickets, and it is fair
-to ask whether that is realistic. Three things.
+to ask whether that is realistic.
 
 \emph{The mechanism is old.} Action-bound tickets are capabilities, which have
 been around since the 1960s~\cite{dennis1966,levy1984}, and macaroons already
@@ -1273,7 +1274,7 @@ of the parts.
 \centering\footnotesize
 \begin{tabular}{@{}p{2.35cm}p{2.2cm}p{2.2cm}p{2.4cm}p{2.4cm}p{2.4cm}@{}}
 \toprule
-\textbf{Property} & \textbf{Prompts / guardrails} & \textbf{Static RBAC} &
+\textbf{Property} & \textbf{Prompts / guardrails} & \textbf{Static RBAC} & % <!--aais-allow-->
 \textbf{ACS / AARM} & \textbf{Transparency logs} & \textbf{\poc{}} \\
 \midrule
 Every action goes through it & No & At the API layer & Yes & N/A & Yes \\
@@ -1298,7 +1299,7 @@ is made here about deployed performance.}
 \label{sec:eval}
 
 Talking about a design is easy. We built it and measured it, because that is
-the only way to find out whether the arguments above survive contact with a
+how you find out whether the arguments above survive contact with a
 computer. The code is open source in the specification
 repository~\cite{pocspec}, at \url{https://github.com/AAI-Society/ov-poc-standard}.
 
@@ -1465,7 +1466,7 @@ We ran 2{,}000 randomized workflows---70\% ordinary work, 30\% trying the
 read-then-send trick---past the path-aware monitor and counted how often it
 refused work it should have allowed. With no way to clear an accumulated
 label, it refused \textbf{42\%} of perfectly legitimate work. Not a bug: we
-told it ``don't send after reading something sensitive,'' and it enforced
+told it ``don't send after reading something sensitive,'' and it enforced % <!--aais-allow-->
 exactly that, forever, because nothing ever cleared the flag.
 
 The standard remedy, from fifty years of information-flow
@@ -1717,7 +1718,7 @@ expensive,'' and starts redesigning should read Figure~\ref{fig:batch} first.
 
 Everything above was measured with the enclave as an in-process object, and we
 have been careful to say so. That stand-in reproduces the protocol but leaves
-the load-bearing claim untested: that a verifier can establish \emph{which code
+the central claim untested: that a verifier can establish \emph{which code
 produced this evidence} without trusting the operator. So we ran the pipeline
 inside a real Intel TDX trust domain on Google Cloud, with an identical
 non-confidential instance of the same shape as a control, so that the cost of
@@ -1816,9 +1817,9 @@ real hardware was the list it forced us to write down. To believe a measurement
 from this deployment, a verifier accepts: Intel, that the TDX module and CPU
 behave as specified and the provisioning key is not misissued; Intel's
 certification service, that the collateral fetched to check the quote is
-authentic; the quoting enclave, that it signs reports honestly; Google, that the
+authentic; the quoting enclave, that it signs reports honestly; Google, that the % <!--aais-allow-->
 host does not extract domain memory by some route outside the TDX threat model,
-and that the firmware measured into the runtime registers is what it says;
+and that the firmware measured into the runtime registers is what it says; % <!--aais-allow-->
 and whoever publishes reference values, that the MRTD being compared against
 belongs to the code one believes it does.
 
@@ -1925,8 +1926,8 @@ cheerfully, and told us the chain verified.
 
 We had written the truncation check and stopped thinking. Truncation is the
 attack where the history is too short, so we checked the length, and checking
-the length felt like checking the anchor. It is not. Comparing roots catches
-the rewrite immediately, and a consistency proof does better still: it settles
+the length felt like checking the anchor. The two are not the same.
+Comparing roots catches the rewrite immediately, and a consistency proof does better still: it settles
 in $O(\log n)$ not merely \emph{that} two published roots disagree but that the
 newer history is not an extension of the older one---which is the precise
 statement that history was rewritten. Those proofs run 224 to 480 bytes and
@@ -1954,7 +1955,7 @@ disclosed statement leaks. ``We use ZKPs'' is not a claim anyone can check---%
 and if the setup was run by one party, you have quietly reintroduced exactly
 the trusted party the whole scheme exists to remove.
 
-\section{What We Still Don't Know}
+\section{What We Still Do Not Know}
 \label{sec:discussion}
 
 Standards-integration targets and the phased rollout are in
@@ -1994,7 +1995,7 @@ the first while leaving a vendor chain intact underneath the second.
 
 That sentence is now gone. The Tier~3 column says the evidence is produced by
 the mechanism and checkable by anyone with published tools, and that the parties
-which remain load-bearing are disclosed rather than removed; the word
+you must still trust are disclosed rather than removed; the word
 ``trustless'' has been struck from the normative text, where it occurred once.
 What has \emph{not} been settled is the framing that replaces it---whether the
 Tier is demoted from the primary claim to a coarse summary, with what must be
