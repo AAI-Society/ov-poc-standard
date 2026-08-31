@@ -4,14 +4,14 @@
 | --- | --- |
 | **Framework type** | Regulation (European Union) |
 | **Corpus version** | Regulation (EU) 2024/1689, OJ 12 July 2024 — [access](https://eur-lex.europa.eu/eli/reg/2024/1689/oj) · [corpus provenance](corpus/README.md) |
-| **Relationship** | Complementary — PoC evidence lets the Act be enforced against evidence rather than filings |
+| **Relationship** | Complementary — Proof-of-Control evidence lets the Act be enforced against evidence rather than filings |
 | **Coding status** | Draft seed coding, single coder — [rubric](rubric.md) |
 
 ## The Relationship
 
-Rules for AI agents are only as strong as what they can verify. A regulation that asks an operator to attest that its agent behaved rests on assertion; one that can require openly verifiable evidence of what the agent did rests on proof. The Act's high-risk regime already demands the *practices* PoC evidences — automatic event recording (Art. 12), technical documentation (Art. 11), human oversight (Art. 14), conformity assessment (Art. 43) — but its records remain operator-produced. Proof-of-Control is the evidence layer that would let a market-surveillance authority check an Art. 12 log without trusting the party that wrote it.
+Rules for AI agents are only as strong as what they can verify. A regulation that asks an operator to attest that its agent behaved rests on assertion; one that can require openly verifiable evidence of what the agent did rests on proof. The Act's high-risk regime already demands the *practices* Proof-of-Control evidences — automatic event recording (Art. 12), technical documentation (Art. 11), human oversight (Art. 14), conformity assessment (Art. 43) — but its records remain operator-produced. Proof-of-Control is the evidence layer that would let a market-surveillance authority check an Art. 12 log without trusting the party that wrote it.
 
-Concretely: regulators today cannot verify that a high-risk system operated within authorized parameters ([the Verifiability Gap](../docs/why-verification-matters.md)); PoC evidence at Tiers 3–4 is verifiable by a regulator without privileged access. The PoC conformance stages give a graded assessment ladder a conformity-assessment regime can reference, and in the by-domain mapping the Act is the external alignment target for the **Privacy** domain.
+Concretely: regulators today cannot verify that a high-risk system operated within authorized parameters ([the Verifiability Gap](../docs/why-verification-matters.md)); Proof-of-Control evidence at Tiers 3–4 is verifiable by a regulator without privileged access. The Proof-of-Control conformance stages give a graded assessment ladder a conformity-assessment regime can reference, and in the by-domain mapping the Act is the external alignment target for the **Privacy** domain.
 
 ## Requirement-Level Mapping
 
@@ -19,9 +19,9 @@ Concretely: regulators today cannot verify that a high-risk system operated with
 
 **Coverage: 51%** of the 127 Proof-of-Control requirements (0 exact matches, 65 partial matches, 62 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
 
-**How to read the Match column** ([full rubric](rubric.md)): **Exact** — the framework has a clause equivalent in scope and intent. **Partial** — the framework covers the topic, but not with PoC's operator-independent evidence (or not at the same depth). **None** — the framework has no analogous provision. Where a section holds a mix, the badge shows the strongest match present and the **Covered** column shows how many of its requirements are matched at all — so a section reading *Partial 3/5* has two requirements this framework does not reach.
+**How to read the Match column** ([full rubric](rubric.md)): **Exact** — the framework has a clause equivalent in scope and intent. **Partial** — the framework covers the topic, but not with Proof-of-Control's operator-independent evidence (or not at the same depth). **None** — the framework has no analogous provision. Where a section holds a mix, the badge shows the strongest match present and the **Covered** column shows how many of its requirements are matched at all — so a section reading *Partial 3/5* has two requirements this framework does not reach.
 
-| PoC section | Reqs | Covered | Match | Closest framework clause(s) | Rationale |
+| Section | Reqs | Covered | Match | Closest framework clause(s) | Rationale |
 | --- | :---: | :---: | :---: | --- | --- |
 | [C1.1 Model and Artifact Provenance](../0.1/en/0x10-C01-Provenance.md) | 5 | 5/5 | Partial | Art. 11; Annex IV | Art 11/Annex IV technical documentation identifies the model and versions; no cryptographic digest binding or signed manifests |
 | [C1.2 Input and Data Lineage](../0.1/en/0x10-C01-Provenance.md) | 4 | 4/4 | Partial | Art. 10 | Art 10 data governance covers data provenance practices; no hash-linked custody chain to the action record |
@@ -42,7 +42,7 @@ Concretely: regulators today cannot verify that a high-risk system operated with
 | [C6.3 Cryptographic Key Lifecycle](../0.1/en/0x10-C06-Security.md) | 5 | 0/5 | None | — | No key-lifecycle provisions |
 | [C7.1 Generation at the Action Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | 0/5 | None | — | No action-interception or evidence-at-boundary concept |
 | [C7.2 The Contemporaneous Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 4 | 2/4 | Partial | Art. 12 | Art 12 requires automatic recording of events over the lifetime; no operator-independent time anchoring. Not reached: 7.2.3, 7.2.4. |
-| [C7.3 The Tamper-Evident Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | 5/5 | Partial | Art. 12; Art. 19; Art. 12 | Art 12/19 logging and retention imply record integrity; evidence remains operator-produced (Tier 1 in PoC terms) |
+| [C7.3 The Tamper-Evident Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | 5/5 | Partial | Art. 12; Art. 19; Art. 12 | Art 12/19 logging and retention imply record integrity; evidence remains operator-produced (Tier 1 in Proof-of-Control terms) |
 | [C7.4 The Transparent Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 1 | 1/1 | Partial | Art. 13 | Art 13 transparency to deployers discloses capabilities and limitations; no trust-assumption disclosure |
 | [C7.5 The Determinism Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 2 | 0/2 | None | — | No determinism-boundary or claims-discipline provision |
 | [C7.6 Evidence Custody and Resilience](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 6 | 6/6 | Partial | Art. 19 | Art 19 log retention covers retention duty; fail-closed and omission-detectability not addressed |
@@ -52,7 +52,7 @@ Concretely: regulators today cannot verify that a high-risk system operated with
 | [C8.3 Chain Integrity and Self-Enforcement (Tier 4)](../0.1/en/0x10-C08-Verifiability-Tiers.md) | 5 | 0/5 | None | — | No self-enforcing execution concept |
 | [C9.1 Locating Evidence on the System Surface](../0.1/en/0x10-C09-System-Surface-MAESTRO.md) | 3 | 0/3 | None | — | No system-surface location requirement |
 | [C9.2 Layer Coverage](../0.1/en/0x10-C09-System-Surface-MAESTRO.md) | 3 | 0/3 | None | — | No per-layer evidence coverage requirement |
-| [C10.1 Conformance Claims](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 8 | 5/8 | Partial | Art. 43; Art. 47; Annex V, point 7; Art. 47; Annex V; Art. 11 and Annex IV; Art. 47; Annex V, point 8; Art. 11; Annex IV, sections 1–2; Art. 47(1) | The Act provides conformity-assessment routes and an EU declaration; Annex V identifies a notified body and certificate only where applicable. It does not require one of PoC's three named stages or identify a continuous-monitoring regime in the statement. Not reached: 10.1.2, 10.1.3, 10.1.8. |
+| [C10.1 Conformance Claims](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 8 | 5/8 | Partial | Art. 43; Art. 47; Annex V, point 7; Art. 47; Annex V; Art. 11 and Annex IV; Art. 47; Annex V, point 8; Art. 11; Annex IV, sections 1–2; Art. 47(1) | The Act provides conformity-assessment routes and an EU declaration; Annex V identifies a notified body and certificate only where applicable. It does not require one of Proof-of-Control's three named stages or identify a continuous-monitoring regime in the statement. Not reached: 10.1.2, 10.1.3, 10.1.8. |
 | [C10.2 Trust-Assumption Disclosure](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 2 | 2/2 | Partial | Art. 13 | Art 13 requires disclosing limitations and residual risks to deployers; not categorized trust assumptions |
 | [C10.3 Continuously Monitored Operation](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) | 7 | 7/7 | Partial | Art. 72 | Art 72 post-market monitoring requires ongoing surveillance; not per-action evidence validation |
 
@@ -76,7 +76,7 @@ Concretely: regulators today cannot verify that a high-risk system operated with
 * **C8.3 Chain Integrity and Self-Enforcement (Tier 4)** — No self-enforcing execution concept
 * **C9.1 Locating Evidence on the System Surface** — No system-surface location requirement
 * **C9.2 Layer Coverage** — No per-layer evidence coverage requirement
-* **C10.1 Conformance Claims** — partially reached; no provision for 10.1.2, 10.1.3, 10.1.8: No AI Act provision requires a declaration to list PoC domains C1–C6 or prohibits unlisted domains from appearing in PoC marketing.
+* **C10.1 Conformance Claims** — partially reached; no provision for 10.1.2, 10.1.3, 10.1.8: No AI Act provision requires a declaration to list Proof-of-Control domains C1–C6 or prohibits unlisted domains from appearing in Proof-of-Control marketing.
 
 *Coding granularity is the individual requirement; the section rows above summarize the requirements beneath them. Where a section is coded uniformly the summary is exact, and where it is mixed the Covered column and the gap list name what is missing. Row-level detail is in the [coding sheet](coding_sheet.csv). This is seed coding by a single coder and has not yet had the second-coder pass the [rubric](rubric.md) requires.*
 

@@ -4,16 +4,16 @@
 | --- | --- |
 | **Framework type** | AI risk-management / governance framework (NIST) |
 | **Corpus version** | AI RMF 1.0 (NIST AI 100-1, January 2023) — [access](https://www.nist.gov/itl/ai-risk-management-framework) · [corpus provenance](corpus/README.md) |
-| **Relationship** | Complementary — PoC produces the runtime evidence that makes RMF-aligned controls verifiable |
+| **Relationship** | Complementary — Proof-of-Control produces the runtime evidence that makes RMF-aligned controls verifiable |
 | **Coding status** | Draft seed coding, single coder — [rubric](rubric.md) |
 
 ## The Relationship
 
 NIST AI RMF governs how organizations identify, measure, and manage AI risk through its four functions (GOVERN, MAP, MEASURE, MANAGE). Governance frameworks tell an organization *what to manage*; they do not, by themselves, produce independent evidence of what an agent did that holds when the operator is the threat. Proof-of-Control is the evidence layer that sits alongside the RMF and feeds it: the independently verifiable, tamper-evident record that lets an RMF-aligned control be *verified* by a party that need not trust the operator.
 
-This is visible in the mapping below: the RMF has the **highest coverage of any coded framework, yet zero exact matches** — it asks for nearly every control PoC verifies, and never for operator-independent evidence of them. That pattern is the binary threshold, seen from the outside.
+This is visible in the mapping below: the RMF has the **highest coverage of any coded framework, yet zero exact matches** — it asks for nearly every control Proof-of-Control verifies, and never for operator-independent evidence of them. That pattern is the binary threshold, seen from the outside.
 
-**NIST AI 100-2** (Adversarial Machine Learning taxonomy) is, separately, one of the three threat catalogs the PoC threat model draws from ([Appendix C](../0.1/en/0x92-Appendix-C_Threat-Model.md)), alongside [MITRE ATLAS](mitre-atlas.md) and the [OWASP Top 10s](owasp.md).
+**NIST AI 100-2** (Adversarial Machine Learning taxonomy) is, separately, one of the three threat catalogs the Proof-of-Control threat model draws from ([Appendix C](../0.1/en/0x92-Appendix-C_Threat-Model.md)), alongside [MITRE ATLAS](mitre-atlas.md) and the [OWASP Top 10s](owasp.md).
 
 ## Requirement-Level Mapping
 
@@ -21,9 +21,9 @@ This is visible in the mapping below: the RMF has the **highest coverage of any 
 
 **Coverage: 59%** of the 127 Proof-of-Control requirements (0 exact matches, 75 partial matches, 52 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
 
-**How to read the Match column** ([full rubric](rubric.md)): **Exact** — the framework has a clause equivalent in scope and intent. **Partial** — the framework covers the topic, but not with PoC's operator-independent evidence (or not at the same depth). **None** — the framework has no analogous provision. Where a section holds a mix, the badge shows the strongest match present and the **Covered** column shows how many of its requirements are matched at all — so a section reading *Partial 3/5* has two requirements this framework does not reach.
+**How to read the Match column** ([full rubric](rubric.md)): **Exact** — the framework has a clause equivalent in scope and intent. **Partial** — the framework covers the topic, but not with Proof-of-Control's operator-independent evidence (or not at the same depth). **None** — the framework has no analogous provision. Where a section holds a mix, the badge shows the strongest match present and the **Covered** column shows how many of its requirements are matched at all — so a section reading *Partial 3/5* has two requirements this framework does not reach.
 
-| PoC section | Reqs | Covered | Match | Closest framework clause(s) | Rationale |
+| Section | Reqs | Covered | Match | Closest framework clause(s) | Rationale |
 | --- | :---: | :---: | :---: | --- | --- |
 | [C1.1 Model and Artifact Provenance](../0.1/en/0x10-C01-Provenance.md) | 5 | 5/5 | Partial | MAP 2.3; GOVERN 1.6 | MAP function calls for provenance and documentation of models; no cryptographic binding |
 | [C1.2 Input and Data Lineage](../0.1/en/0x10-C01-Provenance.md) | 4 | 4/4 | Partial | MAP 2.3; MEASURE 2.8 | MAP/MEASURE cover data documentation and lineage practices; no hash-linked custody chain |

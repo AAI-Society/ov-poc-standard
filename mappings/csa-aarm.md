@@ -4,7 +4,7 @@
 | --- | --- |
 | **Framework type** | Runtime enforcement standard (Cloud Security Alliance, contributed by Vanta) |
 | **Corpus version** | 2026 publication — [access](https://cloudsecurityalliance.org/) · [corpus provenance](corpus/README.md) |
-| **Relationship** | Complementary halves of agentic assurance — AARM is the enforcement half, PoC the evidence half |
+| **Relationship** | Complementary halves of agentic assurance — AARM is the enforcement half, Proof-of-Control the evidence half |
 | **Coding status** | Draft seed coding, single coder — [rubric](rubric.md) |
 
 ## The Relationship
@@ -19,7 +19,7 @@ CSA's AARM defines runtime enforcement: it intercepts agent actions at the bound
 | Scope | Agent actions inside one deployment (the runtime gateway) | System-wide and portable, across vendors, layers, and jurisdictions |
 | Certifiable? | Yes; a vendor-neutral CSA standard with a conformance regime | Yes; the standard, plus forthcoming independent certification |
 
-Where they meet: AARM mints the tamper-evident receipt at the runtime gateway inside one deployment; PoC carries that evidence outward and makes it independently verifiable across organizations. Enforcement decides what an agent may do; verification shows what it actually did. Prevention can fail silently; detection cannot.
+Where they meet: AARM mints the tamper-evident receipt at the runtime gateway inside one deployment; Proof-of-Control carries that evidence outward and makes it independently verifiable across organizations. Enforcement decides what an agent may do; verification shows what it actually did. Prevention can fail silently; detection cannot.
 
 ## Requirement-Level Mapping
 
@@ -27,9 +27,9 @@ Where they meet: AARM mints the tamper-evident receipt at the runtime gateway in
 
 **Coverage: 47%** of the 127 Proof-of-Control requirements (13 exact matches, 47 partial matches, 67 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
 
-**How to read the Match column** ([full rubric](rubric.md)): **Exact** — the framework has a clause equivalent in scope and intent. **Partial** — the framework covers the topic, but not with PoC's operator-independent evidence (or not at the same depth). **None** — the framework has no analogous provision. Where a section holds a mix, the badge shows the strongest match present and the **Covered** column shows how many of its requirements are matched at all — so a section reading *Partial 3/5* has two requirements this framework does not reach.
+**How to read the Match column** ([full rubric](rubric.md)): **Exact** — the framework has a clause equivalent in scope and intent. **Partial** — the framework covers the topic, but not with Proof-of-Control's operator-independent evidence (or not at the same depth). **None** — the framework has no analogous provision. Where a section holds a mix, the badge shows the strongest match present and the **Covered** column shows how many of its requirements are matched at all — so a section reading *Partial 3/5* has two requirements this framework does not reach.
 
-| PoC section | Reqs | Covered | Match | Closest framework clause(s) | Rationale |
+| Section | Reqs | Covered | Match | Closest framework clause(s) | Rationale |
 | --- | :---: | :---: | :---: | --- | --- |
 | [C1.1 Model and Artifact Provenance](../0.1/en/0x10-C01-Provenance.md) | 5 | 0/5 | None | — | Artifact provenance outside runtime-enforcement scope |
 | [C1.2 Input and Data Lineage](../0.1/en/0x10-C01-Provenance.md) | 4 | 0/4 | None | — | Outside scope |

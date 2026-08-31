@@ -19,7 +19,7 @@
 
 ## What is Proof-of-Control?
 
-The **Proof-of-Control Standard (PoC)** is a catalogue of verifiable requirements for AI agent systems: independent, tamper-evident evidence of what an agent actually did — the data it touched, the authority it exercised, the tools it invoked — in a form anyone can check **without trusting the operator**. Every requirement follows the same philosophy as [OWASP AISVS/ASVS](https://github.com/OWASP/AISVS): **verifiable, testable, and implementable**.
+The **Proof-of-Control Standard** is a catalogue of verifiable requirements for AI agent systems: independent, tamper-evident evidence of what an agent actually did — the data it touched, the authority it exercised, the tools it invoked — in a form anyone can check **without trusting the operator**. Every requirement follows the same philosophy as [OWASP AISVS/ASVS](https://github.com/OWASP/AISVS): **verifiable, testable, and implementable**.
 
 A system has Proof-of-Control when, and only when, its evidence reaches **Tier 3 or Tier 4** of the Verifiability Tiers — a binary threshold that makes the category procurable: *"Does your AI have Proof-of-Control?"* is a yes-or-no question.
 
@@ -178,9 +178,9 @@ The standard is led by co-chairs **Ken Huang** and **Tricia Wang**, produced by 
 
 ### What Proof-of-Control is NOT
 
-* **Not validation.** PoC shows an agent stayed inside the control boundaries that were set; whether those boundaries — or the outputs — were *right* stays a human judgment ([C7.5](0.1/en/0x10-C07-Evidence-Generation-and-Properties.md)).
-* **Not a governance or risk framework.** [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework), [ISO/IEC 42001](https://www.iso.org/standard/42001), and the EU AI Act govern; PoC produces the evidence that makes their requirements verifiable.
-* **Not a runtime enforcement layer.** Enforcement (what an agent *may* do) is CSA AARM's half; PoC is the evidence half (what it *did*, verifiable by others).
+* **Not validation.** Proof-of-Control shows an agent stayed inside the control boundaries that were set; whether those boundaries — or the outputs — were *right* stays a human judgment ([C7.5](0.1/en/0x10-C07-Evidence-Generation-and-Properties.md)).
+* **Not a governance or risk framework.** [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework), [ISO/IEC 42001](https://www.iso.org/standard/42001), and the EU AI Act govern; Proof-of-Control produces the evidence that makes their requirements verifiable.
+* **Not a runtime enforcement layer.** Enforcement (what an agent *may* do) is CSA AARM's half; Proof-of-Control is the evidence half (what it *did*, verifiable by others).
 * **Not tied to any technology or vendor.** The standard defines what the evidence must be, not which mechanism produces it.
 
 ## Regulatory Coverage
@@ -223,18 +223,18 @@ disclosure, self-enforcing execution — is the gap Proof-of-Control exists to c
 EM/PM/NM breakdown, row-level [coding sheet](mappings/coding_sheet.csv), and corpus provenance
 in [`mappings/`](mappings/README.md). *(Draft seed coding, pending working-group validation.)*
 
-## How PoC Complements Other Standards
+## How Proof-of-Control Complements Other Standards
 
-| Standard | Focus | PoC relationship |
+| Standard | Focus | Proof-of-Control relationship |
 | --- | --- | --- |
-| [CSA MAESTRO](mappings/maestro.md) | Agent threat modeling (7-layer stack) | Adopted as PoC's System surface ([C9](0.1/en/0x10-C09-System-Surface-MAESTRO.md)) |
-| [CSA AARM](mappings/csa-aarm.md) | Runtime enforcement at the action boundary | Complementary halves: AARM enforces, PoC evidences |
-| [OWASP Top 10s / AIVSS / AISVS](mappings/owasp.md) | Agent & LLM threats; AI security controls | Threat source for PoC's threat model; PoC adds the independent-evidence layer |
+| [CSA MAESTRO](mappings/maestro.md) | Agent threat modeling (7-layer stack) | Adopted as Proof-of-Control's System surface ([C9](0.1/en/0x10-C09-System-Surface-MAESTRO.md)) |
+| [CSA AARM](mappings/csa-aarm.md) | Runtime enforcement at the action boundary | Complementary halves: AARM enforces, Proof-of-Control evidences |
+| [OWASP Top 10s / AIVSS / AISVS](mappings/owasp.md) | Agent & LLM threats; AI security controls | Threat source for Proof-of-Control's threat model; Proof-of-Control adds the independent-evidence layer |
 | [MITRE ATLAS](mappings/mitre-atlas.md) | Adversarial AI threat catalog | Threat source ([Appendix C](0.1/en/0x92-Appendix-C_Threat-Model.md)) |
-| [NIST AI RMF](mappings/nist-ai-rmf.md) | AI risk governance | PoC supplies the runtime evidence RMF controls are checked against |
-| [ISO/IEC 42001](mappings/iso-iec-42001.md) | AI management systems | PoC evidences that declared controls held at execution |
-| [SOC 2](mappings/soc-2.md) | Organizational attestation | PoC is SOC-2-grade in role, with a cryptographic stage SOC 2 never had |
-| [EU AI Act](mappings/eu-ai-act.md) | Regulation | PoC evidence lets rules be enforced against evidence, not filings |
+| [NIST AI RMF](mappings/nist-ai-rmf.md) | AI risk governance | Proof-of-Control supplies the runtime evidence RMF controls are checked against |
+| [ISO/IEC 42001](mappings/iso-iec-42001.md) | AI management systems | Proof-of-Control evidences that declared controls held at execution |
+| [SOC 2](mappings/soc-2.md) | Organizational attestation | Proof-of-Control is SOC-2-grade in role, with a cryptographic stage SOC 2 never had |
+| [EU AI Act](mappings/eu-ai-act.md) | Regulation | Proof-of-Control evidence lets rules be enforced against evidence, not filings |
 | [Zero Trust](mappings/zero-trust.md) · [Confidential Computing](mappings/confidential-computing.md) · [AIUC-1](mappings/aiuc-1.md) | Architecture / mechanism / audit | See all crosswalks in [`mappings/`](mappings/README.md) |
 
 ## Repository Layout & Versioning
@@ -252,7 +252,7 @@ in [`mappings/`](mappings/README.md). *(Draft seed coding, pending working-group
 ├── images/     <- banner, artwork, and generated diagrams
 ```
 
-PoC uses `v<MAJOR>.<MINOR>` versioning; released folders are locked, mirroring [OWASP ASVS](https://github.com/OWASP/ASVS)/[AISVS](https://github.com/OWASP/AISVS) ([RELEASE.md](RELEASE.md)). Version 1.0 is targeted for **February 1, 2027** ([roadmap](docs/roadmap.md)).
+Proof-of-Control uses `v<MAJOR>.<MINOR>` versioning; released folders are locked, mirroring [OWASP ASVS](https://github.com/OWASP/ASVS)/[AISVS](https://github.com/OWASP/AISVS) ([RELEASE.md](RELEASE.md)). Version 1.0 is targeted for **February 1, 2027** ([roadmap](docs/roadmap.md)).
 
 **Referencing requirements:** `C<chapter>.<section>.<requirement>`, version-qualified as `v0.1-C4.1.4`:
 

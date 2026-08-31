@@ -346,7 +346,7 @@ each other, which is the interoperability failure C7.7 exists to prevent.
 **Confidence:** measurement-settled that interoperability is currently absent (stated as a limitation
 by the only implementation). Judgement call that the profile should be gated on it at Level 3 rather
 than declared non-claimable until vectors exist. `[WG-INPUT NEEDED]` on whether to publish a BBS+
-presentation profile for the PoC evidence schema or to normatively reference an external one once
+presentation profile for the Proof-of-Control evidence schema or to normatively reference an external one once
 `draft-irtf-cfrg-bbs-signatures` stabilises.
 
 ---
@@ -709,7 +709,7 @@ is what stops a suspension reading as a silently absent claim.
 | 5 | `[WG-INPUT NEEDED]` Minimum anonymity set size, and whether the standard names a value at all. Every comparable constant in the supporting tool is labelled a judgement call by its own author. | change 6 |
 | 6 | `[WG-INPUT NEEDED]` Should C5.2.2 be **rewritten to group validation** or **suspended outright** under the profile? | change 9 |
 | 7 | `[WG-INPUT NEEDED]` Does a periodic **session-count commitment** recover enough external completeness to be worth requiring alongside decoupled chains? Unstudied and unmeasured. | change 11 |
-| 8 | `[WG-INPUT NEEDED]` Publish a BBS+ presentation profile for the PoC evidence schema, or normatively reference an external one once `draft-irtf-cfrg-bbs-signatures` stabilises? Until one exists, C7.7.4 cannot be satisfied for presentations. | change 5 |
+| 8 | `[WG-INPUT NEEDED]` Publish a BBS+ presentation profile for the Proof-of-Control evidence schema, or normatively reference an external one once `draft-irtf-cfrg-bbs-signatures` stabilises? Until one exists, C7.7.4 cannot be satisfied for presentations. | change 5 |
 
 ---
 

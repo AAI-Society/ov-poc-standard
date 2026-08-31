@@ -4,14 +4,14 @@
 | --- | --- |
 | **Framework type** | Verification standard, threat catalogs, and scoring system (OWASP) |
 | **Corpus version** | AISVS v1.0 (June 2026) — [access](https://github.com/OWASP/AISVS) · [corpus provenance](corpus/README.md) |
-| **Relationship** | Threat source for the PoC threat model; Security-domain alignment target; AISVS is the structural model for this repository |
+| **Relationship** | Threat source for the Proof-of-Control threat model; Security-domain alignment target; AISVS is the structural model for this repository |
 | **Coding status** | Draft seed coding, single coder (AISVS is the coded document) — [rubric](rubric.md) |
 
 ## The Relationship
 
 **OWASP AISVS** is a community-driven catalogue of testable security requirements for AI-enabled systems. The relationship follows the standard's general pattern: AISVS defines *which controls* an AI system should implement and how to test them; Proof-of-Control defines what *independently verifiable evidence* that those controls held at execution must be, graded on the Verifiability Tiers. AISVS has the most exact matches of any coded framework (agentic tool authorization, model supply chain, sandboxing) because it is the closest in spirit — testable, implementable requirements — while its evidence model (operator-run logging and monitoring) still sits below the binary threshold. An AISVS-verified system can additionally claim Proof-of-Control when its control evidence reaches Tier 3+.
 
-**The Top 10s and AIVSS.** The OWASP Top 10 for LLM Applications and the Top 10 for Agentic Applications are two of the three threat catalogs (with [MITRE ATLAS](mitre-atlas.md) and NIST AI 100-2) from which the 29-threat PoC threat model is drawn ([Appendix C](../0.1/en/0x92-Appendix-C_Threat-Model.md)). AIVSS appears in the by-domain mapping as a source architectural mechanism for the **Security** domain: it scores AI vulnerability severity, while PoC produces the runtime evidence that the corresponding controls held.
+**The Top 10s and AIVSS.** The OWASP Top 10 for LLM Applications and the Top 10 for Agentic Applications are two of the three threat catalogs (with [MITRE ATLAS](mitre-atlas.md) and NIST AI 100-2) from which the 29-threat Proof-of-Control threat model is drawn ([Appendix C](../0.1/en/0x92-Appendix-C_Threat-Model.md)). AIVSS appears in the by-domain mapping as a source architectural mechanism for the **Security** domain: it scores AI vulnerability severity, while Proof-of-Control produces the runtime evidence that the corresponding controls held.
 
 ## Requirement-Level Mapping (against AISVS v1.0)
 
@@ -19,9 +19,9 @@
 
 **Coverage: 62%** of the 127 Proof-of-Control requirements (16 exact matches, 63 partial matches, 48 not covered), computed per the [mapping rubric](rubric.md) from the row-level [coding sheet](coding_sheet.csv). *Draft seed coding — pending working-group validation.* To change this table, edit the coding sheet and run `python3 tools/generate_crosswalks.py`.
 
-**How to read the Match column** ([full rubric](rubric.md)): **Exact** — the framework has a clause equivalent in scope and intent. **Partial** — the framework covers the topic, but not with PoC's operator-independent evidence (or not at the same depth). **None** — the framework has no analogous provision. Where a section holds a mix, the badge shows the strongest match present and the **Covered** column shows how many of its requirements are matched at all — so a section reading *Partial 3/5* has two requirements this framework does not reach.
+**How to read the Match column** ([full rubric](rubric.md)): **Exact** — the framework has a clause equivalent in scope and intent. **Partial** — the framework covers the topic, but not with Proof-of-Control's operator-independent evidence (or not at the same depth). **None** — the framework has no analogous provision. Where a section holds a mix, the badge shows the strongest match present and the **Covered** column shows how many of its requirements are matched at all — so a section reading *Partial 3/5* has two requirements this framework does not reach.
 
-| PoC section | Reqs | Covered | Match | Closest framework clause(s) | Rationale |
+| Section | Reqs | Covered | Match | Closest framework clause(s) | Rationale |
 | --- | :---: | :---: | :---: | --- | --- |
 | [C1.1 Model and Artifact Provenance](../0.1/en/0x10-C01-Provenance.md) | 5 | 5/5 | Exact | AISVS C6 | C6 supply chain requires model provenance, signing and verification comparable in scope and specificity |
 | [C1.2 Input and Data Lineage](../0.1/en/0x10-C01-Provenance.md) | 4 | 4/4 | Partial | AISVS C1; C8 | C1 training-data traceability and C8 memory provenance cover lineage; no custody chain to the action record |
@@ -35,12 +35,12 @@
 | [C3.2 Cross-Environment Continuity](../0.1/en/0x10-C03-Portability.md) | 3 | 0/3 | None | — | Evidence continuity not addressed |
 | [C4.1 Authority and Scope Enforcement](../0.1/en/0x10-C04-Authorization.md) | 8 | 8/8 | Exact | AISVS C9 | C9 agentic security requires tool authorization, schema validation and least-privilege comparable in scope |
 | [C4.2 Delegation](../0.1/en/0x10-C04-Authorization.md) | 4 | 4/4 | Partial | AISVS C9.4 | C9.4 agent identity and credential requirements partially cover delegation validity |
-| [C5.1 Agent and Principal Binding](../0.1/en/0x10-C05-Identity.md) | 4 | 4/4 | Partial | AISVS C5; C9.4 | C9.4 agent identity credentials and rotation; principal-to-agent intent binding is PoC-specific |
+| [C5.1 Agent and Principal Binding](../0.1/en/0x10-C05-Identity.md) | 4 | 4/4 | Partial | AISVS C5; C9.4 | C9.4 agent identity credentials and rotation; principal-to-agent intent binding is specific to Proof-of-Control |
 | [C5.2 Inter-Agent Identity](../0.1/en/0x10-C05-Identity.md) | 2 | 2/2 | Partial | AISVS C9; C10 | C9/C10 inter-agent and MCP security cover authenticated agent communication |
 | [C6.1 Execution Environment Integrity](../0.1/en/0x10-C06-Security.md) | 4 | 4/4 | Partial | AISVS C4 | C4 infrastructure requirements cover environment hardening; attestation evidence not required |
 | [C6.2 Isolation and Confidential Execution](../0.1/en/0x10-C06-Security.md) | 3 | 3/3 | Exact | AISVS C4; C9 | C4/C9 sandboxing requirements for code execution match isolation-proof scope |
-| [C6.3 Cryptographic Key Lifecycle](../0.1/en/0x10-C06-Security.md) | 5 | 5/5 | Partial | AISVS C4; C5 | C4/C5 key-management expectations; evidence-key custody is PoC-specific |
-| [C7.1 Generation at the Action Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | 5/5 | Partial | AISVS C9 | C9 requires mediated tool access; out-of-band evidence-emitting gateway is PoC-specific |
+| [C6.3 Cryptographic Key Lifecycle](../0.1/en/0x10-C06-Security.md) | 5 | 5/5 | Partial | AISVS C4; C5 | C4/C5 key-management expectations; evidence-key custody is specific to Proof-of-Control |
+| [C7.1 Generation at the Action Boundary](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | 5/5 | Partial | AISVS C9 | C9 requires mediated tool access; out-of-band evidence-emitting gateway is specific to Proof-of-Control |
 | [C7.2 The Contemporaneous Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 4 | 3/4 | Partial | AISVS C12; AISVS C6 | C12 logging requires event-time records; operator-produced. Not reached: 7.2.3. |
 | [C7.3 The Tamper-Evident Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 5 | 5/5 | Partial | AISVS C12 | C12 log protection; mechanism-generated tamper-evidence not required |
 | [C7.4 The Transparent Property](../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md) | 1 | 0/1 | None | — | No trust-assumption disclosure |
