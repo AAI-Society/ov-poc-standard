@@ -94,7 +94,7 @@ did. The MIT economist Christian Catalini, with Xiang Hui and Jane Wu, models th
 cost curves: a Cost to Automate that falls exponentially, and a Cost to Verify that is
 bottlenecked by a human limit, because verification ultimately depends on human bandwidth to
 check, judge, and stand behind a result. When automation races ahead and verification cannot keep
-pace, verification becomes the scarce layer of the economy.
+pace, verification becomes the scarce resource in the economy.
 
 Agents make this acute. As they multiply and act faster than any person can follow, the volume of
 actions that need checking explodes while human capacity to check them stays fixed. The gap
@@ -299,7 +299,7 @@ operator to attest that its agent behaved rests on assertion; one that can requi
 verifiable evidence of what the agent did rests on proof. Verification is what lets a framework
 like the [EU AI Act](../mappings/eu-ai-act.md), or a state law or agency rule, be enforced
 against evidence rather than trusted on a filing, which is why the people shaping those rules
-have a direct stake in the evidence layer this standard defines.
+have a direct stake in the evidence this standard defines.
 
 ## Insurance Is the Forcing Function
 

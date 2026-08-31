@@ -180,7 +180,7 @@ The standard is led by co-chairs **Ken Huang** and **Tricia Wang**, produced by 
 
 * **Not validation.** Proof-of-Control shows an agent stayed inside the control boundaries that were set; whether those boundaries — or the outputs — were *right* stays a human judgment ([C7.5](0.1/en/0x10-C07-Evidence-Generation-and-Properties.md)).
 * **Not a governance or risk framework.** [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework), [ISO/IEC 42001](https://www.iso.org/standard/42001), and the EU AI Act govern; Proof-of-Control produces the evidence that makes their requirements verifiable.
-* **Not a runtime enforcement layer.** Enforcement (what an agent *may* do) is CSA AARM's half; Proof-of-Control is the evidence half (what it *did*, verifiable by others).
+* **Not runtime enforcement.** Enforcement (what an agent *may* do) is CSA AARM's half; Proof-of-Control is the evidence half (what it *did*, verifiable by others).
 * **Not tied to any technology or vendor.** The standard defines what the evidence must be, not which mechanism produces it.
 
 ## Regulatory Coverage
@@ -229,7 +229,7 @@ in [`mappings/`](mappings/README.md). *(Draft seed coding, pending working-group
 | --- | --- | --- |
 | [CSA MAESTRO](mappings/maestro.md) | Agent threat modeling (7-layer stack) | Adopted as Proof-of-Control's System surface ([C9](0.1/en/0x10-C09-System-Surface-MAESTRO.md)) |
 | [CSA AARM](mappings/csa-aarm.md) | Runtime enforcement at the action boundary | Complementary halves: AARM enforces, Proof-of-Control evidences |
-| [OWASP Top 10s / AIVSS / AISVS](mappings/owasp.md) | Agent & LLM threats; AI security controls | Threat source for Proof-of-Control's threat model; Proof-of-Control adds the independent-evidence layer |
+| [OWASP Top 10s / AIVSS / AISVS](mappings/owasp.md) | Agent & LLM threats; AI security controls | Threat source for Proof-of-Control's threat model; Proof-of-Control adds open evidence that the controls held |
 | [MITRE ATLAS](mappings/mitre-atlas.md) | Adversarial AI threat catalog | Threat source ([Appendix C](0.1/en/0x92-Appendix-C_Threat-Model.md)) |
 | [NIST AI RMF](mappings/nist-ai-rmf.md) | AI risk governance | Proof-of-Control supplies the runtime evidence RMF controls are checked against |
 | [ISO/IEC 42001](mappings/iso-iec-42001.md) | AI management systems | Proof-of-Control evidences that declared controls held at execution |
@@ -355,4 +355,4 @@ The specification is licensed under **[Creative Commons Attribution 4.0 Internat
 
 ---
 
-<p align="center"><i>Proof-of-Control is stewarded by the <a href="https://advancedaisociety.org/">Advanced AI Society</a>.<br/>Help build the evidence layer for AI governance — <b><a href="https://advancedaisociety.org/">join at advancedaisociety.org</a></b>.</i></p>
+<p align="center"><i>Proof-of-Control is stewarded by the <a href="https://advancedaisociety.org/">Advanced AI Society</a>.<br/>Help build the evidence layer for AI governance — <b><a href="https://advancedaisociety.org/">join at advancedaisociety.org</a></b>.</i></p> <!--aais-allow-->

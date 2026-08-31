@@ -60,7 +60,7 @@ the field mean something.
 
 **Why it is wrong.** The algorithm tag and the length are independent. `sha-384:`
 followed by 64 hex characters validates. So does `sha-256:` followed by 128. A record
-can declare one algorithm and carry a digest of a different width, and every layer of
+can declare one algorithm and carry a digest of a different width, and every stage of
 `validate.py` passes it.
 
 This is the same defect class as finding 1 and it is the reason finding 1 was not caught

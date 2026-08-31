@@ -12,7 +12,7 @@ RMF, ISO/IEC 42001, SOC 2, OWASP, the EU AI Act, and others, cross-referenced, n
 Proof-of-Control cross-references existing efforts rather than replacing them. The field is full
 of valuable work, governance frameworks, control catalogs, attestation regimes, and vendor
 toolkits, and almost none of it produces independent evidence of what an agent did that holds
-when the operator is the threat. Proof-of-Control is the evidence layer that sits alongside these
+when the operator is the threat. Proof-of-Control is what produces the evidence, alongside these
 efforts and feeds them.
 
 ## How We Are Classifying the Mapping
@@ -74,7 +74,7 @@ deliver Proof-of-Control; the standard defines the *property* those mechanisms m
 (binary, contemporaneous, tamper-evident, transparent), not which mechanism to use. A mature
 governance posture may combine formal verification for pre-deployment bounds, interpretability
 for model understanding, and Proof-of-Control for evidence of what the system actually did. They
-are complementary layers; the standard addresses the layer no one else is standardizing.
+are complementary; the standard addresses the part no one else is standardizing.
 
 ## Comparing to Peer Certifications
 
@@ -107,7 +107,7 @@ CSA's AARM (Autonomous Action Runtime Management, contributed by Vanta) defines 
 enforcement: it intercepts agent actions at the boundary and approves, modifies, defers, or
 denies them. Proof-of-Control defines the independent, tamper-evident evidence of what the agent
 did. Enforcement and evidence are complementary halves of agentic assurance, designed to compose,
-and Proof-of-Control is not a competing runtime layer. See the
+and Proof-of-Control is not a competing runtime control. See the
 [AARM crosswalk](../mappings/csa-aarm.md).
 
 | AARM (runtime enforcement) | Proof-of-Control (independent evidence) |
@@ -116,7 +116,7 @@ and Proof-of-Control is not a competing runtime layer. See the
 | When | At execution, before the action | At execution, producing evidence of the action |
 | Trust | Operator-run enforcement and audit trail | Independent, tamper-evident, verifiable by others |
 | Role | The enforcement half | The evidence half |
-| Scope | Agent actions inside one deployment (the runtime gateway) | System-wide and portable, across vendors, layers, and jurisdictions |
+| Scope | Agent actions inside one deployment (the runtime gateway) | System-wide and portable, across vendors, systems, and jurisdictions |
 | Certifiable? | Yes; a vendor-neutral CSA standard with a conformance regime and independent review | Yes; the standard, plus forthcoming independent certification |
 
 Where they meet: AARM mints the tamper-evident receipt at the runtime gateway inside one
@@ -136,7 +136,7 @@ tells you how to set the controls on an agent so a breach is contained; it does 
 independent, portable evidence that those controls were honored. Anthropic's own incident
 write-ups describe data leaving through a permitted path, where the preventive controls had
 nothing anomalous to catch. Enforcing control at runtime and showing, independently, that control
-held afterward are different jobs, and the second is the gap the evidence layer closes.
+held afterward are different jobs, and the second is the gap this standard closes.
 
 | Anthropic Zero Trust for AI Agents | Proof-of-Control |
 | --- | --- | --- |
