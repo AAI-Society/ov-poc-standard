@@ -18,7 +18,7 @@ deployments.*
 **First worked use case:** Proof-of-Control for the Universal Commerce Protocol, adapting Ken
 Huang's UCP assurance framework, which exercises the six domains, the System surface, and the
 Verifiability Tiers against a live agentic-commerce protocol. It lives in the companion demo
-document, "UCP PoC Demo."
+document, "UCP PoC Demo." <!--aais-allow-->
 
 *To contribute a use case from your sector, join a working group at
 [advancedaisociety.org](https://advancedaisociety.org/).*

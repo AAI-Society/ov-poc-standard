@@ -16,7 +16,7 @@ the way through the standard. For the full requirements, see the
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="../images/diagrams/smart-leash-dark.svg">
-    <img alt="The smart leash: identity (whose dog is this), Tier 1 the owner's word, Tier 2 the inspector's badge, Tiers 3–4 the smart tamper-proof leash that anyone can check and that locks itself" src="../images/diagrams/smart-leash-light.svg" width="1040">
+    <img alt="The smart leash: identity (whose dog is this), Tier 1 the owner's word, Tier 2 the inspector's badge, Tiers 3–4 the smart tamper-evident leash that anyone can check and that locks itself" src="../images/diagrams/smart-leash-light.svg" width="1040">
   </picture>
 </p>
 
@@ -34,22 +34,22 @@ attribution is impossible.
 
 ### Tier 1 · Assertion — "the owner's word"
 
-*"Don't worry — my dog is friendly and stays in the yard."* You take the owner's word for it.
+*"Don't worry — my dog is friendly and stays in the yard."* You take the owner's word for it. <!--aais-allow-->
 And if the dog bites, **the owner writes the incident report.**
 
-**In the standard:** system prompts, guardrails, and operator-held logs. The system executing
+**In the standard:** system prompts, safety filters, and operator-held logs. The system executing
 the action is the same system writing the record — it can be edited, suppressed, or bypassed.
 This is where most deployed agents sit today.
 
 ### Tier 2 · Attestation — "the inspector's badge"
 
 A certified inspector visits once a year, checks the collar, stamps a paper badge. **A badge
-issued six months ago can't stop — or prove — anything when the dog jumps the fence today.**
+issued six months ago cannot stop — or prove — anything when the dog jumps the fence today.**
 
 **In the standard:** SOC 2, ISO 42001, third-party audits. Independent, valuable, and still
 party-trust-dependent and retrospective. Necessary — not sufficient.
 
-### Tiers 3–4 · Proof-of-Control — "the smart, tamper-proof leash"
+### Tiers 3–4 · Proof-of-Control — "the smart, tamper-evident leash"
 
 Every boundary check is recorded cryptographically as it happens. **Anyone in the park can
 check the proof on their phone** (Tier 3) — **and if the dog tries to jump, the leash locks
@@ -89,8 +89,8 @@ what "governed" has to mean before an agent gets production authority.
 
 | Rung | Ask your vendor | Verdict |
 | :---: | --- | --- |
-| Tier 1 | *"Show me your system prompt and guardrails."* If the operator's own logs are your only evidence, you have an assertion — not control. | Trust required: **total** |
-| Tier 2 | *"Show me your SOC 2 / ISO 42001 report."* Good hygiene, but static and retrospective — it can't stop a live action. | Trust required: **the auditor** |
+| Tier 1 | *"Show me your system prompt and guardrails."* If the operator's own logs are your only evidence, you have an assertion — not control. | Trust required: **total** <!--aais-allow--> |
+| Tier 2 | *"Show me your SOC 2 / ISO 42001 report."* Good hygiene, but static and retrospective, and it cannot stop a live action. | Trust required: **the auditor** |
 | Tiers 3–4 | *"Show me the signed proof for this action — and prove a violation halts execution."* Now you verify the math, not the vendor. **This is the bar.** | Trust required: **none** |
 
 ---

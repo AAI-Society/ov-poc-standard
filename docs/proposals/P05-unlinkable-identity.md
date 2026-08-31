@@ -83,7 +83,7 @@ construct by which one requirement is switched off and another substituted.
 
 **Why:** The research's recommendation §1 ("Introduce the C5-Unlinkability Profile (C5-UP)") asks for
 exactly this split — a `C5-Identified Profile (Default)` and a `C5-Unlinkability Profile` — but treats
-the profile construct as though the standard already had one. It does not. Appendix D issue 2 records
+the profile construct as though the standard already had one. The standard has no profile construct. Appendix D issue 2 records
 the design intent ("the implementer can select the option that fits the use case"); a selector needs
 somewhere to be recorded and something to check it against. `occultation`'s standard map states the
 same point from the implementation side: *"An identity profile that suspends `C5.1.1`… it is a
@@ -334,7 +334,7 @@ issuer/principal meets your requirements; I… mathematically control the specif
 to this capability"*. The research supplies the primitive (BBS+ over BLS12-381 with selective
 disclosure).
 
-**5.1.3-U is the gate, and it is the load-bearing part of this change.** `occultation` implements real
+**5.1.3-U is the gate, and it is the essential part of this change.** `occultation` implements real
 BBS+ against `draft-irtf-cfrg-bbs-signatures` — forged signatures fail, tampered proofs fail,
 undisclosed attributes stay undisclosed, each asserted by test — but it is **"not validated against the
 draft's test vectors, so its wire encoding will not interoperate with another BBS+ implementation."**
@@ -351,7 +351,7 @@ presentation profile for the Proof-of-Control evidence schema or to normatively 
 
 ---
 
-## 6. Change P05-06 — C5.1.4 and the anonymity set that isn't there
+## 6. Change P05-06 — C5.1.4 and the anonymity set that is not there
 
 **Where:** `0x10-C05-Identity.md`, requirement **5.1.4**; new **5.1.5**.
 
@@ -423,7 +423,7 @@ nothing anywhere requires that presentation and verification be assessed togethe
 >
 > **Auditor evidence:** 5.1.7 — the composed-path measurement run; repeat it yourself on the deployment's
 > hardware and confirm the reported figure is present-plus-verify, not one phase. 5.1.8 — the pool
-> configuration, the burst test's output, and the disclosure entry naming pre-computation as a load-bearing
+> configuration, the burst test's output, and the disclosure entry naming pre-computation as a essential
 > mechanism.
 
 **Why — this is the correction the desk study needs, and it is measurement-settled.**
@@ -659,7 +659,7 @@ would re-leak. It does not say that identity itself is such a case, and nothing 
 requires that identifiers stay behind. 2.3.4 closes that at Level 2, where the data-minimisation
 obligation actually bites, rather than at Tier-3-only.
 
-The "enumerated as a checked list" clause is load-bearing and comes from the measurement: the
+The "enumerated as a checked list" clause is essential and comes from the measurement: the
 hardware identifier is the one people forget, and platform configuration crosses the boundary in the
 attestation whether or not anyone intended it to (change 6). Note also `occultation-gateway`'s finding
 that a JSON stream of verified findings "carries the full platform configuration, in cleartext… one

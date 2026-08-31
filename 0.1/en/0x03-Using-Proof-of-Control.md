@@ -9,7 +9,7 @@ The first adopters are security practitioners and leaders — the CISOs, securit
 
 ## Where Proof-of-Control Attaches
 
-A reader with a system already running asks first where this standard touches it. It attaches at the point where a control is evaluated and an action is taken. In this standard that point has a name and a requirement: the **Action Interception Gateway** ([C7.1](0x10-C07-Evidence-Generation-and-Properties.md)), an out-of-band process or service that every agent tool and effect invocation is routed through, with no path around it.
+A reader with a system already running asks first where this standard touches it. It attaches at the point where a control is evaluated and an action is taken. In this standard that point is the **Action Interception Gateway** ([C7.1](0x10-C07-Evidence-Generation-and-Properties.md)), an out-of-band process or service that every agent tool and effect invocation is routed through, with no path around it.
 
 Three bands, and only the middle one is in scope:
 
@@ -41,7 +41,7 @@ Organizations should select a target level based on the risk profile of the agen
 Every requirement is written to be checked against a concrete artifact, and each section ends with an **"Auditor evidence"** note listing, per requirement ID, what to collect and what to test. An audit runs in four passes:
 
 1. **Scope:** confirm the conformance statement's system boundary and in-scope action classes ([C10.1.6](0x10-C10-Conformance-and-Disclosure.md)) match the deployed system — including testing that one "excluded" action class is genuinely excluded.
-2. **Existence (Level 1):** for each claimed domain, pull the named records, registers, and mappings; sample actions end-to-end.
+2. **Existence (Level 1):** for each claimed domain, pull the named records, registers, and mappings; sample actions end-to-end. <!--aais-allow-->
 3. **Integrity (Level 2):** validate signatures, hash chains, attestation reports, and key custody; exercise at least one failure path per section (a rejected action, a broken chain, a failed validation).
 4. **Independence (Level 3) and gating (Level 4):** re-run the published verification tooling yourself, without operator credentials; at Level 4, run the fail-closed and halt tests.
 

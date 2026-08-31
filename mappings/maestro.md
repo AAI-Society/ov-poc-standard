@@ -25,7 +25,7 @@ model — evidence repudiation and trust opacity — come from the MAESTRO threa
 
 ## The Layer Mapping
 
-| MAESTRO layer | Covers | Example verifiable controls (see [Section 5](../0.1/en/0x10-C09-System-Surface-MAESTRO.md)) |
+| MAESTRO layer | Covers | Example controls (see [Section 5](../0.1/en/0x10-C09-System-Surface-MAESTRO.md)) |
 | --- | --- | --- |
 | L1 — Foundation Model Security | Base model, weights, serving logic, fine-tuned variants, behavioral policies | Model provenance verification; adversarial robustness attestation; model integrity at inference |
 | L2 — Data Operations Security | Ingestion, preprocessing, embeddings, vector DBs, RAG, retraining logs | Data provenance chain; RAG hardening; privacy compliance attestation; vector store integrity |

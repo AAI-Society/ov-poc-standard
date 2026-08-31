@@ -53,10 +53,10 @@ Bob Blessing-Hartley raises whether an unbroken cryptographic evidence chain acr
 > Healthcare & Research Data: Agents acting on behalf of patients to negotiate data-sharing
 > agreements for clinical trials. The authorization must be legally binding, but the principal's
 > identity must remain completely shielded from the data consumer. I did some work on a system
-> that never (or has not yet!) gone live doing precisely this.
+> that never (or has not yet!) gone live doing precisely this. <!--aais-allow-->
 >
 > Micro-transactions & Web Browsing: Agents paying for paywalled articles or services on behalf
-> of a user. The vendor needs to know the token is valid, but shouldn't be able to build a
+> of a user. The vendor needs to know the token is valid, but shouldn't be able to build a <!--aais-allow-->
 > surveillance profile of the human's reading habits. I am a big fan of, if I had paid for a
 > service, I should not be the product.
 >
@@ -155,7 +155,7 @@ draft status until the working group ratifies them against the primary sources:
 * **C10.1.8** (inventory reconciled against automated discovery) — from AI Trust OS (Bandara et
   al.): shadow AI eliminated by parsing observability streams.
 * **C10.3.7** (validator structured-trace parsing competence) — from TraceSafe-Bench (Chen et
-  al.): guardrail efficacy correlates with structural parsing, not NL safety tuning.
+  al.): guardrail efficacy correlates with structural parsing, not NL safety tuning. <!--aais-allow-->
 * Threat rows: skill composition risk, shadow/undeclared agents, trajectory-monitor parsing
   failure ([Appendix C](0x92-Appendix-C_Threat-Model.md)).
 * Also to decide: whether Verifiable Trust Circles (W3C VC 2.0) enter the mechanism inventory

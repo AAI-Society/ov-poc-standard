@@ -25,7 +25,7 @@ The seven MAESTRO layers:
 | **L6** Security, Governance & Compliance | Policies, access-control models, change management, regulatory compliance |
 | **L7** Agent Ecosystem Security | Users, other agents, marketplaces, registries, external services |
 
-The full per-layer inventory of verifiable controls, proof mechanisms, and feasibility ratings is [Appendix B](0x91-Appendix-B_Proof-Mechanism-Inventory.md).
+The full per-layer inventory of controls, proof mechanisms, and feasibility ratings is [Appendix B](0x91-Appendix-B_Proof-Mechanism-Inventory.md).
 
 ---
 

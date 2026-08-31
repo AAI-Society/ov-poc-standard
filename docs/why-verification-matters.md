@@ -118,7 +118,7 @@ independent way to see, and the security function, the people who can establish 
 happened, moves from a supporting role to the center of how the firm is run.
 
 This is why the answer cannot be more human review. Evidence that is independent and
-machine-verifiable, produced by the system as it runs, is the only way to verify at the scale and
+machine-verifiable, produced by the system as it runs, is what makes verification possible at the scale and
 speed agents operate. That is what Proof-of-Control produces, and it is why the problem this
 standard addresses gets larger, not smaller, over time.
 
@@ -212,7 +212,7 @@ ahead.
 | Value low | Value high |
 | --- | --- | --- |
 | **Risk high** | Failed deployment | Unleash: value, but unquantifiable risk |
-| **Risk low** | Constrain: safe, but can't do the job | Proof-of-Control: value up, risk down |
+| **Risk low** | Constrain: safe, but cannot do the job | Proof-of-Control: value up, risk down |
 
 Without independent evidence, more value always means more risk; the two rise together, and 79%
 of organizations deploying agentic AI cannot observe what their systems actually did.
@@ -239,7 +239,7 @@ threat, and where the boundary of the claim sits, is the threat model in
 | Vector / embedding / RAG weakness | Poisoned retrieval corrupts what informs a decision |
 | Training-time data / model poisoning | Backdoors or bias baked in before deployment |
 | Poisoned supply chain / tools / MCP | Compromised tools, models, or MCP servers enter the stack |
-| Identity, authority, and inter-agent trust | Identity & privilege abuse / spoofing | An agent claims authority it wasn't granted |
+| Identity, authority, and inter-agent trust | Identity & privilege abuse / spoofing | An agent claims authority it was not granted |
 | Context-blind authorization | An in-scope call made in the wrong context |
 | Excessive agency / over-permission | The agent can do more than its task needs |
 | Insecure inter-agent communication | Forged or unauthenticated agent-to-agent messages |
@@ -373,7 +373,7 @@ deployment. Like formal verification, it sits outside what this standard verifie
 
 ## The Technology Exists; the Market Does Not
 
-A common objection is that the technology to prove what an AI agent did is not ready yet. It is.
+A common objection is that the technology to prove what an AI agent did is not ready yet. It is ready.
 The capability already exists, in confidential computing, zero-knowledge proofs, trusted
 execution environments, verifiable computation, and transparency logs, and companies are shipping
 it today. The problem is that it is scattered: sold under different names, built on different

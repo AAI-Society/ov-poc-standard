@@ -46,7 +46,7 @@ standard covers.
 | Mechanistic interpretability | Why did it produce this? | Pre-deployment and research |
 | Content provenance (C2PA) | Where did content originate? | Point-in-time, per artifact |
 | Identity and credentials | Who authorized what? | Runtime |
-| Governance architecture | What guardrails apply? | Pre-deployment and ongoing |
+| Governance architecture | What controls apply? | Pre-deployment and ongoing |
 | **Proof-of-Control** | **Can anyone verify what it did?** | **At and after execution; continuous at the top Stage; the evidence outlives the event** |
 
 Cryptographic inference proofs (ZKML) verify that a specific model processed specific data. They
@@ -59,7 +59,7 @@ Automated Reasoning, Theorem). Mechanistic interpretability reveals what happens
 when it decides, answering "why did it produce this output?" (Goodfire, Anthropic's
 interpretability team). Content provenance (C2PA) verifies the origin and edit history of media;
 identity and credentials verify who authorized what; governance architecture provides structural
-guardrails. Each is real, each is valuable, each answers a different question.
+controls. Each is real, each is valuable, each answers a different question.
 
 The standard does not try to standardize all of these. It addresses the one question no other
 standard currently answers: can you produce verifiable evidence of what your AI system did at

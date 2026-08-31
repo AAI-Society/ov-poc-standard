@@ -1,6 +1,6 @@
 # Appendix B: Proof-Mechanism and Controls Inventory (informative)
 
-This appendix is the reference inventory behind [C9 System Surface](0x10-C09-System-Surface-MAESTRO.md): the proof-mechanism taxonomy, and the per-layer verifiable controls mapped to proof mechanisms (Ken Huang's Part 3, merged in). It is a reference, not a mandate — the standard is technology-neutral about which mechanism produces the evidence, and mechanism selection must match the control's evidentiary requirement ([C8.2](0x10-C08-Verifiability-Tiers.md)).
+This appendix is the reference inventory behind [C9 System Surface](0x10-C09-System-Surface-MAESTRO.md): the proof-mechanism taxonomy, and the per-layer controls mapped to proof mechanisms (Ken Huang's Part 3, merged in). It is a reference, not a mandate — the standard is technology-neutral about which mechanism produces the evidence, and mechanism selection must match the control's evidentiary requirement ([C8.2](0x10-C08-Verifiability-Tiers.md)).
 
 *Feasibility key: ● Proven · ◑ Emerging · ○ Research.*
 
