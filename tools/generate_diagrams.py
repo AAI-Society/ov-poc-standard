@@ -33,8 +33,8 @@ THEMES = {
         "lime_top": "#e4ff5c", "lime_bot": "#cfff04", "lime_stroke": "#8fae00", "lime_text": "#1a2000",
         "tint_top": "#f8ffd8", "tint_bot": "#eeffa8", "tint_stroke": "#a9c920", "tint_text": "#3a4900",
         "red_top": "#ffeced", "red_bot": "#ffdcde", "red_stroke": "#d94a52", "red_text": "#8c1119",
-        "ink_top": "#242424", "ink_bot": "#0a0a0a", "ink_stroke": "#0a0a0a", "ink_text": "#cfff04",
-        "gate_top": "#242424", "gate_bot": "#0a0a0a", "gate_stroke": "#0a0a0a", "gate_text": "#cfff04",
+        "ink_top": "#242424", "ink_bot": "#0a0a0a", "ink_stroke": "#0a0a0a", "ink_text": "#f0edea",
+        "gate_top": "#242424", "gate_bot": "#0a0a0a", "gate_stroke": "#0a0a0a", "gate_text": "#f0edea",
         "accent": "#7a9900", "shadow_op": "0.16",
     },
     "dark": {
@@ -300,11 +300,11 @@ def tier_ladder(t, v):
             title="Graded by who you must trust — not by whether cryptography is used")
     rungs = [
         ("lime", 104, "TIER 4", "Self-Enforcing",
-         "trust: no one — cannot run if integrity breaks", "PROOF-OF-CONTROL", True),
+         "trust: the protocol itself — cannot run otherwise", "PROOF-OF-CONTROL", True),
         ("tint", 206, "TIER 3", "Trust-minimized",
-         "trust: the mathematics — anyone can verify", "PROOF-OF-CONTROL", True),
+         "trust: the mechanism and the parties it rests on", "PROOF-OF-CONTROL", True),
         ("warm", 366, "TIER 2", "Attestation",
-         "trust: a third party or root-keeper", "NOT PROOF-OF-CONTROL", False),
+         "trust: a third party or qualified auditor", "NOT PROOF-OF-CONTROL", False),
         ("red", 468, "TIER 1", "Assertion",
          "trust: the operator's word", "NOT PROOF-OF-CONTROL", False),
     ]

@@ -32,7 +32,7 @@
 <text x="74" y="251" font-size="11.5" fill="#141414" text-anchor="start">provenance signing · tamper-evident logs</text>
 <text x="74" y="270" font-size="11.5" fill="#141414" text-anchor="start">TEE runtime attestation</text>
 <rect x="72" y="296" width="292" height="30" rx="15" fill="url(#gInk)" stroke="#0a0a0a" stroke-width="1.5"/>
-<text x="218.0" y="315" font-size="10" fill="#cfff04" text-anchor="middle" font-weight="700" letter-spacing="1">SELF-DECLARED READINESS</text>
+<text x="218.0" y="315" font-size="10" fill="#f0edea" text-anchor="middle" font-weight="700" letter-spacing="1">SELF-DECLARED READINESS</text>
 <rect x="420" y="148" width="340" height="196" rx="14" fill="url(#gTint)" stroke="#a9c920" stroke-width="1.5" filter="url(#fShadow)"/>
 <text x="446" y="180" font-size="10.5" fill="#3a4900" text-anchor="start" font-weight="700" letter-spacing="1.4">PHASE 2 · MONTHS 7–12</text>
 <text x="446" y="206" font-size="16" fill="#3a4900" text-anchor="start" font-weight="700">Expanded proof coverage</text>
@@ -40,7 +40,7 @@
 <text x="446" y="251" font-size="11.5" fill="#3a4900" text-anchor="start">tool-schema and workflow verification</text>
 <text x="446" y="270" font-size="11.5" fill="#3a4900" text-anchor="start">ZKP privacy compliance · PKI agent identity</text>
 <rect x="444" y="296" width="292" height="30" rx="15" fill="url(#gInk)" stroke="#0a0a0a" stroke-width="1.5"/>
-<text x="590.0" y="315" font-size="10" fill="#cfff04" text-anchor="middle" font-weight="700" letter-spacing="1">THIRD-PARTY ASSESSED READINESS</text>
+<text x="590.0" y="315" font-size="10" fill="#f0edea" text-anchor="middle" font-weight="700" letter-spacing="1">THIRD-PARTY ASSESSED READINESS</text>
 <rect x="792" y="148" width="340" height="196" rx="14" fill="url(#gLime)" stroke="#8fae00" stroke-width="1.5" filter="url(#fGlow)"/>
 <text x="818" y="180" font-size="10.5" fill="#1a2000" text-anchor="start" font-weight="700" letter-spacing="1.4">PHASE 3 · MONTHS 13–24</text>
 <text x="818" y="206" font-size="16" fill="#1a2000" text-anchor="start" font-weight="700">Ecosystem integration</text>
@@ -48,7 +48,7 @@
 <text x="818" y="251" font-size="11.5" fill="#1a2000" text-anchor="start">delegation-chain verification</text>
 <text x="818" y="270" font-size="11.5" fill="#1a2000" text-anchor="start">cross-org proof interoperability · MPC gates</text>
 <rect x="816" y="296" width="292" height="30" rx="15" fill="url(#gInk)" stroke="#0a0a0a" stroke-width="1.5"/>
-<text x="962.0" y="315" font-size="10" fill="#cfff04" text-anchor="middle" font-weight="700" letter-spacing="1">CONTINUOUSLY MONITORED READINESS</text>
+<text x="962.0" y="315" font-size="10" fill="#f0edea" text-anchor="middle" font-weight="700" letter-spacing="1">CONTINUOUSLY MONITORED READINESS</text>
 <line x1="394" y1="246" x2="414" y2="246" stroke="#8a857c" stroke-width="2" stroke-linecap="round"/>
 <polygon points="415,246 405,240.5 405,251.5" fill="#8a857c"/>
 <line x1="766" y1="246" x2="786" y2="246" stroke="#8a857c" stroke-width="2" stroke-linecap="round"/>

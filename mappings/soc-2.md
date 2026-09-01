@@ -16,7 +16,7 @@ SOC 2 attests that an organization's controls exist and were tested by an audito
 | Question answered | "Did the organization implement the controls it said it would?" | "Did the AI system operate within its defined control boundaries, and can anyone verify?" |
 | Subject | The organization | The agent system's execution |
 | Evidence | Auditor-tested controls, point-in-time or over a period | Mechanism-generated, tamper-evident, contemporaneous execution evidence |
-| Trust required | The auditor and the operator's records | The cryptographic mechanism (Tiers 3–4) |
+| Trust required | The auditor and the operator's records | The mechanism and the parties it rests on (Tiers 3–4) |
 
 An insurer or buyer can require Proof-of-Control the way they already require SOC 2 or ISO 27001 — SOC 2 became effectively mandatory through the insurance and procurement chain, the dynamic Proof-of-Control is built to activate for agents ([Insurance is the forcing function](../docs/why-verification-matters.md)). The strongest structural parallel is the claim artifact itself: the SOC 2 system description and management assertion are the direct ancestor of the Proof-of-Control conformance statement (an exact match in the mapping below).
 

@@ -29,7 +29,9 @@ false and no ratification makes it true again:
   for the standard's own flagship example.
 * *"The cryptographic mechanism"* and *"the cryptographic mechanism is sound"* now name
   the parties that soundness rests on, because an abstraction is not a party.
-* The word *"trustless"* is gone from normative text. It occurred once.
+* The word *"trustless"* no longer appears as a claim in normative text. It survives
+  only in *"trustless setup"* (C8), the standard name for a setup ceremony nobody has
+  to trust, which is correct and stays.
 * C1.2.2 asks for inputs **present in the context at evaluation time** rather than inputs
   that **influenced** an action. Influence is why-provenance and nobody can compute it;
   every implementer meeting the old wording was meeting the new one under a stronger name.

@@ -20,19 +20,19 @@
 <text x="184" y="142" font-size="12.5" fill="#131800" text-anchor="start" font-weight="700" letter-spacing="1.5">TIER 4</text>
 <text x="184" y="164" font-size="9" fill="#131800" text-anchor="start" letter-spacing="1.0">PROOF-OF-CONTROL</text>
 <text x="420" y="142" font-size="17" fill="#131800" text-anchor="start" font-weight="700">Self-Enforcing</text>
-<text x="420" y="164" font-size="11.5" fill="#131800" text-anchor="start">trust: no one — cannot run if integrity breaks</text>
+<text x="420" y="164" font-size="11.5" fill="#131800" text-anchor="start">trust: the protocol itself — cannot run otherwise</text>
 <g transform="translate(702,134) scale(0.95)" fill="none" stroke="#131800" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 L20 6 V12 C20 17 16.5 20 12 21.5 C7.5 20 4 17 4 12 V6 Z"/><path d="M9 12 L11.4 14.4 L15.6 9.6"/></g>
 <rect x="150" y="206" width="600" height="84" rx="14" fill="url(#gTint)" stroke="#a5c614" stroke-width="1.5" filter="url(#fShadow)"/>
 <text x="184" y="244" font-size="12.5" fill="#dfff5e" text-anchor="start" font-weight="700" letter-spacing="1.5">TIER 3</text>
 <text x="184" y="266" font-size="9" fill="#dfff5e" text-anchor="start" letter-spacing="1.0">PROOF-OF-CONTROL</text>
 <text x="420" y="244" font-size="17" fill="#dfff5e" text-anchor="start" font-weight="700">Trust-minimized</text>
-<text x="420" y="266" font-size="11.5" fill="#dfff5e" text-anchor="start">trust: the mathematics — anyone can verify</text>
+<text x="420" y="266" font-size="11.5" fill="#dfff5e" text-anchor="start">trust: the mechanism and the parties it rests on</text>
 <g transform="translate(702,236) scale(0.95)" fill="none" stroke="#dfff5e" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 L20 6 V12 C20 17 16.5 20 12 21.5 C7.5 20 4 17 4 12 V6 Z"/><path d="M9 12 L11.4 14.4 L15.6 9.6"/></g>
 <rect x="150" y="366" width="600" height="84" rx="14" fill="url(#gWarm)" stroke="#5c5850" stroke-width="1.5" filter="url(#fShadow)"/>
 <text x="184" y="404" font-size="12.5" fill="#d4cfc7" text-anchor="start" font-weight="700" letter-spacing="1.5">TIER 2</text>
 <text x="184" y="426" font-size="9" fill="#d4cfc7" text-anchor="start" letter-spacing="1.0">NOT PROOF-OF-CONTROL</text>
 <text x="420" y="404" font-size="17" fill="#d4cfc7" text-anchor="start" font-weight="700">Attestation</text>
-<text x="420" y="426" font-size="11.5" fill="#d4cfc7" text-anchor="start">trust: a third party or root-keeper</text>
+<text x="420" y="426" font-size="11.5" fill="#d4cfc7" text-anchor="start">trust: a third party or qualified auditor</text>
 <g transform="translate(702,396) scale(0.95)" fill="none" stroke="#d4cfc7" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 L20 6 V12 C20 17 16.5 20 12 21.5 C7.5 20 4 17 4 12 V6 Z"/></g>
 <rect x="150" y="468" width="600" height="84" rx="14" fill="url(#gRed)" stroke="#ff6568" stroke-width="1.5" filter="url(#fShadow)"/>
 <text x="184" y="506" font-size="12.5" fill="#ffb3b5" text-anchor="start" font-weight="700" letter-spacing="1.5">TIER 1</text>

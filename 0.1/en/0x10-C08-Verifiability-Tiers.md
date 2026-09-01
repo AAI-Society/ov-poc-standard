@@ -56,7 +56,7 @@ Grade every piece of evidence by how independently it can be verified — that i
 | **What happens on integrity break** | Nothing, the system runs regardless | Detected in audit, after the fact | Detected by anyone, and the system can still run | MUST NOT execute until the integrity condition holds again |
 | **Accountability** | Operator, self-attested | Named human and institution, bound to policy | The same authority, externally verifiable without trusting the operator or their auditors | An accountable person whose authorization is un-bypassable |
 
-**Proof-of-Control begins at Tier 3.** Below that line a party still vouches for the evidence; above it, the root of trust has left every party. That is the difference between third-party verification and open verification: a certifier attesting to your conformance is Tier 2, because you still have to trust the certifier, while at Tier 3 and above anyone can verify the evidence without trusting the operator or their certifier.
+**Proof-of-Control begins at Tier 3.** Below that line a party still vouches for the evidence; above it, nobody vouches for it: anyone can verify it directly, and the parties its soundness rests on are named in the disclosure. That is the difference between third-party verification and open verification: a certifier attesting to your conformance is Tier 2, because you still have to trust the certifier, while at Tier 3 and above anyone can verify the evidence without trusting the operator or their certifier.
 
 **Tiers 1 and 2 are human verification; Tiers 3 and 4 are mechanical.** Someone asserts, or a party attests. Above the line, verification is binary and cryptographic and takes no human judgment. That line, human against mechanical, is the same binary threshold between Tier 2 and Tier 3, and it is why only Tiers 3 and 4 keep pace with AI-speed offense.
 
@@ -68,7 +68,7 @@ Grade every piece of evidence by how independently it can be verified — that i
 
 ### Cryptography is a mechanism, not a tier
 
-A centralized Merkle tree is cryptographic and sits at Tier 2, because you still trust whoever controls the root. Cryptography counts toward Tiers 3 and 4 only when there is no central party to trust. What separates Tiers 3 and 4 from Tier 2 is the removal of the trusted party, not the presence of mathematics.
+A centralized Merkle tree is cryptographic and sits at Tier 2, because you still trust whoever controls the root. Cryptography counts toward Tiers 3 and 4 only when no central party vouches for the evidence. What separates Tiers 3 and 4 from Tier 2 is who must be taken at their word, not the presence of mathematics.
 
 A cryptographic mechanism drops from Tier 4 for either of two reasons. You still have to trust a party, which puts it at Tier 2, or you can only verify it after the fact rather than it enforcing itself, which is Tier 3.
 
@@ -88,13 +88,13 @@ A cryptographic mechanism drops from Tier 4 for either of two reasons. You still
 * A public blockchain commitment anyone can verify. Openly verifiable, and point-in-time, and it does not gate operation. Tier 3.
 * A zero-knowledge proof with a trustless setup, produced on demand. Anyone can verify it, and if the system can run without producing it, verification is not enforced. Tier 3.
 
-Tier 4 is where verification is continuous and built into operation: the system produces trustless evidence as it runs and cannot operate unless its integrity holds.
+Tier 4 is where verification is continuous and built into operation: the system produces evidence as it runs and cannot operate unless its integrity holds.
 
 ### The binary threshold
 
 The first question the standard answers is whether a system has Proof-of-Control. That yes-or-no is the Binary evidence property, drawn on the Verifiability Tiers, and it falls at one place: the boundary between Tier 2 and Tier 3.
 
-Below the line, at Tiers 1 and 2, the evidence is authenticated documentation. You still have to trust a party: the operator's word at Tier 1, or a signer or root-keeper at Tier 2. A signed operator log is Tier 2. This is not Proof-of-Control. Below the line also sit compliance frameworks, audit processes, contractual assurances, and traditional security controls. All valuable, none of them Proof-of-Control.
+Below the line, at Tiers 1 and 2, the evidence is authenticated documentation. You still have to trust a party: the operator's word at Tier 1, or a signer or qualified auditor at Tier 2. A signed operator log is Tier 2. This is not Proof-of-Control. Below the line also sit compliance frameworks, audit processes, contractual assurances, and traditional security controls. All valuable, none of them Proof-of-Control.
 
 **What the line requires:** evidence you can verify without having to trust any single party. Trusting the operator is the obvious way to fail this and it is not the only one. Trusting any designated party fails it too. A certificate you can only believe by trusting a certificate authority, or an attestation rooted in a vendor's own service, is below the line.
 

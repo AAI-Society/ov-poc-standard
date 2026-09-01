@@ -21,12 +21,12 @@
 <text x="84" y="152" font-size="15.5" fill="#4a463f" text-anchor="start" font-weight="700">Agent</text>
 <text x="54" y="182" font-size="12" fill="#4a463f" text-anchor="start">plans an action</text>
 <rect x="330" y="100" width="250" height="140" rx="14" fill="url(#gGate)" stroke="#0a0a0a" stroke-width="1.5" filter="url(#fGlow)"/>
-<g transform="translate(344,114) scale(0.85)" fill="none" stroke="#cfff04" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 L20 6 V12 C20 17 16.5 20 12 21.5 C7.5 20 4 17 4 12 V6 Z"/><path d="M9 12 L11.4 14.4 L15.6 9.6"/></g>
-<text x="374" y="132" font-size="15.5" fill="#cfff04" text-anchor="start" font-weight="700">Action Interception</text>
-<text x="374" y="151" font-size="15.5" fill="#cfff04" text-anchor="start" font-weight="700">Gateway</text>
-<text x="344" y="182" font-size="11.5" fill="#cfff04" text-anchor="start" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace">out-of-band · C7.1</text>
-<text x="344" y="205" font-size="11.5" fill="#cfff04" text-anchor="start">evidence written before the</text>
-<text x="344" y="221" font-size="11.5" fill="#cfff04" text-anchor="start">action is released</text>
+<g transform="translate(344,114) scale(0.85)" fill="none" stroke="#f0edea" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 L20 6 V12 C20 17 16.5 20 12 21.5 C7.5 20 4 17 4 12 V6 Z"/><path d="M9 12 L11.4 14.4 L15.6 9.6"/></g>
+<text x="374" y="132" font-size="15.5" fill="#f0edea" text-anchor="start" font-weight="700">Action Interception</text>
+<text x="374" y="151" font-size="15.5" fill="#f0edea" text-anchor="start" font-weight="700">Gateway</text>
+<text x="344" y="182" font-size="11.5" fill="#f0edea" text-anchor="start" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace">out-of-band · C7.1</text>
+<text x="344" y="205" font-size="11.5" fill="#f0edea" text-anchor="start">evidence written before the</text>
+<text x="344" y="221" font-size="11.5" fill="#f0edea" text-anchor="start">action is released</text>
 <rect x="790" y="120" width="160" height="100" rx="14" fill="url(#gWarm)" stroke="#c6bfb4" stroke-width="1.5" filter="url(#fShadow)"/>
 <text x="810" y="152" font-size="15" fill="#4a463f" text-anchor="start" font-weight="700">Tool / effect</text>
 <text x="810" y="176" font-size="12" fill="#4a463f" text-anchor="start">executes</text>

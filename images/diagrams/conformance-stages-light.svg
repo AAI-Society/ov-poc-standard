@@ -45,6 +45,6 @@
 <line x1="862" y1="240" x2="862" y2="262" stroke="#8a857c" stroke-width="2" stroke-linecap="round" stroke-dasharray="7 5"/>
 <polygon points="862,263 856.5,253 867.5,253" fill="#8a857c"/>
 <rect x="140" y="270" width="760" height="44" rx="22" fill="url(#gInk)" stroke="#0a0a0a" stroke-width="1.5" filter="url(#fShadow)"/>
-<text x="520" y="297" font-size="12.5" fill="#cfff04" text-anchor="middle" font-weight="700" letter-spacing="1">TRUST-ASSUMPTION DISCLOSURE — REQUIRED AT EVERY STAGE</text>
+<text x="520" y="297" font-size="12.5" fill="#f0edea" text-anchor="middle" font-weight="700" letter-spacing="1">TRUST-ASSUMPTION DISCLOSURE — REQUIRED AT EVERY STAGE</text>
 <text x="520.0" y="346" font-size="12.5" fill="#6b665f" text-anchor="middle">the disclosure is what lets two conformant systems be priced differently</text>
 </svg>
