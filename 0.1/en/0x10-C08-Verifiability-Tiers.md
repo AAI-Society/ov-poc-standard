@@ -148,7 +148,7 @@ The rule that prevents conformance gaming: conformance judges mechanism-to-requi
 
 ## C8.3 Chain Integrity and Self-Enforcement (Tier 4)
 
-Tier 4 is where verification is continuous and built into operation: the system produces evidence as it runs, checkable without privileged access and cannot operate unless its integrity holds. A component may operate at a lower tier internally — a proprietary model or a piece of silicon can sit at Tier 1 or 2 on its own — as long as its *interactions* with other systems meet Proof-of-Control.
+Tier 4 is where verification is continuous and built into operation: the system produces evidence as it runs, verifiable without privileged access and cannot operate unless its integrity holds. A component may operate at a lower tier internally — a proprietary model or a piece of silicon can sit at Tier 1 or 2 on its own — as long as its *interactions* with other systems meet Proof-of-Control.
 
 | # | Description | Level |
 | :--------: | ------------------------------------------------------------------------------------------------------------------- | :---: |
