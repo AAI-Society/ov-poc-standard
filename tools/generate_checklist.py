@@ -45,7 +45,7 @@ def parse():
         chapter_id = chapter_title = None
         section_id = section_title = None
         reqs = []
-        for line in path.read_text().splitlines():
+        for line in path.read_text(encoding="utf-8").splitlines():
             if m := CHAPTER_RE.match(line):
                 chapter_id, chapter_title = m.group(1), m.group(2)
             elif m := SECTION_RE.match(line):
@@ -142,7 +142,7 @@ def write_markdown(chapters):
         " **[join at advancedaisociety.org](https://advancedaisociety.org/)**.*",
         "",
     ]
-    OUT_MD.write_text("\n".join(lines))
+    OUT_MD.write_text("\n".join(lines), encoding="utf-8")
 
 
 def write_level_chart(counts, total):
@@ -192,11 +192,11 @@ def write_exports(chapters):
         }
         for r in all_reqs
     ]
-    with open(OUT_DIR / "poc-checklist.csv", "w", newline="") as f:
+    with open(OUT_DIR / "poc-checklist.csv", "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
         writer.writeheader()
         writer.writerows(rows)
-    (OUT_DIR / "poc-checklist.json").write_text(json.dumps(rows, indent=2) + "\n")
+    (OUT_DIR / "poc-checklist.json").write_text(json.dumps(rows, indent=2) + "\n", encoding="utf-8")
 
 
 def main():

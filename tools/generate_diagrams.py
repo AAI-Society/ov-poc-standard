@@ -231,7 +231,7 @@ class SVG:
     def save(self):
         self.parts.append("</svg>")
         OUT.mkdir(parents=True, exist_ok=True)
-        (OUT / f"{self.name}-{self.v}.svg").write_text("\n".join(self.parts) + "\n")
+        (OUT / f"{self.name}-{self.v}.svg").write_text("\n".join(self.parts) + "\n", encoding="utf-8")
 
 
 def multiline(s, x, y, lines, lh=17, size=12, fill=None, bold_first=False,

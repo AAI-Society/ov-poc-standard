@@ -57,10 +57,10 @@ def _diagram_kit():
 
 
 def load(sheet_path: Path):
-    with open(sheet_path, newline="") as f:
+    with open(sheet_path, newline="", encoding="utf-8") as f:
         rows = list(csv.DictReader(f))
     req_ids = {r["id"] for r in json.loads(
-        (ROOT / "checklist" / "poc-checklist.json").read_text())}
+        (ROOT / "checklist" / "poc-checklist.json").read_text(encoding="utf-8"))}
     errors = []
     seen = defaultdict(set)
     for row in rows:
@@ -137,14 +137,14 @@ def inject(cov, total):
     targets = [(ROOT / "mappings" / "README.md", ""),
                (ROOT / "README.md", "mappings/")]
     for path, prefix in targets:
-        text = path.read_text()
+        text = path.read_text(encoding="utf-8")
         if BEGIN not in text:
             print(f"  {path.name}: no marker, skipped")
             continue
         block = BEGIN + "\n\n" + markdown_table(cov, total, prefix) + "\n\n" + END
         text = re.sub(re.escape(BEGIN) + r".*?" + re.escape(END), lambda _: block,
                       text, flags=re.DOTALL)
-        path.write_text(text)
+        path.write_text(text, encoding="utf-8")
         print(f"  {path.name}: coverage table injected")
 
 
