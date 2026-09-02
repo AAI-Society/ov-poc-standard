@@ -149,7 +149,7 @@ def check_structure(token: dict) -> None:
     except ImportError:                                   # pragma: no cover
         raise ValidationError("no-validator",
                              "pip install jsonschema to run structural checks")
-    schema = json.loads(SCHEMA_PATH.read_text())
+    schema = json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
     v = jsonschema.Draft202012Validator(schema)
     errors = sorted(v.iter_errors(token), key=lambda e: list(e.absolute_path))
     if errors:
@@ -255,7 +255,7 @@ def validate(token: dict, public_key_hex: str | None = None) -> list[str]:
 
 # ------------------------------------------------------------ vectors
 def run_vectors() -> int:
-    manifest = json.loads((VECTORS / "manifest.json").read_text())
+    manifest = json.loads((VECTORS / "manifest.json").read_text(encoding="utf-8"))
     pk = manifest.get("public_key")
     passed = failed = 0
 
@@ -263,7 +263,7 @@ def run_vectors() -> int:
     for entry in manifest["positive"]:
         path = VECTORS / entry["file"]
         try:
-            tok = load_token(path.read_text())
+            tok = load_token(path.read_text(encoding="utf-8"))
             warns = validate(tok, pk)
             note = f"  ({warns[0][:52]}...)" if warns else ""
             print(f"  ok    {entry['file']:<38} {entry['description']}{note}")
@@ -277,7 +277,7 @@ def run_vectors() -> int:
         path = VECTORS / entry["file"]
         want = entry["expect_code"]
         try:
-            tok = load_token(path.read_text())
+            tok = load_token(path.read_text(encoding="utf-8"))
             validate(tok, pk)
         except ValidationError as e:
             if e.code == want:
@@ -302,7 +302,7 @@ def run_vectors() -> int:
     print("\nCanonical-form vectors -- published bytes must be reproduced\n")
     for entry in manifest.get("canonical", []):
         path = VECTORS / entry["file"]
-        obj = load_token(path.read_text())
+        obj = load_token(path.read_text(encoding="utf-8"))
         got = jcs(obj)
         want_hex = entry["canonical_sha256"]
         import hashlib
@@ -339,7 +339,7 @@ def main() -> int:
     import hashlib
     rc = 0
     for p in args.tokens:
-        tok = load_token(p.read_text())
+        tok = load_token(p.read_text(encoding="utf-8"))
         if args.canonical:
             b = jcs(tok)
             print(f"{p}:")
