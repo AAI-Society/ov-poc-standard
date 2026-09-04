@@ -60,9 +60,9 @@ def resign(token: dict, sk: Ed25519PrivateKey) -> dict:
 def write(path: Path, obj: dict | str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     if isinstance(obj, str):
-        path.write_text(obj)
+        path.write_text(obj, encoding="utf-8")
     else:
-        path.write_text(json.dumps(obj, indent=2, sort_keys=True) + "\n")
+        path.write_text(json.dumps(obj, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     print(f"  {path.relative_to(ROOT)}")
 
 
@@ -287,7 +287,7 @@ def main() -> int:
                      "escaping, Unicode, empty containers"),
                     ("canonical/nonbmp-key-ordering.json",
                      "UTF-16 vs code-point key order (RFC 8785 section 3.2.3)")):
-        obj = json.loads((OUT / f).read_text())
+        obj = json.loads((OUT / f).read_text(encoding="utf-8"))
         manifest["canonical"].append({
             "file": f, "description": desc,
             "canonical_sha256": hashlib.sha256(jcs(obj)).hexdigest(),

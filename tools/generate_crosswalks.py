@@ -55,14 +55,14 @@ def section_sort_key(sec):
 
 
 def main():
-    reqs = json.loads((ROOT / "checklist" / "poc-checklist.json").read_text())
+    reqs = json.loads((ROOT / "checklist" / "poc-checklist.json").read_text(encoding="utf-8"))
     sections = {}
     sec_reqs = defaultdict(list)
     for r in reqs:
         sections[r["section"]] = r["section_title"]
         sec_reqs[r["section"]].append(r["id"])
 
-    rows = list(csv.DictReader(open(ROOT / "mappings" / "coding_sheet.csv")))
+    rows = list(csv.DictReader(open(ROOT / "mappings" / "coding_sheet.csv", encoding="utf-8")))
     # fw -> section -> [rows]. Coding is per REQUIREMENT, not per section: a
     # section can hold a mix, and collapsing it to one row (as this generator
     # once did, by last-write-wins) let a single uncovered requirement flip a
@@ -170,11 +170,11 @@ def main():
         block = "\n".join(lines)
 
         path = ROOT / "mappings" / page
-        text = path.read_text()
+        text = path.read_text(encoding="utf-8")
         pattern = re.compile(re.escape(BEGIN) + r".*?" + re.escape(END), re.DOTALL)
         if not pattern.search(text):
             raise SystemExit(f"{page}: GENERATED markers not found")
-        path.write_text(pattern.sub(lambda _: block, text))
+        path.write_text(pattern.sub(lambda _: block, text), encoding="utf-8")
         print(f"{page}: injected mapping ({cov}% coverage, {len(by_fw[fw])} sections)")
 
 
