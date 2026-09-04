@@ -56,7 +56,7 @@ labels verbatim would make "C4" ambiguous inside the very chapter this proposal 
 
 **Proposal:** the standard adopts the prefix **EB1–EB4** ("effect-binding condition") for the four
 endpoint conditions, with a glossary entry in
-[Appendix A](0x90-Appendix-A_Glossary.md) mapping each to the research's C1–C4 so citations remain
+[Appendix A](../../0.1/en/0x90-Appendix-A_Glossary.md) mapping each to the research's C1–C4 so citations remain
 traceable. All proposed text below uses EB1–EB4.
 
 - EB1 — **Parameter completeness and default invariance**
@@ -178,7 +178,7 @@ None. This is new material.
 > | :--------: | ------------------------------------------------------------------------------------------------------------------- | :---: |
 > | **4.3.1** | **Verify that** every in-scope tool endpoint carries a recorded classification against EB1–EB4, that the classification names each condition as satisfied, client-dependent, unknown, or failed, and that the recorded verdict is the weakest of the four — never an average and never a summary that omits a failing condition. | 2 |
 > | **4.3.2** | **Verify that** each classification records **how it was established**, distinguishing a reading of the endpoint's specification from a measurement against the endpoint itself, and that a specification-derived reading is registered as *at most* client-dependent for EB1 and EB4 — a document cannot establish what an implementation does with a parameter it was not sent, or whether an effect depends on state the request does not name. | 2 |
-> | **4.3.3** | **Verify that** where an in-scope endpoint does not satisfy all four conditions, the deployment either (a) interposes an enforcement point that supplies the missing conditions before the request reaches the endpoint — refusing, not repairing, any request it cannot bring into conformance — or (b) records the endpoint in the claim as message-bound, subject to [C7.1.5](0x10-C07-Evidence-Generation-and-Properties.md#c71-generation-at-the-action-boundary). An endpoint that is neither remediated nor declared is a conformance failure. | 3 |
+> | **4.3.3** | **Verify that** where an in-scope endpoint does not satisfy all four conditions, the deployment either (a) interposes an enforcement point that supplies the missing conditions before the request reaches the endpoint — refusing, not repairing, any request it cannot bring into conformance — or (b) records the endpoint in the claim as message-bound, subject to [C7.1.5](../../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md#c71-generation-at-the-action-boundary). An endpoint that is neither remediated nor declared is a conformance failure. | 3 |
 > | **4.3.4** | **Verify that** every request reaching an in-scope endpoint is ingested by a **single strict parser** that rejects duplicate object keys, lone surrogates, unbounded numeric literals and non-canonical encodings — and that the bytes the policy evaluated and the bytes the endpoint receives are produced by that one parse, so no second parser downstream can read the same input differently. | 2 |
 > | **4.3.5** | **Verify that** the request target is resolved once, and that ambiguity in it is **refused rather than repaired**: dot segments, multiply-encoded escapes, encoded path separators, and targets carrying a fragment are rejected, and route policy is matched against the same resolved target that is forwarded. | 2 |
 > | **4.3.6** | **Verify that** authorization replay protection and business idempotency are carried in **distinct fields**, so that an infrastructure retry of an already-executed request is answered from the recorded outcome rather than refused as a replay or executed a second time. | 3 |
@@ -250,7 +250,7 @@ requirement **7.1.4**.
 
 ### Proposed text
 
-> | **7.1.4** | **Verify that** the effect channel is mediated within the same trust boundary as policy evaluation, by at least one of the following — **which are not equivalent, and are listed in descending order of what they establish**. The conformance claim states which, and states the endpoint's EB1–EB4 classification ([C4.3.1](0x10-C04-Authorization.md#c43-effect-binding-at-the-endpoint)) alongside it. | 3 |
+> | **7.1.4** | **Verify that** the effect channel is mediated within the same trust boundary as policy evaluation, by at least one of the following — **which are not equivalent, and are listed in descending order of what they establish**. The conformance claim states which, and states the endpoint's EB1–EB4 classification ([C4.3.1](../../0.1/en/0x10-C04-Authorization.md#c43-effect-binding-at-the-endpoint)) alongside it. | 3 |
 > | | **(a) Attested enforcement point at the execution boundary.** Egress is confined to an enforcement point co-located with the target — a sidecar, in-process interceptor, or equivalent — which admits only requests carrying matching evidence, and which performs its check on the fully parsed and normalized request immediately before the endpoint acts on it. This is the only option that mediates the effect rather than the message, because it is the only one positioned after parameter expansion and alias resolution. | |
 > | | **(b) Enclave-held credentials and transport.** The credentials and transport for the effect are held inside the attesting environment, which emits the request itself. This establishes effect binding **only where the target endpoint is classified as satisfying EB1–EB4**; against an unclassified or non-qualifying endpoint it establishes that the attested environment emitted a particular request, not that a particular effect followed. | |
 > | | **(c) Capability bound to the evaluated snapshot.** The mechanism releases a single-use capability cryptographically bound to the evaluated snapshot digest and target resource, which the relying party checks before executing. The relying party's check is over the request representation; where its own parameter expansion, alias resolution or state dependencies are outside the signed material, this option **does not establish effect binding** and the claim states so. | |
@@ -289,7 +289,7 @@ written are conditional on endpoint properties — is settled by the research an
 implementation. What is not settled is (i) whether to reletter at all, given that the letters are
 already referenced from `0x94-Appendix-E_Audit-Checklist.md` and from live conformance claims, and
 (ii) whether the demoted option should remain a valid route to a Level 3 requirement at all, or be
-struck. [Appendix D issue 13](0x93-Appendix-D_Open-Issues.md) already lists the adjacent question
+struck. [Appendix D issue 13](../../0.1/en/0x93-Appendix-D_Open-Issues.md) already lists the adjacent question
 open: "whether capability-bound dispatch (which requires relying-party cooperation) should be
 mandatory rather than one option among three at Tier 4." The research answers the reverse of that
 question — capability-bound dispatch is the *weakest* of the three, not the one to mandate — and
@@ -312,7 +312,7 @@ substance and none of the migration cost.
 
 ### Proposed text
 
-> | **7.1.5** | **Verify that** the claim does not assert that evidence describes executed actions unless 7.1.4 is met **and the endpoint is classified as satisfying EB1–EB4 on measured evidence** ([C4.3.1](0x10-C04-Authorization.md#c43-effect-binding-at-the-endpoint), [C4.3.2](0x10-C04-Authorization.md#c43-effect-binding-at-the-endpoint)). A system evidencing evaluation but not mediating the effect channel may claim Tier 1–2 only. A system that mediates the effect channel but calls an endpoint that is not so classified may claim Tier 1–2 for that endpoint, and **states in the claim that its evidence for that endpoint binds the request representation and not the effect**. | 1 |
+> | **7.1.5** | **Verify that** the claim does not assert that evidence describes executed actions unless 7.1.4 is met **and the endpoint is classified as satisfying EB1–EB4 on measured evidence** ([C4.3.1](../../0.1/en/0x10-C04-Authorization.md#c43-effect-binding-at-the-endpoint), [C4.3.2](../../0.1/en/0x10-C04-Authorization.md#c43-effect-binding-at-the-endpoint)). A system evidencing evaluation but not mediating the effect channel may claim Tier 1–2 only. A system that mediates the effect channel but calls an endpoint that is not so classified may claim Tier 1–2 for that endpoint, and **states in the claim that its evidence for that endpoint binds the request representation and not the effect**. | 1 |
 > | **7.1.6** | **Verify that** where a claim covers a mixture of qualifying and non-qualifying endpoints, the Tier is recorded **per endpoint** and the claim carries no aggregate Tier that a non-qualifying endpoint's evidence does not support. | 1 |
 
 ### Auditor evidence — proposed addition
@@ -443,7 +443,7 @@ quote beginning "Why this is a security property and not a documentation one."
 
 > **Why this is a security property and not a documentation one.** The binding between an evaluated action and the request that is executed ([C7.1.4](#c71-generation-at-the-action-boundary)) works by recomputing a digest and comparing it. Two implementations that serialize the same action differently produce different digests for identical actions.
 >
-> Note the direction of the guarantee. Different digests reliably mean different requests, so the comparison refuses reliably. Equal digests mean the same request — not necessarily the same effect, which depends on properties of the endpoint stated in [C4.3](0x10-C04-Authorization.md#c43-effect-binding-at-the-endpoint). Canonicalization is what makes the refusal sound; it is not what makes the execution faithful.
+> Note the direction of the guarantee. Different digests reliably mean different requests, so the comparison refuses reliably. Equal digests mean the same request — not necessarily the same effect, which depends on properties of the endpoint stated in [C4.3](../../0.1/en/0x10-C04-Authorization.md#c43-effect-binding-at-the-endpoint). Canonicalization is what makes the refusal sound; it is not what makes the execution faithful.
 
 ### Why
 
@@ -470,7 +470,7 @@ C7.1.4 names.
 
 ### Proposed text
 
-> | **7.7.5** | **Verify that** a parser rejects duplicate object keys rather than resolving them last-wins, so that one evidence artifact cannot mean different things to different readers — **and that the same strictness applies to the action payload on the path from evaluation to execution ([C4.3.4](0x10-C04-Authorization.md#c43-effect-binding-at-the-endpoint))**, since an action that means different things to the evaluator and to the endpoint defeats the binding regardless of how strictly the evidence about it was parsed. | 2 |
+> | **7.7.5** | **Verify that** a parser rejects duplicate object keys rather than resolving them last-wins, so that one evidence artifact cannot mean different things to different readers — **and that the same strictness applies to the action payload on the path from evaluation to execution ([C4.3.4](../../0.1/en/0x10-C04-Authorization.md#c43-effect-binding-at-the-endpoint))**, since an action that means different things to the evaluator and to the endpoint defeats the binding regardless of how strictly the evidence about it was parsed. | 2 |
 
 ### Why
 

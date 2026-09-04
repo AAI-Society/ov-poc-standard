@@ -72,7 +72,7 @@ construct by which one requirement is switched off and another substituted.
 > | # | Description | Level |
 > | :--------: | --- | :---: |
 > | **5.0.1** | **Verify that** every evidence record declares its identity profile in a field covered by the record's signature, and that a verifier presented with an unrecognised profile token rejects the record rather than defaulting to either profile. | 1 |
-> | **5.0.2** | **Verify that** the conformance statement names every identity profile in force and maps each in-scope action class ([C10.1.6](0x10-C10-Conformance-and-Disclosure.md)) to exactly one profile, and that a sampled record's declared profile matches the profile its action class is mapped to. | 1 |
+> | **5.0.2** | **Verify that** the conformance statement names every identity profile in force and maps each in-scope action class ([C10.1.6](../../0.1/en/0x10-C10-Conformance-and-Disclosure.md)) to exactly one profile, and that a sampled record's declared profile matches the profile its action class is mapped to. | 1 |
 > | **5.0.3** | **Verify that** for each suspended requirement the claim register records the suspension, the substitute requirement, and the Tier the substitute reaches — so a suspension is visible in the register rather than appearing as an absent claim. | 1 |
 >
 > **Auditor evidence:** 5.0.1 — decode a sampled record; confirm the profile field is inside the signed
@@ -137,7 +137,7 @@ under specific, cryptographically enforced conditions."*
 The Level split is deliberate and is the uncomfortable part. At **Level 1** the opening capability is a
 *declared policy* — an operator's word, not a cryptographic guarantee. C5.1.1-E at **Level 2** demands
 it be demonstrated once rather than merely asserted. The cryptographic version is C5.3.1 at Level 3
-(change 8), and it is the one nobody can build today. Under [C8.1.2](0x10-C08-Verifiability-Tiers.md)
+(change 8), and it is the one nobody can build today. Under [C8.1.2](../../0.1/en/0x10-C08-Verifiability-Tiers.md)
 an accountability claim resting on a declared policy names a single trusted party and therefore **caps
 at Tier 2** — it is not Proof-of-Control. Stating that plainly is better than pricing the Level 1 row
 at Level 3 and leaving low-Level unlinkable deployments with no accountability requirement at all.
@@ -326,7 +326,7 @@ quietly building a profile of its counterparties must not build that profile its
 **Proposed text:**
 
 > | **5.1.3** | **Verify that** each agent tool call carries a delegation token (short-lived OAuth/JWT, W3C verifiable credential, or capability URL) issued by or on behalf of the principal, cryptographically linking the call to the principal's grant. Under the Unlinkable profile, the call instead carries a **zero-knowledge presentation** proving that the agent holds a delegation credential signed by a recognised issuer, that the credential's authorization scope covers this call, and that the presenter controls the delegated key — disclosing only the attributes the relying party's stated policy requires. | 2 |
-> | **5.1.3-U** | **Verify that** the presentation format used under the Unlinkable profile has **published test vectors including negative cases** ([C7.7.4](0x10-C07-Evidence-Generation-and-Properties.md)) and that the implementation passes them, so an independent verifier can validate a presentation without the issuer's implementation. | 3 |
+> | **5.1.3-U** | **Verify that** the presentation format used under the Unlinkable profile has **published test vectors including negative cases** ([C7.7.4](../../0.1/en/0x10-C07-Evidence-Generation-and-Properties.md)) and that the implementation passes them, so an independent verifier can validate a presentation without the issuer's implementation. | 3 |
 
 **Why:** This is exactly the mechanism Appendix D issue 4 asks for, in the contributor's own terms —
 the agent proves *"I have a valid delegation signature from a trusted issuer/principal; that
@@ -365,7 +365,7 @@ and:
 
 **Proposed text:** 5.1.4 unchanged, plus a new requirement:
 
-> | **5.1.5** | **Verify that** under the Unlinkable profile the operator measures, on a defined schedule, the **anonymity set** its attestation evidence induces — the number of hosts in the fleet indistinguishable from one another on the platform configuration fields a relying party can read out of a verified quote — and that the measurement, the minimum set size, the number of singletons, and the attributes doing the splitting are recorded and disclosed under [C10.2](0x10-C10-Conformance-and-Disclosure.md). | 3 |
+> | **5.1.5** | **Verify that** under the Unlinkable profile the operator measures, on a defined schedule, the **anonymity set** its attestation evidence induces — the number of hosts in the fleet indistinguishable from one another on the platform configuration fields a relying party can read out of a verified quote — and that the measurement, the minimum set size, the number of singletons, and the attributes doing the splitting are recorded and disclosed under [C10.2](../../0.1/en/0x10-C10-Conformance-and-Disclosure.md). | 3 |
 > | **5.1.6** | **Verify that** the deployment declares a minimum anonymity set size below which it will not present unlinkable credentials, and that a host whose platform configuration falls below it is either withheld from unlinkable operation or moved to a configuration that is not. | 4 |
 >
 > **Auditor evidence:** 5.1.5 — the scheduled measurement's output for the current fleet; recompute the
@@ -419,7 +419,7 @@ nothing anywhere requires that presentation and verification be assessed togethe
 **Proposed text:**
 
 > | **5.1.7** | **Verify that** the deployment's stated per-action latency budget is assessed against the **sum** of credential presentation and credential verification measured as a single composed path — not against either phase in isolation — and that the measurement is taken on the deployment's own hardware with the pre-computation pool in its production configuration. | 2 |
-> | **5.1.8** | **Verify that** where the budget is met only with pre-computed presentation material, the deployment records the pool's configured depth and refill rate, its measured exhaustion behaviour under the burst rate the deployment is sized for, and the response latency at exhaustion — and that this is disclosed under [C10.2](0x10-C10-Conformance-and-Disclosure.md) as a mechanism the claim depends on. | 3 |
+> | **5.1.8** | **Verify that** where the budget is met only with pre-computed presentation material, the deployment records the pool's configured depth and refill rate, its measured exhaustion behaviour under the burst rate the deployment is sized for, and the response latency at exhaustion — and that this is disclosed under [C10.2](../../0.1/en/0x10-C10-Conformance-and-Disclosure.md) as a mechanism the claim depends on. | 3 |
 >
 > **Auditor evidence:** 5.1.7 — the composed-path measurement run; repeat it yourself on the deployment's
 > hardware and confirm the reported figure is present-plus-verify, not one phase. 5.1.8 — the pool
@@ -526,7 +526,7 @@ and:
 
 > > **[WG-INPUT NEEDED]** — anonymity and pseudonymity: whether the standard supports
 > > verifiable-but-unlinkable identity binding as an implementer-selectable option, and how. See
-> > [Appendix D](0x93-Appendix-D_Open-Issues.md), issues 2 and 4.
+> > [Appendix D](../../0.1/en/0x93-Appendix-D_Open-Issues.md), issues 2 and 4.
 
 **Proposed text:**
 
@@ -612,7 +612,7 @@ requires only that it be declared and justified.
 
 **Proposed text:**
 
-> | **7.3.1** | **Verify that** evidence records are hash-chained or Merkle-anchored so that modifying, inserting, or reordering any record invalidates the chain, and that chain verification runs on a defined schedule with results recorded. Under the [Unlinkable identity profile](0x10-C05-Identity.md), the chain MAY be decoupled into per-session chains whose roots are published to the transparency log under re-randomizable commitments, provided that (a) tamper-evidence within each session is unchanged, (b) inclusion remains verifiable in zero knowledge, and (c) the conformance statement records that **cross-session completeness is not externally verifiable under this structure**. | 2 |
+> | **7.3.1** | **Verify that** evidence records are hash-chained or Merkle-anchored so that modifying, inserting, or reordering any record invalidates the chain, and that chain verification runs on a defined schedule with results recorded. Under the [Unlinkable identity profile](../../0.1/en/0x10-C05-Identity.md), the chain MAY be decoupled into per-session chains whose roots are published to the transparency log under re-randomizable commitments, provided that (a) tamper-evidence within each session is unchanged, (b) inclusion remains verifiable in zero knowledge, and (c) the conformance statement records that **cross-session completeness is not externally verifiable under this structure**. | 2 |
 > | **7.3.6** | **Verify that** where per-session chains are used, the operator retains an internal reconciliation that accounts for every session against the sessions its gateway initiated, and that this reconciliation is available to an assessor even though it is not available to a relying party. | 3 |
 
 **Why:** A global, linear, publicly anchored chain is, in the research's words, "an absolute worst-case
