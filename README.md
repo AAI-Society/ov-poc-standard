@@ -313,6 +313,9 @@ clarified wording, and crosswalk rows can go straight to a pull request.
    python3 tools/generate_diagrams.py      # images/diagrams/ SVGs
    ```
 
+   On Windows, a stock python.org install registers `python.exe` and the `py` launcher, not
+   `python3.exe` — if `python3` isn't found, use `python` or `py -3` instead.
+
 5. **Run the checks that cover what you touched.** There is no CI on pull requests yet, so run
    them locally and say in the PR what you ran. Both need Python 3.11+ and their dependencies —
    install those first, or `validate.py` will report every negative vector as failing for the
