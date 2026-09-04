@@ -1,6 +1,6 @@
 # Preface
 
-Everything this standard describes is about one thing: evidence of what the agent actually did — the execution record of its actions and their effects — in a form others can check.
+Everything this standard describes is about one thing: evidence of what the agent actually did — the execution record of its actions and their effects — in a form others can verify.
 
 AI is moving from systems that answer to agents that act with intent on our behalf. Every boundary an agent crosses — into a database, another company's system, a payment rail, a medical record — is a boundary where evidence of what it did goes missing. The **Verifiability Gap** is that absence of evidence, and it is the problem this standard exists to close. An agent reporting that it stayed in bounds is not evidence that it did, and today no auditor, insurer, or customer can independently verify the difference.
 
