@@ -8,10 +8,12 @@ insurance-ready, speed, interoperable, technology-neutral, vendor-neutral, and o
 
 ## The Concept
 
-**Open Verification** is open, graded verification that a system's controls are
-implemented and held, method and evidence both open to inspection, graded by how much you must
-trust to believe it. Verification is open when what you must trust is a mechanism anyone can
-verify rather than a party. It applies to any system, not only AI.
+In **open verification**, the root of trust is a mechanism anyone can verify, not a party
+anyone must believe. Open verification carries the ethos of open source software into the
+agentic era, extending it from inspecting source code to verifying the actions agents take in
+the agentic stack. It is a category of approaches that is purpose-built for the agentic age,
+where deployment of non-deterministic agents requires mechanisms that remove the need to trust
+a single gatekeeper.
 
 It applies to any system, digital or physical, where autonomy, decentralization, or complexity
 mean trust can no longer be assumed and has to be established through evidence anyone can check.
@@ -124,7 +126,7 @@ Proof-of-Control does not prevent every harm. It evidences and gates control-bou
 ## What This Is: the Standard
 
 This document defines the foundations of the Proof-of-Control standard, what verifiable evidence
-of an agent's behavior must be, under the umbrella of Open Verification. After the foundation is
+of an agent's behavior must be, under the umbrella of open verification. After the foundation is
 defined, then come the operational frameworks, the implementation guides, the training, and the
 certifications that turn the standard into everyday practice. FinOps is a useful example: its
 framework gave engineering, finance, and business one shared language for cloud value. The

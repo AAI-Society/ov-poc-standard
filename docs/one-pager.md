@@ -96,5 +96,5 @@ what "governed" has to mean before an agent gets production authority.
 ---
 
 *Proof-of-Control is stewarded by the [Advanced AI Society](https://advancedaisociety.org/) —
-the industry association for verifiable AI.
+the alliance for verifiable AI.
 **[Adopt the standard → advancedaisociety.org](https://advancedaisociety.org/)***

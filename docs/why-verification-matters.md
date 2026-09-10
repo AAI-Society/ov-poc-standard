@@ -53,9 +53,9 @@ Three forces make retrospective, human-in-the-loop assurance untenable for agent
 | --- | --- | --- |
 | **Velocity** | Mean time to exploit has fallen to negative values, because automated tools weaponize zero-days before public disclosure | Verification inline, at machine speed. A retrospective Tier 2 audit is too slow |
 | **The Verifier's Law** | Executing actions is cheap; auditing non-deterministic AI trajectories is expensive | Verification that is cheap, binary and mechanical |
-| **Open against independent** | *Independent* still means trusting a third-party auditor, which is Tier 2 | *Open*: no party to trust. Anyone verifies the evidence directly, without access to raw enterprise data  <!--aais-allow--> |
+| **Open against independent** | *Independent* still means trusting a third-party auditor, which is Tier 2 | *Open*: no party vouches for the evidence. Anyone verifies it directly, without access to raw enterprise data  <!--aais-allow--> |
 
-The third of these is the distinction the whole standard rests on, and it is the one most often collapsed. An independent auditor is a party. Open verification has none.
+The third of these is the distinction the whole standard rests on, and it is the one most often collapsed. An independent auditor is a party you must believe. Open verification asks you to take no party's word, and discloses the parties its soundness still rests on.
 
 ## The Verifiability Gap
 
@@ -75,7 +75,7 @@ inside the authority it was granted, or was its goal quietly redirected by a cra
 Today, in most deployments, the only account of what happened is the system's own, and that
 account can be mistaken, steered by an injected instruction, or rewritten by a compromised step
 after the fact. An agent reporting that it stayed in bounds is not evidence that it did, and no
-auditor, insurer, or customer can independently verify the difference.
+auditor, insurer, or customer can openly verify the difference.
 
 Every party that has to answer for what an agent did feels this gap. Enterprises cannot
 demonstrate to their boards what their AI systems did last quarter. Regulators cannot verify that
@@ -134,7 +134,7 @@ That is why the verification has to be open. In a world of machines verifying ma
 
 ## The Verifiability Gap Is a Business and Society-Wide Problem to Solve
 
-Open Verification of what an AI did is something enterprises, governments and public
+Open verification of what an AI did is something enterprises, governments and public
 institutions, and individuals all need, and these are not separate problems but overlapping
 systems that serve each other. An enterprise cannot deploy agents it cannot verify. A government
 cannot put AI into the systems that serve the public and hope it behaves. A person handing a
@@ -169,7 +169,7 @@ build and deploy them, and Proof-of-Control, evidence at Tiers 3 and 4 that does
 operator's word, is what makes responsibility assignable rather than deniable.
 
 It is also, plainly, the right thing to do. An autonomous agent acting in the world that no one
-can independently verify is, from society's side, hard to tell apart from malware: code taking
+can openly verify is, from society's side, hard to tell apart from malware: code taking
 consequential actions with no accountable record of what it did. The people with the least power
 to demand answers, patients, claimants, the vulnerable, carry the most exposure, and open
 verification is what lets them, or a regulator or journalist acting for them, see what an agent
@@ -282,7 +282,7 @@ fail silently; detection cannot. That second half is what adoption has outrun.
 ## The Stakes for Society
 
 Verification belongs in the public interest, not only in a procurement contract. When AI acts
-across society and no one can independently verify what it did, trust concentrates in whoever
+across society and no one can openly verify what it did, trust concentrates in whoever
 runs the systems. Open verification lets a regulator, a journalist, a court, or a member of the
 public check a claim without having to trust the party making it, the same mechanism open
 societies already rely on in courts, audits, and a free press. Evidence anyone can inspect is a

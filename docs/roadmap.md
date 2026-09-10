@@ -12,7 +12,7 @@ things. This is the whole vocabulary:
 
 | Word | What it grades or tracks | Defined in |
 | --- | --- | --- |
-| **Tier** | The evidence: how independently verifiable it is (1 to 4) | Verifiability Tiers, [Section 6](../0.1/en/0x10-C08-Verifiability-Tiers.md) |
+| **Tier** | The evidence: how openly verifiable it is (1 to 4) | Verifiability Tiers, [Section 6](../0.1/en/0x10-C08-Verifiability-Tiers.md) |
 | **Stage** | The assessment: how rigorously conformance was checked (Self-Declared, Third-Party Assessed, Continuously Monitored) | Conformance, [Section 7](../0.1/en/0x10-C10-Conformance-and-Disclosure.md) |
 | **Phase** | The rollout: how an organization deploys the infrastructure over time (1 to 3) | This section, Part B |
 | **Layer** | The surface: where in the agent stack a control sits (1 to 7) | System surface, [Section 5](../0.1/en/0x10-C09-System-Surface-MAESTRO.md) (MAESTRO) |
