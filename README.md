@@ -2,7 +2,7 @@
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="images/poc-banner-dark.svg">
     <source media="(prefers-color-scheme: light)" srcset="images/poc-banner-light.svg">
-    <img alt="Proof-of-Control — the Open Verification standard for AI agents" src="images/poc-banner-light.svg" width="760">
+    <img alt="Proof-of-Control: an open standard for verifying what AI agents did" src="images/poc-banner-light.svg" width="760">
   </picture>
 </p>
 
