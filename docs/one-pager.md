@@ -16,7 +16,7 @@ the way through the standard. For the full requirements, see the
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="../images/diagrams/smart-leash-dark.svg">
-    <img alt="The smart leash: identity (whose dog is this), Tier 1 the owner's word, Tier 2 the inspector's badge, Tiers 3–4 the smart tamper-evident leash that anyone can check and that locks itself" src="../images/diagrams/smart-leash-light.svg" width="1040">
+    <img alt="The smart leash: identity (whose dog is this), Tier 1 the owner's word, Tier 2 the inspector's badge, Tiers 3–4 the smart tamper-evident leash that anyone can verify and that locks itself" src="../images/diagrams/smart-leash-light.svg" width="1040">
   </picture>
 </p>
 
@@ -68,7 +68,7 @@ system has Proof-of-Control here, and only here.**
 | Whose dog is this? | Collar tag & owner registration | *prerequisite* | The registry | At onboarding |
 | The owner's claims? | "My dog is trained and friendly" | Tier 1 | The owner | Never |
 | The inspector's claim? | A yearly paper badge | Tier 2 | The inspector | Yearly, on paper |
-| **Proof-of-Control** | **A smart leash anyone can check, that locks itself** | **Tiers 3–4** | **No one** | **Inline, continuously** |
+| **Proof-of-Control** | **A smart leash anyone can verify, that locks itself** | **Tiers 3–4** | **No one** | **Inline, continuously** |
 
 ## Why the Leash Has to Be Smart
 
@@ -79,7 +79,7 @@ system has Proof-of-Control here, and only here.**
   non-deterministic trajectories by hand is the bottleneck. Proof-of-Control makes the check
   mechanical: *"Does your AI have Proof-of-Control?"* is a yes-or-no question.
 * **Open beats independent.** "Independent" still means trusting an auditor (Tier 2). "Open" <!--aais-allow-->
-  means **no one has to be trusted** (Tiers 3–4): anyone can check the proof directly, without
+  means **no one has to be trusted** (Tiers 3–4): anyone can verify the proof directly, without
   access to your data.
 
 ## Climb the Leash: Questions for Your AI Vendors
