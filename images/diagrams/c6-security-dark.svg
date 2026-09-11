@@ -37,5 +37,5 @@
 <rect x="592" y="248" width="388" height="56" rx="14" fill="url(#gCard)" stroke="#454545" stroke-width="1.5" filter="url(#fShadow)"/>
 <g transform="translate(610,262) scale(0.75)" fill="none" stroke="#cfff04" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 15 m-4 0 a4 4 0 1 0 8 0 a4 4 0 1 0 -8 0"/><path d="M12.5 11.5 L20 4 M17 7 L19.5 9.5 M14.5 9.5 L16.5 11.5"/></g>
 <text x="642" y="282" font-size="12.5" fill="#f0edea" text-anchor="start" font-weight="700">evidence-signing keys in HSM — non-exportable</text>
-<text x="520.0" y="354" font-size="12.5" fill="#9d978e" text-anchor="middle">the environment is attested against reference values anyone can check; the keys that sign evidence live in hardware (C6.1, C6.3)</text>
+<text x="520.0" y="354" font-size="12.5" fill="#9d978e" text-anchor="middle">the environment is attested against reference values anyone can verify; the keys that sign evidence live in hardware (C6.1, C6.3)</text>
 </svg>
