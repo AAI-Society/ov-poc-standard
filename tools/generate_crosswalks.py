@@ -89,7 +89,7 @@ def main():
             "",
             "**How to read the Match column** ([full rubric](rubric.md)): "
             "**Exact** — the framework has a clause equivalent in scope and intent. "
-            "**Partial** — the framework covers the topic, but not with PoC's "
+            "**Partial** — the framework covers the topic, but not with Proof-of-Control's "
             "operator-independent evidence (or not at the same depth). "
             "**None** — the framework has no analogous provision. Where a section "
             "holds a mix, the badge shows the strongest match present and the "
@@ -97,7 +97,7 @@ def main():
             "all — so a section reading *Partial 3/5* has two requirements this "
             "framework does not reach.",
             "",
-            "| PoC section | Reqs | Covered | Match | Closest framework clause(s) | Rationale |",
+            "| Section | Reqs | Covered | Match | Closest framework clause(s) | Rationale |",
             "| --- | :---: | :---: | :---: | --- | --- |",
         ]
         gaps = []
