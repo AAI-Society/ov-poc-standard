@@ -62,11 +62,12 @@ The third of these is the distinction the whole standard rests on, and it is the
 AI is moving from systems that answer to agents that increasingly act with intent on our behalf,
 across more of our everyday lives. Every boundary an agent crosses, into a database, another
 company's system, a payment rail, a medical record, is a boundary where evidence of what it did
-goes missing. The Verifiability Gap is that absence of evidence of what an agent did, and it is
+goes missing. The Verifiability Gap is the widening distance between what agents do and anyone's
+ability to openly verify that they stayed within the controls they were given, and it is
 the problem this standard exists to close.
 
-> **Glossary · Verifiability Gap**: The Verifiability Gap is the absence of evidence of what an
-> AI system did.
+> **Glossary · Verifiability Gap**: The widening distance between what AI agents do and anyone's
+> ability to openly verify that they stayed within the controls they were given.
 
 The gap shows up in any deployment where an agent crosses a boundary and acts. A support agent
 reads a customer record, calls three internal tools, and issues a refund. It reports success. But
