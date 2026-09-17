@@ -15,12 +15,8 @@ the agentic stack. It is a category of approaches that is purpose-built for the 
 where deployment of non-deterministic agents requires mechanisms that remove the need to trust
 a single gatekeeper.
 
-It applies to any system, digital or physical, where autonomy, decentralization, or complexity
-mean trust can no longer be assumed and has to be established through evidence anyone can check.
-The category is defined by the openness of the method and the evidence, not by the subject being
-verified. Proof-of-Control is one approach to it, built for AI agents; a decentralized
-environmental verification standard, for example the DEV Standard, for carbon and supply chains,
-is another.
+The category is defined by the openness of the method and the evidence, not by who is asking.
+Proof-of-Control is one approach to it, built for AI agents.
 
 Openness began in software as open source and extended into open hardware, open data, and open
 standards. Open source opened the code: it published the source and gave everyone the right to
