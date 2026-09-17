@@ -59,7 +59,7 @@ The standard verifies **adherence, not adequacy**. It shows whether the controls
 
 ## Working rules
 
-**Never hand-edit a generated artifact to match its source.** `images/diagrams/`, `checklist/`, and `0.1/en/0x94-Appendix-E_Audit-Checklist.md` are produced by `tools/generate_diagrams.py` and `tools/generate_checklist.py`. Change the generator and re-run it. If two files disagree about a number, regenerate the source of truth rather than editing one to match the other.
+**Never hand-edit a generated artifact to match its source.** `images/diagrams/`, `checklist/`, and `0.1/en/0x94-Appendix-E_Audit-Checklist.md` are produced by `tools/generate_diagrams.py` and `tools/generate_checklist.py`. `docs/use-cases/COVERAGE.md` and the coverage block in `docs/use-cases/README.md` are produced by `tools/generate_use_case_coverage.py`. Change the generator and re-run it. If two files disagree about a number, regenerate the source of truth rather than editing one to match the other.
 
 **Do not add, remove, or reword a normative requirement in a pull request that also does editorial work.** Normative changes need working-group consensus. Open them as a proposal in `docs/proposals/` instead, following `P01-trust-calculus-tiers.md` as the pattern.
 

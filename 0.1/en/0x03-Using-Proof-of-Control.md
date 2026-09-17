@@ -91,7 +91,7 @@ The standard is developed in the open — **the front door is
 * **Comment on the draft:** the open decisions are collected in [Appendix D](0x93-Appendix-D_Open-Issues.md); those are the questions the working group most needs input on.
 * **Join a working group:** six domain working groups plus an insurance working group where carriers, reinsurers, and actuaries define what the standard must carry to be priceable.
 * **Contribute a crosswalk:** extend the [framework mappings](../../mappings/README.md).
-* **Contribute a use case:** sector working groups produce the worked examples ([docs/use-cases.md](../../docs/use-cases.md)) that validate the standard against real deployments.
+* **Contribute a use case:** sector working groups produce the worked examples ([docs/use-cases/](../../docs/use-cases/README.md)) that validate the standard against real deployments.
 
 ---
 
