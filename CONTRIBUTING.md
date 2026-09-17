@@ -22,8 +22,10 @@ working-group consensus, and stewarded by the
 4. **Contribute a crosswalk.** Extend the [framework mappings](mappings/README.md) to other
    standards and frameworks. Several crosswalks are marked as needing a volunteer.
 5. **Contribute a use case.** Sector working groups produce the worked use cases
-   ([use cases](docs/use-cases.md)) that validate the standard against real
-   deployments.
+   ([use cases](docs/use-cases/README.md)) that validate the standard against real
+   deployments. Copy [`docs/use-cases/_TEMPLATE.md`](docs/use-cases/_TEMPLATE.md), tag
+   the threats it exercises from [`THREATS.md`](docs/use-cases/THREATS.md), and open a
+   pull request; the folder README walks through it.
 
 ## Change Process
 
@@ -54,7 +56,8 @@ working-group consensus, and stewarded by the
   `python3 tools/generate_checklist.py` and `python3 tools/generate_crosswalks.py`
   (and `python3 tools/generate_diagrams.py` if a diagram
   changed) and commit the regenerated Appendix E, `checklist/` exports, and
-  `images/diagrams/` SVGs alongside your change.
+  `images/diagrams/` SVGs alongside your change. After adding or editing a use case, run
+  `python3 tools/generate_use_case_coverage.py` and commit `docs/use-cases/COVERAGE.md`.
 * "Prove" is reserved for genuine cryptographic proofs and the coined name Proof-of-Control;
   what an agent did is *shown* or *evidenced*, never "proven."
 
