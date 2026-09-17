@@ -39,7 +39,7 @@ verification open or not. For decades the root has been a party: an operator's o
 certificate authority, a chip vendor's attestation service, whoever controls a ledger.
 Verification whose root of trust is a party is closed, however strong the cryptography, because
 you are still trusting that party. Verification is open when its root of trust is not a party but
-something anyone can check: mathematics, or a decentralized, distributed protocol with no single
+something anyone can verify: mathematics, or a decentralized, distributed protocol with no single
 party to trust, and at its strongest, execution that is self-enforcing and cannot run unless its
 integrity holds. The test is not whether cryptography is used, but where the root of trust lives.
 

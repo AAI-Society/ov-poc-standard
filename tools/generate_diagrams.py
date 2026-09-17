@@ -580,7 +580,7 @@ def smart_leash(t, v):
          ["eye_outer", "eye_pupil"]),
         (898, "lime", "✓", "TIER 3–4 · PROOF-OF-CONTROL",
          "The smart, tamper-evident leash",
-         ["Anyone can check the proof — and the", "leash locks before the boundary is crossed."],
+         ["Anyone can verify the proof — and the", "leash locks before the boundary is crossed."],
          ["shield", "shieldcheck"]),
     ]
     for x, kind, dot, tier, q, an, ic in nodes:
@@ -913,7 +913,7 @@ def c6_security(t, v):
     s.text(642, 282, "evidence-signing keys in HSM — non-exportable", 12.5,
            t["text"], bold=True, anchor="start")
     s.caption("the environment is attested against reference values anyone can "
-              "check; the keys that sign evidence live in hardware (C6.1, C6.3)",
+              "verify; the keys that sign evidence live in hardware (C6.1, C6.3)",
               y=s.h - 26)
     s.save()
 
