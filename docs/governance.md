@@ -89,7 +89,7 @@ competitors adopt the same standard ([Section 1](introduction.md), Vendor-neutra
 ## Intellectual Property and Licensing
 
 Open verification is a founding principle: the standard, and the tools that verify what a system
-did, are open and inspectable. The specification is published under a CC BY 4.0
+did, are open and inspectable. The specification is published under an Apache 2.0
 license, free to read, implement, translate, and build on
 ([Section 1](introduction.md)). A standard that is not free to implement does not become
 the default: Apple's per-port royalty on FireWire is much of why the market chose royalty-free

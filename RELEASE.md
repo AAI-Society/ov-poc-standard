@@ -17,8 +17,8 @@ approach used by [OWASP ASVS](https://github.com/OWASP/ASVS) and
 
 ## Current Status
 
-The current version is **Working Draft v0.1.4**, open for public comment until
-October 30, 2026. It is a working draft, not a final standard.
+The current version is **v1.0**, open for public comment until
+October 30, 2026.
 
 | Milestone | Target |
 | --- | --- |
