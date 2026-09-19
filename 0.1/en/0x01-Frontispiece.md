@@ -3,7 +3,7 @@
 ## About the Standard
 
 **Open Verification: the Proof-of-Control Standard for Agents**
-Working Draft v0.1.4 — for public comment until October 30, 2026
+v1.0 — for public comment until October 30, 2026
 
 This is a working draft, not a final standard. It will change based on member input,
 working-group deliberation, public comment, and implementation experience. It is stewarded by the
@@ -66,7 +66,7 @@ with running code, not only asserted on paper. Both accompany the versioned spec
 ## License
 
 The specification is published under
-[Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/):
+the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0):
 free to read, implement, translate, and build on. The certification mark, *Proof-of-Control
 Certified*, is protected as a trademark, so only systems assessed as conformant may claim it.
 

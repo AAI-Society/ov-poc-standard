@@ -70,7 +70,7 @@ Contributors and member organizations are listed, with their consent, in the
 ## License
 
 By contributing, you agree that your contributions are licensed under
-[CC BY 4.0](LICENSE.md), consistent with the specification.
+the [Apache License 2.0](LICENSE.md), consistent with the specification.
 
 ---
 
