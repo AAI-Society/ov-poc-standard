@@ -7,11 +7,15 @@
 </p>
 
 <p align="center">
-  <a href="https://creativecommons.org/licenses/by/4.0/"><img alt="License: CC BY 4.0" src="https://img.shields.io/badge/License-CC%20BY%204.0-blue.svg"></a>
-  <a href="0.1/en/0x01-Frontispiece.md"><img alt="Status: Working Draft v0.1.4" src="https://img.shields.io/badge/Status-Working%20Draft%20v0.1.4-orange.svg"></a>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0"><img alt="License: Apache 2.0" src="https://img.shields.io/badge/License-Apache%202.0-blue.svg"></a>
+  <a href="0.1/en/0x01-Frontispiece.md"><img alt="Status: v1.0" src="https://img.shields.io/badge/Status-v1.0-orange.svg"></a>
   <a href="0.1/en"><img alt="Requirements: 127" src="https://img.shields.io/badge/Requirements-127-cfff04.svg"></a>
   <a href="https://advancedaisociety.org/"><img alt="Steward: Advanced AI Society" src="https://img.shields.io/badge/Steward-Advanced%20AI%20Society-cfff04.svg"></a>
 </p>
+
+> **Launch of v1.0** — comment on the
+> [Google Doc](https://docs.google.com/document/d/1EiiGDwLXvMxoSHp3Ru56AhR2u9gNd-6Fjs_CKZ4kU-w/edit?tab=t.0#heading=h.5cwdygy69mua)
+> or in this GitHub.
 
 > **Get involved:** Proof-of-Control is developed in the open and stewarded by the
 > **[Advanced AI Society](https://advancedaisociety.org/)**. Join a working group, comment on
@@ -241,7 +245,7 @@ in [`mappings/`](mappings/README.md). *(Draft seed coding, pending working-group
 
 ```text
 /
-├── 0.1/en/     <- the standard: chapters C1–C10 + appendices A–E  (Working Draft v0.1.4)
+├── 0.1/en/     <- the standard: chapters C1–C10 + appendices A–E  (v1.0)
 ├── schema/     <- the evidence claim set: CDDL, JSON Schema, canonical form, test vectors
 ├── impl/       <- reference implementation, attack harness, benchmarks
 ├── checklist/  <- the audit checklist as CSV and JSON (generated)
@@ -347,14 +351,14 @@ clarified wording, and crosswalk rows can go straight to a pull request.
    get a published disposition: accepted, rejected with rationale, or deferred.
 
 By opening a pull request you agree your contribution is licensed under
-[CC BY 4.0](LICENSE.md), matching the specification. Contributors are credited, with their
+the [Apache License 2.0](LICENSE.md), matching the specification. Contributors are credited, with their
 consent, in the [Acknowledgments](0.1/en/0x01-Frontispiece.md).
 
 **Membership is open to any organization — [sign up at advancedaisociety.org](https://advancedaisociety.org/).**
 
 ## License
 
-The specification is licensed under **[Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/)**. The certification mark ("Proof-of-Control Certified") is protected as a trademark so that only systems assessed as conformant may claim it.
+The specification is licensed under the **[Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)**. The certification mark ("Proof-of-Control Certified") is protected as a trademark so that only systems assessed as conformant may claim it.
 
 ---
 

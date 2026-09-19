@@ -170,7 +170,7 @@ The standard is built to be independent of any single company, including Advance
 During development it is incubated within the Society. On completion, ownership transfers to the
 Verifiable AI Foundation, where it is held as a public good:
 neutral, freely available, and protected from commercial capture. The specification is freely
-available under a CC BY 4.0 license, so anyone can use, implement, translate, and build on it;
+available under an Apache 2.0 license, so anyone can use, implement, translate, and build on it;
 the certification mark ("Proof-of-Control Certified") is protected as a trademark so that only
 systems assessed as conformant may claim it.
 
